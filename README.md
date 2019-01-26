@@ -1,5 +1,5 @@
 # Jobboard
 
-##Framework : 
+## Framework : 
 
-	+ Laravel
+	* Laravel
