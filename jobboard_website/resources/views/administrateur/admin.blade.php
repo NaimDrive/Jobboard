@@ -23,7 +23,7 @@
             <div class="col-12 col-md-12" id="ligne_admin">
                 <h3> Entreprise</h3>
                 <button class="btn-primary text-center" id="btn_ent">Visionner</button>
-                <button class="btn-success text-center" id="btn_ent">Ajouter</button>
+                <a href="{{route('creerEntreprise')}}"><button class="btn-success text-center" id="btn_ent">Ajouter</button></a>
                 <button class="btn-danger text-center" id="btn_ent">Supprimer</button>
             </div>
         </div>
