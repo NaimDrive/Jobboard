@@ -28,7 +28,7 @@ class EntrepriseController extends Controller
             "siret" => $input["siret"]
         ]);
 
-        return redirect(route('home'));
+        return redirect(route('accueil'));
     }
 
 }
