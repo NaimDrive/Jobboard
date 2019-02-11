@@ -13,6 +13,11 @@ class EtudiantController
 {
     function modifierProfile()
     {
-        return view('editProfile');
+        return view('etudiant/editProfile');
+    }
+
+    function consulterProfile()
+    {
+        return view('etudiant/consultProfile');
     }
 }
