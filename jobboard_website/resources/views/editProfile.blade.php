@@ -1,6 +1,5 @@
-@extends('layouts.app')
-@section('content')
 
+@include('layouts.header')
 <h1>Expériences</h1>
 <form method="post">
     <fieldset>
@@ -30,3 +29,4 @@
     <input type="button" name="send" value="ajouter" class="btn btn-primary"/><br>
     </fieldset>
 </form>
+@include('layouts.footer')
