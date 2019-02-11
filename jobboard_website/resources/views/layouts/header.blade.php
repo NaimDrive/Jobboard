@@ -25,12 +25,7 @@
 document.getElementById('logout-form').submit()">Déconnexion</a></li>
                     <form action="{{route('logout')}}" method="post" style="display: none;" id="logout-form">@csrf</form>
                 @endguest
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inscription</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">Connexion</a>
-                </li>
+
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
