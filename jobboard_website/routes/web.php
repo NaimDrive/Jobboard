@@ -12,5 +12,5 @@
 */
 
 Auth::routes();
-
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'AccueilController@index')->name('accueil');
+Route::get('/connexion', 'HomeController@index')->name('home');
