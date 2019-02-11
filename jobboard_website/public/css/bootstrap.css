@@ -2682,14 +2682,14 @@
  
  .btn-success {
    color: #fff;
-   background-color: #3CB521;
-   border-color: #3CB521;
+   background-color: rgb(0,172,154)!important;
+   border-color: rgb(0,172,154)!important;
  }
  
  .btn-success:hover {
    color: #fff;
-   background-color: #31951b;
-   border-color: #2e8a19;
+   background-color: rgb(0,172,154)!important;
+   border-color: rgb(0,172,154)!important;
  }
  
  .btn-success:focus, .btn-success.focus {
@@ -2699,15 +2699,15 @@
  
  .btn-success.disabled, .btn-success:disabled {
    color: #fff;
-   background-color: #3CB521;
-   border-color: #3CB521;
+   background-color: rgb(0,172,154)!important;
+   border-color: rgb(0,172,154)!important;
  }
  
  .btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
  .show > .btn-success.dropdown-toggle {
    color: #fff;
-   background-color: #2e8a19;
-   border-color: #2a7f17;
+   background-color: rgb(0,172,154)!important;
+   border-color: rgb(0,172,154)!important;
  }
  
  .btn-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus,
