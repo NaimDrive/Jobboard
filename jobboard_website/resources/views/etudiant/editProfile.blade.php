@@ -4,34 +4,38 @@
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-
-    <form method="post">
-        <h1  id="formExperiences">Expériences</h1>
+    <form>
         <fieldset>
-            Poste occupé :  <input type="text" name="poste"><br>
-            Date de début : <input type="date" name="date"/><br>
-            Date de fin : <input type="date" name="date"/><br>
-            Description du poste : <input type="text" name="desc"/><br>
-            Entreprise : <input type="text" name="location"/><br>
-            <input type="button" name="send" value="ajouter" class="btn btn-primary"/><br>
+            <legend>Compétences</legend>
+            <div class="form-group">
+                <input type="text" class="form-control" id="competence" aria-describedby="infoComp" placeholder="Exemple: Javascript">
+                <small id="infoComp" class="form-text text-muted">Vos compétences seront visibles sur votre profile</small><br>
+                <button type="button" class="btn btn-primary">Ajouter</button>
+            </div>
+        </fieldset>
+    </form>
+    <form>
+        <fieldset>
+            <legend>Expériences</legend>
+            <div class="form-group">
+                <input type="text" class="form-control" id="intitulePoste" placeholder="Exemple: développeur web">
+                Date de début<input type="date" class="form-control" id="dateDebut">
+                Date de fin<input type="date" class="form-control" id="dateFin">
+                <label for="description">Description du poste</label>
+                <textarea class="form-control" id="description" rows="3" style="height: 30px;"></textarea><br>
+                <button type="button" class="btn btn-primary">Ajouter</button>
+            </div>
+        </fieldset>
+    </form>
+    <form>
+        <fieldset>
+            <legend>Centres d'intérêt</legend>
+            <div class="form-group">
+                <input type="text" class="form-control" id="intitulePoste" placeholder="Exemple: Visionner des vidéos d'El Pueblo"><br>
+                <button type="button" class="btn btn-primary">Ajouter</button>
+            </div>
         </fieldset>
     </form>
 
 
-    <form method="post">
-        <h1 id="formSkills">Compétences</h1>
-        <fieldset>
-        Compétence : <input type="text" name="competence"><br>
-        <input type="button" name="send" value="ajouter" class="btn btn-primary"/><br>
-        </fieldset>
-    </form>
-
-
-    <form method="post">
-        <h1 id="formActivities">Centres d'intérêt</h1>
-        <fieldset>
-        Centre d'intérêt : <input type="text" name="interet"/>
-        <input type="button" name="send" value="ajouter" class="btn btn-primary"/><br>
-        </fieldset>
-    </form>
 @endsection
