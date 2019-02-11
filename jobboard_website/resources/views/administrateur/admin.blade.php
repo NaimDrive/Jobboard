@@ -29,6 +29,14 @@
         </div>
         <div class="row" id="ligne_admin">
             <div class="col-12 col-md-12" id="ligne_admin">
+                <h3> Contact</h3>
+                <button class="btn-primary text-center" id="btn_ct">Visionner</button>
+                <button class="btn-success text-center" id="btn_ct">Ajouter</button>
+                <button class="btn-danger text-center" id="btn_ct">Supprimer</button>
+            </div>
+        </div>
+        <div class="row" id="ligne_admin">
+            <div class="col-12 col-md-12" id="ligne_admin">
                 <h3> Offres</h3>
                 <button class="btn-primary text-center" id="btn_offre">Visionner</button>
                 <button class="btn-success text-center" id="btn_offre">Ajouter</button>
