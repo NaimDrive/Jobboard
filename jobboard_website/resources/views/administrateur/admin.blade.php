@@ -11,21 +11,30 @@
             </div>
         </div>
 
-        <div class="row">
-        <div class="col-6 col-md-6" style="margin-top: 50px;">
-                <h3> Etudiant</h3>
+        <div class="row" id="linge_admin">
+            <div class="col-12 col-md-12" id="ligne_admin">
+                <h3> Etudiants</h3>
                 <button class="btn-primary text-center" id="btn_etu">Visionner</button>
                 <button class="btn-success text-center" id="btn_etu">Ajouter</button>
                 <button class="btn-danger text-center" id="btn_etu">Supprimer</button>
+            </div>
         </div>
-        <div class="col-6 col-md-6" style="margin-top: 50px;">
-            <h3> Entreprise</h3>
-            <button class="btn-primary text-center" id="btn_etu">Visionner</button>
-            <button class="btn-success text-center" id="btn_etu">Ajouter</button>
-            <button class="btn-danger text-center" id="btn_etu">Supprimer</button>
+        <div class="row" id="ligne_admin">
+            <div class="col-12 col-md-12" id="ligne_admin">
+                <h3> Entreprise</h3>
+                <button class="btn-primary text-center" id="btn_ent">Visionner</button>
+                <button class="btn-success text-center" id="btn_ent">Ajouter</button>
+                <button class="btn-danger text-center" id="btn_ent">Supprimer</button>
+            </div>
         </div>
+        <div class="row" id="ligne_admin">
+            <div class="col-12 col-md-12" id="ligne_admin">
+                <h3> Offres</h3>
+                <button class="btn-primary text-center" id="btn_offre">Visionner</button>
+                <button class="btn-success text-center" id="btn_offre">Ajouter</button>
+                <button class="btn-danger text-center" id="btn_offre">Supprimer</button>
+            </div>
         </div>
-    </div>
     </div>
 
 @endsection
