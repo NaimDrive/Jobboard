@@ -1,13 +1,20 @@
 @extends('layouts.master')
 
 @section('content')
+    <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
     <div class="container text-justify">
         <h1> Bienvenue dans le JobBoard de l'IUT de Lens!</h1>
+
+        <div id="slider">
+            <figure>
+                <img src="{{asset('images/index.jpg')}}" alt>
+                <img src="{{asset('images/IUT-de-Lens.jpg')}}" alt>
+
+            </figure>
+        </div>
         <p> Ce JobBoard a pour but de mettre en relation des élèves à la recherche d'un stage et des entreprises cherchant des stagiaire.<br><br>
             Si vous êtes un élève , nous vous invitons à créer un compte et à remplir le formulaire d'incription pour que les entreprises puissent connaitre vos compétences. <br> <br>
             Si vous êtes une entreprise, nous vous invitons a créer des offres aux quelles nos étudiants pourront repondre mais également a vous inscrire à nos job dating afin de venir rencontrer nos étudiants. <br>
-
-
         </p>
 
         <h2>L'IUT informatique de Lens forme des étudiants dans le domaine de l'informatique !</h2>
@@ -49,12 +56,14 @@
 
         <p>    Ils savent également utilisé <b>GitHub</b> , <b>Trello</b> et des IDE comme <b>Eclipse</b>, <b>IntelIj IDEA</b> ou encore <b>PhpStorm</b> ! <br> <br>
 
-            Mais chaque profil est unique !  Si vous êtes une entreprise qui cherche dans l'un de ces domaines , n'hésitez pas à créer une offre pour qu'ils puissent vous contacter !</p>
+            Mais chaque profil est unique!  Si vous êtes une entreprise qui cherche dans l'un de ces domaines, n'hésitez pas à créer une offre pour qu'ils puissent vous contacter !</p>
 
         <h3> Le Stage </h3>
         <p>
             Afin de valider leur DUT nos étudiants recherche un stage dans le <b>développement</b> informatique. <br>
-            Leur stage doit avoir une durée minimum de dix semaines à partir du <b>8 avril 2019</b>.
+            Il a pour but de mettre en pratique ce qu'ils ont appris durant les deux années de cours. <br>
+            Mais nos étudiants sont également friant d'apprendre de nouvelles choses et apprendrons volontié de nouveaux langages durant leur stages ! <br>
+            Leur stage doit avoir une durée minimum de dix semaines à partir du <b>8 avril 2019.</b>
         </p>
 
         <h3>     Si vous voulez rencontrer nos étudiant c'est possible !</h3>
