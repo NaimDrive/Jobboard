@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12">
                 <h1>Entreprises</h1>
-                <button class="btn-success" id="btnEntrepriseAdmin">Ajouter une entreprise</button>
+                <a href="{{route('creerEntreprise')}}"> <button class="btn-success" id="btnEntrepriseAdmin">Ajouter une entreprise</button></a>
             </div>
         </div>
 
