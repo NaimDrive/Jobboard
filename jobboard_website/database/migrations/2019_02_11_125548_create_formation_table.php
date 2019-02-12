@@ -14,13 +14,12 @@ class CreateFormationTable extends Migration
     public function up()
     {
         Schema::create('formation', function (Blueprint $table) {
-            $table->increments('idFormation')->primary();
+            $table->increments('idFormation');
             $table->string('nom');
             $table->string('duree');
             $table->string('natureFormation');
             $table->string('entreprise');
             $table->integer('idEtudiant');
-            $table->foreign('idEtudiant')->references('idEtudiant')->on('etudiant');
             $table->timestamps();
         });
     }

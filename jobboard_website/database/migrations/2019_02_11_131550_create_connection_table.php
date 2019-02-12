@@ -14,11 +14,9 @@ class CreateConnectionTable extends Migration
     public function up()
     {
         Schema::create('connection', function (Blueprint $table) {
-            $table->integer('idUser')->primary();
-            $table->integer('idEtudiant')->primary();
+            $table->integer('idUser');
+            $table->integer('idEtudiant');
             $table->increments('emailUser');
-            $table->foreign('idUser')->references('id')->on('users');
-            $table->foreign('idEtudiant')->references('idEtudiant')->on('etudiant');
             $table->timestamps();
         });
     }

@@ -13,6 +13,9 @@
 
 Auth::routes();
 
+Route::get('/admin', 'AdminController@index')->name('admin');
+
+Route::get('/etudiant','EtudiantController@consulterProfile')->name('consult_profile');
 Route::get('/etudiant/edit_profile', 'EtudiantController@modifierProfile')->name('edit_profile'); //route pour acceder à la modification du profile, à modifier avec la BDD
 Route::get('/', 'AccueilController@index')->name('accueil');
 

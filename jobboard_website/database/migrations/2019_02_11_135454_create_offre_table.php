@@ -14,7 +14,7 @@ class CreateOffreTable extends Migration
     public function up()
     {
         Schema::create('offre', function (Blueprint $table) {
-            $table->increments('idOffre')->primary();
+            $table->increments('idOffre');
             $table->string('nomOffre');
             $table->string('natureOffre');
             $table->date('dateDebut');
@@ -25,8 +25,6 @@ class CreateOffreTable extends Migration
             $table->string('depot');
             $table->integer('idEntreprise');
             $table->integer('idTypeOffre');
-            $table->foreign('idEntreprise')->references('idEntreprise')->on('entreprise');
-            $table->foreign('idTypeOffre')->references('idTypeOffre')->on('offrecherchee');
             
             $table->timestamps();
         });

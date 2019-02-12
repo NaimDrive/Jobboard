@@ -13,13 +13,12 @@ class CreateAdressEntrepriseTable extends Migration
      */
     public function up()
     {
-        Schema::create('adressEntreprise', function (Blueprint $table) {
-            $table->increments('idAdressE')->primary();
+        Schema::create('adress_entreprise', function (Blueprint $table) {
+            $table->increments('idAdressE');
             $table->string('nomRue');
             $table->string('ville');
             $table->string('coordonnePostales');
             $table->integer('idEntreprise');
-            $table->foreign('idEntreprise')->references('idEntreprise')->on('entreprise');
             $table->timestamps();
         });
     }

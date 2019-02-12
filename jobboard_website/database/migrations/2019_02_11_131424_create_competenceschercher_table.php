@@ -13,11 +13,9 @@ class CreateCompetenceschercherTable extends Migration
      */
     public function up()
     {
-        Schema::create('competencesCherchee', function (Blueprint $table) {
-            $table->integer('idCompEtu')->primary();
-            $table->integer('idOffre')->primary();
-            $table->foreign('idCompEtu')->references('idCompEtu')->on('competencesEtu');
-            $table->foreign('idOffre')->references('idOffre')->on('offre');
+        Schema::create('competences_cherchee', function (Blueprint $table) {
+            $table->integer('idCompEtu');
+            $table->integer('idOffre');
             $table->timestamps();
         });
     }

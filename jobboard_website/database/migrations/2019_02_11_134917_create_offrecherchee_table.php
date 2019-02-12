@@ -13,9 +13,9 @@ class CreateOffrechercheeTable extends Migration
      */
     public function up()
     {
-        Schema::create('offrecherchee', function (Blueprint $table) {
-            $table->integer('idTypeOffre')->primary();
-            $table->integer('idEtudiant')->primary();
+        Schema::create('offre_cherchee', function (Blueprint $table) {
+            $table->integer('idTypeOffre');
+            $table->integer('idEtudiant');
             $table->timestamps();
         });
     }
