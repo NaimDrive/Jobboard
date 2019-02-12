@@ -14,7 +14,7 @@ class CreateFormationTable extends Migration
     public function up()
     {
         Schema::create('formation', function (Blueprint $table) {
-            $table->increments('idFormation');
+            $table->increments('id');
             $table->string('nom');
             $table->string('duree');
             $table->string('natureFormation');

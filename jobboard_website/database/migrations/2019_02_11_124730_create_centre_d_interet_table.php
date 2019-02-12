@@ -14,7 +14,7 @@ class CreateCentreDInteretTable extends Migration
     public function up()
     {
         Schema::create('centre_d_interet', function (Blueprint $table) {
-            $table->increments('idInteret');
+            $table->increments('id');
             $table->string('Interet');
             $table->integer('idEtudiant');
             $table->timestamps();

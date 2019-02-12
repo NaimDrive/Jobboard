@@ -14,9 +14,10 @@ class CreateConnectionTable extends Migration
     public function up()
     {
         Schema::create('connection', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('idUser');
             $table->integer('idEtudiant');
-            $table->increments('emailUser');
+            $table->string('emailUser');
             $table->timestamps();
         });
     }

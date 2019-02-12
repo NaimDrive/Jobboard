@@ -14,7 +14,7 @@ class CreateCompetencesEtuTable extends Migration
     public function up()
     {
         Schema::create('competences_etudiant', function (Blueprint $table) {
-            $table->increments('idCompEtu');
+            $table->increments('id');
             $table->string('nomCompetence');
             $table->string('niveauEstime');
             $table->integer('idEtudiant');

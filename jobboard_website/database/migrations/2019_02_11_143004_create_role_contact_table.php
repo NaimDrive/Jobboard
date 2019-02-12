@@ -14,7 +14,7 @@ class CreateRoleContactTable extends Migration
     public function up()
     {
         Schema::create('role_contact', function (Blueprint $table) {
-            $table->integer('idRole');
+            $table->integer('id');
             $table->integer('role');
             $table->integer('idContact');
             $table->timestamps();

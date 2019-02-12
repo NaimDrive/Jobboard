@@ -14,7 +14,7 @@ class CreateRechercheTable extends Migration
     public function up()
     {
         Schema::create('recherche', function (Blueprint $table) {
-            $table->increments('idRecherche');
+            $table->increments('id');
             
             $table->string('souhait');
             $table->string('dureeStage');
