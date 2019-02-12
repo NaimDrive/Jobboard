@@ -23,7 +23,7 @@
 
         <p> Les étudiants suivent une formation, sur deux années après le baccalauréat, qui les formes dans plusieurs domaines : </p><br>
 
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th scope="col">Base de données</th>

@@ -1,9 +1,8 @@
 h1,h2,h3,h4,b{
     color: rgb(0,172,154);
 }
-
-tr,td {
-    border-top: 1px solid #C1C3D1;
+tr,td,.table-bordered th,.table-bordered td {
+    border: solid #00ac94;
     color: #666B85;
     font-size: 16px;
     font-weight: normal;
