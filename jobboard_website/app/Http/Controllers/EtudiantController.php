@@ -36,24 +36,25 @@ class EtudiantController extends Controller
     function enregistrerEtudiant(Request $request){
         $this->validate($request,
             [
-                "civilite" => ["required"],
-                "dateNaissance" => ["required"],
-                "adressePostale" => ["required"],
-                "adresseMail" => ["required"],
-                "lienExterne" => ["required"]
+                'civilite' => ['required'],
+                'dateNaissance' => ['required'],
+                'adressePostale' => ['required'],
+                'adresseMail' => ['required'],
+                'lienExterne' => ['required'],
             ]);
 
-        $input=$request->only(["civilite","dateNaissance","adressePostale","adresseMail","lienExterne"]);
+        $input=$request->only(['civilite','dateNaissance','adressePostale','adresseMail','lienExterne']);
+
         $user_id= Auth::id();
-        DB::table("etudiant")->insert([
-            "civilite" => $input["civilite"],
-            "dateDeNaissance" => $input["dateNaissance"],
-            "mail" => $input["adresseMail"],
-            "lienExterne" => $input["lienExterne"],
-            "CoordonnéePostal" => $input["adressePostale"],
-            "idUser" => $user_id
+        DB::table('etudiant')->insert([
+            'civilite' => $input['civilite'],
+            'dateDeNaissance' => $input['dateNaissance'],
+            'mail' => $input['adresseMail'],
+            'lienExterne' => $input['lienExterne'],
+            'CoordonnéePostal' => $input['adressePostale'],
+            'idUser' => $user_id,
         ]);
 
-        return redirect(route('accueil'));
+        return redirect(route('home'));
     }
 }
