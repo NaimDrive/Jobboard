@@ -13,12 +13,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Offres</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Inscription</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Connexion</a>
-                </li>
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Connexion</a>
+                    </li>
+                @else
+                    <li class="nav-item"><a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();
+document.getElementById('logout-form').submit()">Déconnexion</a></li>
+                    <form action="{{route('logout')}}" method="post" style="display: none;" id="logout-form">@csrf</form>
+                @endguest
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
