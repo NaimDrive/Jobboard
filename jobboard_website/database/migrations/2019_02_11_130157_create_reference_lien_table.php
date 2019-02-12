@@ -14,7 +14,7 @@ class CreateReferenceLienTable extends Migration
     public function up()
     {
         Schema::create('reference_lien', function (Blueprint $table) {
-            $table->increments('idReference');
+            $table->increments('id');
             $table->string('nomReference');
             $table->string('UrlReference');
             $table->integer('idEtudiant');

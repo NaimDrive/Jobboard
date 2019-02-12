@@ -14,7 +14,7 @@ class CreateAdressEntrepriseTable extends Migration
     public function up()
     {
         Schema::create('adress_entreprise', function (Blueprint $table) {
-            $table->increments('idAdressE');
+            $table->increments('id');
             $table->string('nomRue');
             $table->string('ville');
             $table->string('coordonnePostales');

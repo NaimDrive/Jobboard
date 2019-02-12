@@ -14,7 +14,7 @@ class CreateDescriptionOffreTable extends Migration
     public function up()
     {
         Schema::create('description_offre', function (Blueprint $table) {
-            $table->increments('idDescriptionOffre');
+            $table->increments('id');
             $table->string('contexte');
             $table->string('objectif');
             $table->string('location');

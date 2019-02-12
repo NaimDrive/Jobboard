@@ -14,6 +14,7 @@ class CreateDefinirTable extends Migration
     public function up()
     {
         Schema::create('definir', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('idRole');
             $table->integer('idUser');
             $table->timestamps();

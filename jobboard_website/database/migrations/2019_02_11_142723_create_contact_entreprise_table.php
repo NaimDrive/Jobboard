@@ -14,7 +14,7 @@ class CreateContactEntrepriseTable extends Migration
     public function up()
     {
         Schema::create('contact_entreprise', function (Blueprint $table) {
-            $table->increments('idContact');
+            $table->increments('id');
             $table->string('mail');
             $table->string('telephone');
             $table->string('civilite');
