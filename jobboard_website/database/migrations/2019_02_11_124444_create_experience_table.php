@@ -14,14 +14,13 @@ class CreateExperienceTable extends Migration
     public function up()
     {
         Schema::create('experience', function (Blueprint $table) {
-            $table->increments('idExperience')->primary();
+            $table->increments('idExperience');
             $table->string('nom');
             $table->date('dateDebut');
             $table->date('dateFin');
             $table->string('resume');
             $table->string('etablissement');
             $table->integer('idEtudiant');
-            $table->foreign('idEtudiant')->references('idEtudiant')->on('etudiant');
             $table->timestamps();
         });
     }

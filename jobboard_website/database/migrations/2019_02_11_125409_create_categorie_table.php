@@ -14,10 +14,9 @@ class CreateCategorieTable extends Migration
     public function up()
     {
         Schema::create('categorie', function (Blueprint $table) {
-            $table->increments('idCategorie')->primary();
+            $table->increments('idCategorie');
             $table->string('nomCategorie');
             $table->integer('idCompEtu');
-            $table->foreign('idCompEtu')->references('idCompEtu')->on('competencesEtu');
             $table->timestamps();
         });
     }

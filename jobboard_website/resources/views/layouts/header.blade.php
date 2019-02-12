@@ -25,8 +25,11 @@
 document.getElementById('logout-form').submit()">Déconnexion</a></li>
                     <form action="{{route('logout')}}" method="post" style="display: none;" id="logout-form">@csrf</form>
                 @endguest
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 3af831534ef375fe6d55d443ca35da8eadbb70b1
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">

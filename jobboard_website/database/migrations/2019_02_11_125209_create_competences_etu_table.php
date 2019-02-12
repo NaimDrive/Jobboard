@@ -13,14 +13,12 @@ class CreateCompetencesEtuTable extends Migration
      */
     public function up()
     {
-        Schema::create('competencesEtu', function (Blueprint $table) {
-            $table->increments('idCompEtu')->primary();
+        Schema::create('competences_etudiant', function (Blueprint $table) {
+            $table->increments('idCompEtu');
             $table->string('nomCompetence');
             $table->string('niveauEstime');
             $table->integer('idEtudiant');
-            $table->foreign('idEtudiant')->references('idEtudiant')->on('etudiant');
             $table->integer('idCategorie');
-            $table->foreign('idCategorie')->references('idCategorie')->on('categorie');
             $table->timestamps();
         });
     }

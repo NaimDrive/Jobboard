@@ -14,13 +14,14 @@ class CreateRechercheTable extends Migration
     public function up()
     {
         Schema::create('recherche', function (Blueprint $table) {
-            $table->increments('idRecherche')->primary();
+            $table->increments('idRecherche');
             
             $table->string('souhait');
             $table->string('dureeStage');
             $table->date('dateDebut');
             $table->date('dateFin');
             $table->string('mobilite');
+            $table->integer('idEtudiant');
             $table->timestamps();
         });
     }

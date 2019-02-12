@@ -14,11 +14,9 @@ class CreateEntrepriseTable extends Migration
     public function up()
     {
         Schema::create('entreprise', function (Blueprint $table) {
-            $table->increments('idEntreprise')->primary();
+            $table->increments('idEntreprise');
             $table->string('nom');
             $table->string('siret');
-            $table->integer('idAdress');
-            $table->foreign('idAdress')->references('idAdressE')->on('adressEntreprise');
             $table->timestamps();
         });
     }

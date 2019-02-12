@@ -13,10 +13,11 @@ class CreateReferenceLienTable extends Migration
      */
     public function up()
     {
-        Schema::create('referenceLien', function (Blueprint $table) {
-            $table->increments('idReference')->primary();
+        Schema::create('reference_lien', function (Blueprint $table) {
+            $table->increments('idReference');
             $table->string('nomReference');
             $table->string('UrlReference');
+            $table->integer('idEtudiant');
             $table->timestamps();
         });
     }

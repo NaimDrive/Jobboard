@@ -13,12 +13,10 @@ class CreateCentreDInteretTable extends Migration
      */
     public function up()
     {
-        Schema::create('centreDinteret', function (Blueprint $table) {
-            $table->increments('idInteret')->primary();
-            $table->primary('idInteret');
+        Schema::create('centre_d_interet', function (Blueprint $table) {
+            $table->increments('idInteret');
             $table->string('Interet');
             $table->integer('idEtudiant');
-            $table->foreign('idEtudiant')->references('idEtudiant')->on('etudiant');
             $table->timestamps();
         });
     }

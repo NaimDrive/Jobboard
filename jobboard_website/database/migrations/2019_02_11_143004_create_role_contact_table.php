@@ -13,11 +13,10 @@ class CreateRoleContactTable extends Migration
      */
     public function up()
     {
-        Schema::create('roleContact', function (Blueprint $table) {
-            $table->integer('idRole')->primary();
+        Schema::create('role_contact', function (Blueprint $table) {
+            $table->integer('idRole');
             $table->integer('role');
             $table->integer('idContact');
-            $table->foreign('idContact')->references('idContact')->on('contactEntreprise');
             $table->timestamps();
         });
     }

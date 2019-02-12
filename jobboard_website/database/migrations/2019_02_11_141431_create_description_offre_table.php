@@ -13,13 +13,12 @@ class CreateDescriptionOffreTable extends Migration
      */
     public function up()
     {
-        Schema::create('descriptionOffre', function (Blueprint $table) {
-            $table->increments('idDescriptionOffre')->primary();
+        Schema::create('description_offre', function (Blueprint $table) {
+            $table->increments('idDescriptionOffre');
             $table->string('contexte');
             $table->string('objectif');
             $table->string('location');
             $table->integer('idOffre');
-            $table->foreign('idOffre')->references('idOffre')->on('offre');
             $table->timestamps();
         });
     }

@@ -13,15 +13,13 @@ class CreateContactEntrepriseTable extends Migration
      */
     public function up()
     {
-        Schema::create('contactEntreprise', function (Blueprint $table) {
-            $table->increments('idContact')->primary();
+        Schema::create('contact_entreprise', function (Blueprint $table) {
+            $table->increments('idContact');
             $table->string('mail');
             $table->string('telephone');
             $table->string('civilite');
             $table->integer('idEntrepise');
             $table->integer('idUser');
-            $table->foreign('idEntrepise')->references('idEntrepise')->on('entreprise');
-            $table->foreign('idUser')->references('id')->on('users');
             $table->timestamps();
         });
     }
