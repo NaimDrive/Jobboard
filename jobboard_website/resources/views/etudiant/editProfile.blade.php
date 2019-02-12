@@ -5,7 +5,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class=" col-lg-8">
+            <div class=" col-lg-6">
                 <form>
                     <fieldset>
                         <legend>Photo de profile</legend>
