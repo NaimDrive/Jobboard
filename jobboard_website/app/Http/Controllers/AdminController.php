@@ -12,9 +12,13 @@ class AdminController
 {
     public function index()
     {
-        $users = User::all();
-        $etudiants = Etudiant::all();
         $entreprises = Entreprise::all();
         return view('administrateur/admin',compact('entreprises'),compact('etudiants'),compact('users'));
+    }
+
+    public function adminEntreprise(){
+
+        $entreprises = Entreprise::all();
+        return view('administrateur/adminEntreprise',compact('entreprises'));
     }
 }

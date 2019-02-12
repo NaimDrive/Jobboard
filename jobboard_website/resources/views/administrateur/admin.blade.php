@@ -25,13 +25,13 @@
                         <p>{{ $entreprise->nom }}</p>
                         @endif
                     @endforeach
-                <button class="btn-primary"><a href="#"></a>Voir + </button>
+                <a href="{{route('administrerUneEntreprise')}}"><button class="btn-primary">Voir + </button></a>
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
                 <h3>Contact</h3>
                 <p> affichage de 10 contacts</p>
-                <button class="btn-primary"><a href="#"></a>Voir + </button>
+                <button class="btn-primary">Voir + </button>
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
