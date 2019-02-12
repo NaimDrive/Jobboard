@@ -31,4 +31,9 @@ class EntrepriseController extends Controller
         return redirect(route('accueil'));
     }
 
+    function afficheUneEntreprise($id){
+        $entreprise = Entreprise::find($id);
+        return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
+    }
+
 }
