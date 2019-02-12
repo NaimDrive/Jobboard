@@ -14,13 +14,17 @@
         <div class="row" id="linge_admin">
             <div class="col-12 col-md-3" id="ligne_admin">
                 <h3>Etudiants</h3>
-                <p> affichage de 10 etudiants</p>
+                <p> affichage de 10 étudiants</p>
                 <button class="btn-primary"><a href="#"></a>Voir + </button>
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
                 <h3>Entreprise</h3>
-                <p> affichage de 10 entreprises</p>
+                    @foreach($entreprises as $entreprise)
+                        @if($entreprise->id <=10)
+                        <p>{{ $entreprise->nom }}</p>
+                        @endif
+                    @endforeach
                 <button class="btn-primary"><a href="#"></a>Voir + </button>
             </div>
 
