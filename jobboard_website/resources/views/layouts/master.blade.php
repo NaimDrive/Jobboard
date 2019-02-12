@@ -7,11 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Jobboard IUT de Lens</title>
-<<<<<<< HEAD
-=======
+
     <link rel="icon" type="image.png" href="images/Logo-Reversed-Brain-solo.ico"/>
     <title>Reversed Brain</title>
->>>>>>> 3af831534ef375fe6d55d443ca35da8eadbb70b1
     <!-- Styles -->
     <link rel="stylesheet" href="{{  asset ('css/bootstrap.css')  }}"/>
 </head>
