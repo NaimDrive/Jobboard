@@ -2,9 +2,7 @@
 
 @section('content')
     <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
-    <div class="container text-justify">
-        <h1> Bienvenue dans le JobBoard de l'IUT de Lens!</h1>
-
+    <div class="container text-justify mt-5">
         <div id="slider">
             <figure>
                 <img src="{{asset('images/index.jpg')}}" alt>
@@ -12,14 +10,14 @@
 
             </figure>
         </div>
-        <br>
+        
         <p> Ce JobBoard a pour but de mettre en relation des élèves à la recherche d'un stage et des entreprises cherchant des stagiaires.<br><br>
-            Si vous êtes un élève , nous vous invitons à créer un compte et à remplir le formulaire d'incription pour que les entreprises puissent connaitre vos compétences. <br> <br>
+            Si vous êtes un élève , nous vous invitons à créer un compte et à remplir le formulaire d'incription pour que les entreprises puissent connaitre vos compétences. <br> 
             Si vous êtes une entreprise, nous vous invitons a créer des offres aux quelles nos étudiants pourront repondre mais également à vous inscrire à nos Job Dating afin de venir rencontrer nos étudiants. <br>
         </p>
         <div class="jumbotron" >
              <div class="border border-success">
-            <h2>L'IUT informatique de Lens forme des étudiants dans ce domaine </h2><br>
+        <h2>L'IUT informatique de Lens forme des étudiants dans ce domaine </h2><br>
 
         <h3> Le DUT : une formation complète !</h3>
 
@@ -59,19 +57,20 @@
         <p>    Ils savent également utiliser <b>GitHub</b> , <b>Trello</b> et des IDE comme <b>Eclipse</b>, <b>IntelIj IDEA</b> ou encore <b>PhpStorm</b> ! <br> <br>
 
             Mais chaque profil est unique!  Si vous êtes une entreprise qui cherche dans l'un de ces domaines, n'hésitez pas à créer une offre pour qu'ils puissent vous contacter !</p>
-            <h3> Le Stage </h3>
-         <p>
+
+        <h3> Le Stage </h3>
+        <p>
             Afin de valider leurs DUT nos étudiants recherchent un stage dans le <b>développement</b> informatique. <br>
             Il a pour but de mettre en pratique ce qu'ils ont appris durant les deux années de cours. <br>
             Mais nos étudiants sont également friant d'apprendre de nouvelles choses et apprendrons volontié de nouveaux langages durant leurs stages ! <br>
             Leurs stage doit avoir une durée minimum de dix semaines à partir du <b>8 avril 2019.</b>
-         </p>
+        </p>
 
-         <h3> Si vous voulez rencontrer nos étudiants c'est possible !</h3>
+        <h3>     Si vous voulez rencontrer nos étudiants c'est possible !</h3>
 
-         <p> Chaque année nous organisons des <b>Job Dating</b> afin de faciliter le dialogue entre les étudiants et les entreprises.<br>
+        <p> Chaque année nous organisons des <b>Job Dating</b> afin de faciliter le dialogue entre les étudiants et les entreprises.<br>
             Si votre entreprise est intéressée venez vous inscrire à l'un de nos Job Dating , <b>nos étudiants vous attendes !</b></p>
-         </div>
+        </div>
+        </div>
     </div>
-        
 @endsection
