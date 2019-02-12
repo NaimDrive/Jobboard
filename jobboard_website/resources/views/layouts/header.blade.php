@@ -1,6 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{route('accueil')}}">JobBoard</a>
+    <img class="logo" src="{{asset('images/jobboard_green.png')}}" alt>
+        <a class="navbar-brand" href="{{route('accueil')}}">obBoard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
