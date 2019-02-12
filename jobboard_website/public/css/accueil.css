@@ -1,5 +1,5 @@
-h1,h2,h3,b{
-    color: rgb(0,172,154);
+h1,h2,h3,h4,b{
+    color:#00AC9A;
 }
 
 tr,td {
@@ -32,4 +32,15 @@ div#slider figure {
     left: 0;
     text-align: left;
     animation: 30s slidy infinite;
+}
+
+.jumbotron {
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    background-color: #ffffff;
+}
+.border-success {
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 10px #00AC9A;
 }
