@@ -14,8 +14,16 @@
         <div class="row" id="linge_admin">
             <div class="col-12 col-md-3" id="ligne_admin">
                 <h3>Etudiants</h3>
-                <p> affichage de 10 étudiants</p>
-                <button class="btn-primary"><a href="#"></a>Voir + </button>
+                @foreach($users as $user)
+                    @if($user->id <=10)
+                        @for($i = 0; $i<sizeof($etudiants_id); $i++)
+                            @if($etudiants_id[$i] == $user->id)
+                                <p> {{$user->nom}}  {{$user->prenom}}</p>
+                            @endif
+                        @endfor
+                    @endif
+                @endforeach
+                <a href="{{route('administrerUnEtudiant')}}"><button class="btn-primary">Voir + </button></a>
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">

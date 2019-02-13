@@ -15,6 +15,7 @@ Auth::routes();
 
 Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/admin/entreprise', 'AdminController@adminEntreprise')->name('administrerUneEntreprise');
+Route::get('/admin/etudiant', 'AdminController@adminEtudiant')->name('administrerUnEtudiant');
 
 Route::get('/', 'AccueilController@index')->name('accueil');
 
