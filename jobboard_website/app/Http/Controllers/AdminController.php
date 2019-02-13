@@ -26,6 +26,11 @@ class AdminController
         return view('administrateur/adminEntreprise',compact('entreprises'));
     }
 
+    public function supprEntreprise($id){
+        DB::delete('delete from entreprise where id = ? ',[$id]);
+        return view('administrateur/suppressionEntreprise');
+    }
+
     public function adminEtudiant(){
         $users = User::all();
         $etudiants_id = Etudiant::query()->pluck('idUser');

@@ -23,7 +23,7 @@
              </div>
 
              <div class="col-4 col-md-4">
-                 <button class="btn-danger">Supprimer</button>
+                 <a href = '{{route('supprimerUneEntreprise',[$entreprise->id])}}'><button class="btn-danger">Supprimer</button></a>
              </div>
 
 
