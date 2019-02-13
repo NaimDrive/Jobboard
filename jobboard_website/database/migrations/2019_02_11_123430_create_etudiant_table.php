@@ -18,8 +18,9 @@ class CreateEtudiantTable extends Migration
             $table->string('civilite');
             $table->date('DateDeNaissance');
             $table->string('mail');
-            $table->string('LienExterne');
-            $table->string('CoordonnéePostal');
+            $table->string('adresse');
+            $table->string('codePostal');
+            $table->string('ville');
             $table->integer('idUser');
             $table->timestamps();
         });

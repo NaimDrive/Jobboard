@@ -34,38 +34,54 @@ class EtudiantController extends Controller
         return redirect(route('login'));
     }
 
-    function enregistrerEtudiant(Request $request){
-        echo "test";
-        $this->validate($request,
-            [
-                'civilite' => ['required'],
-                'dateNaissance' => ['required'],
-                'adressePostale' => ['required'],
-                'adresseMail' => ['required'],
-                'nomLien' => ['required'],
-                'lienExterne' => ['required'],
-            ]);
 
-        $input=$request->only(['civilite','dateNaissance','adressePostale','adresseMail','nomLien','lienExterne']);
+
+    function enregistrerEtudiant(Request $request){
+ 
         $user_id= Auth::id();
 
-        DB::table('etudiant')->insert([
-            'civilite' => $input['civilite'],
-            'dateDeNaissance' => $input['dateNaissance'],
-            'mail' => $input['adresseMail'],
-            'LienExterne' => $input['lienExterne'],
-            'CoordonnéePostal' => $input['adressePostale'],
-            'idUser' => $user_id,
+        $this->validate($request,
+            [
+                "civilite"=> "required",
+                "dateNaissance"=> "required",
+                "ville"=> "required",
+                "adresse"=> "required",
+                "codepostal"=> "required",
+                "adresseMail"=> "required",
+                "nomLien"=> "required",
+                "lienExterne"=> "required",
+            ]);
+
+        $input=$request->only(["civilite","dateNaissance","ville","adresse","codepostal","adresseMail","nomLien","lienExterne"]);
+        
+
+        DB::table("etudiant")->insert([
+            "civilite" => $input["civilite"],
+            "dateDeNaissance" => $input["dateNaissance"],
+            "mail" => $input["adresseMail"],
+            "ville" => $input["ville"],
+            "adresse" => $input["adresse"],
+            "codePostal" => $input["codepostal"],
+            "idUser" => $user_id
+        ]);
+        
+        
+        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
+
+       
+
+        DB::table("reference_lien")->insert([
+            "nomReference" => $input["nomLien"],
+            "UrlReference" => $input["lienExterne"],
+            "idEtudiant" => $etu
         ]);
 
-        $etu = DB::table('etudiant')->where('idUser', $user_id)->first();
-
-        DB::table('reference_lien')->insert([
-            'nomReference' => $input['nomLien'],
-            'UrlReference' => $input['lienExterne'],
-            'idEtudiant' => $etu['id'],
-        ]);
-
-        return redirect(route('home'));
+        return redirect(route('accueil'));
     }
+
+
+    
+
+        
+    
 }
