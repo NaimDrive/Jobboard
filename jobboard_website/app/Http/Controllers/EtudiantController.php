@@ -109,7 +109,7 @@ class EtudiantController extends Controller
 
 
     function enregistrerEtudiant(Request $request){
- 
+
         $user_id= Auth::id();
 
         $this->validate($request,
@@ -119,27 +119,28 @@ class EtudiantController extends Controller
                 "ville"=> "required",
                 "adresse"=> "required",
                 "codepostal"=> "required",
-                
+                "adresseMail"=> "required",
                 "nomLien"=> "required",
                 "lienExterne"=> "required",
             ]);
 
-        $input=$request->only(["civilite","dateNaissance","ville","adresse","codepostal","nomLien","lienExterne"]);
-        
+        $input=$request->only(["civilite","dateNaissance","ville","adresse","codepostal","adresseMail","nomLien","lienExterne"]);
+
 
         DB::table("etudiant")->insert([
             "civilite" => $input["civilite"],
             "dateDeNaissance" => $input["dateNaissance"],
+            "mail" => $input["adresseMail"],
             "ville" => $input["ville"],
             "adresse" => $input["adresse"],
             "codePostal" => $input["codepostal"],
             "idUser" => $user_id
         ]);
-        
-        
+
+
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
 
-       
+
 
         DB::table("reference_lien")->insert([
             "nomReference" => $input["nomLien"],
@@ -151,8 +152,8 @@ class EtudiantController extends Controller
     }
 
 
-    
 
-        
-    
+
+
+
 }
