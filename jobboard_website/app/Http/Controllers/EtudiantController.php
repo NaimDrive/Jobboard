@@ -35,6 +35,78 @@ class EtudiantController extends Controller
     }
 
 
+    function gererCompetence(Request $request){
+        $user_id= Auth::id();
+
+        $this->validate($request,
+            [
+                "competence"=> "required",
+                "level" => "required",
+                "categorie" => "required",
+            ]);
+
+        $input=$request->only(["competence"]);
+        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
+        $categorie = DB::table('categorie')->where('nomCategorie', $input["categorie"])->value('id');
+
+        DB::table('competences')->insert([
+            "nomCompetence" => $input["competence"],
+            "niveauEstime" => $input["niveau"],
+            "idEtudiant" => $etu,
+            "idCategorie" => $categorie,
+        ]);
+
+        return redirect(route('accueil'));
+
+    }
+
+    function gererExperience(Request $request){
+        $user_id= Auth::id();
+
+        $this->validate($request,
+            [
+                "intitulePoste"=> "required",
+                "dateDebut" => "required",
+                "dateFin" => "required",
+                "description" => "required",
+            ]);
+
+        $input=$request->only(["intitulePoste","dateDebut","dateFin","description"]);
+        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
+
+        DB::table('experience')->insert([
+            "nom" => $input["intitulePoste"],
+            "dateDebut" => $input["dateDebut"],
+            "dateFin" => $input["dateFin"],
+            "resume" => $input["description"],
+            "etablissement" => $input["etablissement"],
+            "idEtudiant" => $etu,
+        ]);
+
+        return redirect(route('accueil'));
+
+    }
+
+    function gererActivite(Request $request){
+        $user_id= Auth::id();
+
+        $this->validate($request,
+            [
+                "activite"=> "required",
+            ]);
+
+        $input=$request->only(["activite"]);
+        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
+
+        DB::table('centre_d_interet')->insert([
+            "Interet" => $input["activite"],
+            "idEtudiant" => $etu,
+        ]);
+
+        return redirect(route('accueil'));
+
+    }
+
 
     function enregistrerEtudiant(Request $request){
  

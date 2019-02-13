@@ -10,7 +10,7 @@
                     <fieldset>
                         <legend>Photo de profile</legend>
                         <div class="form-group">
-                            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                            <input type="file" class="form-control-file" id="exampleInputFile" value="{{old("exampleInputFile")}}" aria-describedby="fileHelp">
                         </div>
                     </fieldset>
                 </form>
@@ -18,7 +18,7 @@
                     <fieldset>
                         <legend>Compétences</legend>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="competence" aria-describedby="infoComp" placeholder="Exemple: Javascript">
+                            <input type="text" class="form-control" id="competence" value="{{old("competence")}}" aria-describedby="infoComp" placeholder="Exemple: Javascript">
                             <small id="infoComp" class="form-text text-muted">Vos compétences seront visibles sur votre profile</small><br>
                             <button type="button" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
@@ -28,13 +28,13 @@
                     <fieldset>
                         <legend>Expériences</legend>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="intitulePoste" placeholder="Exemple: développeur web">
+                            <input type="text" class="form-control" id="intitulePoste" value="{{old("intitulePoste")}}" placeholder="Exemple: développeur web">
                             <div class="row">
-                                <div class="col-lg-6">Date de début<input type="date" class="form-control" id="dateDebut"></div>
-                                <div class="col-lg-6">Date de fin<input type="date" class="form-control" id="dateFin"></div>
+                                <div class="col-lg-6">Date de début<input type="date" class="form-control" id="dateDebut" value="{{old("dateDebut")}}"></div>
+                                <div class="col-lg-6">Date de fin<input type="date" class="form-control" id="dateFin" value="{{old("dateFin")}}"></div>
                             </div>
                             <label for="description">Description du poste</label>
-                            <textarea class="form-control" id="description" rows="5" style="resize: none;"></textarea><br>
+                            <textarea class="form-control" id="description" value="{{old("description")}}" rows="5" style="resize: none;"></textarea><br>
                             <button type="button" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
@@ -43,7 +43,7 @@
                     <fieldset>
                         <legend>Centres d'intérêt</legend>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="intitulePoste" placeholder="Exemple: Visionner des vidéos d'El Pueblo"><br>
+                            <input type="text" class="form-control" id="activite" value="{{old("activite")}}" placeholder="Exemple: Sport"><br>
                             <button type="button" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
