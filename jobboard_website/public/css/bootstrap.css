@@ -6882,7 +6882,7 @@
  }
  
  .border-success {
-   border-color: #3CB521 !important;
+   border-color: rgb(00,172,154) !important;
  }
  
  .border-info {
@@ -10577,4 +10577,3 @@
  .list-group-item h6 {
    color: inherit;
  }
- 
