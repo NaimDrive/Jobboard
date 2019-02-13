@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class=" col-lg-6">
-                <form method="POST" action="{{route('enregistrer_etudiant')}}">
+                <form action="{{route('enregistrer_etudiant')}}" method="POST">
                     {!! csrf_field() !!}
                     <h1>Création d'un profile</h1>
                     <fieldset>
@@ -28,6 +28,15 @@
                             <input type="email" class="form-control" id="adresseMail" placeholder="Entrez votre email"><br>
 
                             <label for="lienExterne">Lien externe</label>
+                            <div class="row justify-content-md-left">
+                                <div class="col-lg-3">
+                                    <select class="form-control" id="nomLien">
+                                        <option>GitHub</option>
+                                        <option>Linkedin</option>
+                                        <option>Autre</option>
+                                    </select>
+                                </div>
+                            </div>
                             <input type="text" class="form-control" id="lienExterne">
                             <small id="infoAdresse" class="form-text text-muted">Un lien linkedin, github ...</small><br>
 
