@@ -19,10 +19,11 @@
                     <p>Aucune entreprise</p>
                 @else
                     @foreach($etudiants as $etu)
-                        <p> {{$etu->nom}}  {{$etu->prenom}}</p>
+                        <strong><p> {{$etu->nom}}  {{$etu->prenom}}</p></strong>
                     @endforeach
+                    <a href="{{route('administrerUnEtudiant')}}"><button class="btn-primary">Voir + </button></a>
                 @endif
-                <a href="{{route('administrerUnEtudiant')}}"><button class="btn-primary">Voir + </button></a>
+
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
@@ -31,10 +32,11 @@
                     <p>Aucune entreprise</p>
                 @else
                     @foreach($entreprises as $entreprise)
-                        <p>{{ $entreprise->nom }}</p>
+                        <strong><p>{{ $entreprise->nom }}</p></strong>
                     @endforeach
+                    <a href="{{route('administrerUneEntreprise')}}"><button class="btn-primary">Voir + </button></a>
                 @endif
-                <a href="{{route('administrerUneEntreprise')}}"><button class="btn-primary">Voir + </button></a>
+
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
@@ -43,10 +45,10 @@
                     <p> Aucun contact </p>
                 @else
                     @foreach($contacts as $cont)
-                        <p>{{ $cont->nom }} {{ $cont->prenom }}</p>
+                        <strong><p>{{ $cont->nom }} {{ $cont->prenom }}</p></strong>
                     @endforeach
+                    <a href="#"><button class="btn-primary">Voir + </button></a>
                 @endif
-                <button class="btn-primary">Voir + </button>
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
@@ -55,10 +57,10 @@
                     <p>Aucune offre</p>
                 @else
                     @foreach($offres as $offre)
-                        <p> {{ $offre->natureOffre }} {{ $offre->nomOffre }} </p>
+                        <strong><p> {{ $offre->natureOffre }} {{ $offre->nomOffre }} </p></strong>
                     @endforeach
+                    <a href="#"><button class="btn-primary">Voir + </button></a>
                 @endif
-                <button class="btn-primary"><a href="#"></a>Voir + </button>
             </div>
         </div>
     </div>
