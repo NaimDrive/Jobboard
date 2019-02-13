@@ -47,18 +47,17 @@ class EtudiantController extends Controller
                 "ville"=> "required",
                 "adresse"=> "required",
                 "codepostal"=> "required",
-                "adresseMail"=> "required",
+                
                 "nomLien"=> "required",
                 "lienExterne"=> "required",
             ]);
 
-        $input=$request->only(["civilite","dateNaissance","ville","adresse","codepostal","adresseMail","nomLien","lienExterne"]);
+        $input=$request->only(["civilite","dateNaissance","ville","adresse","codepostal","nomLien","lienExterne"]);
         
 
         DB::table("etudiant")->insert([
             "civilite" => $input["civilite"],
             "dateDeNaissance" => $input["dateNaissance"],
-            "mail" => $input["adresseMail"],
             "ville" => $input["ville"],
             "adresse" => $input["adresse"],
             "codePostal" => $input["codepostal"],

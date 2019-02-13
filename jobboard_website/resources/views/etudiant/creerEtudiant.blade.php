@@ -26,9 +26,6 @@
                             <input type="text" class="form-control" id="codepostal" name="codepostal" value="{{old("codepostal")}}" placeholder="Votre code postal" ><br>
                             
 
-                            <label for="adresseMail">Adresse mail</label>
-                            <input type="email" class="form-control" id="adresseMail" name="adresseMail" value="{{old("adresseMail")}}" placeholder="Entrez votre email"><br>
-
                             <label for="lienExterne">Lien externe</label>
                             <div class="row justify-content-md-left">
                                 <div class="col-lg-3">
