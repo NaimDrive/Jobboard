@@ -16,7 +16,7 @@
             <div class="col-12 col-md-3" id="ligne_admin">
                 <h3>Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h3>
                 @if($etudiants->isEmpty())
-                    <p>Aucune entreprise</p>
+                    <p>Aucun étudiant</p>
                 @else
                     @foreach($etudiants as $etu)
                         <strong><p> {{$etu->user->nom}}  {{$etu->user->prenom}}</p></strong>
