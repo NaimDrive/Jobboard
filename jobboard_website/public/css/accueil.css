@@ -12,15 +12,12 @@ tr,td,.table-bordered th,.table-bordered td {
 .table-bordered th {
     background-color: #eee;
 }
-div#slider {
-    margin: auto;
 
-}
 .image{
     max-height: 450px;
 }
 div#slider figure img { width: 20%; height: auto; float: left; }
-div#slider { width: 160%; max-width: 1200px; overflow: hidden }
+div#slider { width: 100%; max-width: 1200px; overflow: hidden }
 @keyframes slidy {
 0% { left: 0%; }
 25%{ left: 0%;}
