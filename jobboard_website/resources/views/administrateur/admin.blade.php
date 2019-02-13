@@ -27,7 +27,7 @@
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Entreprise</h3>
+                <h3>Entreprises</h3>
                     @foreach($entreprises as $entreprise)
                         @if($entreprise->id <=10)
                         <p>{{ $entreprise->nom }}</p>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Contact</h3>
+                <h3>Contacts</h3>
                 <p> affichage de 10 contacts</p>
                 <button class="btn-primary">Voir + </button>
             </div>
