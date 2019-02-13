@@ -19,7 +19,7 @@
                     <p>Aucune entreprise</p>
                 @else
                     @foreach($etudiants as $etu)
-                        <strong><p> {{$etu->user->nom}}  {{$etu->prenom}}</p></strong>
+                        <strong><p> {{$etu->user->nom}}  {{$etu->user->prenom}}</p></strong>
                     @endforeach
                     <a href="{{route('administrerUnEtudiant')}}"><button class="btn-primary">Voir + </button></a>
                 @endif

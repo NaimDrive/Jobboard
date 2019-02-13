@@ -31,4 +31,8 @@ class Etudiant extends Model
     public function referencesLiens() {
         return $this->hasMany('App\ReferenceLien', 'idEtudiant');
     }
+
+    public function user() {
+        return $this->belongsTo('App\User', 'idUser');
+    }
 }
