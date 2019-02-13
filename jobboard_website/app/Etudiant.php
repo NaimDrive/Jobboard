@@ -35,4 +35,8 @@ class Etudiant extends Model
     public function user() {
         return $this->belongsTo('App\User', 'idUser');
     }
+
+    public function fullname(){
+        return Etudiant::user()->get(['nom','prenom']);
+    }
 }

@@ -40,9 +40,7 @@ class AdminController
     }
 
     public function adminEtudiant(){
-        $users = User::all();
-        $etudiants_id = Etudiant::query()->pluck('idUser');
         $etudiants = Etudiant::all();
-        return view('administrateur/adminEtudiant',compact('etudiants','etudiants_id','users'));
+        return view('administrateur/adminEtudiant',compact('etudiants'));
     }
 }

@@ -14,12 +14,10 @@
 
 
 
-        @foreach($users as $user)
+        @foreach($etudiants as $etu)
             <div class="row" id="btnEntrepriseAdmin">
                 <div class="col-4 col-md-4">
-                    @for($i = 0; $i<sizeof($etudiants_id); $i++)
-                        @if($etudiants_id[$i] == $user->id)
-                            <p> {{$user->nom}}  {{$user->prenom}}</p>
+                    <strong><p> {{$etu->user->nom}}  {{$etu->user->prenom}}</p></strong>
                 </div>
 
                 <div class="col-4 col-md-4">
@@ -29,8 +27,6 @@
                 <div class="col-4 col-md-4">
                     <button class="btn-danger">Supprimer</button>
                 </div>
-                @endif
-                @endfor
             </div>
         @endforeach
     </div>
