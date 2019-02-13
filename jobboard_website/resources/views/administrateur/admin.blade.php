@@ -8,43 +8,56 @@
         <div class="row">
             <div class="col-12">
                 <h1>Tableau de bord </h1>
+
             </div>
         </div>
 
-        <div class="row" id="linge_admin">
+        <div class="row" id="ligne_admin">
             <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Etudiants</h3>
-                @foreach($users as $user)
-                    @if($user->id <=10)
-                        @for($i = 0; $i<sizeof($etudiants_id); $i++)
-                            @if($etudiants_id[$i] == $user->id)
-                                <p> {{$user->nom}}  {{$user->prenom}}</p>
-                            @endif
-                        @endfor
-                    @endif
-                @endforeach
+                <h3>Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h3>
+                @if($etudiants->isEmpty())
+                    <p>Aucune entreprise</p>
+                @else
+                    @foreach($etudiants as $etu)
+                        <p> {{$etu->nom}}  {{$etu->prenom}}</p>
+                    @endforeach
+                @endif
                 <a href="{{route('administrerUnEtudiant')}}"><button class="btn-primary">Voir + </button></a>
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Entreprises</h3>
+                <h3>Entreprises <span class="badge badge-pill badge-dark">{{ $nbEnt }}</span></h3>
+                @if($entreprises->isEmpty())
+                    <p>Aucune entreprise</p>
+                @else
                     @foreach($entreprises as $entreprise)
-                        @if($entreprise->id <=10)
                         <p>{{ $entreprise->nom }}</p>
-                        @endif
                     @endforeach
+                @endif
                 <a href="{{route('administrerUneEntreprise')}}"><button class="btn-primary">Voir + </button></a>
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Contacts</h3>
-                <p> affichage de 10 contacts</p>
+                <h3>Contacts <span class="badge badge-pill badge-dark">{{ $nbCont }}</span></h3>
+                @if($contacts->isEmpty())
+                    <p> Aucun contact </p>
+                @else
+                    @foreach($contacts as $cont)
+                        <p>{{ $cont->nom }} {{ $cont->prenom }}</p>
+                    @endforeach
+                @endif
                 <button class="btn-primary">Voir + </button>
             </div>
 
             <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Offres</h3>
-                <p> affichage de 10 offres</p>
+                <h3>Offres <span class="badge badge-pill badge-dark">{{ $nbOf }}</span></h3>
+                @if($offres->isEmpty())
+                    <p>Aucune offre</p>
+                @else
+                    @foreach($offres as $offre)
+                        <p> {{ $offre->natureOffre }} {{ $offre->nomOffre }} </p>
+                    @endforeach
+                @endif
                 <button class="btn-primary"><a href="#"></a>Voir + </button>
             </div>
         </div>
