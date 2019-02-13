@@ -5,12 +5,12 @@
     <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
         <div id="slider">
             <figure>
-                <img src="{{asset('images/index.jpg')}}" alt>
-                <img src="{{asset('images/IUT-de-Lens.jpg')}}" alt>
+                <img src="{{asset('images/index.jpg')}}" class="image" alt>
+                <img src="{{asset('images/IUT-de-Lens.jpg')}}" class="image" alt>
 
             </figure>
         </div>
-    
+    <br>
     <div class="container text-justify mt-3">
     <h1> Bienvenue dans le Job Board de l'IUT de Lens </h1>
     <p> Ce JobBoard a pour but de mettre en relation des élèves à la recherche d'un stage et des entreprises cherchant des stagiaires.<br><br>
