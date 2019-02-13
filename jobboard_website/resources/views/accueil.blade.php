@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
+
     <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
-    <div class="container text-justify mt-5">
         <div id="slider">
             <figure>
                 <img src="{{asset('images/index.jpg')}}" alt>
@@ -10,8 +10,10 @@
 
             </figure>
         </div>
-        
-        <p> Ce JobBoard a pour but de mettre en relation des élèves à la recherche d'un stage et des entreprises cherchant des stagiaires.<br><br>
+
+    <div class="container text-justify mt-3">
+
+    <p> Ce JobBoard a pour but de mettre en relation des élèves à la recherche d'un stage et des entreprises cherchant des stagiaires.<br><br>
             Si vous êtes un élève , nous vous invitons à créer un compte et à remplir le formulaire d'incription pour que les entreprises puissent connaitre vos compétences. <br> 
             Si vous êtes une entreprise, nous vous invitons a créer des offres aux quelles nos étudiants pourront repondre mais également à vous inscrire à nos Job Dating afin de venir rencontrer nos étudiants. <br>
         </p>
