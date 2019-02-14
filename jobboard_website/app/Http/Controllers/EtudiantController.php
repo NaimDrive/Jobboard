@@ -18,14 +18,19 @@ class EtudiantController extends Controller
     function modifierProfile($id)
     {
         $id = Etudiant::where('idUser',$id)->get();
+        if($id !== Auth::id()){
+            return redirect(route('accueil'));
+        }
         $categorie = DB::table('categorie')->pluck('nomCategorie');
         return view('etudiant/editProfile',["categorie"=>$categorie,"id"=>$id]);
     }
+
 
     function consulterProfile()
     {
         return view('etudiant/consultProfile');
     }
+
 
     function creerEtudiant(){
         if(Auth::check()){
