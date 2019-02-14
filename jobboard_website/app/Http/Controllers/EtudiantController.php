@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
 use App\Etudiant;
 use App\ReferenceLien;
 use DateTime;
@@ -19,7 +20,8 @@ class EtudiantController extends Controller
 {
     function modifierProfile()
     {
-        return view('etudiant/editProfile');
+        $categorie = DB::table('categorie')->pluck('nomCategorie');
+        return view('etudiant/editProfile',["categorie"=>$categorie]);
     }
 
     function consulterProfile()
@@ -45,20 +47,22 @@ class EtudiantController extends Controller
                 "categorie" => "required",
             ]);
 
-        $input=$request->only(["competence"]);
+        $input=$request->only(["competence","level","categorie"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
         $categorie = DB::table('categorie')->where('nomCategorie', $input["categorie"])->value('id');
 
-        DB::table('competences')->insert([
+        DB::table('competences_etudiant')->insert([
             "nomCompetence" => $input["competence"],
-            "niveauEstime" => $input["niveau"],
+            "niveauEstime" => $input["level"],
             "idEtudiant" => $etu,
             "idCategorie" => $categorie,
         ]);
 
-        return redirect(route('accueil'));
 
+        return redirect(route('edit_profile'));
     }
+
+
 
     function gererExperience(Request $request){
         $user_id= Auth::id();

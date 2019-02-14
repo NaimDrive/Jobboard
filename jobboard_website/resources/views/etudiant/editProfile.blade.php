@@ -14,13 +14,27 @@
                         </div>
                     </fieldset>
                 </form>
-                <form>
+                <form method="POST" action="{{route('enregistrer_competence')}}">
+                    {!! csrf_field() !!}
                     <fieldset>
                         <legend>Compétences</legend>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="competence" value="{{old("competence")}}" aria-describedby="infoComp" placeholder="Exemple: Javascript">
+                            <input type="text" class="form-control" id="competence" name="competence" value="{{old("competence")}}" aria-describedby="infoComp" placeholder="Exemple: Javascript">
+                            <label for="level">Niveau estimé</label>
+                            <select class="form-control" id="level" name="level" value="{{old("level")}}">
+                                <option>Excellent</option>
+                                <option>Bon</option>
+                                <option>Moyen</option>
+                                <option>Faible</option>
+                            </select>
+                            <br>
+                            <select class="form-control" id="categorie" name="categorie" value="{{old("categorie")}}" >
+                                @foreach($categorie as $c)
+                                    <option>{{$c}}</option>
+                                @endforeach
+                            </select>
                             <small id="infoComp" class="form-text text-muted">Vos compétences seront visibles sur votre profile</small><br>
-                            <button type="button" class="btn btn-success col-lg-2">Ajouter</button>
+                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
                 </form>
@@ -35,7 +49,7 @@
                             </div>
                             <label for="description">Description du poste</label>
                             <textarea class="form-control" id="description" value="{{old("description")}}" rows="5" style="resize: none;"></textarea><br>
-                            <button type="button" class="btn btn-success col-lg-2">Ajouter</button>
+                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
                 </form>
@@ -44,12 +58,12 @@
                         <legend>Centres d'intérêt</legend>
                         <div class="form-group">
                             <input type="text" class="form-control" id="activite" value="{{old("activite")}}" placeholder="Exemple: Sport"><br>
-                            <button type="button" class="btn btn-success col-lg-2">Ajouter</button>
+                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
                 </form>
             </div>
         </div>
     </div>
-
+-->
 @endsection
