@@ -30,6 +30,9 @@ Route::get('/', 'AccueilController@index')->name('accueil');
 
 Route::get('/etudiant/edit_profile','EtudiantController@modifierProfile')->name('edit_profile'); //route pour acceder à la modification du profile, à modifier avec la BDD
 Route::post('/etudiant/enregistrer','EtudiantController@enregistrerEtudiant')->name('enregistrer_etudiant');
+Route::post('/etudiant/enregistrerCompetence','EtudiantController@gererCompetence')->name('enregistrer_competence');
+Route::post('/etudiant/enregistrerExperience','EtudiantController@gererExperience')->name('enregistrer_experience');
+Route::post('/etudiant/enregistrerActivite','EtudiantController@gererActivite')->name('enregistrer_activite');
 Route::get('/etudiant/{id}','EtudiantController@consulterProfile')->name('consult_profile');
 
 Route::get('/entreprise/create','EntrepriseController@createEntreprise')->name('creerEntreprise');
