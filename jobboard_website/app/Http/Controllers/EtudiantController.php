@@ -69,13 +69,14 @@ class EtudiantController extends Controller
 
         $this->validate($request,
             [
-                "intitulePoste"=> "required",
+                "intitulePoste" => "required",
+                "etablissement" => "required",
                 "dateDebut" => "required",
                 "dateFin" => "required",
                 "description" => "required",
             ]);
 
-        $input=$request->only(["intitulePoste","dateDebut","dateFin","description"]);
+        $input=$request->only(["intitulePoste","etablissement","dateDebut","dateFin","description"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
 
         DB::table('experience')->insert([
@@ -87,7 +88,7 @@ class EtudiantController extends Controller
             "idEtudiant" => $etu,
         ]);
 
-        return redirect(route('accueil'));
+        return redirect(route('edit_profile'));
 
     }
 
@@ -108,7 +109,7 @@ class EtudiantController extends Controller
             "idEtudiant" => $etu,
         ]);
 
-        return redirect(route('accueil'));
+        return redirect(route('edit_profile'));
 
     }
 
