@@ -24,6 +24,7 @@ Route::get('/admin/entreprise/delete/{id}','AdminController@supprEntreprise')->n
 Route::get('/admin/etudiant', 'AdminController@adminEtudiant')->name('administrerUnEtudiant');
 Route::get('/admin/etudiant/delete/{id}','AdminController@supprEtudiant')->name('supprimerUnEtudiant');
 Route::get('/admin/contact','AdminController@adminContact')->name('administrerUnContact');
+Route::get('/admin/contact/delete/{id}','AdminController@supprContact')->name('supprimerUnContact');
 
 Route::get('/', 'AccueilController@index')->name('accueil');
 

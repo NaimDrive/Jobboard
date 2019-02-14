@@ -47,7 +47,6 @@ class AdminController
     public function supprEtudiant($id){
         $idUser = DB::table('etudiant')->where('id', '=',$id)->value('idUser');
         DB::delete('delete from etudiant where id = ?',[$id]);
-        var_dump($idUser);
         DB::delete('delete from users where id = ?',[$idUser]);
         return view ('administrateur/validationSuppression');
     }
@@ -55,5 +54,12 @@ class AdminController
     public function adminContact(){
         $contacts = ContactEntreprise::all();
         return view('administrateur/adminContact',compact('contacts'));
+    }
+
+    public function supprContact($id){
+        $idUser = DB::table('contact_entreprise')->where('id','=',$id)->value('idUser');
+        DB::delete('delete from contact_entreprise where id = ?', [$id]);
+        DB::delete('delete from users where id = ?', [$idUser]);
+        return view('administrateur/validationSuppression');
     }
 }
