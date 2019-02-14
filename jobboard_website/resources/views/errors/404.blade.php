@@ -1,6 +1,15 @@
-<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
+
+
+<link href="{{ asset('css/404.css') }}" rel="stylesheet">
 
 <div >
-    <img id="error" src="http://image.noelshack.com/fichiers/2018/51/4/1545321835-error404.png">
+    <h1 class="titre">OOPS</h1>
+    <p class="sous">404-Page inéxistante</p>
+    <input class="button" type="button" onclick="location.href='./';" value="Retour à l'accueil" />
 </div>
+
+
+
 

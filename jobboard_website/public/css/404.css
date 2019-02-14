@@ -1,8 +1,36 @@
-h1
-{
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+.titre
+{   
+    font-family: Lobster; 
+    top:50%;
+    left: 40%;
     text-align: center;
     color: #00ac94;
+    font-weight : 2500;
+    font-size: 250px;
+    
 }
-p{
+.sous{
+    font-family: Lobster; 
+    position: absolute;
     text-align: center;
+    top:50%;
+    left: 50%;
+    font-size: 50px;
+}
+
+.button{
+    font-size: 40px;
+    height: 80px;
+    width: 400px;
+    
+    display: block;
+    position: relative;
+    margin-top: 15%;
+    
+	margin-left: 40%;
+	
+
+    
 }
