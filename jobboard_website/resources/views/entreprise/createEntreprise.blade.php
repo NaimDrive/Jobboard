@@ -48,9 +48,9 @@
                             </div>
 
                             <div class="form-group row border border-success">
-                                <input type="hidden" name="nbContact" id="compteurContact">
-                                <label class="mb-3 mt-3 ml-5">Contacts</label>
                                 <div id="contacts">
+                                    <input type="hidden" name="nbContact" id="compteurContact">
+                                    <label class="mb-3 mt-3 ml-5">Contacts</label>
                                 </div>
                             </div>
 
@@ -181,16 +181,13 @@
 
             inputCompteur.value -=1;
         }
-        document.getElementById("compteur").value = 1;
-        document.getElementById("compteurContact").value = 0;
-
 
 
 
         function addContact() {
             let divContact = document.getElementById('contacts');
 
-            let index = parseInt(divContact.childNodes.length);
+            let index = parseInt(divContact.childNodes.length)-5;
 
             let divFormGroup = document.createElement("div");
             divFormGroup.setAttribute("class", "form-group ml-1");
@@ -205,20 +202,241 @@
             let divCol1 = document.createElement("div");
             divCol1.setAttribute("class", "col-1");
 
+
+            //#################################     Civilité  ###########################
+
+
+            let divFormCivilite = document.createElement("div");
+            divFormCivilite.setAttribute("class", "form-group row");
+
             let labelCivilite = document.createElement("label");
-            labelCivilite.setAttribute("class", "")
-            let textLabelCivilite = document.createTextNode("Civilité")
+            labelCivilite.setAttribute("class", "col-md-4 col-form-label text-md-right");
+            labelCivilite.setAttribute("for","civilite");
+            let textLabelCivilite = document.createTextNode("Civilité");
 
-            let inputCivilite = document.createElement("")
+            labelCivilite.appendChild(textLabelCivilite);
+
+            let divCol5Civilite = document.createElement("div");
+            divCol5Civilite.setAttribute("class", "col-md-5");
+            let inputCivilite = document.createElement("select");
+            inputCivilite.setAttribute("id", "contact_"+index+"_civilite");
+            inputCivilite.setAttribute("class", "form-control");
+            inputCivilite.setAttribute("name", "contact_"+index+"_civilite");
+
+            let optionMonsieur = document.createElement("option");
+            optionMonsieur.appendChild(document.createTextNode("Monsieur"));
+            let optionMadame = document.createElement("option");
+            optionMadame.appendChild(document.createTextNode("Madame"));
+            let optionAutre = document.createElement("option");
+            optionAutre.appendChild(document.createTextNode("Autre"));
+
+            inputCivilite.appendChild(optionMonsieur);
+            inputCivilite.appendChild(optionMadame);
+            inputCivilite.appendChild(optionAutre);
+
+            divCol5Civilite.appendChild(inputCivilite);
+
+            divFormCivilite.appendChild(labelCivilite);
+            divFormCivilite.appendChild(divCol5Civilite);
+
+            divCol11.appendChild(divFormCivilite);
 
 
-            let inputNom
 
-            let inputPrenom
+            //#################################     NOM  ###########################
 
-            let inputMail
 
-            let inputTelephone
+            let divFormNom = document.createElement("div");
+            divFormNom.setAttribute("class", "form-group row");
+
+            let labelNom = document.createElement("label");
+            labelNom.setAttribute("class", "col-md-4 col-form-label text-md-right");
+            labelNom.setAttribute("for","nom");
+            let textLabelNom = document.createTextNode("Nom");
+            labelNom.appendChild(textLabelNom);
+
+            let divCol5Nom = document.createElement("div");
+            divCol5Nom.setAttribute("class", "col-md-5");
+            let inputNom = document.createElement("input");
+            inputNom.setAttribute("id", "contact_"+index+"_nom");
+            inputNom.setAttribute("class", "form-control");
+            inputNom.setAttribute("type","text");
+            inputNom.setAttribute("name", "contact_"+index+"_nom");
+
+            divCol5Nom.appendChild(inputNom);
+
+            divFormNom.appendChild(labelNom);
+            divFormNom.appendChild(divCol5Nom);
+
+            divCol11.appendChild(divFormNom);
+
+
+            //#################################     Prenom  ###########################
+
+            let divFormPrenom = document.createElement("div");
+            divFormPrenom.setAttribute("class", "form-group row");
+
+            let labelPrenom = document.createElement("label");
+            labelPrenom.setAttribute("class", "col-md-4 col-form-label text-md-right");
+            labelPrenom.setAttribute("for","prenom");
+            let textLabelPrenom = document.createTextNode("Prénom");
+            labelPrenom.appendChild(textLabelPrenom);
+
+            let divCol5Prenom = document.createElement("div");
+            divCol5Prenom.setAttribute("class", "col-md-5");
+            let inputPrenom = document.createElement("input");
+            inputPrenom.setAttribute("id", "contact_"+index+"_prenom");
+            inputPrenom.setAttribute("class", "form-control");
+            inputPrenom.setAttribute("type","text");
+            inputPrenom.setAttribute("name", "contact_"+index+"_prenom");
+
+            divCol5Prenom.appendChild(inputPrenom);
+
+            divFormPrenom.appendChild(labelPrenom);
+            divFormPrenom.appendChild(divCol5Prenom);
+
+            divCol11.appendChild(divFormPrenom);
+
+
+
+
+            //#################################     Mail  ###########################
+
+            let divFormMail = document.createElement("div");
+            divFormMail.setAttribute("class", "form-group row");
+
+            let labelMail = document.createElement("label");
+            labelMail.setAttribute("class", "col-md-4 col-form-label text-md-right");
+            labelMail.setAttribute("for","mail");
+            let textLabelMail = document.createTextNode("Mail");
+            labelMail.appendChild(textLabelMail);
+
+            let divCol5Mail = document.createElement("div");
+            divCol5Mail.setAttribute("class", "col-md-5");
+            let inputMail = document.createElement("input");
+            inputMail.setAttribute("id", "contact_"+index+"_mail");
+            inputMail.setAttribute("class", "form-control");
+            inputMail.setAttribute("type","text");
+            inputMail.setAttribute("name", "contact_"+index+"_mail");
+
+            divCol5Mail.appendChild(inputMail);
+
+            divFormMail.appendChild(labelMail);
+            divFormMail.appendChild(divCol5Mail);
+
+            divCol11.appendChild(divFormMail);
+
+
+
+            //#################################     Telephone  ###########################
+
+            let divFormPhone = document.createElement("div");
+            divFormPhone.setAttribute("class", "form-group row");
+
+            let labelPhone = document.createElement("label");
+            labelPhone.setAttribute("class", "col-md-4 col-form-label text-md-right");
+            labelPhone.setAttribute("for","nom");
+            let textLabelPhone = document.createTextNode("Téléphone");
+            labelPhone.appendChild(textLabelPhone);
+
+            let divCol5Phone = document.createElement("div");
+            divCol5Phone.setAttribute("class", "col-md-5");
+            let inputPhone = document.createElement("input");
+            inputPhone.setAttribute("id", "contact_"+index+"_phone");
+            inputPhone.setAttribute("class", "form-control");
+            inputPhone.setAttribute("type","text");
+            inputPhone.setAttribute("name", "contact_"+index+"_phone");
+
+            divCol5Phone.appendChild(inputPhone);
+
+            divFormPhone.appendChild(labelPhone);
+            divFormPhone.appendChild(divCol5Phone);
+
+            divCol11.appendChild(divFormPhone);
+
+
+            //######################### Bouton supression ##################
+
+            let inputDelete = document.createElement("button");
+            inputDelete.setAttribute("id", "contact_delete_"+index);
+            inputDelete.setAttribute("class", "btn btn-danger");
+            inputDelete.setAttribute("data-action", "delete");
+            inputDelete.setAttribute("data-target", "block_contact_"+index);
+            inputDelete.setAttribute("type", "button");
+
+            let X = document.createTextNode("X");
+            inputDelete.appendChild(X);
+
+            divCol1.appendChild(inputDelete);
+
+
+            //######################### mise en page #######################
+
+            divRow.appendChild(divCol11);
+            divRow.appendChild(divCol1);
+
+            divFormGroup.appendChild(divRow);
+
+            divContact.appendChild(divFormGroup);
+
+            document.getElementById("compteurContact").value = index+1;
+
+            let bouton = document.getElementById('contact_delete_'+index);
+            bouton.addEventListener('click', supprimerContact);
         }
+
+
+
+
+
+        function supprimerContact(){
+            let inputCompteur = document.getElementById("compteurContact");
+            let compteur = parseInt(inputCompteur.value)-1;
+
+            let target = this.dataset.target;
+            let divSupprimer = document.getElementById(target);
+
+            let id = parseInt(target.substr(14,1));
+            document.getElementById("contacts").removeChild(divSupprimer);
+
+            for(let i = id; i < compteur; i++){
+                let div =document.getElementById("block_contact_"+(i+1));
+                div.setAttribute('id', "block_contact_"+i);
+
+                let inputCivilite = document.getElementById("contact_"+(i+1)+"_civilite")
+                let inputNom = document.getElementById("contact_"+(i+1)+"_nom");
+                let inputPrenom = document.getElementById("contact_"+(i+1)+"_prenom");
+                let inputMail = document.getElementById("contact_"+(i+1)+"_mail");
+                let inputPhone = document.getElementById("contact_"+(i+1)+"_phone");
+                let inputDelet = document.getElementById("contact_delete_"+(i+1));
+
+                inputCivilite.setAttribute('name', "contact_"+i+"_civilite");
+                inputCivilite.setAttribute('id', "contact_"+i+"_civilite");
+
+                inputNom.setAttribute('name', "contact_"+i+"_nom");
+                inputNom.setAttribute('id', "contact_"+i+"_nom");
+
+                inputPrenom.setAttribute('name', "contact_"+i+"_prenom");
+                inputPrenom.setAttribute('id', "contact_"+i+"_prenom");
+
+                inputMail.setAttribute('name', "contact_"+i+"_mail");
+                inputMail.setAttribute('id', "contact_"+i+"_mail");
+
+                inputPhone.setAttribute('name', "contact_"+i+"_phone");
+                inputPhone.setAttribute('id', "contact_"+i+"_phone");
+
+                inputDelet.setAttribute('data-target', "block_contact_"+i);
+                inputDelet.setAttribute('id', "contact_delete_"+i);
+
+
+
+            }
+            inputCompteur.value -=1;
+        }
+
+
+        document.getElementById("compteur").value = 1;
+        document.getElementById("compteurContact").value = 0;
+
     </script>
 @endsection
