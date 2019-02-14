@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
     <div class="container text-center">
         <div class="row">
@@ -59,7 +59,7 @@
                     @foreach($offres as $offre)
                         <strong><p> {{ $offre->natureOffre }} {{ $offre->nomOffre }} </p></strong>
                     @endforeach
-                    <a href="{{ route('administrerUneOffre') }}"><button class="btn-primary">Voir + </button></a>
+                    <a href="#"><button class="btn-primary">Voir + </button></a>
                 @endif
             </div>
         </div>
