@@ -5,11 +5,31 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Inscription') }}</div>
+                    <div id="card-header" class="card-header">Je m'inscrit en tant que <strong>professionnel</strong></div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+
+                        <div class="row mb-3 justify-content-center">
+                            <button class="btn btn-success" id="btnEntreprise">Je suis un <strong>professionnel</strong></button>
+                            <button class="btn btn-success" id="btnEtu">Je suis un <strong>etudiant</strong></button>
+                        </div>
+
+                        <form method="POST" action="{{ route('storeUser') }}">
                             @csrf
+
+                            <input name="status" id="status" type="hidden">
+
+                            <div class="form-group row">
+                                <label for="civilite" class="col-md-4 col-form-label text-md-right">Civilité</label>
+
+                                <div class="col-md-6">
+                                    <select class="form-control" id="civilite" name="civilite" value="{{old("civilite")}}" >
+                                        <option>Monsieur</option>
+                                        <option>Madame</option>
+                                        <option>Autre</option>
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
@@ -75,6 +95,51 @@
                                 </div>
                             </div>
 
+                            <div id="divEntreprise">
+                                <div class="form-group row">
+                                    <label for="telephone" class="col-md-4 col-form-label text-md-right">Numéro de téléphone</label>
+
+                                    <div class="col-md-6">
+                                        <input id="telephone" type="text" class="form-control" name="telephone">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="divEtu">
+                                <div class="form-group row">
+                                    <label for="dateNaissance" class="col-md-4 col-form-label text-md-right">Date de naissance</label>
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control" id="dateNaissance" name="dateNaissance" value="{{old("dateNaissance")}}" >
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="adressePostale" class="col-md-4 col-form-label text-md-right">Adresse postale</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="ville" name="ville" value="{{old("ville")}}" placeholder="Votre ville" ><br>
+                                        <input type="text" class="form-control" id="adresse" name="adresse" value="{{old("adresse")}}" placeholder="Votre adresse" ><br>
+                                        <input type="text" class="form-control" id="codepostal" name="codepostal" value="{{old("codepostal")}}" placeholder="Votre code postal" ><br>
+                                    </div>
+
+                                </div>
+<!--
+                                <div class="form-group row">
+                                    <label for="lienExterne" class="col-md-4 col-form-label text-md-right">Lien externe</label>
+
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="nomLien" name="nomLien" value="{{old("nomLien")}}" >
+                                            <option>GitHub</option>
+                                            <option>Linkedin</option>
+                                            <option>Autre</option>
+                                        </select>
+                                        <input type="text" class="form-control" id="lienExterne" name="lienExterne" value="{{old("lienExterne")}}" >
+                                        <small id="infoAdresse" class="form-text text-muted">Un lien linkedin, github ...</small><br>
+
+                                    </div>
+                                </div>
+                                -->
+                            </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-success">
@@ -88,4 +153,48 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('javaScript')
+    <script>
+        const cardHeader = document.getElementById("card-header");
+
+        const divEntreprise = document.getElementById('divEntreprise');
+        const divEtu = document.getElementById('divEtu');
+
+        const btnEntreprise = document.getElementById("btnEntreprise");
+        const btnEtu = document.getElementById("btnEtu");
+
+        const status = document.getElementById('status');
+
+        status.value = "entreprise";
+
+        divEtu.style.display = "none";
+
+
+        btnEtu.addEventListener("click", setEtu);
+        btnEntreprise.addEventListener("click", setEntreprise);
+
+        btnEntreprise.disabled = true;
+        
+       function setEntreprise() {
+           btnEtu.disabled = false;
+           btnEntreprise.disabled = true;
+           cardHeader.innerHTML = "Je m'inscrit en tant que <strong>professionnel</strong>";
+           divEtu.style.display = "none";
+           divEntreprise.style.display = "block";
+           status.value = "entreprise";
+        }
+        
+        function setEtu() {
+            btnEntreprise.disabled = false;
+            btnEtu.disabled = true;
+            cardHeader.innerHTML = "Je m'inscrit en tant qu'<strong>étudiant</strong>";
+            divEntreprise.style.display = "none";
+            divEtu.style.display = "block";
+            status.value = "etudiant";
+
+        }
+        
+    </script>
 @endsection
