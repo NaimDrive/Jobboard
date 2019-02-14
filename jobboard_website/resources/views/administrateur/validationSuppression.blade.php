@@ -7,6 +7,6 @@
     <h1 class="text-center"> La suppression à était réalisé ! </h1>
 
     <div class="text-center mt-4">
-    <a href="{{route('admin')}}"> <button class="btn-success"> Retour à la page d'administration </button> </a>
+        <a href="{{route('admin')}}"> <button class="btn-success"> Retour à la page d'administration </button> </a>
     </div>
 @endsection

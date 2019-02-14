@@ -47,7 +47,7 @@
                     @foreach($contacts as $cont)
                         <strong><p>{{ $cont->nom }} {{ $cont->prenom }}</p></strong>
                     @endforeach
-                    <a href="#"><button class="btn-primary">Voir + </button></a>
+                    <a href="{{route('administrerUnContact')}}"><button class="btn-primary">Voir + </button></a>
                 @endif
             </div>
 
