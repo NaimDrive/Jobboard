@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12">
                 <h1>Etudiants</h1>
-                <a href="{{route('creer_etudiant')}}"> <button class="btn-success" id="btnEntrepriseAdmin">Ajouter un etudiant</button></a>
+                <a href="#"> <button class="btn-success" id="btnEntrepriseAdmin">Ajouter un etudiant</button></a>
             </div>
         </div>
 
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="col-4 col-md-4">
-                    <button class="btn-danger">Supprimer</button>
+                    <a href="{{route('supprimerUnEtudiant',[$etu->id])}}"><button class="btn-danger">Supprimer</button></a>
                 </div>
             </div>
         @endforeach

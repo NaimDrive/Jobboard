@@ -36,11 +36,16 @@ class AdminController
 
     public function supprEntreprise($id){
         DB::delete('delete from entreprise where id = ? ',[$id]);
-        return view('administrateur/suppressionEntreprise');
+        return view('administrateur/validationSuppression');
     }
 
     public function adminEtudiant(){
         $etudiants = Etudiant::all();
         return view('administrateur/adminEtudiant',compact('etudiants'));
+    }
+
+    public function supprEtudiant($id){
+        DB::delete('delete from etudiant where id = ?',[$id]);
+        return view ('administrateur/validationSuppression');
     }
 }
