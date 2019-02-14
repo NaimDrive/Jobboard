@@ -48,4 +48,9 @@ class AdminController
         DB::delete('delete from etudiant where id = ?',[$id]);
         return view ('administrateur/validationSuppression');
     }
+
+    public function adminContact(){
+        $contacts = ContactEntreprise::all();
+        return view('administrateur/adminContact',compact('contacts'));
+    }
 }

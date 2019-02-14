@@ -23,6 +23,7 @@ Route::get('/admin/entreprise', 'AdminController@adminEntreprise')->name('admini
 Route::get('/admin/entreprise/delete/{id}','AdminController@supprEntreprise')->name('supprimerUneEntreprise');
 Route::get('/admin/etudiant', 'AdminController@adminEtudiant')->name('administrerUnEtudiant');
 Route::get('/admin/etudiant/delete/{id}','AdminController@supprEtudiant')->name('supprimerUnEtudiant');
+Route::get('/admin/contact','AdminController@adminContact')->name('administrerUnContact');
 
 Route::get('/', 'AccueilController@index')->name('accueil');
 
