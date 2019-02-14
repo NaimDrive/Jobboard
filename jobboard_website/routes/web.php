@@ -37,5 +37,5 @@ Route::post('/entreprise/enregistrer','EntrepriseController@enregistrerEntrepris
 Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
 
 Route::get('/connexion', 'HomeController@index')->name('home');
-Route::get('404', ['as' => '404', 'uses' => 'ErrorController@notfound']);
+
 
