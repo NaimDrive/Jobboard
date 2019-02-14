@@ -47,6 +47,17 @@
                                 <button type="button" id="add-adresse" class="btn btn-primary">Ajouter une adresse</button>
                             </div>
 
+                            <div class="form-group row border border-success">
+                                <input type="hidden" name="nbContact" id="compteurContact">
+                                <label class="mb-3 mt-3 ml-5">Contacts</label>
+                                <div id="contacts">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="button" id="add-contact" class="btn btn-primary">Ajouter un contact</button>
+                            </div>
+
 
 
                             <div class="col-md-8 offset-md-4">
@@ -62,7 +73,12 @@
 
 @section('javaScript')
     <script>
+        let boutonAddContact = document.getElementById('add-contact');
+
         let boutonAddAdresse = document.getElementById('add-adresse');
+
+        boutonAddContact.addEventListener('click',addContact);
+
 
         boutonAddAdresse.addEventListener('click' , addAdresse);
         function addAdresse () {
@@ -126,12 +142,12 @@
             divAdresses.appendChild(divFormGroup);
 
             let bouton = document.getElementById('delete_'+index);
-            bouton.addEventListener('click', handleDeleteButtons);
+            bouton.addEventListener('click', supprimerAdresse);
 
             document.getElementById("compteur").value = index+1;
         }
 
-        function handleDeleteButtons(){
+        function supprimerAdresse(){
             let inputCompteur = document.getElementById("compteur");
             let compteur = parseInt(inputCompteur.value)-1;
             let target = this.dataset.target;
@@ -166,5 +182,43 @@
             inputCompteur.value -=1;
         }
         document.getElementById("compteur").value = 1;
+        document.getElementById("compteurContact").value = 0;
+
+
+
+
+        function addContact() {
+            let divContact = document.getElementById('contacts');
+
+            let index = parseInt(divContact.childNodes.length);
+
+            let divFormGroup = document.createElement("div");
+            divFormGroup.setAttribute("class", "form-group ml-1");
+            divFormGroup.setAttribute("id", "block_contact_"+index);
+
+            let divRow = document.createElement("div");
+            divRow.setAttribute("class", "row");
+
+            let divCol11 = document.createElement("div");
+            divCol11.setAttribute("class", 'col-11');
+
+            let divCol1 = document.createElement("div");
+            divCol1.setAttribute("class", "col-1");
+
+            let labelCivilite = document.createElement("label");
+            labelCivilite.setAttribute("class", "")
+            let textLabelCivilite = document.createTextNode("Civilité")
+
+            let inputCivilite = document.createElement("")
+
+
+            let inputNom
+
+            let inputPrenom
+
+            let inputMail
+
+            let inputTelephone
+        }
     </script>
 @endsection
