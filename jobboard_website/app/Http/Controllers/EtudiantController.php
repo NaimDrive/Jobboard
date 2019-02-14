@@ -8,20 +8,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Categorie;
 use App\Etudiant;
-use App\ReferenceLien;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EtudiantController extends Controller
 {
-    function modifierProfile()
+    function modifierProfile($id)
     {
+        $id = Etudiant::where('idUser',$id)->get();
         $categorie = DB::table('categorie')->pluck('nomCategorie');
-        return view('etudiant/editProfile',["categorie"=>$categorie]);
+        return view('etudiant/editProfile',["categorie"=>$categorie,"id"=>$id]);
     }
 
     function consulterProfile()
