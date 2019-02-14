@@ -59,7 +59,7 @@
                     @foreach($offres as $offre)
                         <strong><p> {{ $offre->natureOffre }} {{ $offre->nomOffre }} </p></strong>
                     @endforeach
-                    <a href="#"><button class="btn-primary">Voir + </button></a>
+                    <a href="{{ route('administrerUneOffre') }}"><button class="btn-primary">Voir + </button></a>
                 @endif
             </div>
         </div>

@@ -62,4 +62,14 @@ class AdminController
         DB::delete('delete from users where id = ?', [$idUser]);
         return view('administrateur/validationSuppression');
     }
+
+    public function adminOffre(){
+        $offres = Offre::all();
+        return view('administrateur/adminOffre',compact('offres'));
+    }
+
+    public function supprOffre($id){
+        DB::delete('delete from offre where id = ?',[$id]);
+        return view('administrateur/validationSuppression');
+    }
 }
