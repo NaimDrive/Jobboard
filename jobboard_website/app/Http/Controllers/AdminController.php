@@ -45,7 +45,10 @@ class AdminController
     }
 
     public function supprEtudiant($id){
+        $idUser = DB::table('etudiant')->where('id', '=',$id)->value('idUser');
         DB::delete('delete from etudiant where id = ?',[$id]);
+        var_dump($idUser);
+        DB::delete('delete from users where id = ?',[$idUser]);
         return view ('administrateur/validationSuppression');
     }
 
