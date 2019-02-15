@@ -17,12 +17,14 @@ class EtudiantController extends Controller
 {
     function modifierProfile($id)
     {
-        $userId = DB::table('etudiant')->where('idUser',$id)->value('idUser');
+        $userId = DB::table('etudiant')->where('idUser',$id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
+        $etuId = DB::table('etudiant')->where('idUser',$id)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
         if($userId !== Auth::id()){
             return redirect(route('accueil'));
         }
         $categorie = DB::table('categorie')->pluck('nomCategorie');
-        return view('etudiant/editProfile',["categorie"=>$categorie,"id"=>$id]);
+        $competences = DB::table('competences_etudiant')->where('idEtudiant',$etuId)->get();
+        return view('etudiant/editProfile',["categorie"=>$categorie,"id"=>$id, "competence"=>$competences]);
     }
 
 
@@ -39,7 +41,11 @@ class EtudiantController extends Controller
         return redirect(route('login'));
     }
 
-
+    //
+    //
+    //////GESTION IDENTITE
+    //
+    //
 
     function gererIdentite(Request $request){
         $user_id= Auth::id();
@@ -63,6 +69,27 @@ class EtudiantController extends Controller
         return redirect(route('edit_profile',["id"=>$userId]));
     }
 
+    //
+    //
+    //////GESTION COMPETENCES
+    //
+    //
+
+    function supprimerCompetence(Request $request){
+        $user_id= Auth::id();
+
+        $this->validate($request,
+            [
+                "competence_del" => "required",
+            ]);
+
+        $input=$request->only(["competence_del"]);
+        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+
+        DB::table('competences_etudiant')->where('nomCompetence', $input["competence_del"])->where('idEtudiant',$etuId)->delete();
+
+        return redirect(route('edit_profile',["id"=>$user_id]));
+    }
 
     function gererCompetence(Request $request){
         $user_id= Auth::id();
@@ -90,6 +117,11 @@ class EtudiantController extends Controller
         return redirect(route('edit_profile',["id"=>$userId]));
     }
 
+    //
+    //
+    //////GESTION EXPERIENCE
+    //
+    //
 
 
     function gererExperience(Request $request){
@@ -121,6 +153,12 @@ class EtudiantController extends Controller
 
     }
 
+    //
+    //
+    //////GESTION ACTIVITES
+    //
+    //
+
     function gererActivite(Request $request){
         $user_id= Auth::id();
 
@@ -141,6 +179,13 @@ class EtudiantController extends Controller
         return redirect(route('edit_profile',["id"=>$userId]));
 
     }
+
+
+    //
+    //
+    //////GESTION ENREGISTREMENT ETUDIANT
+    //
+    //
 
 
     function enregistrerEtudiant(Request $request){

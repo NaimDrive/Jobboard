@@ -37,6 +37,7 @@ Route::post('/etudiant/enregistrerCompetence','EtudiantController@gererCompetenc
 Route::post('/etudiant/enregistrerExperience','EtudiantController@gererExperience')->name('enregistrer_experience');
 Route::post('/etudiant/enregistrerActivite','EtudiantController@gererActivite')->name('enregistrer_activite');
 Route::post('/etudiant/enregistrerIdentite','EtudiantController@gererIdentite')->name('enregistrer_identite');
+Route::post('/etudiant/supprimerCompetence','EtudiantController@supprimerCompetence')->name('supprimer_competence');
 Route::get('/etudiant/{id}/edit_profile','EtudiantController@modifierProfile')->name('edit_profile');
 Route::get('/etudiant/{id}','EtudiantController@consulterProfile')->name('consult_profile');
 

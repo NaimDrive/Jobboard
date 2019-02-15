@@ -19,7 +19,9 @@
                     </fieldset>
                 </form>
 
-                <!-- DEBUT DU FORMULAIRE DE COMPETENCES -->
+                <!-- DEBUT DU FORMULAIRE D' IDENTITE -->
+
+
 
                 <form method="POST" action="{{route('enregistrer_identite')}}">
                     {!! csrf_field() !!}
@@ -30,6 +32,7 @@
                                 <div class="col-lg-6"><input type="text" class="form-control" id="nom" name="nom" value="{{old("nom")}}" aria-describedby="infoComp" placeholder="Nom"></div>
                                 <div class="col-lg-6"><input type="text" class="form-control" id="prenom" name="prenom" value="{{old("prenom")}}" aria-describedby="infoComp" placeholder="Prenom"></div>
                             </div>
+                            <br>
                             <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
@@ -37,10 +40,38 @@
 
                 <!-- DEBUT DU FORMULAIRE DE COMPETENCES -->
 
+                <legend>Compétences</legend>
+                <br>
+
+                @if(count($competence)!==0)
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Competences</th>
+                        <th scope="col">Niveau</th>
+                        <th scope="col">Suppression</th>
+                    </tr>
+                    </thead>
+                    @foreach($competence as $comp)
+                        <tbody>
+                        <tr>
+                            <form method="POST" action="{{route('supprimer_competence')}}">
+                                {!! csrf_field() !!}
+                            <th scope="row">{{$comp->nomCompetence}}</th>
+                            <td>{{$comp->niveauEstime}}</td>
+                            <td><button type="submit" class="btn btn-danger col-lg-8" id="competence_del" name="competence_del" value="{{$comp->nomCompetence}}">X</button></td>
+                            </form>
+                        </tr>
+                        </tbody>
+                        @endforeach
+                </table>
+                    <br>
+                @endif
+
+
                 <form method="POST" action="{{route('enregistrer_competence')}}">
                     {!! csrf_field() !!}
                     <fieldset>
-                        <legend>Compétences</legend>
                         <div class="form-group">
                             <input type="text" class="form-control" id="competence" name="competence" value="{{old("competence")}}" aria-describedby="infoComp" placeholder="Exemple: Javascript">
                             <br>
