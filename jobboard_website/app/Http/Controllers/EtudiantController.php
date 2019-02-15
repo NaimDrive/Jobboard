@@ -26,7 +26,9 @@ class EtudiantController extends Controller
         }
         $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
         $competences = DB::table('competences_etudiant')->where('idEtudiant',$etuId)->get(); //on recupere les compétences de l'étudiant qui désire modifier son profile
-        return view('etudiant/editProfile',["categorie"=>$categorie, "competence"=>$competences]); //on retourne la vue de modification du profile de l'étudiant
+        $activite = DB::table('centre_d_interet')->where('idEtudiant',$etuId)->pluck('Interet'); //on recupere les activité de l'étudiant qui désire modifier son profile
+        $experiences = DB::table('experience')->where('idEtudiant',$etuId)->get(); //on recupere les expériences de l'étudiant qui désire modifier son profile
+        return view('etudiant/editProfile',["categorie"=>$categorie, "competence"=>$competences, "activite"=>$activite,"experience"=>$experiences]); //on retourne la vue de modification du profile de l'étudiant
     }
 
 
@@ -34,8 +36,6 @@ class EtudiantController extends Controller
     {
         return view('etudiant/consultProfile');
     }
-
-
 
     //
     //
@@ -119,6 +119,23 @@ class EtudiantController extends Controller
     //
     //
 
+    function supprimerExperience(Request $request){
+        $user_id= Auth::id();
+
+        $this->validate($request,
+            [
+                "experience_del" => "required",
+            ]);
+
+        $input=$request->only(["experience_del"]);
+        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+
+        DB::table('experience')->where('nom', $input["experience_del"])->where('idEtudiant',$etuId)->delete();
+
+        return redirect(route('edit_profile',["id"=>$user_id]));
+    }
+
+
 
     function gererExperience(Request $request){
         $user_id= Auth::id();
@@ -154,6 +171,25 @@ class EtudiantController extends Controller
     //////GESTION ACTIVITES
     //
     //
+
+
+    function supprimerActivite(Request $request){
+        $user_id= Auth::id();
+
+        $this->validate($request,
+            [
+                "activite_del" => "required",
+            ]);
+
+        $input=$request->only(["activite_del"]);
+        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+
+        DB::table('centre_d_interet')->where('Interet', $input["activite_del"])->where('idEtudiant',$etuId)->delete();
+
+        return redirect(route('edit_profile',["id"=>$user_id]));
+    }
+
+
 
     function gererActivite(Request $request){
         $user_id= Auth::id();
@@ -226,10 +262,5 @@ class EtudiantController extends Controller
 
         return redirect(route('accueil'));
     }
-
-
-
-
-
 
 }

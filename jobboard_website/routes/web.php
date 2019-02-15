@@ -44,7 +44,8 @@ Route::post('/etudiant/enregistrerIdentite','EtudiantController@gererIdentite')-
 
 //ROUTES POST DE SUPPRESSION D'INFORMATIONS POUR L'ETUDIANT
 Route::post('/etudiant/supprimerCompetence','EtudiantController@supprimerCompetence')->name('supprimer_competence');
-
+Route::post('/etudiant/supprimerActivite','EtudiantController@supprimerActivite')->name('supprimer_activite');
+Route::post('/etudiant/supprimerExperience','EtudiantController@supprimerExperience')->name('supprimer_experience');
 
 //ROUTES GET D'ACCES AUX VUES DE L'ETUDIANT
 Route::get('/etudiant/{id}/edit_profile','EtudiantController@modifierProfile')->name('edit_profile');

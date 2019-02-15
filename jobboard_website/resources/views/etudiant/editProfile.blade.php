@@ -96,10 +96,42 @@
 
                 <!-- DEBUT DU FORMULAIRE D'EXPERIENCES -->
 
+
+                <legend>Expériences</legend>
+                <br>
+                @if(count($experience)!==0) <!-- On vérifie qu'il y a au moins une experience pour afficher le tableau... -->
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Poste</th>
+                        <th scope="col">Date de Debut</th>
+                        <th scope="col">Date de Fin</th>
+                        <th scope="col">Etablissement</th>
+                        <th scope="col">Suppression</th>
+                    </tr>
+                    </thead>
+                @foreach($experience as $exp) <!-- On génère pour chaque experience une ligne avec le nom, le niveau et un bouton de suppression -->
+                    <tbody>
+                    <tr>
+                        <form method="POST" action="{{route('supprimer_experience')}}">
+                        {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
+                            <th scope="row">{{$exp->nom}}</th>
+                            <td>{{$exp->dateDebut}}</td>
+                            <td>{{$exp->dateFin}}</td>
+                            <td>{{$exp->etablissement}}</td>
+                            <td><button type="submit" class="btn btn-danger col-lg-8" id="experience_del" name="experience_del" value="{{$exp->nom}}">X</button></td>
+                        </form>
+                    </tr>
+                    </tbody>
+                    @endforeach
+                </table>
+                <br>
+                @endif
+
+
                 <form method="POST" action="{{route('enregistrer_experience')}}">
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
-                        <legend>Expériences</legend>
                         <div class="form-group">
                             <input type="text" class="form-control" id="intitulePoste" name="intitulePoste" value="{{old("intitulePoste")}}" placeholder="Intitulé du poste (exemple: développeur Web)">
                             <br>
@@ -119,6 +151,31 @@
                 </form>
 
                 <!-- DEBUT DU FORMULAIRE DE CENTRES D INTERET -->
+
+                <br>
+                @if(count($activite)!==0) <!-- On vérifie qu'il y a au moins une activite pour afficher le tableau... -->
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom activite</th>
+                        <th scope="col">Suppression</th>
+                    </tr>
+                    </thead>
+                @foreach($activite as $ac) <!-- On génère pour chaque activite une ligne avec le nom et un bouton de suppression -->
+                    <tbody>
+                    <tr>
+                        <form method="POST" action="{{route('supprimer_activite')}}">
+                        {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
+                            <th scope="row">{{$ac}}</th>
+                            <td><button type="submit" class="btn btn-danger col-lg-8" id="activite_del" name="activite_del" value="{{$ac}}">X</button></td>
+                        </form>
+                    </tr>
+                    </tbody>
+                    @endforeach
+                </table>
+                <br>
+                @endif
+
 
                 <form method="POST" action="{{route('enregistrer_activite')}}">
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
