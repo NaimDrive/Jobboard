@@ -9,23 +9,28 @@
 namespace App\Http\Controllers;
 
 use App\Etudiant;
-use App\ReferenceLien;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EtudiantController extends Controller
 {
-    function modifierProfile()
+    function modifierProfile($id)
     {
-        return view('etudiant/editProfile');
+        $id = Etudiant::where('idUser',$id)->get();
+        if($id !== Auth::id()){
+            return redirect(route('accueil'));
+        }
+        $categorie = DB::table('categorie')->pluck('nomCategorie');
+        return view('etudiant/editProfile',["categorie"=>$categorie,"id"=>$id]);
     }
+
 
     function consulterProfile()
     {
         return view('etudiant/consultProfile');
     }
+
 
     function creerEtudiant(){
         if(Auth::check()){
@@ -45,33 +50,36 @@ class EtudiantController extends Controller
                 "categorie" => "required",
             ]);
 
-        $input=$request->only(["competence"]);
+        $input=$request->only(["competence","level","categorie"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
         $categorie = DB::table('categorie')->where('nomCategorie', $input["categorie"])->value('id');
 
-        DB::table('competences')->insert([
+        DB::table('competences_etudiant')->insert([
             "nomCompetence" => $input["competence"],
-            "niveauEstime" => $input["niveau"],
+            "niveauEstime" => $input["level"],
             "idEtudiant" => $etu,
             "idCategorie" => $categorie,
         ]);
 
-        return redirect(route('accueil'));
 
+        return redirect(route('edit_profile'));
     }
+
+
 
     function gererExperience(Request $request){
         $user_id= Auth::id();
 
         $this->validate($request,
             [
-                "intitulePoste"=> "required",
+                "intitulePoste" => "required",
+                "etablissement" => "required",
                 "dateDebut" => "required",
                 "dateFin" => "required",
                 "description" => "required",
             ]);
 
-        $input=$request->only(["intitulePoste","dateDebut","dateFin","description"]);
+        $input=$request->only(["intitulePoste","etablissement","dateDebut","dateFin","description"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
 
         DB::table('experience')->insert([
@@ -83,7 +91,7 @@ class EtudiantController extends Controller
             "idEtudiant" => $etu,
         ]);
 
-        return redirect(route('accueil'));
+        return redirect(route('edit_profile'));
 
     }
 
@@ -104,7 +112,7 @@ class EtudiantController extends Controller
             "idEtudiant" => $etu,
         ]);
 
-        return redirect(route('accueil'));
+        return redirect(route('edit_profile'));
 
     }
 
