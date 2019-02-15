@@ -17,8 +17,10 @@ class EtudiantController extends Controller
 {
     function modifierProfile($id)
     {
-        $id = Etudiant::where('idUser',$id)->get();
-        if($id !== Auth::id()){
+        $id=Etudiant::where('id',$id)
+            ->where('idUser',Auth::id())
+            ->first();
+        if($id->id !== Auth::id()){
             return redirect(route('accueil'));
         }
         $categorie = DB::table('categorie')->pluck('nomCategorie');
