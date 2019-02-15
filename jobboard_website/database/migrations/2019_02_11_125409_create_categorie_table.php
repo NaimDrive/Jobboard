@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateCategorieTable extends Migration
 {
@@ -16,9 +17,18 @@ class CreateCategorieTable extends Migration
         Schema::create('categorie', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nomCategorie');
-            $table->integer('idCompEtu');
             $table->timestamps();
         });
+
+        DB::table('categorie')->insert([
+            "nomCategorie" => "Analyse",
+        ]);
+        DB::table('categorie')->insert([
+            "nomCategorie" => "Programmation",
+        ]);
+        DB::table('categorie')->insert([
+            "nomCategorie" => "Base de données",
+        ]);
     }
 
     /**
