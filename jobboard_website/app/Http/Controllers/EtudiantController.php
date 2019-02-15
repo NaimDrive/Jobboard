@@ -17,14 +17,16 @@ class EtudiantController extends Controller
 {
     function modifierProfile($id)
     {
-        $userId = DB::table('etudiant')->where('idUser',$id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
+        $userId = DB::table('etudiant')->where('id',$id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
         $etuId = DB::table('etudiant')->where('idUser',$id)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
-        if($userId !== Auth::id()){
-            return redirect(route('accueil'));
+
+        if($userId !== Auth::id()){ //si l'id user de l'étudiant est différent de l'id user connecté...
+            return redirect(route('accueil')); //on renvoi à la page d'accueil
+            //Cela permet de verifier que l'utilisateur est bien un étudiant, et qu'il essaye d'accèder à un profile existant, qui est bien le sien
         }
-        $categorie = DB::table('categorie')->pluck('nomCategorie');
-        $competences = DB::table('competences_etudiant')->where('idEtudiant',$etuId)->get();
-        return view('etudiant/editProfile',["categorie"=>$categorie,"id"=>$id, "competence"=>$competences]);
+        $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
+        $competences = DB::table('competences_etudiant')->where('idEtudiant',$etuId)->get(); //on recupere les compétences de l'étudiant qui désire modifier son profile
+        return view('etudiant/editProfile',["categorie"=>$categorie, "competence"=>$competences]); //on retourne la vue de modification du profile de l'étudiant
     }
 
 
@@ -34,12 +36,6 @@ class EtudiantController extends Controller
     }
 
 
-    function creerEtudiant(){
-        if(Auth::check()){
-            return view('etudiant/creerEtudiant');
-        }
-        return redirect(route('login'));
-    }
 
     //
     //
