@@ -7,8 +7,10 @@
         <div class="row justify-content-md-center">
             <div class=" col-lg-6">
 
+                <!-- DEBUT DU FORMULAIRE DE PHOTO DE PROFILE -->
 
                 <form>
+                    {!! csrf_field() !!}
                     <fieldset>
                         <legend>Photo de profile</legend>
                         <div class="form-group">
@@ -17,7 +19,23 @@
                     </fieldset>
                 </form>
 
-            <!-- DEBUT DU FORMULAIRE DE COMPETENCES -->
+                <!-- DEBUT DU FORMULAIRE DE COMPETENCES -->
+
+                <form method="POST" action="{{route('enregistrer_identite')}}">
+                    {!! csrf_field() !!}
+                    <fieldset>
+                        <legend>Identité</legend>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-6"><input type="text" class="form-control" id="nom" name="nom" value="{{old("nom")}}" aria-describedby="infoComp" placeholder="Nom"></div>
+                                <div class="col-lg-6"><input type="text" class="form-control" id="prenom" name="prenom" value="{{old("prenom")}}" aria-describedby="infoComp" placeholder="Prenom"></div>
+                            </div>
+                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- DEBUT DU FORMULAIRE DE COMPETENCES -->
 
                 <form method="POST" action="{{route('enregistrer_competence')}}">
                     {!! csrf_field() !!}
