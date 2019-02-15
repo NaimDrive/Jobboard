@@ -11,12 +11,18 @@ class EntrepriseController extends Controller
 {
     function createEntreprise(){
         if(Auth::check()){
+            $haveEntreprise = DB::table('contact_entreprise')->where('idUser', Auth::id())->value('idEntrepise');
+            if($haveEntreprise != null){
+                return redirect(route('accueil'));
+            }
             return view('entreprise/createEntreprise');
         }
         return redirect(route('login'));
     }
 
     function enregistrerEntreprise(Request $request){
+        $userID = Auth::id();
+
         $this->validate($request,
             [
                 "nom"=> ["required","string","max:255"],
@@ -29,6 +35,8 @@ class EntrepriseController extends Controller
             "nom" => $input["nom"],
             "siret" => $input["siret"],
         ]);
+
+        DB::table('contact_entreprise')->where('idUser',$userID)->update(['idEntrepise' => $entreprise]);
 
 
         $this->validate($request,[
