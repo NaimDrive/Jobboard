@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster');
 
 .titre
-{   
-    font-family: Lobster; 
-    top:50%;
+{
+    font-family: Lobster;
+    top:40%;
     left: 40%;
     text-align: center;
     color: #00ac94;
-    font-weight : 2500;
+    font-weight : 200;
     font-size: 250px;
-    
+
 }
 .sous{
-    font-family: Lobster; 
-    position: absolute;
+    font-family: Lobster;
+    position: fixed;
     text-align: center;
     top:50%;
     left: 50%;
@@ -24,13 +24,8 @@
     font-size: 40px;
     height: 80px;
     width: 400px;
-    
     display: block;
-    position: relative;
-    margin-top: 15%;
-    
-	margin-left: 40%;
-	
-
-    
+    position: fixed;
+    margin-top: 5%;
+    margin-left: 40%;
 }
