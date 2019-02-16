@@ -148,6 +148,7 @@ class EntrepriseController extends Controller
 
         $compteurContact = $request["nbContact"]+=0;
 
+
         for($i = 0; $i < $compteurContact; $i++){
             $this->validate($request,[
                 "contact_".$i."_civilite" => ['required', "string", "max:255"],
@@ -155,19 +156,33 @@ class EntrepriseController extends Controller
                 "contact_".$i."_prenom" => ['required', "string", "max:255"],
                 "contact_".$i."_mail" => ['required', "string", "max:255"],
                 "contact_".$i."_phone" => ['required', "string", "max:10", "min:10"],
+                "isUser_".$i => ['required'],
             ]);
 
             $input = $request->only(["contact_".$i."_civilite","contact_".$i."_nom",
-                "contact_".$i."_prenom","contact_".$i."_mail","contact_".$i."_phone"]);
+                "contact_".$i."_prenom","contact_".$i."_mail","contact_".$i."_phone","isUser_".$i]);
 
-            DB::table('contact_entreprise')->insert([
-                'nom' => $input["contact_".$i."_nom"],
-                'prenom' => $input["contact_".$i."_prenom"],
-                'mail' => $input["contact_".$i."_mail"],
-                'telephone' => $input["contact_".$i."_phone"],
-                'civilite' => $input["contact_".$i."_civilite"],
-                'idEntreprise' => $entreprise,
-            ]);
+
+            if (substr($input["isUser_".$i],0,6) == "false_" ){
+
+            }
+            elseif ($input["isUser_".$i]=="false"){
+                DB::table('contact_entreprise')->insert([
+                    'nom' => $input["contact_".$i."_nom"],
+                    'prenom' => $input["contact_".$i."_prenom"],
+                    'mail' => $input["contact_".$i."_mail"],
+                    'telephone' => $input["contact_".$i."_phone"],
+                    'civilite' => $input["contact_".$i."_civilite"],
+                    'idEntreprise' => $entreprise,
+                ]);
+            }
+
+            else{
+                DB::table("contact_entreprise")->where("id", $input["isUser_".$i])->update([
+                    'idEntreprise' => NULL,
+                ]);
+            }
+
         }
 
         return redirect(route('accueil'));

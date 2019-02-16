@@ -2,6 +2,16 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger"  style="margin-top: 2rem">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-8">
@@ -66,64 +76,67 @@
 
                                     @php($j=0)
                                     @foreach($entreprise->contacts as $contact)
-                                        @if($contact->idUser == null)
-                                            <div id="block_contact_{{$j}}" class="form-group ml-1">
-                                                <div class="row">
-                                                    <div class="col-11">
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4 col-form-label text-md-right"
-                                                                   for="civilite">Civilité</label>
-                                                            <div class="col-md-5">
-                                                                <select id="contact_{{$j}}_civilite" class="form-control"
-                                                                        name="contact_{{$j}}_civilite">
-                                                                    <option value="Monsieur" {{$contact->civilite == "Monsieur" ? 'selected' : ''}}>Monsieur</option>
-                                                                    <option value="Madame" {{$contact->civilite == "Madame" ? 'selected' : ''}}>Madame</option>
-                                                                    <option value="Autre" {{$contact->civilite == "Autre" ? 'selected' : ''}}>Autre</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4 col-form-label text-md-right"
-                                                                   for="nom">Nom</label>
-                                                            <div class="col-md-5">
-                                                                <input id="contact_{{$j}}_nom" class="form-control"
-                                                                       type="text" name="contact_{{$j}}_nom" value="{{$contact->nom}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4 col-form-label text-md-right"
-                                                                   for="prenom">Prénom</label>
-                                                            <div class="col-md-5">
-                                                                <input id="contact_{{$j}}_prenom" class="form-control"
-                                                                       type="text" name="contact_{{$j}}_prenom" value="{{$contact->prenom}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4 col-form-label text-md-right"
-                                                                   for="mail">Mail</label>
-                                                            <div class="col-md-5">
-                                                                <input id="contact_{{$j}}_mail" class="form-control"
-                                                                       type="text" name="contact_{{$j}}_mail" value="{{$contact->mail}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-md-4 col-form-label text-md-right"
-                                                                   for="nom">Téléphone</label>
-                                                            <div class="col-md-5">
-                                                                <input id="contact_{{$j}}_phone" class="form-control"
-                                                                       type="text" name="contact_{{$j}}_phone" value="{{$contact->telephone}}">
-                                                            </div>
+                                        <div id="block_contact_{{$j}}" class="form-group ml-1">
+                                            @if($contact->idUser == null)
+                                                <input type="hidden" id="isUser_{{$j}}" name="isUser_{{$j}}" value="false">
+                                            @else
+                                                <input type="hidden" id="isUser_{{$j}}" name="isUser_{{$j}}" value="false_{{$contact->id}}">
+                                            @endif
+                                            <div class="row">
+                                                <div class="col-11">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="civilite">Civilité</label>
+                                                        <div class="col-md-5">
+                                                            <select id="contact_{{$j}}_civilite" class="form-control"
+                                                                    name="contact_{{$j}}_civilite">
+                                                                <option value="Monsieur" {{$contact->civilite == "Monsieur" ? 'selected' : ''}}>Monsieur</option>
+                                                                <option value="Madame" {{$contact->civilite == "Madame" ? 'selected' : ''}}>Madame</option>
+                                                                <option value="Autre" {{$contact->civilite == "Autre" ? 'selected' : ''}}>Autre</option>
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-1">
-                                                        <button id="contact_delete_{{$j}}" class="btn btn-danger"
-                                                                data-action="delete" data-target="block_contact_{{$j}}"
-                                                                type="button">X</button>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="nom">Nom</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_nom" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_nom" value="{{$contact->nom}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="prenom">Prénom</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_prenom" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_prenom" value="{{$contact->prenom}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="mail">Mail</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_mail" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_mail" value="{{$contact->mail}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="nom">Téléphone</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_phone" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_phone" value="{{$contact->telephone}}">
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-1">
+                                                    <button id="contact_delete_{{$j}}" class="btn btn-danger"
+                                                            data-action="delete" data-target="block_contact_{{$j}}"
+                                                            type="button">X</button>
+                                                </div>
                                             </div>
-                                            @php($j++)
-                                        @endif
+                                        </div>
+                                        @php($j++)
                                     @endforeach
                                 </div>
 
@@ -231,6 +244,7 @@
 
             divRow.appendChild(divCol11);
             divRow.appendChild(divCol1);
+
 
             divFormGroup.appendChild(divRow);
 
@@ -466,6 +480,14 @@
             divRow.appendChild(divCol11);
             divRow.appendChild(divCol1);
 
+            let inputIsUser = document.createElement("input");
+            inputIsUser.setAttribute("type", "hidden");
+            inputIsUser.setAttribute("name","isUser_"+indexC);
+            inputIsUser.setAttribute("id","isUser_"+indexC);
+            inputIsUser.setAttribute("value","false");
+
+
+            divFormGroup.appendChild(inputIsUser);
             divFormGroup.appendChild(divRow);
 
             divContact.appendChild(divFormGroup);
@@ -487,42 +509,55 @@
             let target = this.dataset.target;
             let divSupprimer = document.getElementById(target);
 
+
             let id = parseInt(target.substr(14,1));
-            document.getElementById("contacts").removeChild(divSupprimer);
-
-            for(let i = id; i < compteur; i++){
-                let div =document.getElementById("block_contact_"+(i+1));
-                div.setAttribute('id', "block_contact_"+i);
-
-                let inputCivilite = document.getElementById("contact_"+(i+1)+"_civilite")
-                let inputNom = document.getElementById("contact_"+(i+1)+"_nom");
-                let inputPrenom = document.getElementById("contact_"+(i+1)+"_prenom");
-                let inputMail = document.getElementById("contact_"+(i+1)+"_mail");
-                let inputPhone = document.getElementById("contact_"+(i+1)+"_phone");
-                let inputDelet = document.getElementById("contact_delete_"+(i+1));
-
-                inputCivilite.setAttribute('name', "contact_"+i+"_civilite");
-                inputCivilite.setAttribute('id', "contact_"+i+"_civilite");
-
-                inputNom.setAttribute('name', "contact_"+i+"_nom");
-                inputNom.setAttribute('id', "contact_"+i+"_nom");
-
-                inputPrenom.setAttribute('name', "contact_"+i+"_prenom");
-                inputPrenom.setAttribute('id', "contact_"+i+"_prenom");
-
-                inputMail.setAttribute('name', "contact_"+i+"_mail");
-                inputMail.setAttribute('id', "contact_"+i+"_mail");
-
-                inputPhone.setAttribute('name', "contact_"+i+"_phone");
-                inputPhone.setAttribute('id', "contact_"+i+"_phone");
-
-                inputDelet.setAttribute('data-target', "block_contact_"+i);
-                inputDelet.setAttribute('id', "contact_delete_"+i);
 
 
-
+            if( String(document.getElementById("isUser_"+id).value) != "false"){
+                divSupprimer.style.display="none";
+                let val = document.getElementById("isUser_"+id).value.substr(6);
+                document.getElementById("isUser_"+id).value = val;
             }
-            inputCompteur.value -=1;
+
+            else{
+
+                document.getElementById("contacts").removeChild(divSupprimer);
+                for(let i = id; i < compteur; i++){
+                    let div =document.getElementById("block_contact_"+(i+1));
+                    div.setAttribute('id', "block_contact_"+i);
+
+                    let inputCivilite = document.getElementById("contact_"+(i+1)+"_civilite");
+                    let inputNom = document.getElementById("contact_"+(i+1)+"_nom");
+                    let inputPrenom = document.getElementById("contact_"+(i+1)+"_prenom");
+                    let inputMail = document.getElementById("contact_"+(i+1)+"_mail");
+                    let inputPhone = document.getElementById("contact_"+(i+1)+"_phone");
+                    let inputDelet = document.getElementById("contact_delete_"+(i+1));
+
+                    inputCivilite.setAttribute('name', "contact_"+i+"_civilite");
+                    inputCivilite.setAttribute('id', "contact_"+i+"_civilite");
+
+                    inputNom.setAttribute('name', "contact_"+i+"_nom");
+                    inputNom.setAttribute('id', "contact_"+i+"_nom");
+
+                    inputPrenom.setAttribute('name', "contact_"+i+"_prenom");
+                    inputPrenom.setAttribute('id', "contact_"+i+"_prenom");
+
+                    inputMail.setAttribute('name', "contact_"+i+"_mail");
+                    inputMail.setAttribute('id', "contact_"+i+"_mail");
+
+                    inputPhone.setAttribute('name', "contact_"+i+"_phone");
+                    inputPhone.setAttribute('id', "contact_"+i+"_phone");
+
+                    inputDelet.setAttribute('data-target', "block_contact_"+i);
+                    inputDelet.setAttribute('id', "contact_delete_"+i);
+
+
+
+                }
+                inputCompteur.value -=1;
+            }
+
+
         }
 
 
