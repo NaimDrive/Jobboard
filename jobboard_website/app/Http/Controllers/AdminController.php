@@ -8,6 +8,7 @@ use App\Entreprise;
 use App\Etudiant;
 use App\Offre;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
@@ -28,11 +29,17 @@ class AdminController
         return view('administrateur/admin',compact('entreprises','etudiants','contacts', 'offres','nbEnt','nbEtu','nbCont','nbOf'));
     }
 
-    public function adminEntreprise(){
-
+    public function adminEntreprise()
+    {
         $entreprises = Entreprise::all();
-        return view('administrateur/adminEntreprise',compact('entreprises'));
+        return view('administrateur/adminEntreprise', compact('entreprises'));
     }
+
+    public function adminUneEntreprise($id){
+        $entreprise = DB::table('entreprise')->select('*')->where('id','=',$id)->first();
+        return view('administrateur/adminUneEntreprise',compact('entreprise'));
+    }
+
 
     public function supprEntreprise($id){
         DB::delete('delete from entreprise where id = ? ',[$id]);
