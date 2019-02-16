@@ -31,9 +31,10 @@ class ContactController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'civilite' => ['required', 'string'],
             'telephone' =>['required', 'string', 'min:10', 'max:10'],
+            'entreprise' => ['required']
         ]);
 
-        $input = $request->only(['nom','prenom','email','civilite','telephone']);
+        $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise']);
 
         DB::table('users')->where('id',$user)->update([
             'nom' => $input['nom'],
@@ -47,7 +48,8 @@ class ContactController extends Controller
             'prenom' => $input['prenom'],
             'mail' => $input['email'],
             'telephone' => $input['telephone'],
-            'civilite' => $input['civilite']
+            'civilite' => $input['civilite'],
+            'idEntreprise' => ($input['entreprise']=='null'? NULL : $input['entreprise']),
         ]);
 
         return redirect(route('accueil'));

@@ -81,6 +81,7 @@
 
                                 <div class="col-md-6">
                                     <select class="form-control" id="entreprise" name="entreprise">
+                                        <option value="null">Je n'ai pas d'entreprise</option>
                                         @foreach($entreprises as $entreprise)
                                             <option value="{{ $entreprise->id }}" {{ $contactEntreprise == $entreprise->id ? 'selected' : '' }}> {{ $entreprise->nom }}</option>
                                         @endforeach
