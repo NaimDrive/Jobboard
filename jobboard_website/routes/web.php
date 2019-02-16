@@ -41,8 +41,11 @@ Route::get('/etudiant/{id}','EtudiantController@consulterProfile')->name('consul
 
 Route::get('/entreprise/create','EntrepriseController@createEntreprise')->name('creerEntreprise');
 Route::post('/entreprise/enregistrer','EntrepriseController@enregistrerEntreprise')->name('enregistrerEntreprise');
+Route::get('/entreprise/{id}/edit', 'EntrepriseController@editEntreprise')->name('editEntreprise');
+Route::post('/entreprise/store_change', 'EntrepriseController@storeChanges')->name('storeEntrepriseChange');
 Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
 
-Route::get('/connexion', 'HomeController@index')->name('home');
+Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editContact');
+Route::post('/conntact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
 
 

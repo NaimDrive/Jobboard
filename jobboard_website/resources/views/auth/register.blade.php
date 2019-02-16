@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -24,9 +24,9 @@
 
                                 <div class="col-md-6">
                                     <select class="form-control" id="civilite" name="civilite" value="{{old("civilite")}}" >
-                                        <option>Monsieur</option>
-                                        <option>Madame</option>
-                                        <option>Autre</option>
+                                        <option value="Monsieur">Monsieur</option>
+                                        <option value="Madame">Madame</option>
+                                        <option value="Autre">Autre</option>
                                     </select>
                                 </div>
                             </div>
