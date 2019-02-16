@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entreprise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,9 +14,10 @@ class ContactController extends Controller
 
         if ($userId == $id){
             $contact = DB::table('contact_entreprise')->where('idUser', $userId)->first();
-            $user = Auth::user();
+            $contactEntreprise = DB::table('contact_entreprise')->where('idUser', $userId)->value('idEntreprise');
+            $entreprises = DB::table('entreprise')->get();
 
-            return view('contact/edit', ['contact' => $contact , 'user' => $user]);
+            return view('contact/edit', ['contact' => $contact ,'contactEntreprise'=>$contactEntreprise, 'entreprises'=>$entreprises]);
         }
         return redirect(route('accueil'));
     }
