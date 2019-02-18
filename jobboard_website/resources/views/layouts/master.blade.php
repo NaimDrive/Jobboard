@@ -20,10 +20,6 @@
     </div>
 
     @include('layouts.footer')
-<<<<<<< HEAD
-
-=======
     @yield('javaScript')
->>>>>>> eecbfc74412c3234638f1ec3cdb833b9cf2dd2b9
 </body>
 </html>

@@ -63,11 +63,16 @@ class EntrepriseController extends Controller
             "nbContactExist",
         ]);
 
-        $compteurContact = $request["nbContact"]+=0;
+        $compteurContact = $request["nbContactExist"]+=0;
 
         for($i = 0; $i < $compteurContact; $i++){
             $this->validate($request,[
-                "contact_"
+                "contact_".$i =>['required'],
+            ]);
+            $input = $request->only(["contact_".$i]);
+
+            DB::table('contact_entreprise')->where('id', $input["contact_".$i])->update([
+                'idEntreprise' => $entreprise,
             ]);
         }
 
@@ -110,7 +115,9 @@ class EntrepriseController extends Controller
 
             if($idEntreprise == $id){
                 $entreprise = Entreprise::find($id);
-                return view('entreprise/edit', ['entreprise'=>$entreprise]);
+                $contacts = DB::table('contact_entreprise')->where('idEntreprise',null)->get();
+
+                return view('entreprise/edit', ['entreprise'=>$entreprise, 'contacts'=>$contacts]);
             }
             return redirect(route('accueil'));
         }
@@ -160,6 +167,23 @@ class EntrepriseController extends Controller
         }
 
         DB::table('contact_entreprise')->where('idEntreprise',$entreprise)->where('idUser',null)->delete();
+
+        $this->validate($request,[
+            "nbContactExist",
+        ]);
+
+        $compteurContact = $request["nbContactExist"]+=0;
+
+        for($i = 0; $i < $compteurContact; $i++){
+            $this->validate($request,[
+                "contact_".$i =>['required'],
+            ]);
+            $input = $request->only(["contact_".$i]);
+
+            DB::table('contact_entreprise')->where('id', $input["contact_".$i])->update([
+                'idEntreprise' => $entreprise,
+            ]);
+        }
 
         $this->validate($request,[
             "nbContact",
