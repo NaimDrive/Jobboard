@@ -67,6 +67,11 @@ class InscriptionController extends Controller
                 'civilite' => $input['civilite'],
                 'idUser' => $userID,
             ]);
+
+            DB::table('definir')->insert([
+                'idRole'=>3,
+                'idUser'=>$userID,
+            ]);
         }
 
         else{
@@ -100,6 +105,10 @@ class InscriptionController extends Controller
                 'codePostal' => $input['codepostal'],
                 'ville' => $input['ville'],
                 'idUser' => $userID,
+            ]);
+            DB::table('definir')->insert([
+                'idRole'=>2,
+                'idUser'=>$userID,
             ]);
         }
 
