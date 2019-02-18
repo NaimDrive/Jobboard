@@ -62,10 +62,9 @@ Route::post('/entreprise/store_change', 'EntrepriseController@storeChanges')->na
 Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
 
 //ROUTE POUR LES RECHERCHES ETUDIANT
-Route::get('/etudiant/{id}/createrecherche','EtudiantController@createrecherche')->name('createRecherche');
-Route::post('/etudiant/enregisterRecherche','EtudiantController@enregistrerRechercheOffre')->name('enregistrer_recherche');
-
-
+Route::get('/etudiant/{id}/createrecherche','EtudiantController@modifierrecherche')->name('createrecherche');
+Route::post('/etudiant/supprimerRecherche','EtudiantController@supprimerRecherche')->name('supprimer_recherche');
+Route::post('/etudiant/enregistrerRecherche','EtudiantController@enregistrerRechercheOffre')->name('enregistrer_recherche');
 
 
 
