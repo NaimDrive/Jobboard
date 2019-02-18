@@ -54,6 +54,7 @@ Route::get('/etudiant/{id}','EtudiantController@consulterProfile')->name('consul
 
 
 //ROUTES POST D'AJOUT/MODIF D'ENTREPRISE
+Route::get('/entreprise/create','EntrepriseController@createEntreprise')->name('creerEntreprise');
 Route::post('/entreprise/enregistrer','EntrepriseController@enregistrerEntreprise')->name('enregistrerEntreprise');
 
 Route::get('/entreprise/{id}/edit', 'EntrepriseController@editEntreprise')->name('editEntreprise');
@@ -61,9 +62,6 @@ Route::post('/entreprise/store_change', 'EntrepriseController@storeChanges')->na
 Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
 
 
-//ROUTES GET D'ACCES CREATION ET VISUALISATION D'ENTREPRISE
-Route::get('/entreprise/create','EntrepriseController@createEntreprise')->name('creerEntreprise');
-Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
 
 
 //ROUTES MODIF CONTACT

@@ -89,13 +89,17 @@ class EntrepriseController extends Controller
     }
 
     function editEntreprise($id){
-        $idUser = Auth::id();
-        $idEntreprise = DB::table('contact_entreprise')->where('idUser',$idUser)->value('idEntreprise');
+        if (Auth::check()){
+            $idUser = Auth::id();
+            $idEntreprise = DB::table('contact_entreprise')->where('idUser',$idUser)->value('idEntreprise');
 
-        if($idEntreprise == $id){
-            $entreprise = Entreprise::find($id);
-            return view('entreprise/edit', ['entreprise'=>$entreprise]);
+            if($idEntreprise == $id){
+                $entreprise = Entreprise::find($id);
+                return view('entreprise/edit', ['entreprise'=>$entreprise]);
+            }
+            return redirect(route('accueil'));
         }
+        return redirect(route('login'));
     }
 
     function storeChanges(Request $request){
