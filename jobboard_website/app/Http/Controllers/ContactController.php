@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ContactEntreprise;
 use App\Entreprise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +57,10 @@ class ContactController extends Controller
         ]);
 
         return redirect(route('accueil'));
+    }
+
+    function afficherUnContact($id){
+        $contact = ContactEntreprise::find($id);
+        return view('contact/unContact',['contact'=>$contact]);
     }
 }

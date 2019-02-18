@@ -15,4 +15,8 @@ class Offre extends Model
     public function typeOffre() {
         return $this->belongsTo('App\TypeOffre', 'idTypeOffre');
     }
+
+    public function description(){
+        return $this->hasOne('App\DescriptionOffre','idOffre');
+    }
 }

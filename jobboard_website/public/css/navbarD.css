@@ -1,0 +1,8 @@
+#autocollapse.collapsed .navbar-header {
+    float: none;
+}
+#autocollapse.collapsed .navbar-toggle {
+    display: block;
+}
+
+header

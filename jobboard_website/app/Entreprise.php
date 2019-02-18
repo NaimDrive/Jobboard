@@ -15,4 +15,8 @@ class Entreprise extends Model
     public function adress() {
         return $this->hasMany('App\AdressEntreprise', 'idEntreprise');
     }
+
+    public function offres(){
+        return $this->hasMany('App\Offre','idEntreprise');
+    }
 }
