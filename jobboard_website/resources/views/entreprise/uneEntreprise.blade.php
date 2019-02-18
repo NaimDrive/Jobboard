@@ -25,19 +25,22 @@
                     @else
                         <h2 class="card-header">Nos annonces</h2>
                     @endif
-                    @foreach($entreprise->offres as $offre)
-                        <div class="border p-3">
-                            <h3>{{ $offre->nomOffre }}</h3>
-                            <p>{{ $offre->datePublicationOffre }}</p>
-                            <h4>Description de l'offre</h4>
+                    <div class="card-body">
+                        @foreach($entreprise->offres as $offre)
+                            <div class="border p-3 mt-3">
+                                <h3>{{ $offre->nomOffre }}</h3>
+                                <p>{{ $offre->datePublicationOffre }}</p>
+                                <h4>Description de l'offre</h4>
 
-                            <p >Contexte : {{ $offre->description->contexte }}</p>
-                            <p>Objectif : {{ $offre->description->objectif }}</p>
-                            <p class="mt-1">Du {{ $offre->dateDebut }} au {{ $offre->dateFin }}</p>
-                        </div>
+                                <p >Contexte : {{ $offre->description->contexte }}</p>
+                                <p>Objectif : {{ $offre->description->objectif }}</p>
+                                <p class="mt-1">Du {{ $offre->dateDebut }} au {{ $offre->dateFin }}</p>
+                            </div>
 
 
-                    @endforeach
+                        @endforeach
+                    </div>
+
                 </div>
 
             </div>
@@ -49,13 +52,15 @@
                     @else
                         <h2 class="card-header">Nos adresses</h2>
                     @endif
-
-                    @foreach($entreprise->adress as $adresse)
-                        <div class="border p-2">
-                            <p> {{ $adresse->nomRue }} </p>
-                            <p> {{ $adresse->ville }} {{ $adresse->coordonnePostales }} </p>
-                        </div>
+                    <div class="card-body">
+                        @foreach($entreprise->adress as $adresse)
+                            <div class="border p-2 mt-2">
+                                <p> {{ $adresse->nomRue }} </p>
+                                <p> {{ $adresse->ville }} {{ $adresse->coordonnePostales }} </p>
+                            </div>
                         @endforeach
+                    </div>
+
                 </div>
 
 
@@ -65,12 +70,14 @@
                     @else
                         <h2 class="card-header">Nos contacts</h2>
                     @endif
+                    <div class="card-body">
+                        @foreach($entreprise->contacts as $contact)
+                            <div class="border p-3 mt-2">
+                                <a href={{ route("afficherUnContact",["id"=>$contact->id]) }}>{{ $contact->prenom }} {{$contact->nom}}</a>
+                            </div>
+                        @endforeach
+                    </div>
 
-                    @foreach($entreprise->contacts as $contact)
-                        <div class="border p-3">
-                            <a href="">{{ $contact->prenom }} {{$contact->nom}}</a>
-                        </div>
-                    @endforeach
                 </div>
 
 

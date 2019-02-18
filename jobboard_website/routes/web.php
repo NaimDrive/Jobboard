@@ -66,4 +66,5 @@ Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name
 
 //ROUTES MODIF CONTACT
 Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editContact');
-Route::post('/conntact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
+Route::post('/contact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
+Route::get('/contact/{id}','ContactController@afficherUnContact')->name('afficherUnContact');
