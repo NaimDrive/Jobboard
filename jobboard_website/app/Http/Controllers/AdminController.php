@@ -35,13 +35,22 @@ class AdminController
         return view('administrateur/adminEntreprise', compact('entreprises'));
     }
 
-    public function adminUneEntreprise($id){
-        $entreprise = DB::table('entreprise')->select('*')->where('id','=',$id)->first();
-        return view('administrateur/adminUneEntreprise',compact('entreprise'));
+    public function visionnerUneEntreprise($id){
+        $entreprise = Entreprise::find($id);
+        return view('administrateur/visionnerEntreprise',compact('entreprise'));
     }
 
 
     public function supprEntreprise($id){
+        $contacts = ContactEntreprise::all();
+        foreach ($contacts as $contact){
+            if($contact->idEntreprise == $id && $contact->idUser == null){ //si le contact est relié à aucun utilisateur on le supprime
+                DB::delete('delete from contact_entreprise where id = ?',[$contact->id]);
+            }
+            if($contact->idEntreprise == $id && $contact->idUser != null){ // sinon on déréférence sa valeur idEntreprise en la metttant à null
+                DB::table('contact_entreprise')->where('id','=',$contact->id)->update(['idEntreprise'=> null]);
+            }
+        }
         DB::delete('delete from entreprise where id = ? ',[$id]);
         return view('administrateur/validationSuppression');
     }
