@@ -80,7 +80,7 @@ class InscriptionController extends Controller
                 'dateNaissance' => ['required', 'date'],
                 'ville' => ['required', 'string', 'max:255'],
                 'adresse' => ['required', 'string', 'max:255'],
-                'codepostal' => ['required', 'string', 'max:5', 'min:5']
+                'codepostal' => ['required', 'string', 'max:5', 'min:5'],
             ]);
 
             $input = $request->only('nom','prenom','email','password','civilite','dateNaissance',
