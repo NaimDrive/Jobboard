@@ -61,6 +61,11 @@ Route::get('/entreprise/{id}/edit', 'EntrepriseController@editEntreprise')->name
 Route::post('/entreprise/store_change', 'EntrepriseController@storeChanges')->name('storeEntrepriseChange');
 Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
 
+//ROUTE POUR LES RECHERCHES ETUDIANT
+Route::get('/etudiant/{id}/createrecherche','EtudiantController@createrecherche')->name('createRecherche');
+Route::post('/etudiant/enregisterRecherche','EtudiantController@enregistrerRechercheOffre')->name('enregistrer_recherche');
+
+
 
 
 

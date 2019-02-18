@@ -309,4 +309,43 @@ class EtudiantController extends Controller
         return redirect(route('accueil'));
     }
 
+
+    //GESTION RECHERCHE 
+
+    function createrecherche()
+    {
+        return view('etudiant/createRecherche');
+    }
+
+    function enregistrerRechercheOffre(Request $request)
+    {
+        $user_id= Auth::id();
+ 
+        $this->validate($request,
+                [
+                    "souhait"=> "required",
+                    "duree"=> "required",
+                    "dateD"=> "required",
+                    "dateF"=> "required",
+                    "mobilité"=> "required",
+                    
+                ]);
+
+        $input=$request->only(["souhait,duree,dateD,dateF,mobilité"]);
+        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
+            
+
+        DB::table('recherche')->insert([
+                "souhait" => $input["souhait"],
+                "dureeStage" => $input["duree"],
+                "dateDebut" => $input["dateD"],
+                "dateFin" => $input["dateF"],
+                "mobilite" => $input["mobilité"],
+                "idEtudiant" => $etu
+        ]);
+
+        return redirect(route('accueil'));
+   
+        }
+
 }
