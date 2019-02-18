@@ -211,10 +211,16 @@
             let divCol1 = document.createElement("div");
             divCol1.setAttribute("class", "col-1");
 
-            divCol11.innerHTML+="<select id='contact_'+index class='form-control' name='contact_'+index>" +
-                "@foreach($contacts as $contact)<option value='{{$contact->id}}'>{{$contact->nom}} {{$contact->prenom}}</option>@endforeach</select>";
+            let inputSelect = document.createElement("select");
+            inputSelect.setAttribute("id", 'contact_'+index);
+            inputSelect.setAttribute('class','form-control');
+            inputSelect.setAttribute('name','contact_'+index);
 
 
+
+            inputSelect.innerHTML+="@foreach($contacts as $contact)<option value='{{$contact->id}}'>{{$contact->nom}} {{$contact->prenom}}</option>@endforeach";
+
+            divCol11.appendChild(inputSelect);
 
 
             //######################### Bouton supression ##################
