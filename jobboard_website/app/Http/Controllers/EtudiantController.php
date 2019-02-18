@@ -331,7 +331,7 @@ class EtudiantController extends Controller
                     
                 ]);
 
-        $input=$request->only(["souhait,duree,dateD,dateF,mobilité"]);
+        $input=$request->only(["souhait","duree","dateD","dateF","mobilité"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
             
 
