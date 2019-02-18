@@ -19,4 +19,8 @@ class Entreprise extends Model
     public function offres(){
         return $this->hasMany('App\Offre','idEntreprise');
     }
+
+    public function createur() {
+        return $this->belongsTo('App\ContactEntreprise', 'createur');
+    }
 }

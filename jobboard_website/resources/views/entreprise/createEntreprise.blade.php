@@ -26,6 +26,13 @@
                                 <input type="text" id="siret" name="siret" value="{{old("siret")}}" class="form-control col-md-6" placeholder="Numero de SIRET">
                             </div>
 
+                            <div class="form-group row">
+                                <label for="description" class="col-md-4 col-form-label text-md-right">
+                                    Description
+                                </label>
+                                <textarea name="description" id="description" value="{{old("description")}}" class="form-control col-md-6" placeholder="Description de votre entreprise"></textarea>
+                            </div>
+
                             <div class="form-group row border border-success">
                                 <div id="adresses">
                                     <input type="hidden" name="nbAdresse" id="compteur">

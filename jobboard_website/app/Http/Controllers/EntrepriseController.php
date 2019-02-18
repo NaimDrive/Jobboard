@@ -21,17 +21,22 @@ class EntrepriseController extends Controller
     function enregistrerEntreprise(Request $request){
         $userID = Auth::id();
 
+        $contactID = DB::table('contact_entreprise')->where('idUser',$userID)->value('id');
+
         $this->validate($request,
             [
                 "nom"=> ["required","string","max:255"],
                 "siret"=> ["required","string","min:14","max:14"],
+                "description" =>["required", "string", "min:15", 'max:1000']
             ]);
-        $input=$request->only(["nom","siret"]);
+        $input=$request->only(["nom","siret","description"]);
 
 
         $entreprise = DB::table("entreprise")->insertGetId([
             "nom" => $input["nom"],
             "siret" => $input["siret"],
+            "description" => $input["description"],
+            "createur" => $contactID,
         ]);
 
         DB::table('contact_entreprise')->where('idUser',$userID)->update(['idEntreprise' => $entreprise]);
@@ -132,13 +137,17 @@ class EntrepriseController extends Controller
             [
                 "nom"=> ["required","string","max:255"],
                 "siret"=> ["required","string","min:14","max:14"],
+                "description" =>["required", "string", "min:15", 'max:1000'],
+                "createur" => ["required"]
             ]);
-        $input=$request->only(["nom","siret"]);
+        $input=$request->only(["nom","siret","description","createur"]);
 
 
         DB::table("entreprise")->where('id',$entreprise)->update([
             "nom" => $input["nom"],
             "siret" => $input["siret"],
+            "description" => $input["description"],
+            "createur" => $input["createur"],
         ]);
 
 
@@ -172,9 +181,9 @@ class EntrepriseController extends Controller
             "nbContactExist",
         ]);
 
-        $compteurContact = $request["nbContactExist"]+=0;
+        $compteurContactExist = $request["nbContactExist"]+=0;
 
-        for($i = 0; $i < $compteurContact; $i++){
+        for($i = 0; $i < $compteurContactExist; $i++){
             $this->validate($request,[
                 "contact_".$i =>['required'],
             ]);

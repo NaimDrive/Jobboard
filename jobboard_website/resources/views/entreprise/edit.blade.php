@@ -36,6 +36,26 @@
                                 <input type="text" id="siret" name="siret" value="{{ $entreprise->siret }}" class="form-control col-md-6" placeholder="Numero de SIRET">
                             </div>
 
+                            <div class="form-group row">
+                                <label for="description" class="col-md-4 col-form-label text-md-right">
+                                    Description
+                                </label>
+                                <textarea name="description" id="description" class="form-control col-md-6" placeholder="Description de votre entreprise">{{ $entreprise->description }}</textarea>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="createur" class="col-md-4 col-form-label text-md-right">
+                                    Modérateur
+                                </label>
+                                <select name="createur" id="createur" class="form-control col-md-6">
+                                    @foreach($entreprise->contacts as $contact)
+                                        @if($contact->idUser != null)
+                                            <option value="{{ $contact->id }}">{{ $contact->prenom }} {{ $contact->nom }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="form-group row border border-success">
                                 <div id="adresses">
                                     <input type="hidden" name="nbAdresse" id="compteur">
@@ -181,7 +201,7 @@
 
         let index = parseInt(divAdresses.childNodes.length)-(5+parseInt({{$i}}));
 
-        let indexC = parseInt(divContact.childNodes.length)-(5+parseInt({{$j}}));
+        let indexC = parseInt(divContact.childNodes.length)-(3+parseInt({{$j}}));
 
         //ajout des events boutons supprimer pour toutes les adresses et tous les contacts deja présent
 

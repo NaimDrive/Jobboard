@@ -17,6 +17,8 @@ class CreateEntrepriseTable extends Migration
             $table->increments('id');
             $table->string('nom');
             $table->string('siret');
+            $table->longText('description');
+            $table->integer('createur');
             $table->timestamps();
         });
     }
