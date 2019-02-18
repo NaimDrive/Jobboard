@@ -357,7 +357,8 @@ class EtudiantController extends Controller
                 "idEtudiant" => $etu
         ]);
 
-        return redirect(route('accueil'));
+
+        return redirect(route('createrecherche',["id"=>$user_id]));
    
         }
 
@@ -371,9 +372,9 @@ class EtudiantController extends Controller
     
             $input=$request->only(["recherche_del"]);
             $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
-    
-            DB::table('recherche')->where('souhait', $input["recherche_del"])->where('idEtudiant',$etuId)->delete();
-    
+
+            DB::table('recherche')->where('id', $input["recherche_del"])->where('idEtudiant',$etuId)->delete();
+
             return redirect(route('createrecherche',["id"=>$user_id]));
         }
 

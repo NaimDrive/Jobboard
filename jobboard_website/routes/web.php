@@ -67,6 +67,7 @@ Route::post('/etudiant/supprimerRecherche','EtudiantController@supprimerRecherch
 Route::post('/etudiant/enregistrerRecherche','EtudiantController@enregistrerRechercheOffre')->name('enregistrer_recherche');
 
 
+
 //ROUTES MODIF CONTACT
 Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editContact');
 Route::post('/contact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
