@@ -1,4 +1,4 @@
-@extends('layouts.masterAccueil')
+@extends('layouts.master')
 
 @section('content')
     <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
