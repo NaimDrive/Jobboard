@@ -4,7 +4,7 @@
     <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
     <div class="container">
 
-        <br><br>
+        
         <div id="slider" class="mt-5">
             <figure>
                 <img src="{{asset('images/iutAutomne.jpg')}}" class="image" alt>
