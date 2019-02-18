@@ -9,11 +9,13 @@
     <title>Jobboard IUT de Lens</title>
     <!-- Styles -->
     <link rel="stylesheet" href="{{  asset ('css/bootstrap.css')  }}"/>
+    <link rel="stylesheet" href="{{  asset ('css/navbarD.css')  }}"/>
 </head>
 <body>
     @include('layouts.header')
     @yield('content')
     @yield('javaScript')
     @include('layouts.footer')
+
 </body>
 </html>

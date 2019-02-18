@@ -4,7 +4,7 @@
     <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
     <div class="container">
 
-        <div id="slider" class="mt-5">
+        <div id="slider" class="mt-5 " >
             <figure>
                 <img src="{{asset('images/index.jpg')}}" class="image" alt>
                 <img src="{{asset('images/IUT-de-Lens.jpg')}}" class="image" alt>
