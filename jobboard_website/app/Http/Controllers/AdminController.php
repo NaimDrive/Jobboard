@@ -42,6 +42,7 @@ class AdminController
 
 
     public function supprEntreprise($id){
+        DB::delete('delete from contact_entreprise where idEntreprise = ?',[$id]);
         DB::delete('delete from entreprise where id = ? ',[$id]);
         return view('administrateur/validationSuppression');
     }
