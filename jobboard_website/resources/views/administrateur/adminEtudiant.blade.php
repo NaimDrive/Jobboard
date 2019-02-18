@@ -8,7 +8,6 @@
         <div class="row">
             <div class="col-12">
                 <h1>Etudiants</h1>
-                <a href="#"> <button class="btn-success" id="btnEntrepriseAdmin">Ajouter un etudiant</button></a>
             </div>
         </div>
 
