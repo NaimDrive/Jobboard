@@ -35,9 +35,9 @@ class AdminController
         return view('administrateur/adminEntreprise', compact('entreprises'));
     }
 
-    public function adminUneEntreprise($id){
-        $entreprise = DB::table('entreprise')->select('*')->where('id','=',$id)->first();
-        return view('administrateur/adminUneEntreprise',compact('entreprise'));
+    public function visionnerUneEntreprise($id){
+        $entreprise = Entreprise::find($id);
+        return view('administrateur/visionnerEntreprise',compact('entreprise'));
     }
 
 

@@ -49,7 +49,7 @@
                     @foreach($entreprises as $entreprise)
                         <strong><p>{{ $entreprise->nom }}</p></strong>
                     @endforeach
-                    <a href="{{route('administrerUneEntreprise')}}"><button class="btn-primary">Voir + </button></a>
+                    <a href="{{route('administrerUneEntreprise',[$entreprise->id])}}"><button class="btn-primary">Voir + </button></a>
                 @endif
 
             </div>
