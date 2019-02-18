@@ -1,0 +1,33 @@
+#conteneur-fluide{
+    padding: 0;
+}
+
+.banniere{
+    margin-top: 10px;
+    background-color: #0c73cd;
+    color: white;
+}
+#cartes{
+    margin: 2%;
+}
+#carte{
+    padding: 0;
+    margin: 15px 0px 15px 0px;
+}
+
+#foreach{
+    height: 200px;
+}
+
+.titre{
+    margin-top: 10px;
+}
+
+#titre{
+    font-size: 22px;
+}
+
+.seemore{
+    font-size: 35px;
+    color: rgb(0,172,154);
+}

@@ -20,10 +20,12 @@ div#slider figure img { width: 20%; height: auto; float: left; }
 div#slider { width: 100%; max-width: 1200px; overflow: hidden }
 @keyframes slidy {
 0% { left: 0%; }
-25%{ left: 0%;}
-50% { left: -100%;}
-75% {left: -100%;}
-100%{right: -100%;}
+15%{ left: 0%;}
+30% { left: -100%;}
+45% { left: -100%;}
+60% {left:-200%;}
+75%{left: -200%;}
+100%{right: -200%;}
 }
 
 
@@ -47,4 +49,8 @@ div#slider figure {
     padding: 1rem;
     border-radius: 1rem;
     border: 10px #00AC9A;
+}
+
+.navbar-brand{
+
 }

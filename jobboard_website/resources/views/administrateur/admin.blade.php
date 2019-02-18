@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
     <div class="container text-center">
         <div class="row">
@@ -13,7 +13,22 @@
         </div>
 
         <div class="row" id="ligne_admin">
-            <div class="col-12 col-md-3" id="ligne_admin">
+
+            <div class="card text-center col-md-3">
+                <div class="card-body">
+                    <h4 class="card-title">Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h4>
+                    @if($etudiants->isEmpty())
+                        <p class="card-text">Aucun étudiant</p>
+                    @else
+                        @foreach($etudiants as $etu)
+                            <p class="card-text"> {{$etu->user->nom}}  {{$etu->user->prenom}}</p>
+                        @endforeach
+                        <a href="{{route('administrerUnEtudiant')}}"><button class="btn-primary">Voir + </button></a>
+                    @endif
+                </div>
+            </div>
+
+            {{--<div class="col-12 col-md-3" id="ligne_admin">
                 <h3>Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h3>
                 @if($etudiants->isEmpty())
                     <p>Aucun étudiant</p>
@@ -24,7 +39,7 @@
                     <a href="{{route('administrerUnEtudiant')}}"><button class="btn-primary">Voir + </button></a>
                 @endif
 
-            </div>
+            </div>--}}
 
             <div class="col-12 col-md-3" id="ligne_admin">
                 <h3>Entreprises <span class="badge badge-pill badge-dark">{{ $nbEnt }}</span></h3>

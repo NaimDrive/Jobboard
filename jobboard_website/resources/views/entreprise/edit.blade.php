@@ -2,28 +2,38 @@
 
 @section('content')
 
+    @if ($errors->any())
+        <div class="alert alert-danger"  style="margin-top: 2rem">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h1>Créer une entreptise</h1>
+                        <h1>Modifier mon entreptise</h1>
                     </div>
                     <div class="card-body">
-                        <form method='POST' action="{{route('enregistrerEntreprise')}}">
+                        <form method='POST' action="{{route('storeEntrepriseChange')}}">
                             {!! csrf_field() !!}
                             <div class="form-group row">
                                 <label for="nom" class="col-md-4 col-form-label text-md-right">
                                     Raison sociale
                                 </label>
-                                <input type="text" id="nom" name="nom" value="{{old("nom")}}" class="form-control col-md-6" placeholder="Nom de l'entreprise" required>
+                                <input type="text" id="nom" name="nom" value="{{ $entreprise->nom }}" class="form-control col-md-6" placeholder="Nom de l'entreprise" required>
                             </div>
 
                             <div class="form-group row">
                                 <label for="siret" class="col-md-4 col-form-label text-md-right">
                                     SIRET
                                 </label>
-                                <input type="text" id="siret" name="siret" value="{{old("siret")}}" class="form-control col-md-6" placeholder="Numero de SIRET">
+                                <input type="text" id="siret" name="siret" value="{{ $entreprise->siret }}" class="form-control col-md-6" placeholder="Numero de SIRET">
                             </div>
 
                             <div class="form-group row border border-success">
@@ -31,15 +41,27 @@
                                     <input type="hidden" name="nbAdresse" id="compteur">
                                     <label class="mb-3 mt-3 ml-5">Adresses</label>
 
-                                    <div id="block_adresse_0" class="form-group ml-1">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <input type="text" id="adresse_0_rue" name="adresse_0_rue" placeholder="Rue">
-                                                <input type="text" id="adresse_0_ville" name="adresse_0_ville" placeholder="Ville">
-                                                <input type="text" id="adresse_0_codePostal" name="adresse_0_codePostal" placeholder="Code Postal">
+                                    @php ($i = 0)
+
+                                    @foreach($entreprise->adress as $adresse)
+                                        <div id="block_adresse_{{$i}}" class="form-group ml-1">
+                                            <div class="row">
+                                                <div class="col-11">
+                                                    <input type="text" name="adresse_{{$i}}_rue"
+                                                           id="adresse_{{$i}}_rue" value="{{$adresse->nomRue}}">
+                                                    <input type="text" name="adresse_{{$i}}_ville"
+                                                           id="adresse_{{$i}}_ville" value="{{$adresse->ville}}">
+                                                    <input type="text" name="adresse_{{$i}}_codePostal"
+                                                           id="adresse_{{$i}}_codePostal" value="{{$adresse->coordonnePostales}}">
+                                                </div>
+                                                <div class="col-1">
+                                                    <button id="delete_{{$i}}" class="btn btn-danger" data-action="delete"
+                                                    data-target="block_adresse_{{$i}}" type="button">X</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        @php ($i++)
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -51,7 +73,73 @@
                                 <div id="contacts">
                                     <input type="hidden" name="nbContact" id="compteurContact">
                                     <label class="mb-3 mt-3 ml-5">Contacts</label>
+
+                                    @php($j=0)
+                                    @foreach($entreprise->contacts as $contact)
+                                        <div id="block_contact_{{$j}}" class="form-group ml-1">
+                                            @if($contact->idUser == null)
+                                                <input type="hidden" id="isUser_{{$j}}" name="isUser_{{$j}}" value="false">
+                                            @else
+                                                <input type="hidden" id="isUser_{{$j}}" name="isUser_{{$j}}" value="false_{{$contact->id}}">
+                                            @endif
+                                            <div class="row">
+                                                <div class="col-11">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="civilite">Civilité</label>
+                                                        <div class="col-md-5">
+                                                            <select id="contact_{{$j}}_civilite" class="form-control"
+                                                                    name="contact_{{$j}}_civilite">
+                                                                <option value="Monsieur" {{$contact->civilite == "Monsieur" ? 'selected' : ''}}>Monsieur</option>
+                                                                <option value="Madame" {{$contact->civilite == "Madame" ? 'selected' : ''}}>Madame</option>
+                                                                <option value="Autre" {{$contact->civilite == "Autre" ? 'selected' : ''}}>Autre</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="nom">Nom</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_nom" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_nom" value="{{$contact->nom}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="prenom">Prénom</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_prenom" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_prenom" value="{{$contact->prenom}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="mail">Mail</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_mail" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_mail" value="{{$contact->mail}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="nom">Téléphone</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_phone" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_phone" value="{{$contact->telephone}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-1">
+                                                    <button id="contact_delete_{{$j}}" class="btn btn-danger"
+                                                            data-action="delete" data-target="block_contact_{{$j}}"
+                                                            type="button">X</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @php($j++)
+                                    @endforeach
                                 </div>
+
                             </div>
 
                             <div class="form-group">
@@ -61,7 +149,7 @@
 
 
                             <div class="col-md-8 offset-md-4">
-                                <button class="btn btn-success" type="submit">Ajouter mon entreprise</button>
+                                <button class="btn btn-success" type="submit">Modifier mon entreprise</button>
                             </div>
                         </form>
                     </div>
@@ -73,20 +161,40 @@
 
 @section('javaScript')
     <script>
+
         let boutonAddContact = document.getElementById('add-contact');
 
         let boutonAddAdresse = document.getElementById('add-adresse');
 
         boutonAddContact.addEventListener('click',addContact);
 
+        let divAdresses = document.getElementById('adresses');
+
+        let divContact = document.getElementById('contacts');
+
+        let index = parseInt(divAdresses.childNodes.length)-(5+parseInt({{$i}}));
+
+        let indexC = parseInt(divContact.childNodes.length)-(5+parseInt({{$j}}));
+
+        //ajout des events boutons supprimer pour toutes les adresses et tous les contacts deja présent
+
+        for(let k=0; k<index; k++){
+            let bouton = document.getElementById('delete_'+k);
+            bouton.addEventListener('click', supprimerAdresse);
+        }
+
+        for(let k=0; k<indexC; k++){
+            let bouton = document.getElementById('contact_delete_'+k);
+            bouton.addEventListener('click', supprimerContact);
+        }
+
+
+        document.getElementById("compteur").value=index;
+
+        document.getElementById("compteurContact").value = indexC;
 
         boutonAddAdresse.addEventListener('click' , addAdresse);
         function addAdresse () {
-
-
-
-            let divAdresses = document.getElementById('adresses');
-            let index = parseInt(divAdresses.childNodes.length)-6;
 
             let divFormGroup = document.createElement("div");
             divFormGroup.setAttribute("class", "form-group ml-1");
@@ -137,6 +245,7 @@
             divRow.appendChild(divCol11);
             divRow.appendChild(divCol1);
 
+
             divFormGroup.appendChild(divRow);
 
             divAdresses.appendChild(divFormGroup);
@@ -144,7 +253,7 @@
             let bouton = document.getElementById('delete_'+index);
             bouton.addEventListener('click', supprimerAdresse);
 
-            document.getElementById("compteur").value = index+1;
+            document.getElementById("compteur").value = ++index;
         }
 
         function supprimerAdresse(){
@@ -185,13 +294,9 @@
 
 
         function addContact() {
-            let divContact = document.getElementById('contacts');
-
-            let index = parseInt(divContact.childNodes.length)-5;
-
             let divFormGroup = document.createElement("div");
             divFormGroup.setAttribute("class", "form-group ml-1");
-            divFormGroup.setAttribute("id", "block_contact_"+index);
+            divFormGroup.setAttribute("id", "block_contact_"+indexC);
 
             let divRow = document.createElement("div");
             divRow.setAttribute("class", "row");
@@ -219,9 +324,9 @@
             let divCol5Civilite = document.createElement("div");
             divCol5Civilite.setAttribute("class", "col-md-5");
             let inputCivilite = document.createElement("select");
-            inputCivilite.setAttribute("id", "contact_"+index+"_civilite");
+            inputCivilite.setAttribute("id", "contact_"+indexC+"_civilite");
             inputCivilite.setAttribute("class", "form-control");
-            inputCivilite.setAttribute("name", "contact_"+index+"_civilite");
+            inputCivilite.setAttribute("name", "contact_"+indexC+"_civilite");
 
             let optionMonsieur = document.createElement("option");
             optionMonsieur.appendChild(document.createTextNode("Monsieur"));
@@ -258,10 +363,10 @@
             let divCol5Nom = document.createElement("div");
             divCol5Nom.setAttribute("class", "col-md-5");
             let inputNom = document.createElement("input");
-            inputNom.setAttribute("id", "contact_"+index+"_nom");
+            inputNom.setAttribute("id", "contact_"+indexC+"_nom");
             inputNom.setAttribute("class", "form-control");
             inputNom.setAttribute("type","text");
-            inputNom.setAttribute("name", "contact_"+index+"_nom");
+            inputNom.setAttribute("name", "contact_"+indexC+"_nom");
 
             divCol5Nom.appendChild(inputNom);
 
@@ -285,10 +390,10 @@
             let divCol5Prenom = document.createElement("div");
             divCol5Prenom.setAttribute("class", "col-md-5");
             let inputPrenom = document.createElement("input");
-            inputPrenom.setAttribute("id", "contact_"+index+"_prenom");
+            inputPrenom.setAttribute("id", "contact_"+indexC+"_prenom");
             inputPrenom.setAttribute("class", "form-control");
             inputPrenom.setAttribute("type","text");
-            inputPrenom.setAttribute("name", "contact_"+index+"_prenom");
+            inputPrenom.setAttribute("name", "contact_"+indexC+"_prenom");
 
             divCol5Prenom.appendChild(inputPrenom);
 
@@ -314,10 +419,10 @@
             let divCol5Mail = document.createElement("div");
             divCol5Mail.setAttribute("class", "col-md-5");
             let inputMail = document.createElement("input");
-            inputMail.setAttribute("id", "contact_"+index+"_mail");
+            inputMail.setAttribute("id", "contact_"+indexC+"_mail");
             inputMail.setAttribute("class", "form-control");
             inputMail.setAttribute("type","text");
-            inputMail.setAttribute("name", "contact_"+index+"_mail");
+            inputMail.setAttribute("name", "contact_"+indexC+"_mail");
 
             divCol5Mail.appendChild(inputMail);
 
@@ -342,10 +447,10 @@
             let divCol5Phone = document.createElement("div");
             divCol5Phone.setAttribute("class", "col-md-5");
             let inputPhone = document.createElement("input");
-            inputPhone.setAttribute("id", "contact_"+index+"_phone");
+            inputPhone.setAttribute("id", "contact_"+indexC+"_phone");
             inputPhone.setAttribute("class", "form-control");
             inputPhone.setAttribute("type","text");
-            inputPhone.setAttribute("name", "contact_"+index+"_phone");
+            inputPhone.setAttribute("name", "contact_"+indexC+"_phone");
 
             divCol5Phone.appendChild(inputPhone);
 
@@ -358,10 +463,10 @@
             //######################### Bouton supression ##################
 
             let inputDelete = document.createElement("button");
-            inputDelete.setAttribute("id", "contact_delete_"+index);
+            inputDelete.setAttribute("id", "contact_delete_"+indexC);
             inputDelete.setAttribute("class", "btn btn-danger");
             inputDelete.setAttribute("data-action", "delete");
-            inputDelete.setAttribute("data-target", "block_contact_"+index);
+            inputDelete.setAttribute("data-target", "block_contact_"+indexC);
             inputDelete.setAttribute("type", "button");
 
             let X = document.createTextNode("X");
@@ -375,14 +480,22 @@
             divRow.appendChild(divCol11);
             divRow.appendChild(divCol1);
 
+            let inputIsUser = document.createElement("input");
+            inputIsUser.setAttribute("type", "hidden");
+            inputIsUser.setAttribute("name","isUser_"+indexC);
+            inputIsUser.setAttribute("id","isUser_"+indexC);
+            inputIsUser.setAttribute("value","false");
+
+
+            divFormGroup.appendChild(inputIsUser);
             divFormGroup.appendChild(divRow);
 
             divContact.appendChild(divFormGroup);
 
-            document.getElementById("compteurContact").value = index+1;
-
-            let bouton = document.getElementById('contact_delete_'+index);
+            let bouton = document.getElementById('contact_delete_'+indexC);
             bouton.addEventListener('click', supprimerContact);
+
+            document.getElementById("compteurContact").value = ++indexC;
         }
 
 
@@ -396,47 +509,57 @@
             let target = this.dataset.target;
             let divSupprimer = document.getElementById(target);
 
+
             let id = parseInt(target.substr(14,1));
-            document.getElementById("contacts").removeChild(divSupprimer);
-
-            for(let i = id; i < compteur; i++){
-                let div =document.getElementById("block_contact_"+(i+1));
-                div.setAttribute('id', "block_contact_"+i);
-
-                let inputCivilite = document.getElementById("contact_"+(i+1)+"_civilite")
-                let inputNom = document.getElementById("contact_"+(i+1)+"_nom");
-                let inputPrenom = document.getElementById("contact_"+(i+1)+"_prenom");
-                let inputMail = document.getElementById("contact_"+(i+1)+"_mail");
-                let inputPhone = document.getElementById("contact_"+(i+1)+"_phone");
-                let inputDelet = document.getElementById("contact_delete_"+(i+1));
-
-                inputCivilite.setAttribute('name', "contact_"+i+"_civilite");
-                inputCivilite.setAttribute('id', "contact_"+i+"_civilite");
-
-                inputNom.setAttribute('name', "contact_"+i+"_nom");
-                inputNom.setAttribute('id', "contact_"+i+"_nom");
-
-                inputPrenom.setAttribute('name', "contact_"+i+"_prenom");
-                inputPrenom.setAttribute('id', "contact_"+i+"_prenom");
-
-                inputMail.setAttribute('name', "contact_"+i+"_mail");
-                inputMail.setAttribute('id', "contact_"+i+"_mail");
-
-                inputPhone.setAttribute('name', "contact_"+i+"_phone");
-                inputPhone.setAttribute('id', "contact_"+i+"_phone");
-
-                inputDelet.setAttribute('data-target', "block_contact_"+i);
-                inputDelet.setAttribute('id', "contact_delete_"+i);
 
 
-
+            if( String(document.getElementById("isUser_"+id).value) != "false"){
+                divSupprimer.style.display="none";
+                let val = document.getElementById("isUser_"+id).value.substr(6);
+                document.getElementById("isUser_"+id).value = val;
             }
-            inputCompteur.value -=1;
+
+            else{
+
+                document.getElementById("contacts").removeChild(divSupprimer);
+                for(let i = id; i < compteur; i++){
+                    let div =document.getElementById("block_contact_"+(i+1));
+                    div.setAttribute('id', "block_contact_"+i);
+
+                    let inputCivilite = document.getElementById("contact_"+(i+1)+"_civilite");
+                    let inputNom = document.getElementById("contact_"+(i+1)+"_nom");
+                    let inputPrenom = document.getElementById("contact_"+(i+1)+"_prenom");
+                    let inputMail = document.getElementById("contact_"+(i+1)+"_mail");
+                    let inputPhone = document.getElementById("contact_"+(i+1)+"_phone");
+                    let inputDelet = document.getElementById("contact_delete_"+(i+1));
+
+                    inputCivilite.setAttribute('name', "contact_"+i+"_civilite");
+                    inputCivilite.setAttribute('id', "contact_"+i+"_civilite");
+
+                    inputNom.setAttribute('name', "contact_"+i+"_nom");
+                    inputNom.setAttribute('id', "contact_"+i+"_nom");
+
+                    inputPrenom.setAttribute('name', "contact_"+i+"_prenom");
+                    inputPrenom.setAttribute('id', "contact_"+i+"_prenom");
+
+                    inputMail.setAttribute('name', "contact_"+i+"_mail");
+                    inputMail.setAttribute('id', "contact_"+i+"_mail");
+
+                    inputPhone.setAttribute('name', "contact_"+i+"_phone");
+                    inputPhone.setAttribute('id', "contact_"+i+"_phone");
+
+                    inputDelet.setAttribute('data-target', "block_contact_"+i);
+                    inputDelet.setAttribute('id', "contact_delete_"+i);
+
+
+
+                }
+                inputCompteur.value -=1;
+            }
+
+
         }
 
-
-        document.getElementById("compteur").value = 1;
-        document.getElementById("compteurContact").value = 0;
 
     </script>
 @endsection

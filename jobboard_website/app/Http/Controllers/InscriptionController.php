@@ -56,6 +56,7 @@ class InscriptionController extends Controller
                 'prenom'=> $input['prenom'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
+                'created_at' => new \DateTime(),
             ]);
 
             DB::table('contact_entreprise')->insert([

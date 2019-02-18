@@ -7,15 +7,16 @@
     <div class="container text-center">
         <div class="row">
             <div class="col-12">
-                <h1>Contacts</h1>
-                <button class="btn-success" id="btnEntrepriseAdmin">Ajouter un contact</button>
+                <h1>Offre</h1>
+                <a href="#"> <button class="btn-success" id="btnEntrepriseAdmin">Ajouter une offre</button></a>
             </div>
         </div>
 
-        @foreach($contacts as $contact)
+
+        @foreach($offres as $offre)
             <div class="row" id="btnEntrepriseAdmin">
                 <div class="col-4 col-md-4">
-                    <p>{{$contact->nom}} {{$contact->prenom}}</p>
+                    <strong><p> {{$offre->nomOffre}}  {{$offre->nature}}</p></strong>
                 </div>
 
                 <div class="col-4 col-md-4">
@@ -23,10 +24,8 @@
                 </div>
 
                 <div class="col-4 col-md-4">
-                    <a href = '{{route('supprimerUnContact',[$contact->id])}}'><button class="btn-danger">Supprimer</button></a>
+                    <a href="{{route('supprimerUneOffre',[$offre->id])}}"><button class="btn-danger">Supprimer</button></a>
                 </div>
-
-
             </div>
         @endforeach
     </div>

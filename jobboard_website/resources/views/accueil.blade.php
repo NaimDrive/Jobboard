@@ -1,13 +1,16 @@
-@extends('layouts.master')
+@extends('layouts.masterAccueil')
 
 @section('content')
     <link href="{{ asset('css/accueil.css') }}" rel="stylesheet">
     <div class="container">
 
-        <div id="slider" class="mt-5 " >
+        <br><br>
+        <div id="slider" class="mt-5">
             <figure>
+                <img src="{{asset('images/iutAutomne.jpg')}}" class="image" alt>
                 <img src="{{asset('images/index.jpg')}}" class="image" alt>
                 <img src="{{asset('images/IUT-de-Lens.jpg')}}" class="image" alt>
+
 
             </figure>
         </div>

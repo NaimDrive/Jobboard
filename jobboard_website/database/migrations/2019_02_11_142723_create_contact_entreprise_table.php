@@ -20,7 +20,7 @@ class CreateContactEntrepriseTable extends Migration
             $table->string('mail');
             $table->string('telephone');
             $table->string('civilite');
-            $table->integer('idEntrepise')->nullable();
+            $table->integer('idEntreprise')->nullable();
             $table->integer('idUser')->nullable();
             $table->timestamps();
         });

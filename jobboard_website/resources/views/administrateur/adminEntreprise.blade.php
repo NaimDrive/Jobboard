@@ -19,7 +19,7 @@
              </div>
 
              <div class="col-4 col-md-4">
-                    <button class="btn-secondary">Modifier</button>
+                 <a href="{{route('administrerUneE',[$entreprise->id])}}"><button class="btn-secondary">Modifier</button></a>
              </div>
 
              <div class="col-4 col-md-4">
