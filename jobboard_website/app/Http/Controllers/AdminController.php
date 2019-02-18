@@ -42,7 +42,15 @@ class AdminController
 
 
     public function supprEntreprise($id){
-        DB::delete('delete from contact_entreprise where idEntreprise = ?',[$id]);
+        $contacts = ContactEntreprise::all();
+        foreach ($contacts as $contact){
+            if($contact->idEntreprise == $id && $contact->idUser == null){ //si le contact est relié à aucun utilisateur on le supprime
+                DB::delete('delete from contact_entreprise where id = ?',[$contact->id]);
+            }
+            if($contact->idEntreprise == $id && $contact->idUser != null){ // sinon on déréférence sa valeur idEntreprise en la metttant à null
+                DB::table('contact_entreprise')->where('id','=',$contact->id)->update(['idEntreprise'=> null]);
+            }
+        }
         DB::delete('delete from entreprise where id = ? ',[$id]);
         return view('administrateur/validationSuppression');
     }
