@@ -65,16 +65,16 @@
 
                     <h3> Le Stage </h3>
                     <p>
-                        Afin de valider leurs DUT nos étudiants recherchent un stage dans le <b>développement</b> informatique. <br>
+                        A la fin de leur DUT nos étudiants recherchent un stage dans le <b>développement</b> informatique. <br>
                         Il a pour but de mettre en pratique ce qu'ils ont appris durant les deux années de cours. <br>
-                        Mais nos étudiants sont également friant d'apprendre de nouvelles choses et apprendrons volontié de nouveaux langages durant leurs stages ! <br>
-                        Leurs stage doit avoir une durée minimum de dix semaines à partir du <b>8 avril 2019.</b>
+                        Mais nos étudiants sont également friants d'apprendre de nouvelles choses et apprendront volontier de nouveaux langages durant leur stage ! <br>
+                        Leur stage doit avoir une durée minimum de dix semaines à partir du <b>8 avril 2019.</b>
                     </p>
 
                     <h3>     Si vous voulez rencontrer nos étudiants c'est possible !</h3>
 
                     <p> Chaque année nous organisons des <b>Job Dating</b> afin de faciliter le dialogue entre les étudiants et les entreprises.<br>
-                        Si votre entreprise est intéressée venez vous inscrire à l'un de nos Job Dating , <b>nos étudiants vous attendes !</b></p>
+                        Si votre entreprise est intéressée venez vous inscrire à l'un de nos Job Dating , <b>nos étudiants vous attendent !</b></p>
                 </div>
             </div>
         </div>
