@@ -19,16 +19,6 @@ class CreateCategorieTable extends Migration
             $table->string('nomCategorie');
             $table->timestamps();
         });
-
-        DB::table('categorie')->insert([
-            "nomCategorie" => "Analyse",
-        ]);
-        DB::table('categorie')->insert([
-            "nomCategorie" => "Programmation",
-        ]);
-        DB::table('categorie')->insert([
-            "nomCategorie" => "Base de données",
-        ]);
     }
 
     /**
