@@ -35,12 +35,12 @@ Route::get('/admin/contact/delete/{id}','AdminController@supprContact')->name('s
 Route::get('/admin/offre','AdminController@adminOffre')->name('administrerUneOffre');
 Route::get('/admin/offre/delete/{id}','AdminController@supprOffre')->name('supprimerUneOffre');
 
-
 //ROUTES POST D'AJOUT D'INFORMATIONS POUR L'ETUDIANT
 Route::post('/etudiant/enregistrerCompetence','EtudiantController@gererCompetence')->name('enregistrer_competence');
 Route::post('/etudiant/enregistrerExperience','EtudiantController@gererExperience')->name('enregistrer_experience');
 Route::post('/etudiant/enregistrerActivite','EtudiantController@gererActivite')->name('enregistrer_activite');
 Route::post('/etudiant/enregistrerIdentite','EtudiantController@gererIdentite')->name('enregistrer_identite');
+Route::post('/etudiant/enregistrerImage','EtudiantController@gererPhoto')->name('enregistrer_image');
 
 
 //ROUTES POST DE SUPPRESSION D'INFORMATIONS POUR L'ETUDIANT
@@ -61,9 +61,15 @@ Route::get('/entreprise/{id}/edit', 'EntrepriseController@editEntreprise')->name
 Route::post('/entreprise/store_change', 'EntrepriseController@storeChanges')->name('storeEntrepriseChange');
 Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
 
+//ROUTE POUR LES RECHERCHES ETUDIANT
+Route::get('/etudiant/{id}/createrecherche','EtudiantController@createrecherche')->name('createRecherche');
+Route::post('/etudiant/enregisterRecherche','EtudiantController@enregistrerRechercheOffre')->name('enregistrer_recherche');
+
+
 
 
 
 //ROUTES MODIF CONTACT
 Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editContact');
-Route::post('/conntact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
+Route::post('/contact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
+Route::get('/contact/{id}','ContactController@afficherUnContact')->name('afficherUnContact');
