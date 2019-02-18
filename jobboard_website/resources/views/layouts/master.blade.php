@@ -12,8 +12,11 @@
 </head>
 <body>
     @include('layouts.header')
-    @yield('content')
-    @yield('javaScript')
+    <div class="mt-5">
+        @yield('content')
+    </div>
+
     @include('layouts.footer')
+    @yield('javaScript')
 </body>
 </html>

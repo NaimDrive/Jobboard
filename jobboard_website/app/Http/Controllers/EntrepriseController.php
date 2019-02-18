@@ -11,7 +11,8 @@ class EntrepriseController extends Controller
 {
     function createEntreprise(){
         if(Auth::check()){
-            return view('entreprise/createEntreprise');
+            $contacts = DB::table('contact_entreprise')->where('idEntreprise',null)->get();
+            return view('entreprise/createEntreprise', ['contacts' => $contacts]);
         }
         return redirect(route('login'));
     }
@@ -56,6 +57,19 @@ class EntrepriseController extends Controller
                 "idEntreprise" => $entreprise,
             ]);
         }
+
+        $this->validate($request,[
+            "nbContactExist",
+        ]);
+
+        $compteurContact = $request["nbContact"]+=0;
+
+        for($i = 0; $i < $compteurContact; $i++){
+            $this->validate($request,[
+                "contact_"
+            ]);
+        }
+
 
         $this->validate($request,[
             "nbContact",
