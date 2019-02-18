@@ -47,15 +47,20 @@
                                 <button type="button" id="add-adresse" class="btn btn-primary">Ajouter une adresse</button>
                             </div>
 
-                            <div class="form-group row border border-success">
-                                <div id="contacts">
+                            <div class="form-group border border-success">
+                                <label class="mb-3 mt-3 ml-5">Contacts</label>
+                                <div id="contacts" class="row">
                                     <input type="hidden" name="nbContact" id="compteurContact">
-                                    <label class="mb-3 mt-3 ml-5">Contacts</label>
+                                </div>
+                                <div id="contactsExist">
+                                    <input type="hidden" name="nbContactExist" id="compteurContactExist">
                                 </div>
                             </div>
 
+
                             <div class="form-group">
                                 <button type="button" id="add-contact" class="btn btn-primary">Ajouter un contact</button>
+                                <button type="button" id="add-contactExist" class="btn btn-primary">Ajouter un contact déjà inscrit</button>
                             </div>
 
 
@@ -75,9 +80,13 @@
     <script>
         let boutonAddContact = document.getElementById('add-contact');
 
+        let boutonAddContactExist = document.getElementById('add-contactExist');
+
         let boutonAddAdresse = document.getElementById('add-adresse');
 
         boutonAddContact.addEventListener('click',addContact);
+
+        boutonAddContactExist.addEventListener('click',addContactExist);
 
 
         boutonAddAdresse.addEventListener('click' , addAdresse);
@@ -183,11 +192,81 @@
         }
 
 
+        function addContactExist() {
+
+            let divContact = document.getElementById('contactsExist');
+
+            let index = parseInt(divContact.childNodes.length)-3;
+
+            let divFormGroup = document.createElement("div");
+            divFormGroup.setAttribute("class", "form-group ml-1");
+            divFormGroup.setAttribute("id", "block_contact_exist_"+index);
+
+            let divRow = document.createElement("div");
+            divRow.setAttribute("class", "row");
+
+            let divCol11 = document.createElement("div");
+            divCol11.setAttribute("class", 'col-10');
+
+            let divCol1 = document.createElement("div");
+            divCol1.setAttribute("class", "col-1");
+
+            divCol11.innerHTML+="<select id='contact_'+index class='form-control' name='contact_'+index>" +
+                "@foreach($contacts as $contact)<option value='{{$contact->id}}'>{{$contact->nom}} {{$contact->prenom}}</option>@endforeach</select>";
+
+
+
+
+            //######################### Bouton supression ##################
+
+            let inputDelete = document.createElement("button");
+            inputDelete.setAttribute("id", "contact_exist_delete_"+index);
+            inputDelete.setAttribute("class", "btn btn-danger");
+            inputDelete.setAttribute("data-action", "delete");
+            inputDelete.setAttribute("data-target", "block_contact_exist_"+index);
+            inputDelete.setAttribute("type", "button");
+
+            let X = document.createTextNode("X");
+            inputDelete.appendChild(X);
+
+            divCol1.appendChild(inputDelete);
+
+            divRow.appendChild(divCol11);
+            divRow.appendChild(divCol1);
+
+            divFormGroup.appendChild(divRow);
+
+            divContact.appendChild(divFormGroup);
+
+
+            document.getElementById("compteurContactExist").value = index+1;
+
+            let bouton = document.getElementById('contact_exist_delete_'+index);
+            bouton.addEventListener('click', supprimerContactExist);
+        }
+
+        function supprimerContactExist(){
+            let inputCompteur = document.getElementById("compteurContactExist");
+            let compteur = parseInt(inputCompteur.value)-1;
+
+            let target = this.dataset.target;
+            let divSupprimer = document.getElementById(target);
+
+            let id = parseInt(target.substr(20));
+            document.getElementById("contactsExist").removeChild(divSupprimer);
+
+            for(let i = id; i < compteur; i++){
+                let div =document.getElementById("block_contact_exist"+(i+1));
+                div.setAttribute('id', "block_contact_exist"+i);
+
+            }
+            inputCompteur.value -=1;
+        }
 
         function addContact() {
             let divContact = document.getElementById('contacts');
 
-            let index = parseInt(divContact.childNodes.length)-5;
+            let index = parseInt(divContact.childNodes.length)-3;
 
             let divFormGroup = document.createElement("div");
             divFormGroup.setAttribute("class", "form-group ml-1");
@@ -396,7 +475,7 @@
             let target = this.dataset.target;
             let divSupprimer = document.getElementById(target);
 
-            let id = parseInt(target.substr(14,1));
+            let id = parseInt(target.substr(14));
             document.getElementById("contacts").removeChild(divSupprimer);
 
             for(let i = id; i < compteur; i++){

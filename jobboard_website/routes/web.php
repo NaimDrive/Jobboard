@@ -26,7 +26,7 @@ Route::post('/inscription/store', 'InscriptionController@enregistrerUtilisateur'
 //ROUTES GET D'ACCES A LA GESTION D'ADMINISTRATEUR
 Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/admin/entreprise', 'AdminController@adminEntreprise')->name('administrerUneEntreprise');
-Route::get('/admin/entreprise/{id}','AdminController@adminUneEntreprise')->name('administrerUneE');
+Route::get('/admin/entreprise/{id}','AdminController@visionnerUneEntreprise')->name('visionnerUneEntreprise');
 Route::get('/admin/entreprise/delete/{id}','AdminController@supprEntreprise')->name('supprimerUneEntreprise');
 Route::get('/admin/etudiant', 'AdminController@adminEtudiant')->name('administrerUnEtudiant');
 Route::get('/admin/etudiant/delete/{id}','AdminController@supprEtudiant')->name('supprimerUnEtudiant');
