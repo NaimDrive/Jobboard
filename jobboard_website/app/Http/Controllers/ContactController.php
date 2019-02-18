@@ -10,16 +10,19 @@ use Illuminate\Support\Facades\DB;
 class ContactController extends Controller
 {
     function editContact($id){
-        $userId = DB::table('contact_entreprise')->where('idUser',Auth::id())->value('idUser');
+        if (Auth::check()) {
+            $userId = DB::table('contact_entreprise')->where('idUser', Auth::id())->value('idUser');
 
-        if ($userId == $id){
-            $contact = DB::table('contact_entreprise')->where('idUser', $userId)->first();
-            $contactEntreprise = DB::table('contact_entreprise')->where('idUser', $userId)->value('idEntreprise');
-            $entreprises = DB::table('entreprise')->get();
+            if ($userId == $id) {
+                $contact = DB::table('contact_entreprise')->where('idUser', $userId)->first();
+                $contactEntreprise = DB::table('contact_entreprise')->where('idUser', $userId)->value('idEntreprise');
+                $entreprises = DB::table('entreprise')->get();
 
-            return view('contact/edit', ['contact' => $contact ,'contactEntreprise'=>$contactEntreprise, 'entreprises'=>$entreprises]);
+                return view('contact/edit', ['contact' => $contact, 'contactEntreprise' => $contactEntreprise, 'entreprises' => $entreprises]);
+            }
+            return redirect(route('accueil'));
         }
-        return redirect(route('accueil'));
+        return redirect(route('login'));
     }
 
     function storeChanges(Request $request){
