@@ -15,15 +15,18 @@
 
         @foreach($offres as $offre)
             <div class="row" id="btnEntrepriseAdmin">
-                <div class="col-4 col-md-4">
+                <div class="col-3 col-md-3">
                     <strong><p> {{$offre->nomOffre}}  {{$offre->nature}}</p></strong>
                 </div>
 
-                <div class="col-4 col-md-4">
+                <div class="col-3 col-md-3">
+                    <button class="btn-primary">Visionner</button>
+                </div>
+                <div class="col-3 col-md-3">
                     <button class="btn-secondary">Modifier</button>
                 </div>
 
-                <div class="col-4 col-md-4">
+                <div class="col-3 col-md-3">
                     <a href="{{route('supprimerUneOffre',[$offre->id])}}"><button class="btn-danger">Supprimer</button></a>
                 </div>
             </div>
