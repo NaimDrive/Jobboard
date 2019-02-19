@@ -5,7 +5,7 @@
     <div class="container">
         <h1>{{ $contact->prenom }} {{$contact->nom}}</h1>
         @if($contact->user->picture != null)
-            <img src="{{ $contact->user->picture }}">
+            <img src="{{ asset($contact->user->picture) }}">
         @endif
         
         @foreach(Auth::user()->roles as $role)
