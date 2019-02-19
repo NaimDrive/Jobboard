@@ -1,7 +1,21 @@
 @extends('layouts.master')
 
 @section('content')
+
+
     <div class="container mt-5">
+
+        @if ($errors->any())
+            <div class="alert alert-danger"  style="margin-top: 2rem">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -14,8 +28,8 @@
                             <button class="btn btn-success" id="btnEtu">Je suis un <strong>etudiant</strong></button>
                         </div>
 
-                        <form method="POST" action="{{ route('storeUser') }}">
-                            @csrf
+                        <form method="POST" action="{{ route('storeUser') }}" enctype="multipart/form-data">
+                            {!! csrf_field() !!}
 
                             <input name="status" id="status" type="hidden">
 
@@ -92,6 +106,14 @@
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profile</label>
+
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" name="photo" id="photo">
                                 </div>
                             </div>
 

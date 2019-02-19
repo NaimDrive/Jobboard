@@ -20,18 +20,19 @@ class EtudiantController extends Controller
     {
         if (Auth::check()) {
             $userId = DB::table('etudiant')->where('id', $id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
-            $etuId = DB::table('etudiant')->where('idUser', $id)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
+            $etuId = DB::table('etudiant')->where('idUser', $userId)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
+            $role = DB::table('definir')->where('idUser',Auth::id())->value('idRole'); //Pour obtenir l'id du rôle de l'utilisateur courant
 
-            if ($userId !== Auth::id()) { //si l'id user de l'étudiant est différent de l'id user connecté...
+            if (($userId !== Auth::id()) && ($role !== 1)) { //si l'id user de l'étudiant est différent de l'id user connecté...
                 return redirect(route('accueil')); //on renvoi à la page d'accueil
                 //Cela permet de verifier que l'utilisateur est bien un étudiant, et qu'il essaye d'accèder à un profile existant, qui est bien le sien
             }
             $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
-            $competences = DB::table('competences_etudiant')->where('idEtudiant', $etuId)->get(); //on recupere les compétences de l'étudiant qui désire modifier son profile
-            $activite = DB::table('centre_d_interet')->where('idEtudiant', $etuId)->pluck('Interet'); //on recupere les activité de l'étudiant qui désire modifier son profile
-            $experiences = DB::table('experience')->where('idEtudiant', $etuId)->get(); //on recupere les expériences de l'étudiant qui désire modifier son profile
-            $image = DB::table('images')->where('idEtudiant',$etuId)->first(); //on recupere l'image de l'étudiant qui désire modifier son profile
-            return view('etudiant/editProfile', ["categorie" => $categorie, "competence" => $competences, "activite" => $activite, "experience" => $experiences, "image" => $image]); //on retourne la vue de modification du profile de l'étudiant
+            $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get(); //on recupere les compétences de l'étudiant qui désire modifier son profile
+            $activite = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet'); //on recupere les activité de l'étudiant qui désire modifier son profile
+            $experiences = DB::table('experience')->where('idEtudiant', $id)->get(); //on recupere les expériences de l'étudiant qui désire modifier son profile
+            $image = DB::table('images')->where('idEtudiant',$id)->first(); //on recupere l'image de l'étudiant qui désire modifier son profile
+            return view('etudiant/editProfile', ["categorie" => $categorie, "competence" => $competences, "activite" => $activite, "experience" => $experiences, "image" => $image,"id" =>$id]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
     }
@@ -64,7 +65,7 @@ class EtudiantController extends Controller
 
 
         if($_FILES['image']['size'] > $input['MAX_FILE_SIZE']){
-            return redirect(route('edit_profile',["id"=>$user_id]));
+            return redirect(route('edit_profile',["id"=>$etuId]));
         }
 
         DB::table('images')->where('idEtudiant', $etuId)->delete();
@@ -78,7 +79,7 @@ class EtudiantController extends Controller
             "idEtudiant" => $etuId,
         ]);
 
-        return redirect(route('edit_profile',["id"=>$user_id]));
+        return redirect(route('edit_profile',["id"=>$etuId]));
 
     }
 
@@ -90,25 +91,25 @@ class EtudiantController extends Controller
     //
 
     function gererIdentite(Request $request){
-        $user_id= Auth::id();
 
         $this->validate($request,
         [
             "nom" => "required",
             "prenom" => "required",
+            "idEtu" => "required",
         ]);
 
-        $input=$request->only(["nom","prenom"]);
-        $userId = DB::table('etudiant')->where('idUser',$user_id)->value('idUser');
+        $input=$request->only(["nom","prenom","idEtu"]);
+        $userId = DB::table('etudiant')->where('id',$input["idEtu"])->value('idUser');
         DB::table('users')
-            ->where('id',$user_id)
+            ->where('id',$userId)
             ->update(
                 [
                     "nom" => $input["nom"],
                     "prenom" => $input["prenom"],
                 ]
             );
-        return redirect(route('edit_profile',["id"=>$userId]));
+        return redirect(route('edit_profile',["id"=>$input["idEtu"]]));
     }
 
     //
@@ -118,45 +119,42 @@ class EtudiantController extends Controller
     //
 
     function supprimerCompetence(Request $request){
-        $user_id= Auth::id();
 
         $this->validate($request,
             [
                 "competence_del" => "required",
+                "idEtu" => "required",
             ]);
 
-        $input=$request->only(["competence_del"]);
-        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+        $input=$request->only(["competence_del","idEtu"]);
 
-        DB::table('competences_etudiant')->where('nomCompetence', $input["competence_del"])->where('idEtudiant',$etuId)->delete();
 
-        return redirect(route('edit_profile',["id"=>$user_id]));
+        DB::table('competences_etudiant')->where('nomCompetence', $input["competence_del"])->where('idEtudiant',$input["idEtu"])->delete();
+        return redirect(route('edit_profile',["id"=>$input["idEtu"]]));
     }
 
     function gererCompetence(Request $request){
-        $user_id= Auth::id();
 
         $this->validate($request,
             [
                 "competence"=> "required",
                 "level" => "required",
                 "categorie" => "required",
+                "idEtu" => "required",
             ]);
 
-        $input=$request->only(["competence","level","categorie"]);
-        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
-        $userId = DB::table('etudiant')->where('idUser',$user_id)->value('idUser');
+        $input=$request->only(["competence","level","categorie","idEtu"]);
         $categorie = DB::table('categorie')->where('nomCategorie', $input["categorie"])->value('id');
 
         DB::table('competences_etudiant')->insert([
             "nomCompetence" => $input["competence"],
             "niveauEstime" => $input["level"],
-            "idEtudiant" => $etu,
+            "idEtudiant" => $input["idEtu"],
             "idCategorie" => $categorie,
         ]);
 
 
-        return redirect(route('edit_profile',["id"=>$userId]));
+        return redirect(route('edit_profile',["id"=>$input["idEtu"]]));
     }
 
     //
@@ -166,25 +164,23 @@ class EtudiantController extends Controller
     //
 
     function supprimerExperience(Request $request){
-        $user_id= Auth::id();
 
         $this->validate($request,
             [
                 "experience_del" => "required",
+                "idEtu" => "required",
             ]);
 
-        $input=$request->only(["experience_del"]);
-        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+        $input=$request->only(["experience_del","idEtu"]);
 
-        DB::table('experience')->where('nom', $input["experience_del"])->where('idEtudiant',$etuId)->delete();
+        DB::table('experience')->where('nom', $input["experience_del"])->where('idEtudiant',$input["idEtu"])->delete();
 
-        return redirect(route('edit_profile',["id"=>$user_id]));
+        return redirect(route('edit_profile',["id"=>$input["idEtu"]]));
     }
 
 
 
     function gererExperience(Request $request){
-        $user_id= Auth::id();
 
         $this->validate($request,
             [
@@ -193,11 +189,11 @@ class EtudiantController extends Controller
                 "dateDebut" => "required",
                 "dateFin" => "required",
                 "description" => "required",
+                "idEtu" => "required",
             ]);
 
-        $input=$request->only(["intitulePoste","etablissement","dateDebut","dateFin","description"]);
-        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
-        $userId = DB::table('etudiant')->where('idUser',$user_id)->value('idUser');
+        $input=$request->only(["intitulePoste","etablissement","dateDebut","dateFin","description","idEtu"]);
+
 
         DB::table('experience')->insert([
             "nom" => $input["intitulePoste"],
@@ -205,10 +201,10 @@ class EtudiantController extends Controller
             "dateFin" => $input["dateFin"],
             "resume" => $input["description"],
             "etablissement" => $input["etablissement"],
-            "idEtudiant" => $etu,
+            "idEtudiant" => $input["idEtu"],
         ]);
 
-        return redirect(route('edit_profile',["id"=>$userId]));
+        return redirect(route('edit_profile',["id"=>$input["idEtu"]]));
 
     }
 
@@ -220,41 +216,39 @@ class EtudiantController extends Controller
 
 
     function supprimerActivite(Request $request){
-        $user_id= Auth::id();
 
         $this->validate($request,
             [
                 "activite_del" => "required",
+                "idEtu" => "required",
             ]);
 
-        $input=$request->only(["activite_del"]);
-        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+        $input=$request->only(["activite_del","idEtu"]);
 
-        DB::table('centre_d_interet')->where('Interet', $input["activite_del"])->where('idEtudiant',$etuId)->delete();
+        DB::table('centre_d_interet')->where('Interet', $input["activite_del"])->where('idEtudiant',$input["idEtu"])->delete();
 
-        return redirect(route('edit_profile',["id"=>$user_id]));
+        return redirect(route('edit_profile',["id"=>$input["idEtu"]]));
     }
 
 
 
     function gererActivite(Request $request){
-        $user_id= Auth::id();
 
         $this->validate($request,
             [
                 "activite"=> "required",
+                "idEtu" => "required",
             ]);
 
-        $input=$request->only(["activite"]);
-        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
-        $userId = DB::table('etudiant')->where('idUser',$user_id)->value('idUser');
+        $input=$request->only(["activite","idEtu"]);
+
 
         DB::table('centre_d_interet')->insert([
             "Interet" => $input["activite"],
-            "idEtudiant" => $etu,
+            "idEtudiant" => $input["idEtu"],
         ]);
 
-        return redirect(route('edit_profile',["id"=>$userId]));
+        return redirect(route('edit_profile',["id"=>$input["idEtu"]]));
 
     }
 
@@ -267,8 +261,6 @@ class EtudiantController extends Controller
 
 
     function enregistrerEtudiant(Request $request){
-
-        $user_id= Auth::id();
 
         $this->validate($request,
             [
@@ -317,22 +309,22 @@ class EtudiantController extends Controller
      
         if (Auth::check()) {
             $userId = DB::table('etudiant')->where('id', $id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
-            $etuId = DB::table('etudiant')->where('idUser', $id)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
+            $etuId = DB::table('etudiant')->where('idUser', $userId)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
+            $role = DB::table('definir')->where('idUser',Auth::id())->value('idRole'); //Pour obtenir l'id du rôle de l'utilisateur courant
 
-            if ($userId !== Auth::id()) { //si l'id user de l'étudiant est différent de l'id user connecté...
+            if (($userId !== Auth::id()) && ($role !== 1 )) { //si l'id user de l'étudiant est différent de l'id user connecté...
                 return redirect(route('accueil')); //on renvoi à la page d'accueil
                 //Cela permet de verifier que l'utilisateur est bien un étudiant, et qu'il essaye d'accèder à un profile existant, qui est bien le sien
             }
             $recherche = DB::table('recherche')->where('idEtudiant', $etuId)->get();//on recupere les recherches de l'étudiant
 
-            return view('etudiant/createRecherche', ["recherche"=>$recherche]); //on retourne la vue de modification du profile de l'étudiant
+            return view('etudiant/createRecherche', ["recherche"=>$recherche, "id"=>$id]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
     }
 
     function enregistrerRechercheOffre(Request $request)
     {
-        $user_id= Auth::id();
  
         $this->validate($request,
                 [
@@ -341,11 +333,11 @@ class EtudiantController extends Controller
                     "dateD"=> "required",
                     "dateF"=> "required",
                     "mobilité"=> "required",
-                    
+                    "idEtu" => "required",
                 ]);
 
-        $input=$request->only(["souhait","duree","dateD","dateF","mobilité"]);
-        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
+        $input=$request->only(["souhait","duree","dateD","dateF","mobilité","idEtu"]);
+
             
 
         DB::table('recherche')->insert([
@@ -354,28 +346,27 @@ class EtudiantController extends Controller
                 "dateDebut" => $input["dateD"],
                 "dateFin" => $input["dateF"],
                 "mobilite" => $input["mobilité"],
-                "idEtudiant" => $etu
+                "idEtudiant" => $input["idEtu"],
         ]);
 
 
-        return redirect(route('createrecherche',["id"=>$user_id]));
+        return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
    
         }
 
         function supprimerRecherche(Request $request){
-            $user_id= Auth::id();
     
             $this->validate($request,
                 [
                     "recherche_del" => "required",
+                    "idEtu" =>"required",
                 ]);
     
-            $input=$request->only(["recherche_del"]);
-            $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+            $input=$request->only(["recherche_del","idEtu"]);
 
-            DB::table('recherche')->where('id', $input["recherche_del"])->where('idEtudiant',$etuId)->delete();
+            DB::table('recherche')->where('id', $input["recherche_del"])->where('idEtudiant',$input["idEtu"])->delete();
 
-            return redirect(route('createrecherche',["id"=>$user_id]));
+            return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
         }
 
 

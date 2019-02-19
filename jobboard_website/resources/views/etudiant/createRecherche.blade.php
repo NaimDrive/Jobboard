@@ -13,6 +13,7 @@
 
 
     <form method="POST" action="{{route('enregistrer_recherche')}}">
+        <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
             {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
             <fieldset>
             <legend>Ce que vous voulez : </legend>
@@ -53,6 +54,7 @@
                     <tbody>
                     <tr>
                         <form method="POST" action="{{route('supprimer_recherche')}}">
+                            <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                         {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                             <th scope="row">{{$re->souhait}}</th>
                             <td>{{$re->dureeStage}}</td>

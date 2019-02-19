@@ -5,6 +5,10 @@
     <div class="container">
         <img src="{{$contact->user->picture}}" alt="" class="roundedImage">
         <h1>{{ $contact->prenom }} {{$contact->nom}}</h1>
+        @if($contact->user->picture != null)
+            <img src="{{ $contact->user->picture }}">
+        @endif
+        
         @foreach(Auth::user()->roles as $role)
             @if(Auth::id() == $contact->idUser || $role->typeRole == 'ADMIN')
                 <a href="{{route("editContact",["id"=>$contact->id])}}" class="btn btn-success float-right">Modifier</a>
