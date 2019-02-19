@@ -22,16 +22,6 @@
                         <a href="{{route('edit_profile',[$etu->id])}}"> <button class="btn-secondary mb-2">Modifier</button></a><br>
                         <a href="{{route('supprimerUnEtudiant',[$etu->id])}}"><button class="btn-danger mb-2">Supprimer</button></a><br>
                     </div>
-                <!---<div class="col-3 col-md-3">
-                    <a href="{{route('consult_profile',[$etu->id])}}"><button class="btn-primary">Visionner</button></a>
-                </div>
-                <div class="col-3 col-md-3">
-                    <a href="{{route('edit_profile',[$etu->id])}}"> <button class="btn-secondary">Modifier</button></a>
-                </div>
-
-                <div class="col-3 col-md-3">
-                    <a href="{{route('supprimerUnEtudiant',[$etu->id])}}"><button class="btn-danger">Supprimer</button></a>
-                </div>-->
                 </div>
         @endforeach
         </div>

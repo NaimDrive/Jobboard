@@ -11,25 +11,17 @@
             </div>
         </div>
 
-        @foreach($contacts as $contact)
-            <div class="row" id="btnEntrepriseAdmin">
-                <div class="col-3 col-md-3">
-                    <p>{{$contact->nom}} {{$contact->prenom}}</p>
+        <div class="row" id="btnEntrepriseAdmin">
+            @foreach($contacts as $contact)
+                <div class="card text-center col-12 col-md-3">
+                    <div class="card-body">
+                        <strong><p class="card-title text-center"> {{$contact->nom}}  {{$contact->prenom}}</p></strong>
+                        <a href="{{route('afficherUnContact',[$contact->id])}}"><button class="btn-primary mb-2">Visionner</button></a><br>
+                        <a href="{{route('editContact',[$contact->id])}}"> <button class="btn-secondary mb-2">Modifier</button></a><br>
+                        <a href="{{route('supprimerUnContact',[$contact->id])}}"><button class="btn-danger mb-2">Supprimer</button></a><br>
+                    </div>
                 </div>
-
-                <div class="col-3 col-md-3">
-                    <a href="{{route('afficherUnContact',[$contact->id])}}"><button class="btn-primary">Visionner</button></a>
-                </div>
-                <div class="col-3 col-md-3">
-                    <a href="{{route('editContact',[$contact->id])}}"><button class="btn-secondary">Modifier</button></a>
-                </div>
-
-                <div class="col-3 col-md-3">
-                    <a href = '{{route('supprimerUnContact',[$contact->id])}}'><button class="btn-danger">Supprimer</button></a>
-                </div>
-
-
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 @endsection
