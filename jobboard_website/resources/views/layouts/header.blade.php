@@ -28,11 +28,21 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('admin')}}">Admin</a>
                             </li>
-                        @endif
+                        @elseif($role->typeRole == "ETUDIANT")
+                                <?php $user_id= Illuminate\Support\Facades\Auth::id();
+                                $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url( 'etudiant/'.$idEtu.'/edit_profile') }} "> Mon Profil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('etudiant/'.$idEtu.'/createrecherche')}}"> Mes recherches</a>
+                                </li>
+                            @endif
                     @endforeach
                     <li class="nav-item"><a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();
 document.getElementById('logout-form').submit()">Déconnexion</a></li>
                     <form action="{{route('logout')}}" method="post" style="display: none;" id="logout-form">@csrf</form>
+
                 @endguest
             </ul>
             <form class="form-inline my-2 my-lg-0">
