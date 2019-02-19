@@ -318,14 +318,13 @@ class EtudiantController extends Controller
             }
             $recherche = DB::table('recherche')->where('idEtudiant', $etuId)->get();//on recupere les recherches de l'étudiant
 
-            return view('etudiant/createRecherche', ["recherche"=>$recherche]); //on retourne la vue de modification du profile de l'étudiant
+            return view('etudiant/createRecherche', ["recherche"=>$recherche, "id"=>$id]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
     }
 
     function enregistrerRechercheOffre(Request $request)
     {
-        $user_id= Auth::id();
  
         $this->validate($request,
                 [
@@ -334,12 +333,11 @@ class EtudiantController extends Controller
                     "dateD"=> "required",
                     "dateF"=> "required",
                     "mobilité"=> "required",
-                    
+                    "idEtu" => "required",
                 ]);
 
-        $input=$request->only(["souhait","duree","dateD","dateF","mobilité"]);
-        $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
-        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+        $input=$request->only(["souhait","duree","dateD","dateF","mobilité","idEtu"]);
+
             
 
         DB::table('recherche')->insert([
@@ -348,28 +346,27 @@ class EtudiantController extends Controller
                 "dateDebut" => $input["dateD"],
                 "dateFin" => $input["dateF"],
                 "mobilite" => $input["mobilité"],
-                "idEtudiant" => $etu
+                "idEtudiant" => $input["idEtu"],
         ]);
 
 
-        return redirect(route('createrecherche',["id"=>$etuId]));
+        return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
    
         }
 
         function supprimerRecherche(Request $request){
-            $user_id= Auth::id();
     
             $this->validate($request,
                 [
                     "recherche_del" => "required",
+                    "idEtu" =>"required",
                 ]);
     
-            $input=$request->only(["recherche_del"]);
-            $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+            $input=$request->only(["recherche_del","idEtu"]);
 
-            DB::table('recherche')->where('id', $input["recherche_del"])->where('idEtudiant',$etuId)->delete();
+            DB::table('recherche')->where('id', $input["recherche_del"])->where('idEtudiant',$input["idEtu"])->delete();
 
-            return redirect(route('createrecherche',["id"=>$etuId]));
+            return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
         }
 
 
