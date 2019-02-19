@@ -9,7 +9,7 @@
 
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('storeContactChange') }}">
+                        <form method="POST" action="{{ route('storeContactChange') }} enctype="multipart/form-data"">
                             @csrf
 
                             <div class="form-group row">
@@ -63,6 +63,14 @@
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profile</label>
+
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" name="photo" id="photo">
                                 </div>
                             </div>
 

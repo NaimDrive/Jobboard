@@ -40,10 +40,18 @@ class ContactController extends Controller
             'nom' => ['required','string','max:255'],
             'prenom' => ['required','string','max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
+            'photo' => ['nullable','image'],
             'civilite' => ['required', 'string'],
             'telephone' =>['required', 'string', 'min:10', 'max:10'],
             'entreprise' => ['required']
         ]);
+
+        $photo = null;
+
+        if ($request->hasFile('photo')) {
+            $photo = $request['photo']->store('/public/images/profilPicture');
+            $photo= str_replace("public","storage",$photo);
+        }
 
         $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise']);
 
@@ -51,6 +59,7 @@ class ContactController extends Controller
             'nom' => $input['nom'],
             'prenom' => $input['prenom'],
             'email' => $input['email'],
+            'picture' => $photo,
             'updated_at' => new \DateTime()
         ]);
 
