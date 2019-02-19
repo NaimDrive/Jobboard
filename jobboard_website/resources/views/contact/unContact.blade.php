@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <link rel="stylesheet" href="">
     <div class="container">
+
         <div class="row">
             @if($contact->user->picture != null)
                 <img src="{{ asset($contact->user->picture) }}">
