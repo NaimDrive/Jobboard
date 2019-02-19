@@ -16,7 +16,7 @@
 
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title">Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h4>
+                    <h4 class="card-title text-center">Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h4>
                     @if($etudiants->isEmpty())
                         <p class="card-text">Aucun étudiant</p>
                     @else
@@ -30,7 +30,7 @@
 
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title">Entreprises <span class="badge badge-pill badge-dark">{{ $nbEnt }}</span> </h4>
+                    <h4 class="card-title text-center">Entreprises <span class="badge badge-pill badge-dark">{{ $nbEnt }}</span> </h4>
                     @if($entreprises->isEmpty())
                         <p class="card-text">Aucune entreprise</p>
                     @else
@@ -44,7 +44,7 @@
 
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title">Contacts <span class="badge badge-pill badge-dark">{{ $nbCont }}</span> </h4>
+                    <h4 class="card-title text-center">Contacts <span class="badge badge-pill badge-dark">{{ $nbCont }}</span> </h4>
                     @if($contacts->isEmpty())
                         <p class="card-text">Aucun contact</p>
                     @else
@@ -58,7 +58,7 @@
 
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title">Offres <span class="badge badge-pill badge-dark">{{ $nbOf }}</span> </h4>
+                    <h4 class="card-title text-center">Offres <span class="badge badge-pill badge-dark">{{ $nbOf }}</span> </h4>
                     @if($offres->isEmpty())
                         <p class="card-text">Aucune offre</p>
                     @else
