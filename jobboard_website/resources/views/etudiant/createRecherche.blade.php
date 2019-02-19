@@ -17,13 +17,18 @@
             <fieldset>
             <legend>Ce que vous voulez : </legend>
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-6"><input type="text" class="form-control" id="souhait" name="souhait" value="{{old("souhait")}}" placeholder="Souhait"></div>
-                        <div class="col-lg-6"><input type="text" class="form-control" id="duree" name="duree" value="{{old("duree")}}" placeholder="durée du stage"></div>
+                        Votre Souhait : 
+                        <div><input type="text" class="form-control" id="souhait" name="souhait" value="{{old("souhait")}}" placeholder="Souhait"></div><br>
+                        La durée de votre Stage : 
+                        <div><input type="text" class="form-control" id="duree" name="duree" value="{{old("duree")}}" placeholder="durée du stage"></div><br>
+                        <div class="row">
                         <div class="col-lg-6">Date de début<input type="date" class="form-control" id="dateD" name="dateD" value="{{old("dateD")}}"></div>
+                        
                         <div class="col-lg-6">Date de fin<input type="date" class="form-control" id="dateF" name="dateF" value="{{old("dateF")}}"></div>
-                        <div class="col-lg-6"><input type="text" class="form-control" id="mobilité" name="mobilité" value="{{old("mobilité")}}" placeholder="Mobilité"></div>
-                    </div>
+                        </div><br>
+                        
+                        Quelle type de mobilité avez-vous ?
+                        <div ><input type="text" class="form-control" id="mobilité" name="mobilité" value="{{old("mobilité")}}" placeholder="Mobilité"></div><br>
                     <br>
                     <button type="submit" class="btn btn-success btn-lg btn-block">Confirmer</button>
                 </div>
