@@ -25,13 +25,16 @@ Route::post('/inscription/store', 'InscriptionController@enregistrerUtilisateur'
 
 //ROUTES GET D'ACCES A LA GESTION D'ADMINISTRATEUR
 Route::get('/admin', 'AdminController@index')->name('admin');
+// ROUTES ADMIN GESTION ENTREPRISE
 Route::get('/admin/entreprise', 'AdminController@adminEntreprise')->name('administrerUneEntreprise');
-Route::get('/admin/entreprise/{id}','AdminController@visionnerUneEntreprise')->name('visionnerUneEntreprise');
 Route::get('/admin/entreprise/delete/{id}','AdminController@supprEntreprise')->name('supprimerUneEntreprise');
+// ROUTES ADMIN GESTION ETUDIANT
 Route::get('/admin/etudiant', 'AdminController@adminEtudiant')->name('administrerUnEtudiant');
 Route::get('/admin/etudiant/delete/{id}','AdminController@supprEtudiant')->name('supprimerUnEtudiant');
+// ROUTES ADMIN GESTION CONTACT
 Route::get('/admin/contact','AdminController@adminContact')->name('administrerUnContact');
 Route::get('/admin/contact/delete/{id}','AdminController@supprContact')->name('supprimerUnContact');
+// ROUTES ADMIN GESTION OFFRE
 Route::get('/admin/offre','AdminController@adminOffre')->name('administrerUneOffre');
 Route::get('/admin/offre/delete/{id}','AdminController@supprOffre')->name('supprimerUneOffre');
 
@@ -72,3 +75,5 @@ Route::post('/etudiant/enregistrerRecherche','EtudiantController@enregistrerRech
 Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editContact');
 Route::post('/contact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
 Route::get('/contact/{id}','ContactController@afficherUnContact')->name('afficherUnContact');
+
+

@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <div class="container text-center">
@@ -12,23 +13,20 @@
         </div>
 
 
-
+        <div class="row" id="btnEntrepriseAdmin">
         @foreach($etudiants as $etu)
-            <div class="row" id="btnEntrepriseAdmin">
-                <div class="col-4 col-md-4">
-                    <strong><p> {{$etu->user->nom}}  {{$etu->user->prenom}}</p></strong>
+                <div class="card text-center col-12 col-md-3">
+                    <div class="card-body">
+                        <strong><p class="card-title text-center"> {{$etu->user->nom}}  {{$etu->user->prenom}}</p></strong>
+                        <a href="{{route('consult_profile',[$etu->id])}}"><button class="btn-primary mb-2">Visionner</button></a><br>
+                        <a href="{{route('edit_profile',[$etu->id])}}"> <button class="btn-secondary mb-2">Modifier</button></a><br>
+                        <a href="{{route('supprimerUnEtudiant',[$etu->id])}}"><button class="btn-danger mb-2">Supprimer</button></a><br>
+                    </div>
                 </div>
-
-                <div class="col-4 col-md-4">
-                    <button class="btn-secondary">Modifier</button>
-                </div>
-
-                <div class="col-4 col-md-4">
-                    <a href="{{route('supprimerUnEtudiant',[$etu->id])}}"><button class="btn-danger">Supprimer</button></a>
-                </div>
-            </div>
         @endforeach
+        </div>
     </div>
+
 
 
 

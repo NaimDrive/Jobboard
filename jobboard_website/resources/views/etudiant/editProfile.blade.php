@@ -34,6 +34,7 @@
 
 
                 <form method="POST" action="{{route('enregistrer_identite')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
                         <legend>Identité</legend>
@@ -65,6 +66,7 @@
                         <tbody>
                         <tr>
                             <form method="POST" action="{{route('supprimer_competence')}}">
+                                <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                                 {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                             <th scope="row">{{$comp->nomCompetence}}</th>
                             <td>{{$comp->niveauEstime}}</td>
@@ -79,6 +81,7 @@
 
 
                 <form method="POST" action="{{route('enregistrer_competence')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!}
                     <fieldset>
                         <div class="form-group">
@@ -124,6 +127,7 @@
                     <tbody>
                     <tr>
                         <form method="POST" action="{{route('supprimer_experience')}}">
+                            <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                         {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                             <th scope="row">{{$exp->nom}}</th>
                             <td>{{$exp->dateDebut}}</td>
@@ -140,6 +144,7 @@
 
 
                 <form method="POST" action="{{route('enregistrer_experience')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
                         <div class="form-group">
@@ -175,6 +180,7 @@
                     <tbody>
                     <tr>
                         <form method="POST" action="{{route('supprimer_activite')}}">
+                            <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                         {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                             <th scope="row">{{$ac}}</th>
                             <td><button type="submit" class="btn btn-danger col-lg-8" id="activite_del" name="activite_del" value="{{$ac}}">X</button></td>
@@ -188,6 +194,7 @@
 
 
                 <form method="POST" action="{{route('enregistrer_activite')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
                         <legend>Centres d'intérêt</legend>
@@ -197,8 +204,110 @@
                         </div>
                     </fieldset>
                 </form>
+
+
+                <!-- DEBUT DU FORMULAIRE DES LIENS -->
+
+                <form method="POST">
+                    {!! csrf_field() !!}
+                    <div id="liens">
+                        <input type="hidden" name="nbLiens" id="compteur">
+                        <fieldset>
+                            <legend>Liens externes</legend>
+                            <div class="block_liens_0">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="lien_0" name="lien_0" placeholder="Lien externe">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" id="add-link" class="btn btn-primary">Ajouter un lien</button>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
 
 @endsection
+
+@section('javaScript')
+    <script>
+
+        let boutonAddLien = document.getElementById('add-link');
+        boutonAddLien.addEventListener('click' , addLinks);
+
+        function addLinks () {
+
+            let divLiens = document.getElementById('liens');
+            let index = parseInt(divLiens.childNodes.length)-4;
+
+            let divFormGroup = document.createElement("div");
+            divFormGroup.setAttribute("class", "form-group ml-1");
+            divFormGroup.setAttribute("id", "block_liens_"+index);
+
+            let divRow = document.createElement("div");
+            divRow.setAttribute("class", "row");
+
+            let divCol11 = document.createElement("div");
+            divCol11.setAttribute("class", 'col-11');
+
+            let divCol1 = document.createElement("div");
+            divCol1.setAttribute("class", "col-1");
+
+            let inputLink = document.createElement("input");
+            inputLink.setAttribute("id","lien_"+index);
+            inputLink.setAttribute("name","lien_"+index);
+            inputLink.setAttribute("type", "text");
+            inputLink.setAttribute("placeholder", "Lien externe");
+
+            let X = document.createTextNode("X");
+            inputDelete.appendChild(X);
+
+            divCol1.appendChild(inputDelete);
+            divCol11.appendChild(inputLink);
+
+            divRow.appendChild(divCol11);
+            divRow.appendChild(divCol1);
+
+            divFormGroup.appendChild(divRow);
+
+            divLiens.appendChild(divFormGroup);
+
+            let bouton = document.getElementById('delete_'+index);
+            bouton.addEventListener('click', supprimerLien);
+
+            document.getElementById("compteur").value = index+1;
+        }
+
+        function supprimerLien(){
+            let inputCompteur = document.getElementById("compteur");
+            let compteur = parseInt(inputCompteur.value)-1;
+            let target = this.dataset.target;
+            let divSupprimer = document.getElementById(target);
+
+            let id = parseInt(target.substr(14,1));
+
+            document.getElementById("liens").removeChild(divSupprimer);
+
+            for(let i = id; i < compteur; i++){
+                let div =document.getElementById("block_liens_"+(i+1));
+                div.setAttribute('id', "block_liens_"+i);
+
+                let inputLien = document.getElementById("lien_"+(i+1));
+                let inputDelete = document.getElementById("delete_"+(i+1));
+
+                inputLien.setAttribute('name', "lien_"+i);
+                inputLien.setAttribute('id', "lien_"+i);
+
+
+                inputDelete.setAttribute('data-target', "block_liens_"+i);
+                inputDelete.setAttribute('id', "delete_"+i);
+            }
+
+            inputCompteur.value -=1;
+        }
+        </script>
+        @endsection

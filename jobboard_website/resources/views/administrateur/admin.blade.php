@@ -12,11 +12,11 @@
             </div>
         </div>
 
-        <div class="row" id="ligne_admin">
+        <div class="row">
 
-            <div class="card text-center col-md-3">
+            <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title">Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h4>
+                    <h4 class="card-title text-center">Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h4>
                     @if($etudiants->isEmpty())
                         <p class="card-text">Aucun étudiant</p>
                     @else
@@ -28,54 +28,46 @@
                 </div>
             </div>
 
-            {{--<div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h3>
-                @if($etudiants->isEmpty())
-                    <p>Aucun étudiant</p>
-                @else
-                    @foreach($etudiants as $etu)
-                        <strong><p> {{$etu->user->nom}}  {{$etu->user->prenom}}</p></strong>
-                    @endforeach
-                    <a href="{{route('administrerUnEtudiant')}}"><button class="btn-primary">Voir + </button></a>
-                @endif
-
-            </div>--}}
-
-            <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Entreprises <span class="badge badge-pill badge-dark">{{ $nbEnt }}</span></h3>
-                @if($entreprises->isEmpty())
-                    <p>Aucune entreprise</p>
-                @else
-                    @foreach($entreprises as $entreprise)
-                        <strong><p>{{ $entreprise->nom }}</p></strong>
-                    @endforeach
-                    <a href="{{route('administrerUneEntreprise',[$entreprise->id])}}"><button class="btn-primary">Voir + </button></a>
-                @endif
-
+            <div class="card text-center col-12 col-md-3">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Entreprises <span class="badge badge-pill badge-dark">{{ $nbEnt }}</span> </h4>
+                    @if($entreprises->isEmpty())
+                        <p class="card-text">Aucune entreprise</p>
+                    @else
+                        @foreach($entreprises as $entreprise)
+                            <p class="card-text"> {{$entreprise->nom}}</p>
+                        @endforeach
+                        <a href="{{route('administrerUneEntreprise')}}"><button class="btn-primary">Voir + </button></a>
+                    @endif
+                </div>
             </div>
 
-            <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Contacts <span class="badge badge-pill badge-dark">{{ $nbCont }}</span></h3>
-                @if($contacts->isEmpty())
-                    <p> Aucun contact </p>
-                @else
-                    @foreach($contacts as $cont)
-                        <strong><p>{{ $cont->nom }} {{ $cont->prenom }}</p></strong>
-                    @endforeach
-                    <a href="{{route('administrerUnContact')}}"><button class="btn-primary">Voir + </button></a>
-                @endif
+            <div class="card text-center col-12 col-md-3">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Contacts <span class="badge badge-pill badge-dark">{{ $nbCont }}</span> </h4>
+                    @if($contacts->isEmpty())
+                        <p class="card-text">Aucun contact</p>
+                    @else
+                        @foreach($contacts as $contact)
+                            <p class="card-text"> {{$contact->nom}} {{$contact->prenom}}</p>
+                        @endforeach
+                        <a href="{{route('administrerUnContact')}}"><button class="btn-primary">Voir + </button></a>
+                    @endif
+                </div>
             </div>
 
-            <div class="col-12 col-md-3" id="ligne_admin">
-                <h3>Offres <span class="badge badge-pill badge-dark">{{ $nbOf }}</span></h3>
-                @if($offres->isEmpty())
-                    <p>Aucune offre</p>
-                @else
-                    @foreach($offres as $offre)
-                        <strong><p> {{ $offre->natureOffre }} {{ $offre->nomOffre }} </p></strong>
-                    @endforeach
-                    <a href="#"><button class="btn-primary">Voir + </button></a>
-                @endif
+            <div class="card text-center col-12 col-md-3">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Offres <span class="badge badge-pill badge-dark">{{ $nbOf }}</span> </h4>
+                    @if($offres->isEmpty())
+                        <p class="card-text">Aucune offre</p>
+                    @else
+                        @foreach($offres as $offre)
+                            <p class="card-text"> {{$offre->nomOffre}} {{$offre->natureOffre}}</p>
+                        @endforeach
+                        <a href="{{route('administrerUneOffre')}}"><button class="btn-primary">Voir + </button></a>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
