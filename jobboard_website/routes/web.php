@@ -72,3 +72,5 @@ Route::post('/etudiant/enregistrerRecherche','EtudiantController@enregistrerRech
 Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editContact');
 Route::post('/contact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
 Route::get('/contact/{id}','ContactController@afficherUnContact')->name('afficherUnContact');
+
+

@@ -20,7 +20,7 @@ class EtudiantController extends Controller
     {
         if (Auth::check()) {
             $userId = DB::table('etudiant')->where('id', $id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
-            $etuId = DB::table('etudiant')->where('idUser', $id)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
+            $etuId = DB::table('etudiant')->where('idUser', $userId)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
 
             if ($userId !== Auth::id()) { //si l'id user de l'étudiant est différent de l'id user connecté...
                 return redirect(route('accueil')); //on renvoi à la page d'accueil
@@ -64,7 +64,7 @@ class EtudiantController extends Controller
 
 
         if($_FILES['image']['size'] > $input['MAX_FILE_SIZE']){
-            return redirect(route('edit_profile',["id"=>$user_id]));
+            return redirect(route('edit_profile',["id"=>$etuId]));
         }
 
         DB::table('images')->where('idEtudiant', $etuId)->delete();
@@ -78,7 +78,7 @@ class EtudiantController extends Controller
             "idEtudiant" => $etuId,
         ]);
 
-        return redirect(route('edit_profile',["id"=>$user_id]));
+        return redirect(route('edit_profile',["id"=>$etuId]));
 
     }
 
@@ -99,7 +99,7 @@ class EtudiantController extends Controller
         ]);
 
         $input=$request->only(["nom","prenom"]);
-        $userId = DB::table('etudiant')->where('idUser',$user_id)->value('idUser');
+        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
         DB::table('users')
             ->where('id',$user_id)
             ->update(
@@ -108,7 +108,7 @@ class EtudiantController extends Controller
                     "prenom" => $input["prenom"],
                 ]
             );
-        return redirect(route('edit_profile',["id"=>$userId]));
+        return redirect(route('edit_profile',["id"=>$etuId]));
     }
 
     //
@@ -130,7 +130,7 @@ class EtudiantController extends Controller
 
         DB::table('competences_etudiant')->where('nomCompetence', $input["competence_del"])->where('idEtudiant',$etuId)->delete();
 
-        return redirect(route('edit_profile',["id"=>$user_id]));
+        return redirect(route('edit_profile',["id"=>$etuId]));
     }
 
     function gererCompetence(Request $request){
@@ -145,7 +145,6 @@ class EtudiantController extends Controller
 
         $input=$request->only(["competence","level","categorie"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
-        $userId = DB::table('etudiant')->where('idUser',$user_id)->value('idUser');
         $categorie = DB::table('categorie')->where('nomCategorie', $input["categorie"])->value('id');
 
         DB::table('competences_etudiant')->insert([
@@ -156,7 +155,7 @@ class EtudiantController extends Controller
         ]);
 
 
-        return redirect(route('edit_profile',["id"=>$userId]));
+        return redirect(route('edit_profile',["id"=>$etu]));
     }
 
     //
@@ -178,7 +177,7 @@ class EtudiantController extends Controller
 
         DB::table('experience')->where('nom', $input["experience_del"])->where('idEtudiant',$etuId)->delete();
 
-        return redirect(route('edit_profile',["id"=>$user_id]));
+        return redirect(route('edit_profile',["id"=>$etuId]));
     }
 
 
@@ -197,7 +196,7 @@ class EtudiantController extends Controller
 
         $input=$request->only(["intitulePoste","etablissement","dateDebut","dateFin","description"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
-        $userId = DB::table('etudiant')->where('idUser',$user_id)->value('idUser');
+        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
 
         DB::table('experience')->insert([
             "nom" => $input["intitulePoste"],
@@ -208,7 +207,7 @@ class EtudiantController extends Controller
             "idEtudiant" => $etu,
         ]);
 
-        return redirect(route('edit_profile',["id"=>$userId]));
+        return redirect(route('edit_profile',["id"=>$etuId]));
 
     }
 
@@ -232,7 +231,7 @@ class EtudiantController extends Controller
 
         DB::table('centre_d_interet')->where('Interet', $input["activite_del"])->where('idEtudiant',$etuId)->delete();
 
-        return redirect(route('edit_profile',["id"=>$user_id]));
+        return redirect(route('edit_profile',["id"=>$etuId]));
     }
 
 
@@ -247,14 +246,14 @@ class EtudiantController extends Controller
 
         $input=$request->only(["activite"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
-        $userId = DB::table('etudiant')->where('idUser',$user_id)->value('idUser');
+        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
 
         DB::table('centre_d_interet')->insert([
             "Interet" => $input["activite"],
             "idEtudiant" => $etu,
         ]);
 
-        return redirect(route('edit_profile',["id"=>$userId]));
+        return redirect(route('edit_profile',["id"=>$etuId]));
 
     }
 
@@ -317,7 +316,7 @@ class EtudiantController extends Controller
      
         if (Auth::check()) {
             $userId = DB::table('etudiant')->where('id', $id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
-            $etuId = DB::table('etudiant')->where('idUser', $id)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
+            $etuId = DB::table('etudiant')->where('idUser', $userId)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
 
             if ($userId !== Auth::id()) { //si l'id user de l'étudiant est différent de l'id user connecté...
                 return redirect(route('accueil')); //on renvoi à la page d'accueil
@@ -346,6 +345,7 @@ class EtudiantController extends Controller
 
         $input=$request->only(["souhait","duree","dateD","dateF","mobilité"]);
         $etu = DB::table('etudiant')->where('idUser', $user_id)->value('id');
+        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
             
 
         DB::table('recherche')->insert([
@@ -358,7 +358,7 @@ class EtudiantController extends Controller
         ]);
 
 
-        return redirect(route('createrecherche',["id"=>$user_id]));
+        return redirect(route('createrecherche',["id"=>$etuId]));
    
         }
 
@@ -375,7 +375,7 @@ class EtudiantController extends Controller
 
             DB::table('recherche')->where('id', $input["recherche_del"])->where('idEtudiant',$etuId)->delete();
 
-            return redirect(route('createrecherche',["id"=>$user_id]));
+            return redirect(route('createrecherche',["id"=>$etuId]));
         }
 
 
