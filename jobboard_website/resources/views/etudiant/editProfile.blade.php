@@ -34,6 +34,7 @@
 
 
                 <form method="POST" action="{{route('enregistrer_identite')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
                         <legend>Identité</legend>
@@ -65,6 +66,7 @@
                         <tbody>
                         <tr>
                             <form method="POST" action="{{route('supprimer_competence')}}">
+                                <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                                 {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                             <th scope="row">{{$comp->nomCompetence}}</th>
                             <td>{{$comp->niveauEstime}}</td>
@@ -79,6 +81,7 @@
 
 
                 <form method="POST" action="{{route('enregistrer_competence')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!}
                     <fieldset>
                         <div class="form-group">
@@ -124,6 +127,7 @@
                     <tbody>
                     <tr>
                         <form method="POST" action="{{route('supprimer_experience')}}">
+                            <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                         {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                             <th scope="row">{{$exp->nom}}</th>
                             <td>{{$exp->dateDebut}}</td>
@@ -140,6 +144,7 @@
 
 
                 <form method="POST" action="{{route('enregistrer_experience')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
                         <div class="form-group">
@@ -175,6 +180,7 @@
                     <tbody>
                     <tr>
                         <form method="POST" action="{{route('supprimer_activite')}}">
+                            <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                         {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                             <th scope="row">{{$ac}}</th>
                             <td><button type="submit" class="btn btn-danger col-lg-8" id="activite_del" name="activite_del" value="{{$ac}}">X</button></td>
@@ -188,6 +194,7 @@
 
 
                 <form method="POST" action="{{route('enregistrer_activite')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
                         <legend>Centres d'intérêt</legend>
