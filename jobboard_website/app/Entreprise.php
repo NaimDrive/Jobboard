@@ -20,7 +20,7 @@ class Entreprise extends Model
         return $this->hasMany('App\Offre','idEntreprise');
     }
 
-    public function createur() {
+    public function getCreateur() {
         return $this->belongsTo('App\ContactEntreprise', 'createur');
     }
 }
