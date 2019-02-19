@@ -42,6 +42,7 @@ class InscriptionController extends Controller
                 'prenom' => ['required','string','max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
+                'photo' => ['nullable','image'],
                 'civilite' => ['required', 'string'],
                 'telephone' =>['required', 'string', 'min:10', 'max:10'],
                 'dateNaissance' => ['nullable', 'date'],
@@ -50,12 +51,21 @@ class InscriptionController extends Controller
                 'codepostal' => ['nullable', 'string', 'max:5', 'min:5']
             ]);
 
+            $photo = null;
+
+            if ($request->hasFile('photo')) {
+                $photo = $request['photo']->store('/public/images/profilPicture');
+                $photo= str_replace("public","storage",$photo);
+            }
+
             $input = $request->only('nom','prenom','email','password','civilite','telephone');
+
             $userID = DB::table('users')->insertGetId([
                 'nom'=>$input['nom'],
                 'prenom'=> $input['prenom'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
+                'picture' => $photo,
                 'created_at' => new \DateTime(),
             ]);
 
@@ -80,6 +90,7 @@ class InscriptionController extends Controller
                 'prenom' => ['required','string','max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
+                'photo' => ['nullable','image'],
                 'civilite' => ['required', 'string'],
                 'telephone' =>['nullable', 'string', 'min:10', 'max:10'],
                 'dateNaissance' => ['required', 'date'],
@@ -87,6 +98,13 @@ class InscriptionController extends Controller
                 'adresse' => ['required', 'string', 'max:255'],
                 'codepostal' => ['required', 'string', 'max:5', 'min:5'],
             ]);
+
+            $photo = null;
+
+            if ($request->hasFile('photo')) {
+                $photo = $request['photo']->store('/public/images/profilPicture');
+                $photo= str_replace("public","storage",$photo);
+            }
 
             $input = $request->only('nom','prenom','email','password','civilite','dateNaissance',
                 'ville', 'adresse', 'codepostal');
@@ -96,6 +114,8 @@ class InscriptionController extends Controller
                 'prenom'=> $input['prenom'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
+                'picture' => $photo,
+                'created_at' => new \DateTime(),
             ]);
 
             DB::table('etudiant')->insert([
