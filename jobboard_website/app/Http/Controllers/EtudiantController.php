@@ -31,8 +31,8 @@ class EtudiantController extends Controller
             $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get(); //on recupere les compétences de l'étudiant qui désire modifier son profile
             $activite = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet'); //on recupere les activité de l'étudiant qui désire modifier son profile
             $experiences = DB::table('experience')->where('idEtudiant', $id)->get(); //on recupere les expériences de l'étudiant qui désire modifier son profile
-            $image = DB::table('images')->where('idEtudiant',$id)->first(); //on recupere l'image de l'étudiant qui désire modifier son profile
-            return view('etudiant/editProfile', ["categorie" => $categorie, "competence" => $competences, "activite" => $activite, "experience" => $experiences, "image" => $image,"id" =>$id]); //on retourne la vue de modification du profile de l'étudiant
+            $image = DB::table('users')->where('id',$userId)->value('picture');//on recupere l'image de profil de l'étudiant qui désire modifier son profile
+            return view('etudiant/editProfile', ["categorie" => $categorie, "competence" => $competences, "activite" => $activite, "experience" => $experiences,"image"=>$image,"id" =>$id]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
     }
@@ -50,37 +50,39 @@ class EtudiantController extends Controller
     //
 
 
-
-    function gererPhoto(Request $request){
-        $user_id= Auth::id();
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    function gererImage(Request $request){
 
         $this->validate($request,
             [
-                "image" => "required",
-                "MAX_FILE_SIZE" => "required",
+                'photo' => ['nullable','image'],
+                "idEtu" => "required",
             ]);
 
-        $input = $request->only(["image","MAX_FILE_SIZE"]);
-        $etuId = DB::table('etudiant')->where('idUser',$user_id)->value('id');
+        $photo = null;
 
 
-        if($_FILES['image']['size'] > $input['MAX_FILE_SIZE']){
-            return redirect(route('edit_profile',["id"=>$etuId]));
+        if ($request->hasFile('photo')) {
+
+            $photo = $request['photo']->store('/public/images/profilPicture');
+            $photo= str_replace("public","storage",$photo);
         }
 
-        DB::table('images')->where('idEtudiant', $etuId)->delete();
 
-        DB::table('images')->insert([
-            "name" => $_FILES['image']['name'],
-            "size" => $_FILES['image']['size'],
-            "type" => $_FILES['image']['type'],
-            "desc" => "rien",
-            "img" => file_get_contents ($_FILES['image']['tmp_name']),
-            "idEtudiant" => $etuId,
-        ]);
+        $input=$request->only(["idEtu"]);
+        $id=DB::table('etudiant')->where('id',$input["idEtu"])->value('idUser');
 
-        return redirect(route('edit_profile',["id"=>$etuId]));
+        DB::table('users')->where('id',$id)->update(
+            [
+                'picture' => $photo,
+            ]
+        );
 
+        return redirect(route('edit_profile',["id"=>$input["idEtu"]]));
     }
 
 

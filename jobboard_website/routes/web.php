@@ -43,7 +43,8 @@ Route::post('/etudiant/enregistrerCompetence','EtudiantController@gererCompetenc
 Route::post('/etudiant/enregistrerExperience','EtudiantController@gererExperience')->name('enregistrer_experience');
 Route::post('/etudiant/enregistrerActivite','EtudiantController@gererActivite')->name('enregistrer_activite');
 Route::post('/etudiant/enregistrerIdentite','EtudiantController@gererIdentite')->name('enregistrer_identite');
-Route::post('/etudiant/enregistrerImage','EtudiantController@gererPhoto')->name('enregistrer_image');
+Route::post('/etudiant/enregistrerImage','EtudiantController@gererImage')->name('enregistrer_image');
+
 
 
 //ROUTES POST DE SUPPRESSION D'INFORMATIONS POUR L'ETUDIANT
