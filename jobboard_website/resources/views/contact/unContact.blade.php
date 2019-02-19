@@ -2,12 +2,15 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="">
     <div class="container">
-        <img src="{{$contact->user->picture}}" alt="" class="roundedImage">
-        <h1>{{ $contact->prenom }} {{$contact->nom}}</h1>
-        @if($contact->user->picture != null)
-            <img src="{{ $contact->user->picture }}">
-        @endif
+        <div class="row">
+            @if($contact->user->picture != null)
+                <img src="{{ asset($contact->user->picture) }}">
+            @endif
+            <h1 class="ml-5">{{ $contact->prenom }} {{$contact->nom}}</h1>
+        </div>
+
         
         @foreach(Auth::user()->roles as $role)
             @if(Auth::id() == $contact->idUser || $role->typeRole == 'ADMIN')
