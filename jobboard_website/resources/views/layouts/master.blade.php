@@ -15,7 +15,6 @@
     @include('layouts.header')
     <div class="mt-5">
         <br>
-        <br>
         @yield('content')
     </div>
 

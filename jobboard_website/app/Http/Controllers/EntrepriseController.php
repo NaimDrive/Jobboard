@@ -113,12 +113,19 @@ class EntrepriseController extends Controller
         return redirect(route('accueil'));
     }
 
+    function isAdmin() {
+        foreach (Auth::user()->roles as $role){
+            if ($role->typeRole == "ADMIN") return true;
+        }
+        return false;
+    }
+
     function editEntreprise($id){
         if (Auth::check()){
             $idUser = Auth::id();
             $idEntreprise = DB::table('contact_entreprise')->where('idUser',$idUser)->value('idEntreprise');
 
-            if($idEntreprise == $id){
+            if($idEntreprise == $id || $this->isAdmin()){
                 $entreprise = Entreprise::find($id);
                 $contacts = DB::table('contact_entreprise')->where('idEntreprise',null)->get();
 

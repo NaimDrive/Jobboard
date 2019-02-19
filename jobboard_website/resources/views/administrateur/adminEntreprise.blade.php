@@ -19,10 +19,10 @@
              </div>
 
              <div class="col-3 col-md-3">
-                 <a href = '{{route('visionnerUneEntreprise',[$entreprise->id])}}'><button class="btn-primary">Visionner</button></a>
+                 <a href = '{{route('afficherUneEntreprise',[$entreprise->id])}}'><button class="btn-primary">Visionner</button></a>
              </div>
              <div class="col-3 col-md-3">
-                 <button class="btn-secondary">Modifier</button>
+                 <a href="{{route("editEntreprise",["id"=>$entreprise->id])}}">"<button class="btn-secondary">Modifier</button></a>
              </div>
 
              <div class="col-3 col-md-3">

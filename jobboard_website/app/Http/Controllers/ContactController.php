@@ -10,12 +10,19 @@ use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
+    function isAdmin() {
+        foreach (Auth::user()->roles as $role){
+            if ($role->typeRole == "ADMIN") return true;
+        }
+        return false;
+    }
+
     function editContact($id){
         if (Auth::check()) {
             $userId = DB::table('contact_entreprise')->where('idUser', Auth::id())->value('idUser');
 
-            if ($userId == $id) {
-                $contact = DB::table('contact_entreprise')->where('idUser', $userId)->first();
+            if ($userId == $id || $this->isAdmin()) {
+                $contact = DB::table('contact_entreprise')->where('idUser', $id)->first();
                 $contactEntreprise = DB::table('contact_entreprise')->where('idUser', $userId)->value('idEntreprise');
                 $entreprises = DB::table('entreprise')->get();
 
