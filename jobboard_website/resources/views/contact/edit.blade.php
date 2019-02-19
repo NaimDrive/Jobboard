@@ -2,6 +2,15 @@
 
 @section('content')
     <div class="container mt-5">
+        @if ($errors->any())
+            <div class="alert alert-danger"  style="margin-top: 2rem">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -9,8 +18,10 @@
 
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('storeContactChange') }} enctype="multipart/form-data"">
-                            @csrf
+                        <form method="POST" action="{{ route('storeContactChange') }}" enctype="multipart/form-data">
+                            {!! csrf_field() !!}
+
+                            <input type="hidden" name="idUser" value="{{ $contact->user->id }}">
 
                             <div class="form-group row">
                                 <label for="civilite" class="col-md-4 col-form-label text-md-right">Civilité</label>
@@ -91,7 +102,7 @@
                                     <select class="form-control" id="entreprise" name="entreprise">
                                         <option value="null">Je n'ai pas d'entreprise</option>
                                         @foreach($entreprises as $entreprise)
-                                            <option value="{{ $entreprise->id }}" {{ $contactEntreprise == $entreprise->id ? 'selected' : '' }}> {{ $entreprise->nom }}</option>
+                                            <option value="{{ $entreprise->id }}" {{ $contact->idEntreprise == $entreprise->id ? 'selected' : '' }}> {{ $entreprise->nom }}</option>
                                         @endforeach
                                     </select>
                                 </div>
