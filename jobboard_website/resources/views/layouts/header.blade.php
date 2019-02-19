@@ -14,6 +14,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Offres</a>
                 </li>
+
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">Inscription</a>
@@ -22,6 +23,13 @@
                         <a class="nav-link" href="{{ route('login') }}">Connexion</a>
                     </li>
                 @else
+                    @foreach (Auth::user()->roles as $role)
+                        @if($role->typeRole == "ADMIN")
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin')}}">Admin</a>
+                            </li>
+                        @endif
+                    @endforeach
                     <li class="nav-item"><a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();
 document.getElementById('logout-form').submit()">Déconnexion</a></li>
                     <form action="{{route('logout')}}" method="post" style="display: none;" id="logout-form">@csrf</form>

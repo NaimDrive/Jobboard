@@ -15,15 +15,17 @@
 
         @foreach($etudiants as $etu)
             <div class="row" id="btnEntrepriseAdmin">
-                <div class="col-4 col-md-4">
+                <div class="col-3 col-md-3">
                     <strong><p> {{$etu->user->nom}}  {{$etu->user->prenom}}</p></strong>
                 </div>
-
-                <div class="col-4 col-md-4">
-                    <button class="btn-secondary">Modifier</button>
+                <div class="col-3 col-md-3">
+                    <a href="{{route('consult_profile',[$etu->id])}}"><button class="btn-primary">Visionner</button></a>
+                </div>
+                <div class="col-3 col-md-3">
+                    <a href="{{route('edit_profile',[$etu->id])}}"> <button class="btn-secondary">Modifier</button></a>
                 </div>
 
-                <div class="col-4 col-md-4">
+                <div class="col-3 col-md-3">
                     <a href="{{route('supprimerUnEtudiant',[$etu->id])}}"><button class="btn-danger">Supprimer</button></a>
                 </div>
             </div>
