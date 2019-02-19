@@ -252,4 +252,9 @@ class EntrepriseController extends Controller
         return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
     }
 
+    function afficherToutes(){
+        $entreprises = DB::table("entreprise")->get();
+        return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
+    }
+
 }

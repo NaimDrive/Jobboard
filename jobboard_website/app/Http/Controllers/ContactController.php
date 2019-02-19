@@ -70,4 +70,9 @@ class ContactController extends Controller
         $contact = ContactEntreprise::find($id);
         return view('contact/unContact',['contact'=>$contact]);
     }
+
+    function afficherContacts(){
+        $contacts = DB::table('contact_entreprise')->get();
+        return view('contact/toutContacts',['contacts'=>$contacts]);
+    }
 }

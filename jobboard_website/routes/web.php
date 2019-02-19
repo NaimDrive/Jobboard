@@ -60,6 +60,7 @@ Route::post('/entreprise/enregistrer','EntrepriseController@enregistrerEntrepris
 Route::get('/entreprise/{id}/edit', 'EntrepriseController@editEntreprise')->name('editEntreprise');
 Route::post('/entreprise/store_change', 'EntrepriseController@storeChanges')->name('storeEntrepriseChange');
 Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
+Route::get('/entreprises','EntrepriseController@afficherToutes')->name('afficherToutesEntreprises');
 
 //ROUTE POUR LES RECHERCHES ETUDIANT
 Route::get('/etudiant/{id}/createrecherche','EtudiantController@modifierrecherche')->name('createrecherche');
@@ -72,3 +73,4 @@ Route::post('/etudiant/enregistrerRecherche','EtudiantController@enregistrerRech
 Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editContact');
 Route::post('/contact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
 Route::get('/contact/{id}','ContactController@afficherUnContact')->name('afficherUnContact');
+Route::get('/contacts','ContactController@afficherContacts')->name('afficherToutContacts');

@@ -16,9 +16,12 @@
             <div class="col-md-8">
                 <div class="card">
                     <h2 class="card-header">Déscription</h2>
-                    <p class="ml-2 justify-content">
-                        {{ $entreprise->description }}
-                    </p>
+                    <div class="card-body">
+                        <p class="ml-2 text-justify">
+                            {{ $entreprise->description }}
+                        </p>
+                    </div>
+
                 </div>
 
                 <div class="card mt-5">
