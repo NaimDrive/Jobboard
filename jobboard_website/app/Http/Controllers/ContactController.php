@@ -19,14 +19,13 @@ class ContactController extends Controller
 
     function editContact($id){
         if (Auth::check()) {
-            $userId = DB::table('contact_entreprise')->where('idUser', Auth::id())->value('idUser');
+            $contactId = DB::table('contact_entreprise')->where('idUser', Auth::id())->value('id');
 
-            if ($userId == $id || $this->isAdmin()) {
-                $contact = DB::table('contact_entreprise')->where('idUser', $id)->first();
-                $contactEntreprise = DB::table('contact_entreprise')->where('idUser', $userId)->value('idEntreprise');
+            if ($contactId == $id || $this->isAdmin()) {
+                $contact = ContactEntreprise::find($id);
                 $entreprises = DB::table('entreprise')->get();
 
-                return view('contact/edit', ['contact' => $contact, 'contactEntreprise' => $contactEntreprise, 'entreprises' => $entreprises]);
+                return view('contact/edit', ['contact' => $contact, 'entreprises' => $entreprises]);
             }
             return redirect(route('accueil'));
         }
@@ -34,7 +33,6 @@ class ContactController extends Controller
     }
 
     function storeChanges(Request $request){
-        $user = Auth::id();
 
         $this->validate($request,[
             'nom' => ['required','string','max:255'],
@@ -43,7 +41,8 @@ class ContactController extends Controller
             'photo' => ['nullable','image'],
             'civilite' => ['required', 'string'],
             'telephone' =>['required', 'string', 'min:10', 'max:10'],
-            'entreprise' => ['required']
+            'entreprise' => ['required'],
+            'idUser' => ['required']
         ]);
 
         $photo = null;
@@ -53,9 +52,9 @@ class ContactController extends Controller
             $photo= str_replace("public","storage",$photo);
         }
 
-        $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise']);
+        $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise','idUser']);
 
-        DB::table('users')->where('id',$user)->update([
+        DB::table('users')->where('id',$input['idUser'])->update([
             'nom' => $input['nom'],
             'prenom' => $input['prenom'],
             'email' => $input['email'],
@@ -63,7 +62,7 @@ class ContactController extends Controller
             'updated_at' => new \DateTime()
         ]);
 
-        DB::table('contact_entreprise')->where('idUser',$user)->update([
+        DB::table('contact_entreprise')->where('idUser',$input['idUser'])->update([
             'nom' => $input['nom'],
             'prenom' => $input['prenom'],
             'mail' => $input['email'],
