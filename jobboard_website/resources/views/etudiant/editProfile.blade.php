@@ -9,20 +9,15 @@
 
                 <!-- DEBUT DU FORMULAIRE DE PHOTO DE PROFILE -->
 
+                <img src="{{asset($image)}}" alt="photo de profile"/>
 
-                <?php
-                if(isset($image)){
-                    echo '<img src="data:'.$image->type.';base64,'.base64_encode($image->img).'"/>';
-                }
-                ?>
 
                 <form enctype="multipart/form-data" method="POST" action="{{route('enregistrer_image')}}">
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
                         <legend>Photo de profile</legend>
                         <div class="form-group">
-                            <input type="file" class="form-control-file" id="image" name="image" value="{{old("image")}}">
-                            <input type = "hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="250000">
+                            <input type="file" class="form-control-file" id="photo" name="photo">
                             <br>
                             <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
@@ -309,5 +304,7 @@
 
             inputCompteur.value -=1;
         }
+
+        document.getElementById("compteur").value = 1;
         </script>
         @endsection

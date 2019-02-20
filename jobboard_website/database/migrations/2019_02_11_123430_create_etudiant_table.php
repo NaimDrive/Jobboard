@@ -21,7 +21,6 @@ class CreateEtudiantTable extends Migration
             $table->string('codePostal');
             $table->string('ville');
             $table->integer('idUser');
-            $table->integer('idImage')->nullable($value = true);
             $table->timestamps();
         });
     }

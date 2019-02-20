@@ -36,10 +36,6 @@ class Etudiant extends Model
         return $this->belongsTo('App\User', 'idUser');
     }
 
-    public function image(){
-        return $this->belongsTo('App\Image','idImage');
-    }
-
     public function fullname(){
         return Etudiant::user()->get(['nom','prenom']);
     }
