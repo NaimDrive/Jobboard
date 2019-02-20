@@ -59,7 +59,7 @@ class EtudiantController extends Controller
 
         $this->validate($request,
             [
-                'photo' => ['nullable','image'],
+                'photo' => ['required','image'],
                 "idEtu" => "required",
             ]);
 
@@ -369,6 +369,10 @@ class EtudiantController extends Controller
             DB::table('recherche')->where('id', $input["recherche_del"])->where('idEtudiant',$input["idEtu"])->delete();
 
             return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
+        }
+
+        function AfficheOffre(Request $request){
+            return view('/etudiant/consultOffres');
         }
 
 

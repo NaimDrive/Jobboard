@@ -9,10 +9,11 @@
 
                 <!-- DEBUT DU FORMULAIRE DE PHOTO DE PROFILE -->
 
-                <img src="{{asset($image)}}" alt="photo de profile"/>
+                <img src="{{asset($image)}}" alt="photo de profile" width="500" height="500"/>
 
 
                 <form enctype="multipart/form-data" method="POST" action="{{route('enregistrer_image')}}">
+                    <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <fieldset>
                         <legend>Photo de profile</legend>
