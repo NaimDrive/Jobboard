@@ -79,3 +79,9 @@ Route::post('/contact/store_change', 'ContactController@storeChanges')->name('st
 Route::get('/contact/{id}','ContactController@afficherUnContact')->name('afficherUnContact');
 Route::get('/contacts','ContactController@afficherContacts')->name('afficherToutContacts');
 
+
+//ROUTES POUR LES OFFRES
+Route::get('/offre/create','OffreController@creerOffre')->name('createOffre');
+Route::post('/offre/enregistrer','OffreController@enregistrerOffre')->name('enregistrerOffre');
+Route::get('/offre/{id}','OffreController@afficherUneOffre')->name('afficherUneOffre');
+

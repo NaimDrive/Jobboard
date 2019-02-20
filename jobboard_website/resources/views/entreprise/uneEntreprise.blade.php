@@ -70,20 +70,7 @@
 
                 </div>
 
-
-                @foreach($entreprise->offres as $offre)
-                            <div class="border p-3">
-                                <h3>{{ $offre->nomOffre }}</h3>
-                                <p>{{ $offre->datePublicationOffre }}</p>
-                                <h4>Description de l'offre</h4>
-
-                                <p >Contexte : {{ $offre->description->contexte }}</p>
-                                <p>Objectif : {{ $offre->description->objectif }}</p>
-                                <p class="mt-1">Du {{ $offre->dateDebut }} au {{ $offre->dateFin }}</p>
-                            </div>
-
-
-                        @endforeach<div class="card mt-5">
+                <div class="card mt-5">
                     @if($entreprise->contacts->count() == 1)
                         <h2 class="card-header">Notre contact</h2>
                     @else

@@ -17,7 +17,7 @@ class CreateDescriptionOffreTable extends Migration
             $table->increments('id');
             $table->string('contexte');
             $table->string('objectif');
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->integer('idOffre');
             $table->timestamps();
         });
