@@ -77,4 +77,5 @@ Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editCon
 Route::post('/contact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
 Route::get('/contact/{id}','ContactController@afficherUnContact')->name('afficherUnContact');
 
-
+//ROUTE D'ACCES A LA LISTE DES OFFRES
+Route::get('/offres', 'EtudiantController@afficheOffre')->name('offres');
