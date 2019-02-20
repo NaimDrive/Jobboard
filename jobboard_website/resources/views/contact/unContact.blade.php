@@ -6,7 +6,7 @@
 
         <div class="row">
             @if($contact->user->picture != null)
-                <img src="{{ asset($contact->user->picture) }}">
+                <img class="avatar" src="{{ asset($contact->user->picture) }}">
             @endif
             <h1 class="ml-5">{{ $contact->prenom }} {{$contact->nom}}</h1>
         </div>
