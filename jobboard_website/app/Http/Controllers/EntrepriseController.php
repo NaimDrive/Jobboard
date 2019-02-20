@@ -10,8 +10,15 @@ use Illuminate\Support\Facades\DB;
 
 class EntrepriseController extends Controller
 {
+    function canCreate() {
+        foreach (Auth::user()->roles as $role){
+            if ($role->typeRole == "ADMIN" || $role->typeRole == "CONTACT") return true;
+        }
+        return false;
+    }
+
     function createEntreprise(){
-        if(Auth::check()){
+        if(Auth::check() && $this->canCreate()){
             $contacts = DB::table('contact_entreprise')->where('idEntreprise',null)->get();
             return view('entreprise/createEntreprise', ['contacts' => $contacts]);
         }

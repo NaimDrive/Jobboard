@@ -54,13 +54,24 @@ class ContactController extends Controller
 
         $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise','idUser']);
 
-        DB::table('users')->where('id',$input['idUser'])->update([
-            'nom' => $input['nom'],
-            'prenom' => $input['prenom'],
-            'email' => $input['email'],
-            'picture' => $photo,
-            'updated_at' => new \DateTime()
-        ]);
+        if ($photo == null){
+            DB::table('users')->where('id',$input['idUser'])->update([
+                'nom' => $input['nom'],
+                'prenom' => $input['prenom'],
+                'email' => $input['email'],
+                'updated_at' => new \DateTime()
+            ]);
+        }
+        else{
+            DB::table('users')->where('id',$input['idUser'])->update([
+                'nom' => $input['nom'],
+                'prenom' => $input['prenom'],
+                'email' => $input['email'],
+                'picture' => $photo,
+                'updated_at' => new \DateTime()
+            ]);
+        }
+
 
         DB::table('contact_entreprise')->where('idUser',$input['idUser'])->update([
             'nom' => $input['nom'],
@@ -71,7 +82,7 @@ class ContactController extends Controller
             'idEntreprise' => ($input['entreprise']=='null'? NULL : $input['entreprise']),
         ]);
 
-        return redirect(route('accueil'));
+        return redirect(route('afficherUnContact', DB::table('contact_entreprise')->where('idUser',$input['idUser'])->value('id')));
     }
 
     function afficherUnContact($id){
