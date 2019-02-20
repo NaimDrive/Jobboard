@@ -59,7 +59,7 @@ class EtudiantController extends Controller
 
         $this->validate($request,
             [
-                'photo' => ['nullable','image'],
+                'photo' => ['required','image'],
                 "idEtu" => "required",
             ]);
 
