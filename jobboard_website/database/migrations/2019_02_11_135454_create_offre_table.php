@@ -21,10 +21,9 @@ class CreateOffreTable extends Migration
             $table->date('dateFin');
             $table->string('pre-embauche');
             $table->date('datePublicationOffre');
-            $table->string('lienOffre');
-            $table->string('depot');
+            $table->string('lienOffre')->nullable();
+            $table->string('depot')->nullable();
             $table->integer('idEntreprise');
-            $table->integer('idTypeOffre');
             
             $table->timestamps();
         });

@@ -371,5 +371,9 @@ class EtudiantController extends Controller
             return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
         }
 
+        function AfficheOffre(Request $request){
+            return view('/etudiant/consultOffres');
+        }
+
 
 }
