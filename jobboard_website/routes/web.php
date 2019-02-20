@@ -79,14 +79,11 @@ Route::post('/contact/store_change', 'ContactController@storeChanges')->name('st
 Route::get('/contact/{id}','ContactController@afficherUnContact')->name('afficherUnContact');
 Route::get('/contacts','ContactController@afficherContacts')->name('afficherToutContacts');
 
-<<<<<<< HEAD
-
 //ROUTES POUR LES OFFRES
 Route::get('/offre/create','OffreController@creerOffre')->name('createOffre');
 Route::post('/offre/enregistrer','OffreController@enregistrerOffre')->name('enregistrerOffre');
 Route::get('/offre/{id}','OffreController@afficherUneOffre')->name('afficherUneOffre');
 
-=======
 //ROUTE D'ACCES A LA LISTE DES OFFRES
 Route::get('/offres', 'EtudiantController@afficheOffre')->name('offres');
->>>>>>> 08b0db42a92632d39684f4c634fb8f9d6b7fc1bb
+
