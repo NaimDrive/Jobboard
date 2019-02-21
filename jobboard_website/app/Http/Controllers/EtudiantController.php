@@ -17,9 +17,26 @@ use Illuminate\Support\Facades\Storage;
 class EtudiantController extends Controller
 {
 
-    function consulterProfile()
+    function consulterProfile($id)
     {
-        return view('etudiant/consultProfile');
+        if (Auth::check()) {
+            $userId = DB::table('etudiant')->where('id', $id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
+            $etuId = DB::table('etudiant')->where('idUser', $userId)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
+            $role = DB::table('definir')->where('idUser', Auth::id())->value('idRole'); //Pour obtenir l'id du rôle de l'utilisateur courant
+
+            $etudiant = Etudiant::find($id);
+            $liens = DB::table('reference_lien')->where('idEtudiant',$id)->get();
+            $nom = DB::table('users')->where('id',$userId)->value('nom');
+            $prenom = DB::table('users')->where('id',$userId)->value('prenom');
+            $image = DB::table('users')->where('id',$userId)->value('picture');//on recupere l'image de profil de l'étudiant
+            $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
+            $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
+            $niveau = DB::table('competences_etudiant')->where('idEtudiant',$id)->value('niveauEstime');
+            return view('etudiant/consultProfile',['etudiant'=>$etudiant,'nom'=>$nom,'prenom'=>$prenom,'categorie'=>$categorie,'competence'=>$competences,'niveau'=>$niveau,'liens'=>$liens,'userId'=>$userId,'etuId'=>$etuId,'role'=>$role,'image'=>$image,'id'=>$id]);
+        }
+
+        return redirect(route('login'));
+
     }
 
     function modifierProfile($id)
