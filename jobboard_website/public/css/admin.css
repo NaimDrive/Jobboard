@@ -1,38 +1,16 @@
-#conteneur-fluide{
-    padding: 0;
+.row{
+    margin-top: 1em;
 }
 
-.banniere{
-    margin-top: 10px;
-    background-color: #0c73cd;
-    color: white;
-}
-#cartes{
-    margin: 2%;
-}
-#carte{
-    padding: 0;
-    margin: 15px 0px 15px 0px;
-}
-
-#foreach{
-    height: 200px;
-}
-
-.titre{
-    margin-top: 10px;
-}
-
-#titre{
-    font-size: 22px;
+.card-body{
+    height: 20em;
 }
 
 .seemore{
-    font-size: 35px;
-    color: rgb(0,172,154);
+    position: absolute;
+    bottom: 5px;
+    left: 47%;
+    right: 50%;
+    font-size: 25px;
 }
 
-.card{
-    border: 0;
-
-}
