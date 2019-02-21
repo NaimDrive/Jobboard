@@ -4,6 +4,15 @@
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger"  style="margin-top: 2rem">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row justify-content-md-center">
             <div class=" col-lg-6">
 
