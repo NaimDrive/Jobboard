@@ -7,14 +7,16 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('accueil') }}">Accueil<!-- <span class="sr-only">(current)</span>--></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Offres</a>
                 </li>
+            </ul>
 
+            <ul class="navbar-nav ml-auto">
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">Inscription</a>
@@ -23,32 +25,47 @@
                         <a class="nav-link" href="{{ route('login') }}">Connexion</a>
                     </li>
                 @else
-                    @foreach (Auth::user()->roles as $role)
-                        @if($role->typeRole == "ADMIN")
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin')}}">Admin</a>
-                            </li>
-                        @elseif($role->typeRole == "ETUDIANT")
-                                <?php $user_id= Illuminate\Support\Facades\Auth::id();
-                                $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url( 'etudiant/'.$idEtu.'/edit_profile') }} "> Mon Profil</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{url('etudiant/'.$idEtu.'/createrecherche')}}"> Mes recherches</a>
-                                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdownLink" data-toggle="dropdown">
+                            @if( Auth::user()->picture != null )
+                                <img src="{{ asset(Auth::user()->picture) }}" class="avatar avatar-mini" alt="Avatar de {{ Auth::user()->prenom }} {{ Auth::user()->nom }}">
                             @endif
-                    @endforeach
-                    <li class="nav-item"><a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();
-document.getElementById('logout-form').submit()">Déconnexion</a></li>
+                            {{ Auth::user()->prenom }} {{ Auth::user()->nom }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
+                            @foreach (Auth::user()->roles as $role)
+                                @if($role->typeRole == "ADMIN")
+                                    <a class="dropdown-item" href="{{route('admin')}}">Admin</a>
+                                @elseif($role->typeRole == "ETUDIANT")
+                                    <?php $user_id= Illuminate\Support\Facades\Auth::id();
+                                    $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>
+                                    <a class="dropdown-item" href="{{ route('edit_profile',["id"=>$idEtu]) }} "> Modifier mon Profil</a>
+                                        <a class="dropdown-item" href="{{url('etudiant/'.$idEtu.'/createrecherche')}}"> Mes recherches</a>
+                                @elseif($role->typeRole == "CONTACT")
+                                    @php($contact = DB::table('contact_entreprise')->where('idUser',Auth::id())->first())
+                                    <a href="{{route('afficherUnContact',['id'=>$contact->id])}}" class="dropdown-item">Mon profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    @if($contact->idEntreprise == null)
+                                        <a href="{{ route("creerEntreprise") }}" class="dropdown-item">Créer mon entreprise</a>
+                                    @else
+                                        <a href="{{ route("creerEntreprise") }}" class="dropdown-item">Créer une nouvelle entreprise</a>
+                                        <a href="{{ route('afficherUneEntreprise',['id'=>$contact->idEntreprise]) }}" class="dropdown-item">Voir mon entreprise</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="{{ route("createOffre") }}" class="dropdown-item">Ajouter une offre</a>
+
+                                    @endif
+                                @endif
+                            @endforeach
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{route('logout')}}"
+                               onclick="event.preventDefault();
+document.getElementById('logout-form').submit()">Déconnexion</a>
+                        </div>
+                    </li>
                     <form action="{{route('logout')}}" method="post" style="display: none;" id="logout-form">@csrf</form>
 
                 @endguest
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </nav>
 </header>
