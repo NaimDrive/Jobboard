@@ -71,8 +71,9 @@ class AdminController
     public function adminEtudiant(){
         foreach(Auth::user()->roles as $role) {
             if ($role->typeRole == 'ADMIN') {
+                $users = User::all();
                 $etudiants = Etudiant::all();
-                return view('administrateur/adminEtudiant', compact('etudiants'));
+                return view('administrateur/adminEtudiant', compact('etudiants','users'));
             }
         }
         return redirect(route('accueil'));
