@@ -28,6 +28,24 @@ class OffreController extends Controller
         return $peutCreer;
     }
 
+    function peutModifier($id){
+        foreach(Auth::user()->roles as $role){
+            if($role->typeRole == 'CONTACT'){
+
+                $offreEntreprise = DB::table('offre')->where('id',$id)->value('idEntreprise');
+                $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
+                if($idEntreprise == $offreEntreprise ){
+                     return true ;
+                }
+
+            }
+            elseif($role->typeRole == 'ADMIN'){
+                return true;
+            }
+        }
+        return false;
+    }
+
     function creerOffre(){
         if (Auth::check() && $this->peutCreer()){
             return view('offre/createOffre');
@@ -68,6 +86,14 @@ class OffreController extends Controller
         ]);
 
         return redirect(route("afficherUneOffre",["id"=>$idOffre]));
+    }
+
+
+    function editOffre($id) {
+        if ($this->peutModifier($id)){
+            return view('offre/edit',['offre'=>Offre::find($id)]);
+        }
+        return redirect(route('accueil'));
     }
 
     function afficherUneOffre($id){
