@@ -38,153 +38,80 @@
                         </div>
                     </fieldset>
 
-                <!-- DEBUT DU FORMULAIRE DE COMPETENCES -->
 
-                <legend>Compétences</legend>
-                <br>
-                @if(count($competence)!==0) <!-- On vérifie qu'il y a au moins une compétence pour afficher le tableau... -->
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Competences</th>
-                        <th scope="col">Niveau</th>
-                        <th scope="col">Suppression</th>
-                    </tr>
-                    </thead>
-                    @foreach($competence as $comp) <!-- On génère pour chaque compétence une ligne avec le nom, le niveau et un bouton de suppression -->
-                        <tbody>
-                        <tr>
-                                {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
-                            <th scope="row">{{$comp->nomCompetence}}</th>
-                            <td>{{$comp->niveauEstime}}</td>
-                            <td><button type="submit" class="btn btn-danger col-lg-8" id="competence_del" name="competence_del" value="{{$comp->nomCompetence}}">X</button></td>
-                        </tr>
-                        </tbody>
-                        @endforeach
-                </table>
-                    <br>
-                @endif
+                    <!-- DEBUT DU FORMULAIRE DES EXPERIENCES -->
 
-
-                    <fieldset>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="competence" name="competence" value="" aria-describedby="infoComp" placeholder="Exemple: Javascript">
-                            <br>
-                            <label for="level">Niveau estimé</label>
-                            <select class="form-control" id="level" name="level" value="{{old("level")}}">
-                                <option>Excellent</option>
-                                <option>Bon</option>
-                                <option>Moyen</option>
-                                <option>Faible</option>
-                            </select>
-                            <br>
-                            <label for="categorie">Catégorie</label>
-                            <select class="form-control" id="categorie" name="categorie" value={{old("categorie")}} >
-                                @foreach($categorie as $c) <!-- On génère pour chaque catégorie une option. Si on insère une catégorie dans la table, elle apparait ici -->
-                                    <option>{{$c}}</option>
-                                @endforeach
-                            </select>
-                            <small id="infoComp" class="form-text text-muted">Vos compétences seront visibles sur votre profile</small><br> <!-- petit texte indicatif -->
-                        </div>
-                    </fieldset>
-
-                <!-- DEBUT DU FORMULAIRE D'EXPERIENCES -->
-
-
-                <legend>Expériences</legend>
-                <br>
-                @if(count($experience)!==0) <!-- On vérifie qu'il y a au moins une experience pour afficher le tableau... -->
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Poste</th>
-                        <th scope="col">Date de Debut</th>
-                        <th scope="col">Date de Fin</th>
-                        <th scope="col">Etablissement</th>
-                        <th scope="col">Suppression</th>
-                    </tr>
-                    </thead>
-                @foreach($experience as $exp) <!-- On génère pour chaque experience une ligne avec le nom, le niveau et un bouton de suppression -->
-                    <tbody>
-                    <tr>
-                            <th scope="row">{{$exp->nom}}</th>
-                            <td>{{$exp->dateDebut}}</td>
-                            <td>{{$exp->dateFin}}</td>
-                            <td>{{$exp->etablissement}}</td>
-                            <td><button type="submit" class="btn btn-danger col-lg-8" id="experience_del" name="experience_del" value="{{$exp->nom}}">X</button></td>
-                    </tr>
-                    </tbody>
-                    @endforeach
-                </table>
-                <br>
-                @endif
-
-
-                    <fieldset>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="intitulePoste" name="intitulePoste" value="" placeholder="Intitulé du poste (exemple: développeur Web)">
-                            <br>
-                            <input type="text" class="form-control" id="etablissement" name="etablissement" value="" placeholder="Nom de l'entreprise">
-                            <br>
-                            <div class="row">
-                                <!-- A MODIFIER CAR INPUT TYPE DATE NON PRIS EN CHARGE PAR SAFARI -->
-                                <div class="col-lg-6">Date de début<input type="date" class="form-control" id="dateDebut" name="dateDebut" value="0001-01-01"></div>
-                                <div class="col-lg-6">Date de fin<input type="date" class="form-control" id="dateFin" name="dateFin" value="0001-01-01"></div>
+                    <h1>Expériences</h1>
+                    <div id="experience">
+                        <input type="hidden" name="nbExperience" id="compteurExperience">
+                        @php ($exp = 0)
+                        @foreach($experience as $e)
+                            <div id="block_experience_{{$exp}}" class="form-group ml-1">
+                                <div class="row">
+                                    <input type="text" class="form-control" name="experience_{{$exp}}" id="experience_{{$exp}}" value="{{$e->nom}}">
+                                    <input type="text" class="form-control" name="etablissement_{{$exp}}" id="etablissement_{{$exp}}" value="{{$e->etablissement}}">
+                                    <div class="row">
+                                        <div class="col-6"><input type="date" class="form-control" name="dateDebut_{{$exp}}" id="dateDebut_{{$exp}}" value="{{$e->dateDebut}}"></div>
+                                        <div class="col-6"><input type="date" class="form-control" name="dateFin_{{$exp}}" id="dateFin_{{$exp}}" value="{{$e->dateFin}}"></div>
+                                    </div>
+                                    <textarea class="form-control" id="description_{{$exp}}" name="description_{{$exp}}" rows="5" style="resize: none;">{{$e->resume}}</textarea>
+                                    <div class="col-1">
+                                        <button id="deleteExperience_{{$exp}}" class="btn btn-danger" data-action="delete" data-target="block_experience_{{$exp}}" type="button">X</button>
+                                    </div>
+                                </div>
                             </div>
-                            <br>
-                            <label for="description">Description du poste</label>
-                            <textarea class="form-control" id="description" name="description" rows="5" style="resize: none;"></textarea><br>
-                        </div>
-                    </fieldset>
+                            @php ($exp++)
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="add-experience" class="btn btn-primary">Ajouter une expérience</button>
+                    </div>
+                    <br>
 
 
-                <!-- DEBUT DU FORMULAIRE DE CENTRES D INTERET -->
-
-                <br>
-                @if(count($activite)!==0) <!-- On vérifie qu'il y a au moins une activite pour afficher le tableau... -->
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nom activite</th>
-                        <th scope="col">Suppression</th>
-                    </tr>
-                    </thead>
-                @foreach($activite as $ac) <!-- On génère pour chaque activite une ligne avec le nom et un bouton de suppression -->
-                    <tbody>
-                    <tr>
-                            <th scope="row">{{$ac}}</th>
-                            <td><button type="submit" class="btn btn-danger col-lg-8" id="activite_del" name="activite_del" value="{{$ac}}">X</button></td>
-                    </tr>
-                    </tbody>
-                    @endforeach
-                </table>
-                <br>
-                @endif
+                    <!-- DEBUT DU FORMULAIRE DE CENTRES D INTERET -->
 
 
-                    <fieldset>
-                        <legend>Centres d'intérêt</legend>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="activite" name="activite" value="{{old("activite")}}" placeholder="Exemple: Sport"><br>
-                        </div>
-                    </fieldset>
+                    <h1>Activités</h1>
+                    <div id="activite">
+                        <input type="hidden" name="nbActivite" id="compteurActivite">
+                        @php ($act = 0)
+                        @foreach($activite as $a)
+                            <div id="block_activite_{{$act}}" class="form-group ml-1">
+                                <div class="row">
+                                    <div class="col-11">
+                                        <input type="text" class="form-control" name="activite_{{$act}}" id="activite_{{$act}}" value="{{$a->Interet}}">
+                                    </div>
+                                    <div class="col-1">
+                                        <button id="deleteActivite_{{$act}}" class="btn btn-danger" data-action="delete" data-target="block_activite_{{$act}}" type="button">X</button>
+                                    </div>
+                                </div>
+                            </div>
+                            @php ($act++)
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="add-activite" class="btn btn-primary">Ajouter une activité</button>
+                    </div>
+                    <br>
 
 
 
                 <!-- DEBUT DU FORMULAIRE DES LIENS -->
 
-                    <legend>Liens externes</legend>
+
+                <h1>Liens externes</h1>
                     <div id="liens">
-                        <input type="hidden" name="nbLiens" id="compteur">
-                        @php ($i = 0)
+                        <input type="hidden" name="nbLiens" id="compteurLien">
+                        @php ($li = 0)
                         @foreach($lien as $l)
-                            <div id="block_liens_{{$i}}" class="form-group ml-1">
+                            <div id="block_liens_{{$li}}" class="form-group ml-1">
                                 <div class="row">
                                     <div class="col-6">
-                                        <input type="text" class="form-control" name="lien_{{$i}}" id="lien_{{$i}}" value="{{$l->UrlReference}}">
+                                        <input type="text" class="form-control" name="lien_{{$li}}" id="lien_{{$li}}" value="{{$l->UrlReference}}">
                                     </div>
                                     <div class="col-5">
-                                        <select class="form-control" name="type_{{$i}}" id="type_{{$i}}">
+                                        <select class="form-control" name="type_{{$li}}" id="type_{{$li}}">
                                             @if($l->nomReference == "Linkedin")
                                                 <option value="Linkedin" selected>Linkedin</option>
                                                 <option value="GitHub">GitHub</option>
@@ -201,11 +128,11 @@
                                         </select>
                                     </div>
                                     <div class="col-1">
-                                        <button id="delete_{{$i}}" class="btn btn-danger" data-action="delete" data-target="block_liens_{{$i}}" type="button">X</button>
+                                        <button id="deleteLien_{{$li}}" class="btn btn-danger" data-action="delete" data-target="block_liens_{{$li}}" type="button">X</button>
                                     </div>
                                 </div>
                             </div>
-                            @php ($i++)
+                            @php ($li++)
                         @endforeach
                     </div>
                     <div class="form-group">
@@ -229,18 +156,284 @@
         let boutonAddLien = document.getElementById('add-link'); //Bouton d'ajout de lien
         boutonAddLien.addEventListener('click' , addLinks); //On assigne la fonction d'ajout au bouton après click
 
+        let boutonAddActivite = document.getElementById('add-activite'); //Bouton d'ajout d'activite
+        boutonAddActivite.addEventListener('click' , addActivite); //On assigne la fonction d'ajout au bouton après click
+
+        let boutonAddExperience = document.getElementById('add-experience'); //Bouton d'ajout d'experience
+        boutonAddExperience.addEventListener('click' , addExperience); //On assigne la fonction d'ajout au bouton après click
+
         let divLiens = document.getElementById('liens');
+        let divActivite = document.getElementById('activite');
+        let divExperience = document.getElementById('experience');
 
-        let index = parseInt(divLiens.childNodes.length)-(3+(parseInt({{$i}})));
-        console.log('initialement ' + index);
+        let indexLien = parseInt(divLiens.childNodes.length)-(3+(parseInt({{$li}})));
+        let indexActivite = parseInt(divActivite.childNodes.length)-(3+(parseInt({{$act}})));
+        let indexExperience = parseInt(divExperience.childNodes.length)-(3+(parseInt({{$exp}})));
+        //console.log('initialement ' + index);
 
 
-        for(let k=0; k<index; k++){
-            let bouton = document.getElementById('delete_'+k);
+        for(let k=0; k<indexLien; k++){
+            let bouton = document.getElementById('deleteLien_'+k);
             bouton.addEventListener('click', supprimerLien);
         }
+        for(let l=0; l<indexActivite; l++){
+            let bouton = document.getElementById('deleteActivite_'+l);
+            bouton.addEventListener('click', supprimerActivite);
+        }
+        for(let m=0; m<indexExperience; m++){
+            let bouton = document.getElementById('deleteExperience_'+m);
+            bouton.addEventListener('click', supprimerExperience);
+        }
 
-        document.getElementById("compteur").value=index;
+        document.getElementById("compteurLien").value=indexLien;
+        document.getElementById("compteurActivite").value=indexActivite;
+        document.getElementById("compteurExperience").value=indexExperience;
+
+
+        //AJOUT DES EXPERIENCES
+
+
+        function addExperience () {
+
+            /*A partir d'ici, on crée la structure suivante :
+
+            <div class="form-group m1-1">
+                <div class="row">
+                    <div class="col-11"> contenu </div>
+                    <div class="col-1"> contenu </div>
+                </div>
+            </div>
+
+             */
+
+            let divFormGroup = document.createElement("div");
+            divFormGroup.setAttribute("class", "form-group ml-1");
+            divFormGroup.setAttribute("id", "block_experience_"+indexExperience);
+
+            let divRow = document.createElement("div");
+            divRow.setAttribute("class", "row");
+
+            let divRow_sous = document.createElement("div");
+            divRow_sous.setAttribute("class", "row");
+
+            let divCol6_debut = document.createElement("div");
+            divCol6_debut.setAttribute("class", 'col-6');
+
+            let divCol6_fin = document.createElement("div");
+            divCol6_fin.setAttribute("class", 'col-6');
+
+            let divCol1 = document.createElement("div");
+            divCol1.setAttribute("class", "col-1"); //bouton supprimer
+
+            let inputExperience = document.createElement("input");
+            inputExperience.setAttribute("id","experience_"+indexExperience);
+            inputExperience.setAttribute("name","experience_"+indexExperience);
+            inputExperience.setAttribute("type", "text");
+            inputExperience.setAttribute("class", "form-control");
+            inputExperience.setAttribute("placeholder", "Experience");
+
+            let inputEtablissement = document.createElement("input");
+            inputEtablissement.setAttribute("id","etablissement_"+indexExperience);
+            inputEtablissement.setAttribute("name","etablissement_"+indexExperience);
+            inputEtablissement.setAttribute("type", "text");
+            inputEtablissement.setAttribute("class", "form-control");
+            inputEtablissement.setAttribute("placeholder", "etablissement");
+
+            let inputDateDeb = document.createElement("input");
+            inputDateDeb.setAttribute("id","dateDebut_"+indexExperience);
+            inputDateDeb.setAttribute("name","dateDebut_"+indexExperience);
+            inputDateDeb.setAttribute("type","date");
+            inputDateDeb.setAttribute("class", "form-control");
+
+            let inputDateFin = document.createElement("input");
+            inputDateFin.setAttribute("id","dateFin_"+indexExperience);
+            inputDateFin.setAttribute("name","dateFin_"+indexExperience);
+            inputDateFin.setAttribute("type","date");
+            inputDateFin.setAttribute("class", "form-control");
+
+            let inputDesc = document.createElement("textarea");
+            inputDesc.setAttribute("id","description_"+indexExperience);
+            inputDesc.setAttribute("name","description_"+indexExperience);
+            inputDesc.setAttribute("class", "form-control");
+            inputDesc.setAttribute("row", "5");
+            inputDesc.setAttribute("style", "resize: none");
+
+            let inputDelete = document.createElement("button");
+            inputDelete.setAttribute("id", "deleteExperience_"+indexExperience);
+            inputDelete.setAttribute("class", "btn btn-danger");
+            inputDelete.setAttribute("data-action", "delete");
+            inputDelete.setAttribute("data-target", "block_experience_"+indexExperience);
+            inputDelete.setAttribute("type", "button");
+
+            let X = document.createTextNode("X");
+            inputDelete.appendChild(X);
+
+            divCol6_debut.appendChild(inputDateDeb);
+            divCol6_fin.appendChild(inputDateFin);
+
+            divRow_sous.appendChild(divCol6_debut);
+            divRow_sous.appendChild(divCol6_fin);
+            divRow.appendChild(inputExperience);
+            divRow.appendChild(inputEtablissement);
+            divRow.appendChild(divRow_sous);
+            divRow.appendChild(inputDesc);
+            divRow.appendChild(inputDelete);
+
+
+            divFormGroup.appendChild(divRow);
+
+            divExperience.appendChild(divFormGroup);
+
+            let bouton = document.getElementById('deleteExperience_'+indexExperience);
+            bouton.addEventListener('click', supprimerExperience);
+
+            document.getElementById("compteurExperience").value = ++indexExperience;
+            console.log('après ajout ' + indexExperience);
+        }
+
+
+        function supprimerExperience(){
+            let inputCompteur = document.getElementById("compteurExperience");
+            let compteur = parseInt(inputCompteur.value)-1;
+            let target = this.dataset.target;
+            let divSupprimer = document.getElementById(target);
+            let id = parseInt(target.substr(17));
+            console.log('id = ' + id);
+
+            document.getElementById("experience").removeChild(divSupprimer);
+
+            for(let i = id; i < compteur; i++){
+                let div =document.getElementById("block_experience_"+(i+1));
+                div.setAttribute('id', "block_experience_"+i);
+
+                let inputExperience = document.getElementById("experience_"+(i+1));
+                let inputEtablissement = document.getElementById("etablissement_"+(i+1));
+                let inputDesc = document.getElementById("description_"+(i+1));
+                let inputDateDeb = document.getElementById("dateDebut_"+(i+1));
+                let inputDateFin = document.getElementById("dateFin_"+(i+1));
+                let inputDelete = document.getElementById("deleteExperience_"+(i+1));
+
+                inputExperience.setAttribute('name', "experience_"+i);
+                inputExperience.setAttribute('id', "experience_"+i);
+
+                inputEtablissement.setAttribute('name', "etablissement_"+i);
+                inputEtablissement.setAttribute('id', "etablissement_"+i);
+
+                inputDesc.setAttribute('name', "description_"+i);
+                inputDesc.setAttribute('id', "description_"+i);
+
+                inputDateDeb.setAttribute('name', "dateDebut_"+i);
+                inputDateDeb.setAttribute('id', "dateDebut_"+i);
+
+                inputDateFin.setAttribute('name', "dateFin_"+i);
+                inputDateFin.setAttribute('id', "dateFin_"+i);
+
+                inputDelete.setAttribute('data-target', "block_experience_"+i);
+                inputDelete.setAttribute('id', "deleteExperience_"+i);
+            }
+
+            inputCompteur.value -=1;
+            indexExperience--;
+            console.log('après suppression ' + indexExperience);
+        }
+
+
+        //AJOUT DE CENTRES D INTERET
+
+
+        function addActivite () {
+
+            /*A partir d'ici, on crée la structure suivante :
+
+            <div class="form-group m1-1">
+                <div class="row">
+                    <div class="col-11"> contenu </div>
+                    <div class="col-1"> contenu </div>
+                </div>
+            </div>
+
+             */
+
+            let divFormGroup = document.createElement("div");
+            divFormGroup.setAttribute("class", "form-group ml-1");
+            divFormGroup.setAttribute("id", "block_activite_"+indexActivite);
+
+            let divRow = document.createElement("div");
+            divRow.setAttribute("class", "row");
+
+            let divCol11 = document.createElement("div");
+            divCol11.setAttribute("class", 'col-11'); //emplacement input
+
+            let divCol1 = document.createElement("div");
+            divCol1.setAttribute("class", "col-1"); //bouton supprimer
+
+            let inputActivite = document.createElement("input");
+            inputActivite.setAttribute("id","activite_"+indexActivite);
+            inputActivite.setAttribute("name","activite_"+indexActivite);
+            inputActivite.setAttribute("type", "text");
+            inputActivite.setAttribute("class", "form-control");
+            inputActivite.setAttribute("placeholder", "Activite");
+
+            let inputDelete = document.createElement("button");
+            inputDelete.setAttribute("id", "deleteActivite_"+indexActivite);
+            inputDelete.setAttribute("class", "btn btn-danger");
+            inputDelete.setAttribute("data-action", "delete");
+            inputDelete.setAttribute("data-target", "block_activite_"+indexActivite);
+            inputDelete.setAttribute("type", "button");
+
+            let X = document.createTextNode("X");
+            inputDelete.appendChild(X);
+
+            divCol1.appendChild(inputDelete);
+            divCol11.appendChild(inputActivite);
+
+            divRow.appendChild(divCol11);
+            divRow.appendChild(divCol1);
+
+            divFormGroup.appendChild(divRow);
+
+            divActivite.appendChild(divFormGroup);
+
+            let bouton = document.getElementById('deleteActivite_'+indexActivite);
+            bouton.addEventListener('click', supprimerActivite);
+
+            document.getElementById("compteurActivite").value = ++indexActivite;
+            console.log('après ajout ' + indexActivite);
+        }
+
+
+        function supprimerActivite(){
+            let inputCompteur = document.getElementById("compteurActivite");
+            let compteur = parseInt(inputCompteur.value)-1;
+            let target = this.dataset.target;
+            let divSupprimer = document.getElementById(target);
+            let id = parseInt(target.substr(15));
+            console.log('id = ' + id);
+
+            document.getElementById("activite").removeChild(divSupprimer);
+
+            for(let i = id; i < compteur; i++){
+                let div =document.getElementById("block_activite_"+(i+1));
+                div.setAttribute('id', "block_activite_"+i);
+
+                let inputActivite = document.getElementById("activite_"+(i+1));
+                let inputDelete = document.getElementById("deleteActivite_"+(i+1));
+
+                inputActivite.setAttribute('name', "activite_"+i);
+                inputActivite.setAttribute('id', "activite_"+i);
+
+                inputDelete.setAttribute('data-target', "block_activite_"+i);
+                inputDelete.setAttribute('id', "deleteActivite_"+i);
+            }
+
+            inputCompteur.value -=1;
+            indexActivite--;
+            console.log('après suppression ' + indexActivite);
+        }
+
+
+        //AJOUT DE LIENS
+
 
         function addLinks () {
 
@@ -258,7 +451,7 @@
 
             let divFormGroup = document.createElement("div");
             divFormGroup.setAttribute("class", "form-group ml-1");
-            divFormGroup.setAttribute("id", "block_liens_"+index);
+            divFormGroup.setAttribute("id", "block_liens_"+indexLien);
 
             let divRow = document.createElement("div");
             divRow.setAttribute("class", "row");
@@ -273,24 +466,24 @@
             divCol1.setAttribute("class", "col-1"); //bouton supprimer
 
             let inputLink = document.createElement("input");
-            inputLink.setAttribute("id","lien_"+index);
-            inputLink.setAttribute("name","lien_"+index);
+            inputLink.setAttribute("id","lien_"+indexLien);
+            inputLink.setAttribute("name","lien_"+indexLien);
             inputLink.setAttribute("type", "url");
             inputLink.setAttribute("class", "form-control");
             inputLink.setAttribute("placeholder", "Lien externe");
 
             let inputSelect = document.createElement("select");
             inputSelect.setAttribute("class","form-control");
-            inputSelect.setAttribute("id","type_"+index);
-            inputSelect.setAttribute("name","type_"+index);
+            inputSelect.setAttribute("id","type_"+indexLien);
+            inputSelect.setAttribute("name","type_"+indexLien);
 
             inputSelect.innerHTML+="<option value='Linkedin'>Linkedin</option><option value='GitHub'>GitHub</option><option value='Autre'>Autre</option>";
 
             let inputDelete = document.createElement("button");
-            inputDelete.setAttribute("id", "delete_"+index);
+            inputDelete.setAttribute("id", "deleteLien_"+indexLien);
             inputDelete.setAttribute("class", "btn btn-danger");
             inputDelete.setAttribute("data-action", "delete");
-            inputDelete.setAttribute("data-target", "block_liens_"+index);
+            inputDelete.setAttribute("data-target", "block_liens_"+indexLien);
             inputDelete.setAttribute("type", "button");
 
             let X = document.createTextNode("X");
@@ -308,17 +501,15 @@
 
             divLiens.appendChild(divFormGroup);
 
-            let bouton = document.getElementById('delete_'+index);
+            let bouton = document.getElementById('deleteLien_'+indexLien);
             bouton.addEventListener('click', supprimerLien);
 
-            document.getElementById("compteur").value = ++index;
-            console.log('après ajout ' + index);
+            document.getElementById("compteurLien").value = ++indexLien;
+            console.log('après ajout ' + indexLien);
         }
 
-
-
         function supprimerLien(){
-            let inputCompteur = document.getElementById("compteur");
+            let inputCompteur = document.getElementById("compteurLien");
             let compteur = parseInt(inputCompteur.value)-1;
             let target = this.dataset.target;
             let divSupprimer = document.getElementById(target);
@@ -335,7 +526,7 @@
 
                 let inputLien = document.getElementById("lien_"+(i+1));
                 let inputType = document.getElementById("type_"+(i+1));
-                let inputDelete = document.getElementById("delete_"+(i+1));
+                let inputDelete = document.getElementById("deleteLien_"+(i+1));
 
                 inputLien.setAttribute('name', "lien_"+i);
                 inputLien.setAttribute('id', "lien_"+i);
@@ -344,12 +535,12 @@
 
 
                 inputDelete.setAttribute('data-target', "block_liens_"+i);
-                inputDelete.setAttribute('id', "delete_"+i);
+                inputDelete.setAttribute('id', "deleteLien_"+i);
             }
 
             inputCompteur.value -=1;
-            index--;
-            console.log('après suppression ' + index);
+            indexLien--;
+            console.log('après suppression ' + indexLien);
         }
 
         </script>

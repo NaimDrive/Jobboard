@@ -34,13 +34,12 @@ class EtudiantController extends Controller
                 //Cela permet de verifier que l'utilisateur est bien un étudiant, et qu'il essaye d'accèder à un profile existant, qui est bien le sien
             }
             $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
-            $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get(); //on recupere les compétences de l'étudiant qui désire modifier son profile
-            $activite = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet'); //on recupere les activité de l'étudiant qui désire modifier son profile
-            $experiences = DB::table('experience')->where('idEtudiant', $id)->get(); //on recupere les expériences de l'étudiant qui désire modifier son profile
             $user = DB::table('users')->where('id',$userId)->first();
+            $activite = DB::table('centre_d_interet')->where('idEtudiant',$etuId)->get();
+            $experience = DB::table('experience')->where('idEtudiant',$etuId)->get();
             $lien = DB::table('reference_lien')->where('idEtudiant',$etuId)->get();
 
-            return view('etudiant/editProfile', ["categorie" => $categorie, "competence" => $competences, "activite" => $activite, "experience" => $experiences,"user"=>$user,"id" =>$id,"lien"=>$lien]); //on retourne la vue de modification du profile de l'étudiant
+            return view('etudiant/editProfile', ["id" =>$id,"user"=>$user,"activite"=>$activite,"experience"=>$experience,"lien"=>$lien]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
     }
@@ -133,80 +132,68 @@ class EtudiantController extends Controller
         }
 
 
-
-        //SUPPRESSION EXPERIENCES
-
-
-        $this->validate($request,
-            [
-                "experience_del" => "required",
-            ]);
-
-        $input=$request->only(["experience_del"]);
-
-        DB::table('experience')->where('nom', $input["experience_del"])->where('idEtudiant',$id)->delete();
+*/
 
         //INSERTION EXPERIENCES
 
 
         $this->validate($request,
             [
-                "intitulePoste" => "required",
-                "etablissement" => "required",
-                "dateDebut" => "required",
-                "dateFin" => "required",
-                "description" => "required",
+                "nbExperience"
             ]);
 
-        if(($request["intitulePoste"] !== "") && ($request["etablissement"] !== "")){
-            $input=$request->only(["intitulePoste","etablissement","dateDebut","dateFin","description"]);
+        DB::table('experience')->where('idEtudiant',$idEtu)->delete();
 
+        $compteur = $request["nbExperience"]+=0;
+
+        for($i = 0; $i < $compteur; $i++) {
+            $this->validate($request,[
+                "experience_".$i => ['required', "string", "max:255"],
+                "etablissement_".$i => ['required', "string", "max:255"],
+                "dateDebut_".$i => ['required'],
+                "dateFin_".$i => ['required'],
+                "description_".$i => ['required', "string", "max:255"],
+            ]);
+
+            $input=$request->only(["experience_".$i, "etablissement_".$i, "dateDebut_".$i, "dateFin_".$i, "description_".$i]);
 
             DB::table('experience')->insert([
-                "nom" => $input["intitulePoste"],
-                "dateDebut" => $input["dateDebut"],
-                "dateFin" => $input["dateFin"],
-                "resume" => $input["description"],
-                "etablissement" => $input["etablissement"],
+                "nom" => $input["experience_".$i],
+                "dateDebut" => $input["dateDebut_".$i],
+                "dateFin" => $input["dateFin_".$i],
+                "resume" => $input["description_".$i],
+                "etablissement" => $input["etablissement_".$i],
                 "idEtudiant" => $idEtu,
             ]);
+
         }
-
-
-
-        //SUPPRESSION ACTIVITES
-
-        $this->validate($request,
-            [
-                "activite_del" => "required",
-            ]);
-
-        $input=$request->only(["activite_del","idEtu"]);
-        DB::table('centre_d_interet')->where('Interet', $input["activite_del"])->where('idEtudiant',$id)->delete();
-
 
 
         //INSERTION ACTIVITES
 
 
-
         $this->validate($request,
             [
-                "activite"=> "required",
+                "nbActivite"
             ]);
 
-        $input=$request->only(["activite"]);
+        DB::table('centre_d_interet')->where('idEtudiant',$idEtu)->delete();
 
+        $compteur = $request["nbActivite"]+=0;
 
-        DB::table('centre_d_interet')->insert([
-            "Interet" => $input["activite"],
-            "idEtudiant" => $id,
-        ]);
-*/
+        for($i = 0; $i < $compteur; $i++) {
+            $this->validate($request,[
+                "activite_".$i => ['required', "string", "max:255"],
+            ]);
 
-        //SUPPRESSION LIENS EXTERNES
+            $input=$request->only(["activite_".$i]);
 
+            DB::table('centre_d_interet')->insert([
+                "Interet" => $input["activite_".$i],
+                "idEtudiant" => $idEtu,
+            ]);
 
+        }
 
 
         //INSERTION LIENS EXTERNES
@@ -216,8 +203,8 @@ class EtudiantController extends Controller
         ]);
 
         DB::table('reference_lien')->where('idEtudiant', $idEtu)->delete();
-
         $compteur = $request["nbLiens"]+=0;
+
         for($i = 0; $i < $compteur; $i++) {
             $this->validate($request,[
                 "lien_".$i => ['required', "string", "max:255"],
@@ -231,6 +218,8 @@ class EtudiantController extends Controller
                 "UrlReference" => $input["lien_".$i],
                 "idEtudiant" => $idEtu,
             ]);
+
+
         }
 
 
