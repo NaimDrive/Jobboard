@@ -14,12 +14,12 @@
                 <form enctype="multipart/form-data" method="POST" action="{{route('enregistrer_modifs')}}">
                     <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
+
                     <fieldset>
                         <legend>Photo de profile</legend>
                         <div class="form-group">
                             <input type="file" class="form-control-file" id="photo" name="photo">
                             <br>
-                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
 
@@ -35,7 +35,6 @@
                                 <div class="col-lg-6"><input type="text" class="form-control" id="prenom" name="prenom" value="{{$user->prenom}}" aria-describedby="infoComp" placeholder="Prenom"></div>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
 
@@ -86,7 +85,6 @@
                                 @endforeach
                             </select>
                             <small id="infoComp" class="form-text text-muted">Vos compétences seront visibles sur votre profile</small><br> <!-- petit texte indicatif -->
-                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
 
@@ -136,7 +134,6 @@
                             <br>
                             <label for="description">Description du poste</label>
                             <textarea class="form-control" id="description" name="description" rows="5" style="resize: none;"></textarea><br>
-                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
 
@@ -169,7 +166,6 @@
                         <legend>Centres d'intérêt</legend>
                         <div class="form-group">
                             <input type="text" class="form-control" id="activite" name="activite" value="{{old("activite")}}" placeholder="Exemple: Sport"><br>
-                            <button type="submit" class="btn btn-success col-lg-2">Ajouter</button>
                         </div>
                     </fieldset>
 
@@ -177,21 +173,47 @@
 
                 <!-- DEBUT DU FORMULAIRE DES LIENS -->
 
-
+                    <legend>Liens externes</legend>
                     <div id="liens">
                         <input type="hidden" name="nbLiens" id="compteur">
-                        <fieldset>
-                            <legend>Liens externes</legend>
-                            <div class="block_liens_0">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="lien_0" name="lien_0" placeholder="Lien externe">
+                        @php ($i = 0)
+                        @foreach($lien as $l)
+                            <div id="block_liens_{{$i}}" class="form-group ml-1">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" name="lien_{{$i}}" id="lien_{{$i}}" value="{{$l->UrlReference}}">
+                                    </div>
+                                    <div class="col-5">
+                                        <select class="form-control" name="type_{{$i}}" id="type_{{$i}}">
+                                            @if($l->nomReference == "Linkedin")
+                                                <option value="Linkedin" selected>Linkedin</option>
+                                                <option value="GitHub">GitHub</option>
+                                                <option value="Autre">Autre</option>
+                                            @elseif($l->nomReference == "GitHub")
+                                                <option value="Linkedin">Linkedin</option>
+                                                <option value="GitHub" selected>GitHub</option>
+                                                <option value="Autre">Autre</option>
+                                            @else
+                                                <option value="Linkedin">Linkedin</option>
+                                                <option value="GitHub">GitHub</option>
+                                                <option value="Autre" selected>Autre</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                        <button id="delete_{{$i}}" class="btn btn-danger" data-action="delete" data-target="block_liens_{{$i}}" type="button">X</button>
+                                    </div>
                                 </div>
                             </div>
-                        </fieldset>
+                            @php ($i++)
+                        @endforeach
                     </div>
-
                     <div class="form-group">
                         <button type="button" id="add-link" class="btn btn-primary">Ajouter un lien</button>
+                    </div>
+                    <br>
+                    <div class="row justify-content-md-center">
+                        <button type="submit" class="col-lg-4 btn btn-success">Envoyer</button>
                     </div>
 
                 </form>
@@ -204,13 +226,35 @@
 @section('javaScript')
     <script>
 
-        let boutonAddLien = document.getElementById('add-link');
-        boutonAddLien.addEventListener('click' , addLinks);
+        let boutonAddLien = document.getElementById('add-link'); //Bouton d'ajout de lien
+        boutonAddLien.addEventListener('click' , addLinks); //On assigne la fonction d'ajout au bouton après click
+
+        let divLiens = document.getElementById('liens');
+
+        let index = parseInt(divLiens.childNodes.length)-(3+(parseInt({{$i}})));
+        console.log('initialement ' + index);
+
+
+        for(let k=0; k<index; k++){
+            let bouton = document.getElementById('delete_'+k);
+            bouton.addEventListener('click', supprimerLien);
+        }
+
+        document.getElementById("compteur").value=index;
 
         function addLinks () {
 
-            let divLiens = document.getElementById('liens');
-            let index = parseInt(divLiens.childNodes.length)-4;
+            /*A partir d'ici, on crée la structure suivante :
+
+            <div class="form-group m1-1">
+                <div class="row">
+                    <div class="col-6"> contenu </div>
+                    <div class="col-5"> contenu </div>
+                    <div class="col-1"> contenu </div>
+                </div>
+            </div>
+
+             */
 
             let divFormGroup = document.createElement("div");
             divFormGroup.setAttribute("class", "form-group ml-1");
@@ -219,25 +263,45 @@
             let divRow = document.createElement("div");
             divRow.setAttribute("class", "row");
 
-            let divCol11 = document.createElement("div");
-            divCol11.setAttribute("class", 'col-11');
+            let divCol6 = document.createElement("div");
+            divCol6.setAttribute("class", 'col-6'); //emplacement input
+
+            let divCol5 = document.createElement("div");
+            divCol5.setAttribute("class",'col-5'); //emplacement input
 
             let divCol1 = document.createElement("div");
-            divCol1.setAttribute("class", "col-1");
+            divCol1.setAttribute("class", "col-1"); //bouton supprimer
 
             let inputLink = document.createElement("input");
             inputLink.setAttribute("id","lien_"+index);
             inputLink.setAttribute("name","lien_"+index);
-            inputLink.setAttribute("type", "text");
+            inputLink.setAttribute("type", "url");
+            inputLink.setAttribute("class", "form-control");
             inputLink.setAttribute("placeholder", "Lien externe");
+
+            let inputSelect = document.createElement("select");
+            inputSelect.setAttribute("class","form-control");
+            inputSelect.setAttribute("id","type_"+index);
+            inputSelect.setAttribute("name","type_"+index);
+
+            inputSelect.innerHTML+="<option value='Linkedin'>Linkedin</option><option value='GitHub'>GitHub</option><option value='Autre'>Autre</option>";
+
+            let inputDelete = document.createElement("button");
+            inputDelete.setAttribute("id", "delete_"+index);
+            inputDelete.setAttribute("class", "btn btn-danger");
+            inputDelete.setAttribute("data-action", "delete");
+            inputDelete.setAttribute("data-target", "block_liens_"+index);
+            inputDelete.setAttribute("type", "button");
 
             let X = document.createTextNode("X");
             inputDelete.appendChild(X);
 
             divCol1.appendChild(inputDelete);
-            divCol11.appendChild(inputLink);
+            divCol6.appendChild(inputLink);
+            divCol5.appendChild(inputSelect);
 
-            divRow.appendChild(divCol11);
+            divRow.appendChild(divCol6);
+            divRow.appendChild(divCol5);
             divRow.appendChild(divCol1);
 
             divFormGroup.appendChild(divRow);
@@ -247,28 +311,36 @@
             let bouton = document.getElementById('delete_'+index);
             bouton.addEventListener('click', supprimerLien);
 
-            document.getElementById("compteur").value = index+1;
+            document.getElementById("compteur").value = ++index;
+            console.log('après ajout ' + index);
         }
+
+
 
         function supprimerLien(){
             let inputCompteur = document.getElementById("compteur");
             let compteur = parseInt(inputCompteur.value)-1;
             let target = this.dataset.target;
             let divSupprimer = document.getElementById(target);
-
-            let id = parseInt(target.substr(14,1));
+            let id = parseInt(target.substr(12));
+            console.log('id = ' + id);
 
             document.getElementById("liens").removeChild(divSupprimer);
+
+
 
             for(let i = id; i < compteur; i++){
                 let div =document.getElementById("block_liens_"+(i+1));
                 div.setAttribute('id', "block_liens_"+i);
 
                 let inputLien = document.getElementById("lien_"+(i+1));
+                let inputType = document.getElementById("type_"+(i+1));
                 let inputDelete = document.getElementById("delete_"+(i+1));
 
                 inputLien.setAttribute('name', "lien_"+i);
                 inputLien.setAttribute('id', "lien_"+i);
+                inputType.setAttribute('name',"type_"+i);
+                inputType.setAttribute('id',"type_"+i);
 
 
                 inputDelete.setAttribute('data-target', "block_liens_"+i);
@@ -276,8 +348,9 @@
             }
 
             inputCompteur.value -=1;
+            index--;
+            console.log('après suppression ' + index);
         }
 
-        document.getElementById("compteur").value = 1;
         </script>
         @endsection

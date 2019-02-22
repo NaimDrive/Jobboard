@@ -38,8 +38,9 @@ class EtudiantController extends Controller
             $activite = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet'); //on recupere les activité de l'étudiant qui désire modifier son profile
             $experiences = DB::table('experience')->where('idEtudiant', $id)->get(); //on recupere les expériences de l'étudiant qui désire modifier son profile
             $user = DB::table('users')->where('id',$userId)->first();
+            $lien = DB::table('reference_lien')->where('idEtudiant',$etuId)->get();
 
-            return view('etudiant/editProfile', ["categorie" => $categorie, "competence" => $competences, "activite" => $activite, "experience" => $experiences,"user"=>$user,"id" =>$id]); //on retourne la vue de modification du profile de l'étudiant
+            return view('etudiant/editProfile', ["categorie" => $categorie, "competence" => $competences, "activite" => $activite, "experience" => $experiences,"user"=>$user,"id" =>$id,"lien"=>$lien]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
     }
@@ -75,7 +76,7 @@ class EtudiantController extends Controller
                 ]
             );
         }
-
+/*
         //UPDATE IDENTITE
 
 
@@ -96,7 +97,7 @@ class EtudiantController extends Controller
                     "prenom" => $input["prenom"],
                 ]
             );
-/*
+
         //SUPPRESSION COMPETENCES
 
 
@@ -108,7 +109,7 @@ class EtudiantController extends Controller
         $input=$request->only(["competence_del"]);
         DB::table('competences_etudiant')->where('nomCompetence', $input["competence_del"])->where('idEtudiant',$id)->delete();
 
-*/
+
         //INSERTION COMPETENCES
 
 
@@ -131,7 +132,7 @@ class EtudiantController extends Controller
             ]);
         }
 
-/*
+
 
         //SUPPRESSION EXPERIENCES
 
@@ -144,7 +145,6 @@ class EtudiantController extends Controller
         $input=$request->only(["experience_del"]);
 
         DB::table('experience')->where('nom', $input["experience_del"])->where('idEtudiant',$id)->delete();
-*/
 
         //INSERTION EXPERIENCES
 
@@ -172,7 +172,7 @@ class EtudiantController extends Controller
             ]);
         }
 
-/*
+
 
         //SUPPRESSION ACTIVITES
 
@@ -202,8 +202,38 @@ class EtudiantController extends Controller
             "Interet" => $input["activite"],
             "idEtudiant" => $id,
         ]);
-
 */
+
+        //SUPPRESSION LIENS EXTERNES
+
+
+
+
+        //INSERTION LIENS EXTERNES
+
+        $this->validate($request,[
+            "nbLiens"
+        ]);
+
+        DB::table('reference_lien')->where('idEtudiant', $idEtu)->delete();
+
+        $compteur = $request["nbLiens"]+=0;
+        for($i = 0; $i < $compteur; $i++) {
+            $this->validate($request,[
+                "lien_".$i => ['required', "string", "max:255"],
+                "type_".$i => ['required', "string"],
+            ]);
+
+            $input=$request->only(["lien_".$i,"type_".$i]);
+
+            DB::table('reference_lien')->insert([
+                "nomReference" => $input["type_".$i],
+                "UrlReference" => $input["lien_".$i],
+                "idEtudiant" => $idEtu,
+            ]);
+        }
+
+
     return redirect(route('edit_profile',["id"=>$idEtu]));
 
     }
