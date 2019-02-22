@@ -11,4 +11,8 @@ class DescriptionOffre extends Model
     public function offre(){
         return $this->belongsTo("App\Offre", 'idOffre');
     }
+
+    public function adresse(){
+        return $this->belongsTo("App\AdressEntreprise","location");
+    }
 }

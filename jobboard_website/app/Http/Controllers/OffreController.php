@@ -63,10 +63,18 @@ class OffreController extends Controller
             "dateFin" => ["required","date","after:dateDebut"],
             "pre-embauche" => ["required","string","min:3","max:8"],
             "contexte" => ["required","string","min:10","max:1000"],
-            "objectif" => ["required","string",'min:10',"max:1000"]
+            "objectif" => ["required","string",'min:10',"max:1000"],
+            "location" => ["required"],
+            "depot" => ["nullable","file"],
+            "lienOffre" => ["nullable","url"]
         ]);
 
-        $input = $request->only(["nomOffre","natureOffre","dateDebut","dateFin","pre-embauche"]);
+        $depot = null ;
+        if($request->hasFile("depot")){
+            $depot = $request['depot']->store('/public/offres');
+            $depot= str_replace("public","storage",$depot);
+        }
+        $input = $request->only(["nomOffre","natureOffre","dateDebut","dateFin","pre-embauche","lienOffre"]);
         $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
 
         $idOffre = DB::table("offre")->insertGetId([
@@ -76,15 +84,18 @@ class OffreController extends Controller
             "dateFin" => $input["dateFin"],
             "pre-embauche" => $input["pre-embauche"],
             "idEntreprise" => $idEntreprise,
-            "datePublicationOffre" => new \DateTime()
+            "datePublicationOffre" => new \DateTime(),
+            "depot" => $depot,
+            "lienOffre" => $input["lienOffre"]
         ]);
 
-        $description = $request->only(["contexte","objectif"]);
+        $description = $request->only(["contexte","objectif","location"]);
 
         DB::table("description_offre")->insert([
            "contexte" => $description["contexte"],
             "objectif" => $description["objectif"],
-            "idOffre" => $idOffre
+            "idOffre" => $idOffre,
+            "location" => $description["location"]
         ]);
 
         return redirect(route("afficherUneOffre",["id"=>$idOffre]));
@@ -136,6 +147,8 @@ class OffreController extends Controller
         $offre = Offre::find($id);
         return view('offre/uneOffre',['offre'=>$offre]);
     }
+
+
 
 
 }

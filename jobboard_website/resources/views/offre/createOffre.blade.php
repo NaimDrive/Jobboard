@@ -19,7 +19,7 @@
                         <h1>Déposer une offre</h1>
                     </div>
                     <div class="card-body">
-                        <form method='POST' action="{{route('enregistrerOffre')}}">
+                        <form method='POST' action="{{route('enregistrerOffre')}}" enctype="multipart/form-data">
                             {!! csrf_field() !!}
                             <div class="form-group row">
                                 <label for="nomOffre" class="col-md-4 col-form-label text-md-right">
@@ -54,7 +54,9 @@
                                     Adresse du stage
                                 </label>
                                 <select name="location" id="location" class="form-control col-md-6">
-                                    <option value=""></option>
+                                    @foreach($entreprise->adress as $adresse)
+                                        <option value="{{$adresse->id}}">{{$adresse->nomRue}} - {{$adresse->coordonnePostales}} {{$adresse->ville}} </option>
+                                    @endforeach
                                 </select>
                             </div>
 
