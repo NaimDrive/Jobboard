@@ -41,6 +41,15 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="location" class="col-md-4 col-form-label text-md-right">
+                                    Adresse du stage
+                                </label>
+                                <select name="location" id="location" class="form-control col-md-6">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="pre-embauche" class="col-md-4 col-form-label text-md-right">
                                     Pré-embauche
                                 </label>
@@ -63,6 +72,20 @@
                                     Objectif(s)
                                 </label>
                                 <textarea name="objectif" id="objectif" value="{{old("objectif")}}" class="form-control col-md-6" placeholder="Objectif(s) de la mission"></textarea>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="lienOffre" class="col-md-4 col-form-label text-md-right">
+                                    Lien
+                                </label>
+                                <input type="url" id="lienOffre" name="lienOffre" value="{{old("lienOffre")}}" class="form-control col-md-6" placeholder="Lien de l'offre">
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="depot" class="col-md-4 col-form-label text-md-right">
+                                    Ficher
+                                </label>
+                                <input type="file" id="depot" name="depot" value="{{old("depot")}}" class="form-control col-md-6" placeholder="Fichier de l'offre">
                             </div>
 
                             <div class="col-md-8 offset-md-4">

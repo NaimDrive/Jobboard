@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entreprise;
 use Illuminate\Http\Request;
 use App\Offre ;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,8 @@ class OffreController extends Controller
 
     function creerOffre(){
         if (Auth::check() && $this->peutCreer()){
-            return view('offre/createOffre');
+            $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
+            return view('offre/createOffre',["entreprise"=>Entreprise::find($idEntreprise)]);
         }
     }
 
@@ -42,8 +44,8 @@ class OffreController extends Controller
             "dateDebut" => ["required","date","after:today"],
             "dateFin" => ["required","date","after:dateDebut"],
             "pre-embauche" => ["required","string","min:3","max:8"],
-            "contexte" => ["required","string","min:10"],
-            "objectif" => ["required","string",'min:10']
+            "contexte" => ["required","string","min:10","max:1000"],
+            "objectif" => ["required","string",'min:10',"max:1000"]
         ]);
 
         $input = $request->only(["nomOffre","natureOffre","dateDebut","dateFin","pre-embauche"]);

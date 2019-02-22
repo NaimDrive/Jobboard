@@ -15,8 +15,8 @@ class CreateDescriptionOffreTable extends Migration
     {
         Schema::create('description_offre', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('contexte');
-            $table->string('objectif');
+            $table->longText('contexte');
+            $table->longText('objectif');
             $table->string('location')->nullable();
             $table->integer('idOffre');
             $table->timestamps();
