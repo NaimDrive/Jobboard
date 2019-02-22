@@ -29,6 +29,24 @@ class OffreController extends Controller
         return $peutCreer;
     }
 
+    function peutModifier($id){
+        foreach(Auth::user()->roles as $role){
+            if($role->typeRole == 'CONTACT'){
+
+                $offreEntreprise = DB::table('offre')->where('id',$id)->value('idEntreprise');
+                $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
+                if($idEntreprise == $offreEntreprise ){
+                     return true ;
+                }
+
+            }
+            elseif($role->typeRole == 'ADMIN'){
+                return true;
+            }
+        }
+        return false;
+    }
+
     function creerOffre(){
         if (Auth::check() && $this->peutCreer()){
             $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
@@ -70,6 +88,48 @@ class OffreController extends Controller
         ]);
 
         return redirect(route("afficherUneOffre",["id"=>$idOffre]));
+    }
+
+
+    function editOffre($id) {
+        if ($this->peutModifier($id)){
+            return view('offre/edit',['offre'=>Offre::find($id)]);
+        }
+        return redirect(route('accueil'));
+    }
+
+    function storeChanges($id){
+        $this->validate($request,[
+            "nomOffre" => ["required","string","min:3","max:255"],
+            "natureOffre" => ["required","string","min:3","max:255"],
+            "dateDebut" => ["required","date","after:today"],
+            "dateFin" => ["required","date","after:dateDebut"],
+            "pre-embauche" => ["required","string","min:3","max:8"],
+            "contexte" => ["required","string","min:10"],
+            "objectif" => ["required","string",'min:10']
+        ]);
+
+        $input = $request->only(["nomOffre","natureOffre","dateDebut","dateFin","pre-embauche"]);
+        $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
+
+        DB::table("offre")->where('id',$id)->update([
+            "nomOffre" => $input["nomOffre"],
+            "natureOffre" => $input["natureOffre"],
+            "dateDebut" => $input["dateDebut"],
+            "dateFin" => $input["dateFin"],
+            "pre-embauche" => $input["pre-embauche"],
+            "idEntreprise" => $idEntreprise,
+            "datePublicationOffre" => new \DateTime()
+        ]);
+
+        $description = $request->only(["contexte","objectif"]);
+
+        DB::table("description_offre")->where('idOffre',$id)->update([
+            "contexte" => $description["contexte"],
+            "objectif" => $description["objectif"],
+        ]);
+
+        return redirect(route("afficherUneOffre",["id"=>$id]));
     }
 
     function afficherUneOffre($id){

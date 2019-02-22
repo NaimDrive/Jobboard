@@ -39,18 +39,8 @@ Route::get('/admin/offre','AdminController@adminOffre')->name('administrerUneOff
 Route::get('/admin/offre/delete/{id}','AdminController@supprOffre')->name('supprimerUneOffre');
 
 //ROUTES POST D'AJOUT D'INFORMATIONS POUR L'ETUDIANT
-Route::post('/etudiant/enregistrerCompetence','EtudiantController@gererCompetence')->name('enregistrer_competence');
-Route::post('/etudiant/enregistrerExperience','EtudiantController@gererExperience')->name('enregistrer_experience');
-Route::post('/etudiant/enregistrerActivite','EtudiantController@gererActivite')->name('enregistrer_activite');
-Route::post('/etudiant/enregistrerIdentite','EtudiantController@gererIdentite')->name('enregistrer_identite');
-Route::post('/etudiant/enregistrerImage','EtudiantController@gererImage')->name('enregistrer_image');
+Route::post('/etudiant/enregistrerModifs','EtudiantController@enregistrerModifs')->name('enregistrer_modifs');
 
-
-
-//ROUTES POST DE SUPPRESSION D'INFORMATIONS POUR L'ETUDIANT
-Route::post('/etudiant/supprimerCompetence','EtudiantController@supprimerCompetence')->name('supprimer_competence');
-Route::post('/etudiant/supprimerActivite','EtudiantController@supprimerActivite')->name('supprimer_activite');
-Route::post('/etudiant/supprimerExperience','EtudiantController@supprimerExperience')->name('supprimer_experience');
 
 //ROUTES GET D'ACCES AUX VUES DE L'ETUDIANT
 Route::get('/etudiant/{id}/edit_profile','EtudiantController@modifierProfile')->name('edit_profile');
@@ -83,6 +73,9 @@ Route::get('/contacts','ContactController@afficherContacts')->name('afficherTout
 Route::get('/offre/create','OffreController@creerOffre')->name('createOffre');
 Route::post('/offre/enregistrer','OffreController@enregistrerOffre')->name('enregistrerOffre');
 Route::get('/offre/{id}','OffreController@afficherUneOffre')->name('afficherUneOffre');
+Route::get('/offre/{id}/edit','OffreController@editOffre')->name('editOffre');
+Route::post('/offre/{id}/store_change', 'OffreController@storeChanges')->name('storeOffreChange');
+
 
 //ROUTE D'ACCES A LA LISTE DES OFFRES
 Route::get('/offres', 'EtudiantController@afficheOffre')->name('offres');
