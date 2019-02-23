@@ -33,13 +33,15 @@ class EtudiantController extends Controller
                 return redirect(route('accueil')); //on renvoi à la page d'accueil
                 //Cela permet de verifier que l'utilisateur est bien un étudiant, et qu'il essaye d'accèder à un profile existant, qui est bien le sien
             }
-            $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
+
             $user = DB::table('users')->where('id',$userId)->first();
             $activite = DB::table('centre_d_interet')->where('idEtudiant',$etuId)->get();
             $experience = DB::table('experience')->where('idEtudiant',$etuId)->get();
+            $competence = DB::table('competences_etudiant')->where('idEtudiant',$etuId)->get();
+            $categories = DB::table('categorie')->get();
             $lien = DB::table('reference_lien')->where('idEtudiant',$etuId)->get();
 
-            return view('etudiant/editProfile', ["id" =>$id,"user"=>$user,"activite"=>$activite,"experience"=>$experience,"lien"=>$lien]); //on retourne la vue de modification du profile de l'étudiant
+            return view('etudiant/editProfile', ["id" =>$id,"user"=>$user,"activite"=>$activite,"experience"=>$experience,"competence"=>$competence,"categorie"=>$categories,"lien"=>$lien]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
     }
@@ -75,7 +77,7 @@ class EtudiantController extends Controller
                 ]
             );
         }
-/*
+
         //UPDATE IDENTITE
 
 
@@ -97,42 +99,41 @@ class EtudiantController extends Controller
                 ]
             );
 
-        //SUPPRESSION COMPETENCES
-
-
-        $this->validate($request,
-            [
-                "competence_del" => "required",
-            ]);
-
-        $input=$request->only(["competence_del"]);
-        DB::table('competences_etudiant')->where('nomCompetence', $input["competence_del"])->where('idEtudiant',$id)->delete();
-
 
         //INSERTION COMPETENCES
 
 
         $this->validate($request,
             [
-                "competence"=> "required",
-                "level" => "required",
-                "categorie" => "required",
+                "nbCompetence"
             ]);
 
-        if($request["competence"] !== ""){
-            $input=$request->only(["competence","level","categorie"]);
-            $categorie = DB::table('categorie')->where('nomCategorie', $input["categorie"])->value('id');
+        DB::table('competences_etudiant')->where('idEtudiant',$idEtu)->delete();
+
+        $compteur = $request["nbCompetence"]+=0;
+
+        for($i = 0; $i < $compteur; $i++) {
+            $this->validate($request,[
+                "competence_".$i => ['required', "string", "max:255"],
+                "categorie_".$i => ['required'],
+                "level_".$i => ['required'],
+            ]);
+
+            $input=$request->only(["competence_".$i, "categorie_".$i, "level_".$i]);
+
+            $idCateg = DB::table('categorie')->where('nomCategorie',$input[ "categorie_".$i])->first();
 
             DB::table('competences_etudiant')->insert([
-                "nomCompetence" => $input["competence"],
-                "niveauEstime" => $input["level"],
+                "nomCompetence" => $input["competence_".$i],
+                "niveauEstime" => $input["level_".$i],
                 "idEtudiant" => $idEtu,
-                "idCategorie" => $categorie,
+                "idCategorie" => $idCateg->id,
             ]);
+
         }
 
 
-*/
+
 
         //INSERTION EXPERIENCES
 
