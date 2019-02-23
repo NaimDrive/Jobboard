@@ -16,10 +16,10 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h1>Déposer une offre</h1>
+                        <h1>Modifier mon offre</h1>
                     </div>
                     <div class="card-body">
-                        <form method='POST' action="{{route('enregistrerOffre')}}">
+                        <form method='POST' action="{{route('storeOffreChange',['id'=>$offre->id])}}" enctype="multipart/form-data">
                             {!! csrf_field() !!}
                             <div class="form-group row">
                                 <label for="nomOffre" class="col-md-4 col-form-label text-md-right">
@@ -50,13 +50,24 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="location" class="col-md-4 col-form-label text-md-right">
+                                    Adresse du stage
+                                </label>
+                                <select name="location" id="location" class="form-control col-md-6">
+                                    @foreach($entreprise->adress as $adresse)
+                                        <option value="{{$adresse->id}}">{{$adresse->nomRue}} - {{$adresse->coordonnePostales}} {{$adresse->ville}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="pre-embauche" class="col-md-4 col-form-label text-md-right">
                                     Pré-embauche
                                 </label>
                                 <select class="form-control col-md-6" id="pre-embauche" name="pre-embauche">
-                                    <option value="indefini" {{$offre->pre-embauche == "indefini"? "selected" : ""}}>Indéfini</option>
-                                    <option value="oui" {{$offre->pre-embauche == "oui"? "selected" : ""}}>Oui</option>
-                                    <option value="non" {{$offre->pre-embauche == "non"? "selected" : ""}}>Non</option>
+                                    <option value="indefini" {{$offre->preembauche == "indefini"? "selected" : ""}}>Indéfini</option>
+                                    <option value="oui" {{$offre->preembauche == "oui"? "selected" : ""}}>Oui</option>
+                                    <option value="non" {{$offre->preembauche == "non"? "selected" : ""}}>Non</option>
                                 </select>
                             </div>
 
@@ -64,18 +75,36 @@
                                 <label for="contexte" class="col-md-4 col-form-label text-md-right">
                                     Contexte
                                 </label>
-                                <textarea name="contexte" id="contexte" value="{{ $offre->description->contexte }}" class="form-control col-md-6" placeholder="Contexte de l'offre"></textarea>
+                                <textarea name="contexte" id="contexte" class="form-control col-md-6" placeholder="Contexte de l'offre">
+                                    {{ $offre->description->contexte }}
+                                </textarea>
                             </div>
 
                             <div class="form-group row">
                                 <label for="objectif" class="col-md-4 col-form-label text-md-right">
                                     Objectif(s)
                                 </label>
-                                <textarea name="objectif" id="objectif" value="{{ $offre->description->objectif }}" class="form-control col-md-6" placeholder="Objectif(s) de la mission"></textarea>
+                                <textarea name="objectif" id="objectif" class="form-control col-md-6" placeholder="Objectif(s) de la mission">
+                                     {{ $offre->description->objectif }}
+                                </textarea>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="lienOffre" class="col-md-4 col-form-label text-md-right">
+                                    Lien
+                                </label>
+                                <input type="url" id="lienOffre" name="lienOffre" value="{{$offre->lienOffre}}" class="form-control col-md-6" placeholder="Lien de l'offre">
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="depot" class="col-md-4 col-form-label text-md-right">
+                                    Ficher
+                                </label>
+                                <input type="file" id="depot" name="depot" value="{{old("depot")}}" class="form-control col-md-6" placeholder="Fichier de l'offre">
                             </div>
 
                             <div class="col-md-8 offset-md-4">
-                                <button class="btn btn-success mr-5" type="submit">Ajouter mon offre</button>
+                                <button class="btn btn-success mr-5" type="submit">Modifier mon offre</button>
                             </div>
                         </form>
                     </div>

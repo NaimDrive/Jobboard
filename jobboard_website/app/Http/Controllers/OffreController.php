@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Offre ;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 class OffreController extends Controller
 {
 
@@ -82,7 +84,7 @@ class OffreController extends Controller
             "natureOffre" => $input["natureOffre"],
             "dateDebut" => $input["dateDebut"],
             "dateFin" => $input["dateFin"],
-            "pre-embauche" => $input["pre-embauche"],
+            "preembauche" => $input["pre-embauche"],
             "idEntreprise" => $idEntreprise,
             "datePublicationOffre" => new \DateTime(),
             "depot" => $depot,
@@ -104,12 +106,14 @@ class OffreController extends Controller
 
     function editOffre($id) {
         if ($this->peutModifier($id)){
-            return view('offre/edit',['offre'=>Offre::find($id)]);
+            $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
+
+            return view('offre/edit',['offre'=>Offre::find($id), "entreprise"=>Entreprise::find($idEntreprise)]);
         }
         return redirect(route('accueil'));
     }
 
-    function storeChanges($id){
+    function storeChanges(Request $request ,$id){
         $this->validate($request,[
             "nomOffre" => ["required","string","min:3","max:255"],
             "natureOffre" => ["required","string","min:3","max:255"],
@@ -117,27 +121,53 @@ class OffreController extends Controller
             "dateFin" => ["required","date","after:dateDebut"],
             "pre-embauche" => ["required","string","min:3","max:8"],
             "contexte" => ["required","string","min:10"],
-            "objectif" => ["required","string",'min:10']
+            "objectif" => ["required","string",'min:10'],
+            "location" => ["required"],
+            "depot" => ["nullable","file"],
+            "lienOffre" => ["nullable","url"]
         ]);
 
-        $input = $request->only(["nomOffre","natureOffre","dateDebut","dateFin","pre-embauche"]);
+        $depot = null ;
+        if($request->hasFile("depot")){
+            $depot = $request['depot']->store('/public/offres');
+            $depot= str_replace("public","storage",$depot);
+        }
+        $input = $request->only(["nomOffre","natureOffre","dateDebut","dateFin","pre-embauche","lienOffre"]);
         $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
 
-        DB::table("offre")->where('id',$id)->update([
-            "nomOffre" => $input["nomOffre"],
-            "natureOffre" => $input["natureOffre"],
-            "dateDebut" => $input["dateDebut"],
-            "dateFin" => $input["dateFin"],
-            "pre-embauche" => $input["pre-embauche"],
-            "idEntreprise" => $idEntreprise,
-            "datePublicationOffre" => new \DateTime()
-        ]);
+        if ($depot != null){
+            DB::table("offre")->where('id',$id)->update([
+                "nomOffre" => $input["nomOffre"],
+                "natureOffre" => $input["natureOffre"],
+                "dateDebut" => $input["dateDebut"],
+                "dateFin" => $input["dateFin"],
+                "preembauche" => $input["pre-embauche"],
+                "idEntreprise" => $idEntreprise,
+                "datePublicationOffre" => new \DateTime(),
+                "depot" => $depot,
+                "lienOffre" => $input["lienOffre"]
+            ]);
+        }
+        else{
+            DB::table("offre")->where('id',$id)->update([
+                "nomOffre" => $input["nomOffre"],
+                "natureOffre" => $input["natureOffre"],
+                "dateDebut" => $input["dateDebut"],
+                "dateFin" => $input["dateFin"],
+                "preembauche" => $input["pre-embauche"],
+                "idEntreprise" => $idEntreprise,
+                "datePublicationOffre" => new \DateTime(),
+                "lienOffre" => $input["lienOffre"]
+            ]);
+        }
 
-        $description = $request->only(["contexte","objectif"]);
+
+        $description = $request->only(["contexte","objectif","location"]);
 
         DB::table("description_offre")->where('idOffre',$id)->update([
             "contexte" => $description["contexte"],
             "objectif" => $description["objectif"],
+            "location" => $description["location"]
         ]);
 
         return redirect(route("afficherUneOffre",["id"=>$id]));
@@ -146,6 +176,11 @@ class OffreController extends Controller
     function afficherUneOffre($id){
         $offre = Offre::find($id);
         return view('offre/uneOffre',['offre'=>$offre]);
+    }
+
+    function afficherOffres() {
+        $offres = DB::table('offre')->get();
+        return view('offre/afficherOffres', ['offres' => $offres]);
     }
 
 

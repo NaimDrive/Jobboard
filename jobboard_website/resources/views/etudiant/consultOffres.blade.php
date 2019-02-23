@@ -13,7 +13,7 @@
         $nature =DB::table('offre')->where('id',$idO)->value('natureOffre');
         $dateD= DB::table('offre')->where('id',$idO)->value('dateDebut');
         $dateF = DB::table('offre')->where('id',$idO)->value('dateFin');
-        $preembauche= DB::table('offre')->where('id',$idO)->value('pre-embauche') ;
+        $preembauche= DB::table('offre')->where('id',$idO)->value('preembauche') ;
         $idEntreprise = DB::table('offre')->where('id',$idO)->value('idEntreprise');
         $nomEntreprise = DB::table('entreprise')->where('id',$idEntreprise)->value('nom');
         ?>
