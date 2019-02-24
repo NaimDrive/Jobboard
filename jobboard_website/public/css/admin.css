@@ -3,7 +3,7 @@
 }
 
 .card-body{
-    height: 20em;
+    height: 22em;
 }
 
 .seemore{
@@ -14,3 +14,25 @@
     font-size: 25px;
 }
 
+.foreach{
+    margin-top: 10%;
+}
+
+.foreach p{
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.foreach p:hover{
+    background-color: #0c73cd;
+    color: white;
+    /*border: 2px solid black;*/
+    box-shadow: inset 0px 0px 2px 2px white;
+}
+
+.empty_foreach{
+    margin-top: 50%;
+    margin-bottom: 50%;
+    font-size: 20px;
+    font-weight: bold;
+}
