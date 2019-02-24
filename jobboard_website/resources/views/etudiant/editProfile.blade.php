@@ -51,62 +51,70 @@
 
 
                     <!-- DEBUT DU FORMULAIRE DES COMPETENCES -->
-                    <h1>Competences</h1>
-                    <div id="competence">
-                        <input type="hidden" name="nbCompetence" id="compteurCompetence">
-                        @php ($comp = 0)
-                        @foreach($competence as $c)
-                            <div id="block_competence_{{$comp}}" class="form-group ml-1">
-                                <div class="row">
-                                    <input type="text" class="form-control" name="competence_{{$comp}}" id="competence_{{$comp}}" value="{{$c->nomCompetence}}">
-                                    <select class="form-control" name="categorie_{{$comp}}" id="categorie_{{$comp}}">
-                                        @foreach($categorie as $categ)
-                                            @if($c->idCategorie == $categ->id )
-                                                <option value="{{$categ->nomCategorie}}" selected>{{$categ->nomCategorie}}</option>
+
+
+                    <fieldset>
+                        <legend>Compétences</legend>
+                        <div id="competence">
+                            <input type="hidden" name="nbCompetence" id="compteurCompetence">
+                            @php ($comp = 0)
+                            @foreach($competence as $c)
+                                <div id="block_competence_{{$comp}}" class="form-group ml-1">
+                                    <div class="row">
+                                        <input type="text" class="form-control" name="competence_{{$comp}}" id="competence_{{$comp}}" value="{{$c->nomCompetence}}">
+                                        <select class="form-control" name="categorie_{{$comp}}" id="categorie_{{$comp}}">
+                                            @foreach($categorie as $categ)
+                                                @if($c->idCategorie == $categ->id )
+                                                    <option value="{{$categ->nomCategorie}}" selected>{{$categ->nomCategorie}}</option>
+                                                @endif
+                                                    <option value="{{$categ->nomCategorie}}">{{$categ->nomCategorie}}</option>
+                                            @endforeach
+                                        </select>
+                                        <select class="form-control" name="level_{{$comp}}" id="level_{{$comp}}">
+                                            @if($c->niveauEstime == "Excellent")
+                                                <option value="Excellent" selected>Excellent</option>
+                                                <option value="Bon">Bon</option>
+                                                <option value="Moyen">Moyen</option>
+                                                <option value="Faible">Faible</option>
+                                            @elseif($c->niveauEstime == "Bon")
+                                                <option value="Excellent">Excellent</option>
+                                                <option value="Bon" selected>Bon</option>
+                                                <option value="Moyen">Moyen</option>
+                                                <option value="Faible">Faible</option>
+                                            @elseif($c->niveauEstime == "Moyen")
+                                                <option value="Excellent">Excellent</option>
+                                                <option value="Bon">Bon</option>
+                                                <option value="Moyen" selected>Moyen</option>
+                                                <option value="Faible">Faible</option>
+                                            @else
+                                                <option value="Excellent">Excellent</option>
+                                                <option value="Bon">Bon</option>
+                                                <option value="Moyen">Moyen</option>
+                                                <option value="Faible" selected>Faible</option>
                                             @endif
-                                                <option value="{{$categ->nomCategorie}}">{{$categ->nomCategorie}}</option>
-                                        @endforeach
-                                    </select>
-                                    <select class="form-control" name="level_{{$comp}}" id="level_{{$comp}}">
-                                        @if($c->niveauEstime == "Excellent")
-                                            <option value="Excellent" selected>Excellent</option>
-                                            <option value="Bon">Bon</option>
-                                            <option value="Moyen">Moyen</option>
-                                            <option value="Faible">Faible</option>
-                                        @elseif($c->niveauEstime == "Bon")
-                                            <option value="Excellent">Excellent</option>
-                                            <option value="Bon" selected>Bon</option>
-                                            <option value="Moyen">Moyen</option>
-                                            <option value="Faible">Faible</option>
-                                        @elseif($c->niveauEstime == "Moyen")
-                                            <option value="Excellent">Excellent</option>
-                                            <option value="Bon">Bon</option>
-                                            <option value="Moyen" selected>Moyen</option>
-                                            <option value="Faible">Faible</option>
-                                        @else
-                                            <option value="Excellent">Excellent</option>
-                                            <option value="Bon">Bon</option>
-                                            <option value="Moyen">Moyen</option>
-                                            <option value="Faible" selected>Faible</option>
-                                        @endif
-                                    </select>
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                        <button id="deleteCompetence_{{$comp}}" class="btn btn-danger" data-action="delete" data-target="block_competence_{{$comp}}" type="button">X</button>
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <button id="deleteCompetence_{{$comp}}" class="btn btn-danger" data-action="delete" data-target="block_competence_{{$comp}}" type="button">X</button>
-                                </div>
-                            </div>
-                            @php ($comp++)
-                        @endforeach
-                    </div>
-                    <div class="form-group">
-                        <button type="button" id="add-competence" class="btn btn-primary">Ajouter un lien</button>
-                    </div>
-                    <br>
+                                @php ($comp++)
+                            @endforeach
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="add-competence" class="btn btn-primary">Ajouter un lien</button>
+                        </div>
+                    </fieldset>
+                        <br>
 
 
 
                     <!-- DEBUT DU FORMULAIRE DES EXPERIENCES -->
-            <h1>Expériences</h1>
+
+
+
+            <fieldset>
+                <legend>Expériences</legend>
             <div id="experience">
                 <input type="hidden" name="nbExperience" id="compteurExperience">
                 @php ($exp = 0)
@@ -131,11 +139,16 @@
             <div class="form-group">
                 <button type="button" id="add-experience" class="btn btn-primary">Ajouter une expérience</button>
             </div>
+            </fieldset>
             <br>
 
 
                     <!-- DEBUT DU FORMULAIRE DE CENTRES D INTERET -->
-            <h1>Activités</h1>
+
+
+
+            <fieldset>
+                <legend>Activités</legend>
             <div id="activite">
                 <input type="hidden" name="nbActivite" id="compteurActivite">
                 @php ($act = 0)
@@ -156,52 +169,58 @@
             <div class="form-group">
                 <button type="button" id="add-activite" class="btn btn-primary">Ajouter une activité</button>
             </div>
+            </fieldset>
             <br>
 
 
                 <!-- DEBUT DU FORMULAIRE DES LIENS -->
-            <h1>Liens externes</h1>
-            <div id="liens">
-                <input type="hidden" name="nbLiens" id="compteurLien">
-                @php ($li = 0)
-                @foreach($lien as $l)
-                    <div id="block_liens_{{$li}}" class="form-group ml-1">
-                        <div class="row">
-                            <div class="col-6">
-                                <input type="text" class="form-control" name="lien_{{$li}}" id="lien_{{$li}}" value="{{$l->UrlReference}}">
-                            </div>
-                            <div class="col-5">
-                                <select class="form-control" name="type_{{$li}}" id="type_{{$li}}">
-                                    @if($l->nomReference == "Linkedin")
-                                        <option value="Linkedin" selected>Linkedin</option>
-                                        <option value="GitHub">GitHub</option>
-                                        <option value="Autre">Autre</option>
-                                    @elseif($l->nomReference == "GitHub")
-                                        <option value="Linkedin">Linkedin</option>
-                                        <option value="GitHub" selected>GitHub</option>
-                                        <option value="Autre">Autre</option>
-                                    @else
-                                        <option value="Linkedin">Linkedin</option>
-                                        <option value="GitHub">GitHub</option>
-                                        <option value="Autre" selected>Autre</option>
-                                    @endif
-                                </select>
-                            </div>
-                            <div class="col-1">
-                                <button id="deleteLien_{{$li}}" class="btn btn-danger" data-action="delete" data-target="block_liens_{{$li}}" type="button">X</button>
+
+
+
+            <fieldset>
+                <legend>Liens externes</legend>
+                <div id="liens">
+                    <input type="hidden" name="nbLiens" id="compteurLien">
+                    @php ($li = 0)
+                    @foreach($lien as $l)
+                        <div id="block_liens_{{$li}}" class="form-group ml-1">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="text" class="form-control" name="lien_{{$li}}" id="lien_{{$li}}" value="{{$l->UrlReference}}">
+                                </div>
+                                <div class="col-5">
+                                    <select class="form-control" name="type_{{$li}}" id="type_{{$li}}">
+                                        @if($l->nomReference == "Linkedin")
+                                            <option value="Linkedin" selected>Linkedin</option>
+                                            <option value="GitHub">GitHub</option>
+                                            <option value="Autre">Autre</option>
+                                        @elseif($l->nomReference == "GitHub")
+                                            <option value="Linkedin">Linkedin</option>
+                                            <option value="GitHub" selected>GitHub</option>
+                                            <option value="Autre">Autre</option>
+                                        @else
+                                            <option value="Linkedin">Linkedin</option>
+                                            <option value="GitHub">GitHub</option>
+                                            <option value="Autre" selected>Autre</option>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <button id="deleteLien_{{$li}}" class="btn btn-danger" data-action="delete" data-target="block_liens_{{$li}}" type="button">X</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @php ($li++)
-                @endforeach
-            </div>
-                    <div class="form-group">
-                <button type="button" id="add-link" class="btn btn-primary">Ajouter un lien</button>
-            </div>
-                    <br>
-                    <div class="row justify-content-md-center">
-                        <button type="submit" class="col-lg-4 btn btn-success">Envoyer</button>
-                    </div>
+                        @php ($li++)
+                    @endforeach
+                </div>
+                <div class="form-group">
+                    <button type="button" id="add-link" class="btn btn-primary">Ajouter un lien</button>
+                </div>
+                <br>
+                <div class="row justify-content-md-center">
+                    <button type="submit" class="col-lg-4 btn btn-success">Envoyer</button>
+                </div>
+            </fieldset>
                 </form>
             </div>
         </div>
