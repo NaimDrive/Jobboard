@@ -67,6 +67,7 @@ class EtudiantController extends Controller
                 //Cela permet de verifier que l'utilisateur est bien un étudiant, et qu'il essaye d'accèder à un profile existant, qui est bien le sien
             }
 
+            $etudiant = Etudiant::find($id);
             $user = DB::table('users')->where('id',$userId)->first();
             $activite = DB::table('centre_d_interet')->where('idEtudiant',$etuId)->get();
             $experience = DB::table('experience')->where('idEtudiant',$etuId)->get();
@@ -81,6 +82,7 @@ class EtudiantController extends Controller
                 [
                     "id" =>$id,
                     "user"=>$user,
+                    "etudiant"=>$etudiant,
                     "activite"=>$activite,
                     "experience"=>$experience,
                     "competence"=>$competence,

@@ -18,124 +18,140 @@
 
                 <!-- DEBUT DU FORMULAIRE DE PHOTO DE PROFILE -->
 
-                <img src="{{asset($user->picture)}}" alt="photo de profile" width="500" height="500"/>
+                <img src="{{asset($user->picture)}}" alt="" width="500" height="500"/>
 
                 <form enctype="multipart/form-data" method="POST" action="{{route('enregistrer_modifs')}}">
+
                     <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
-
-                    <fieldset>
-                        <legend>Photo de profile</legend>
-                        <div class="form-group">
-                            <input type="file" class="form-control-file" id="photo" name="photo">
-                            <br>
-                        </div>
-                    </fieldset>
-
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" id="photo" name="photo">
+                        <br>
+                    </div>
 
                 <!-- DEBUT DU FORMULAIRE D' IDENTITE -->
 
-
-
-                    <fieldset>
-                        <legend>Identité</legend>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-6"><input type="text" class="form-control" id="nom" name="nom" value="{{$user->nom}}" aria-describedby="infoComp" placeholder="Nom"></div>
-                                <div class="col-lg-6"><input type="text" class="form-control" id="prenom" name="prenom" value="{{$user->prenom}}" aria-describedby="infoComp" placeholder="Prenom"></div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h1>Identité</h1>
                             </div>
-                            <br>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6"><input type="text" class="form-control" id="nom" name="nom" value="{{$user->nom}}" aria-describedby="infoComp" placeholder="Nom"></div>
+                                        <div class="col-lg-6"><input type="text" class="form-control" id="prenom" name="prenom" value="{{$user->prenom}}" aria-describedby="infoComp" placeholder="Prenom"></div>
+                                    </div>
+                                    <br>
+                                    <input type="date" title="date de naissance" class="form-control" id="naissance" name="naissance" value="{{$etudiant->DateDeNaissance}}"/>
+                                    <br>
+                                </div>
+                            </div>
                         </div>
-                    </fieldset>
+                    <br>
+
 
 
 
                     <!-- DEBUT DU FORMULAIRE DES COMPETENCES -->
 
 
-                    <fieldset>
-                        <legend>Compétences</legend>
-                        <div id="competence">
-                            <input type="hidden" name="nbCompetence" id="compteurCompetence">
-                            @php ($comp = 0)
-                            @foreach($competence as $c)
-                                <div id="block_competence_{{$comp}}" class="form-group ml-1">
-                                    <div class="row">
-                                        <input type="text" class="form-control" name="competence_{{$comp}}" id="competence_{{$comp}}" value="{{$c->nomCompetence}}">
-                                        <select class="form-control" name="categorie_{{$comp}}" id="categorie_{{$comp}}">
-                                            @foreach($categorie as $categ)
-                                                @if($c->idCategorie == $categ->id )
-                                                    <option value="{{$categ->nomCategorie}}" selected>{{$categ->nomCategorie}}</option>
-                                                @endif
-                                                    <option value="{{$categ->nomCategorie}}">{{$categ->nomCategorie}}</option>
-                                            @endforeach
-                                        </select>
-                                        <select class="form-control" name="level_{{$comp}}" id="level_{{$comp}}">
-                                            @if($c->niveauEstime == "Excellent")
-                                                <option value="Excellent" selected>Excellent</option>
-                                                <option value="Bon">Bon</option>
-                                                <option value="Moyen">Moyen</option>
-                                                <option value="Faible">Faible</option>
-                                            @elseif($c->niveauEstime == "Bon")
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Bon" selected>Bon</option>
-                                                <option value="Moyen">Moyen</option>
-                                                <option value="Faible">Faible</option>
-                                            @elseif($c->niveauEstime == "Moyen")
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Bon">Bon</option>
-                                                <option value="Moyen" selected>Moyen</option>
-                                                <option value="Faible">Faible</option>
-                                            @else
-                                                <option value="Excellent">Excellent</option>
-                                                <option value="Bon">Bon</option>
-                                                <option value="Moyen">Moyen</option>
-                                                <option value="Faible" selected>Faible</option>
-                                            @endif
-                                        </select>
-                                    </div>
-                                    <div class="col-1">
-                                        <button id="deleteCompetence_{{$comp}}" class="btn btn-danger" data-action="delete" data-target="block_competence_{{$comp}}" type="button">X</button>
-                                    </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h1>Compétences</h1>
+                            </div>
+                            <div class="card-body">
+                                <div id="competence">
+                                    <input type="hidden" name="nbCompetence" id="compteurCompetence">
+                                    @php ($comp = 0)
+                                    @foreach($competence as $c)
+                                        <div id="block_competence_{{$comp}}" class="form-group ml-1">
+                                            <div class="row">
+                                                <input type="text" class="form-control" name="competence_{{$comp}}" id="competence_{{$comp}}" value="{{$c->nomCompetence}}">
+                                                <select class="form-control" name="categorie_{{$comp}}" id="categorie_{{$comp}}">
+                                                    @foreach($categorie as $categ)
+                                                        @if($c->idCategorie == $categ->id )
+                                                            <option value="{{$categ->nomCategorie}}" selected>{{$categ->nomCategorie}}</option>
+                                                        @endif
+                                                        <option value="{{$categ->nomCategorie}}">{{$categ->nomCategorie}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <select class="form-control" name="level_{{$comp}}" id="level_{{$comp}}">
+                                                    @if($c->niveauEstime == "Excellent")
+                                                        <option value="Excellent" selected>Excellent</option>
+                                                        <option value="Bon">Bon</option>
+                                                        <option value="Moyen">Moyen</option>
+                                                        <option value="Faible">Faible</option>
+                                                    @elseif($c->niveauEstime == "Bon")
+                                                        <option value="Excellent">Excellent</option>
+                                                        <option value="Bon" selected>Bon</option>
+                                                        <option value="Moyen">Moyen</option>
+                                                        <option value="Faible">Faible</option>
+                                                    @elseif($c->niveauEstime == "Moyen")
+                                                        <option value="Excellent">Excellent</option>
+                                                        <option value="Bon">Bon</option>
+                                                        <option value="Moyen" selected>Moyen</option>
+                                                        <option value="Faible">Faible</option>
+                                                    @else
+                                                        <option value="Excellent">Excellent</option>
+                                                        <option value="Bon">Bon</option>
+                                                        <option value="Moyen">Moyen</option>
+                                                        <option value="Faible" selected>Faible</option>
+                                                    @endif
+                                                </select>
+                                            </div>
+                                            <div class="col-1">
+                                                <button id="deleteCompetence_{{$comp}}" class="btn btn-danger" data-action="delete" data-target="block_competence_{{$comp}}" type="button">X</button>
+                                            </div>
+                                        </div>
+                                        @php ($comp++)
+                                    @endforeach
                                 </div>
-                                @php ($comp++)
-                            @endforeach
+                            </div>
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    <button type="button" id="add-competence" class="btn btn-primary">Ajouter une compétence</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <button type="button" id="add-competence" class="btn btn-primary">Ajouter une compétence</button>
-                        </div>
-                    </fieldset>
                         <br>
 
                     <!-- DEBUT DU FORMULAIRE DES FORMATIONS -->
 
 
-                    <fieldset>
-                        <legend>Formations</legend>
-                        <div id="formation">
-                            <input type="hidden" name="nbFormation" id="compteurFormation">
-                            @php ($form = 0)
-                            @foreach($formation as $f)
-                                <div id="block_formation_{{$form}}" class="form-group ml-1">
-                                    <div class="row">
-                                        <input type="text" class="form-control" name="formation_{{$form}}" id="formation_{{$form}}" value="{{$f->natureFormation}}">
-                                        <input type="text" class="form-control" name="lieu_{{$form}}" id="lieu_{{$form}}" value="{{$f->lieuFormation}}">
-                                        <div class="row">
-                                            <div class="col-6"><input type="date" class="form-control" name="debut_{{$form}}" id="debut_{{$form}}" value="{{$f->debut}}"></div>
-                                            <div class="col-6"><input type="date" class="form-control" name="fin_{{$form}}" id="fin_{{$form}}" value="{{$f->fin}}"></div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h1>Formations</h1>
+                            </div>
+                            <div class="card-body">
+                                <div id="formation">
+                                    <input type="hidden" name="nbFormation" id="compteurFormation">
+                                    @php ($form = 0)
+                                    @foreach($formation as $f)
+                                        <div id="block_formation_{{$form}}" class="form-group ml-1">
+                                            <div class="row">
+                                                <input type="text" class="form-control" name="formation_{{$form}}" id="formation_{{$form}}" value="{{$f->natureFormation}}">
+                                                <input type="text" class="form-control" name="lieu_{{$form}}" id="lieu_{{$form}}" value="{{$f->lieuFormation}}">
+                                                <div class="row">
+                                                    <div class="col-6"><input type="date" class="form-control" name="debut_{{$form}}" id="debut_{{$form}}" value="{{$f->debut}}"></div>
+                                                    <div class="col-6"><input type="date" class="form-control" name="fin_{{$form}}" id="fin_{{$form}}" value="{{$f->fin}}"></div>
+                                                </div>
+                                                <div class="col-1">
+                                                    <button id="deleteFormation_{{$form}}" class="btn btn-danger" data-action="delete" data-target="block_formation_{{$form}}" type="button">X</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-1">
-                                            <button id="deleteFormation_{{$form}}" class="btn btn-danger" data-action="delete" data-target="block_formation_{{$form}}" type="button">X</button>
-                                        </div>
-                                    </div>
+                                        @php ($form++)
+                                    @endforeach
                                 </div>
-                                @php ($form++)
-                            @endforeach
+                            </div>
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    <button type="button" id="add-formation" class="btn btn-primary">Ajouter une formation</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <button type="button" id="add-formation" class="btn btn-primary">Ajouter une formation</button>
-                        </div>
-                    </fieldset>
                     <br>
 
 
@@ -143,63 +159,75 @@
 
 
 
-            <fieldset>
-                <legend>Expériences</legend>
-            <div id="experience">
-                <input type="hidden" name="nbExperience" id="compteurExperience">
-                @php ($exp = 0)
-                @foreach($experience as $e)
-                    <div id="block_experience_{{$exp}}" class="form-group ml-1">
-                        <div class="row">
-                            <input type="text" class="form-control" name="experience_{{$exp}}" id="experience_{{$exp}}" value="{{$e->nom}}">
-                            <input type="text" class="form-control" name="etablissement_{{$exp}}" id="etablissement_{{$exp}}" value="{{$e->etablissement}}">
-                            <div class="row">
-                                <div class="col-6"><input type="date" class="form-control" name="dateDebut_{{$exp}}" id="dateDebut_{{$exp}}" value="{{$e->dateDebut}}"></div>
-                                <div class="col-6"><input type="date" class="form-control" name="dateFin_{{$exp}}" id="dateFin_{{$exp}}" value="{{$e->dateFin}}"></div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>Expériences</h1>
+                        </div>
+                        <div class="card-body">
+                            <div id="experience">
+                                <input type="hidden" name="nbExperience" id="compteurExperience">
+                                @php ($exp = 0)
+                                @foreach($experience as $e)
+                                    <div id="block_experience_{{$exp}}" class="form-group ml-1">
+                                        <div class="row">
+                                            <input type="text" class="form-control" name="experience_{{$exp}}" id="experience_{{$exp}}" value="{{$e->nom}}">
+                                            <input type="text" class="form-control" name="etablissement_{{$exp}}" id="etablissement_{{$exp}}" value="{{$e->etablissement}}">
+                                            <div class="row">
+                                                <div class="col-6"><input type="date" class="form-control" name="dateDebut_{{$exp}}" id="dateDebut_{{$exp}}" value="{{$e->dateDebut}}"></div>
+                                                <div class="col-6"><input type="date" class="form-control" name="dateFin_{{$exp}}" id="dateFin_{{$exp}}" value="{{$e->dateFin}}"></div>
+                                            </div>
+                                            <textarea class="form-control" id="description_{{$exp}}" name="description_{{$exp}}" rows="5" style="resize: none;">{{$e->resume}}</textarea>
+                                            <div class="col-1">
+                                                <button id="deleteExperience_{{$exp}}" class="btn btn-danger" data-action="delete" data-target="block_experience_{{$exp}}" type="button">X</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @php ($exp++)
+                                @endforeach
                             </div>
-                            <textarea class="form-control" id="description_{{$exp}}" name="description_{{$exp}}" rows="5" style="resize: none;">{{$e->resume}}</textarea>
-                            <div class="col-1">
-                                <button id="deleteExperience_{{$exp}}" class="btn btn-danger" data-action="delete" data-target="block_experience_{{$exp}}" type="button">X</button>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <button type="button" id="add-experience" class="btn btn-primary">Ajouter une expérience</button>
                             </div>
                         </div>
                     </div>
-                    @php ($exp++)
-                @endforeach
-            </div>
-            <div class="form-group">
-                <button type="button" id="add-experience" class="btn btn-primary">Ajouter une expérience</button>
-            </div>
-            </fieldset>
-            <br>
+                    <br>
 
 
                     <!-- DEBUT DU FORMULAIRE DE CENTRES D INTERET -->
 
 
 
-            <fieldset>
-                <legend>Activités</legend>
-            <div id="activite">
-                <input type="hidden" name="nbActivite" id="compteurActivite">
-                @php ($act = 0)
-                @foreach($activite as $a)
-                    <div id="block_activite_{{$act}}" class="form-group ml-1">
-                        <div class="row">
-                            <div class="col-11">
-                                <input type="text" class="form-control" name="activite_{{$act}}" id="activite_{{$act}}" value="{{$a->Interet}}">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Activités / Hobbies</h1>
+                </div>
+                <div class="card-body">
+                    <div id="activite">
+                        <input type="hidden" name="nbActivite" id="compteurActivite">
+                        @php ($act = 0)
+                        @foreach($activite as $a)
+                            <div id="block_activite_{{$act}}" class="form-group ml-1">
+                                <div class="row">
+                                    <div class="col-11">
+                                        <input type="text" class="form-control" name="activite_{{$act}}" id="activite_{{$act}}" value="{{$a->Interet}}">
+                                    </div>
+                                    <div class="col-1">
+                                        <button id="deleteActivite_{{$act}}" class="btn btn-danger" data-action="delete" data-target="block_activite_{{$act}}" type="button">X</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-1">
-                                <button id="deleteActivite_{{$act}}" class="btn btn-danger" data-action="delete" data-target="block_activite_{{$act}}" type="button">X</button>
-                            </div>
-                        </div>
+                            @php ($act++)
+                        @endforeach
                     </div>
-                    @php ($act++)
-                @endforeach
+                </div>
+                <div class="card-footer">
+                    <div class="form-group">
+                        <button type="button" id="add-activite" class="btn btn-primary">Ajouter une activité</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <button type="button" id="add-activite" class="btn btn-primary">Ajouter une activité</button>
-            </div>
-            </fieldset>
             <br>
 
 
@@ -207,50 +235,56 @@
 
 
 
-            <fieldset>
-                <legend>Liens externes</legend>
-                <div id="liens">
-                    <input type="hidden" name="nbLiens" id="compteurLien">
-                    @php ($li = 0)
-                    @foreach($lien as $l)
-                        <div id="block_liens_{{$li}}" class="form-group ml-1">
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="text" class="form-control" name="lien_{{$li}}" id="lien_{{$li}}" value="{{$l->UrlReference}}">
-                                </div>
-                                <div class="col-5">
-                                    <select class="form-control" name="type_{{$li}}" id="type_{{$li}}">
-                                        @if($l->nomReference == "Linkedin")
-                                            <option value="Linkedin" selected>Linkedin</option>
-                                            <option value="GitHub">GitHub</option>
-                                            <option value="Autre">Autre</option>
-                                        @elseif($l->nomReference == "GitHub")
-                                            <option value="Linkedin">Linkedin</option>
-                                            <option value="GitHub" selected>GitHub</option>
-                                            <option value="Autre">Autre</option>
-                                        @else
-                                            <option value="Linkedin">Linkedin</option>
-                                            <option value="GitHub">GitHub</option>
-                                            <option value="Autre" selected>Autre</option>
-                                        @endif
-                                    </select>
-                                </div>
-                                <div class="col-1">
-                                    <button id="deleteLien_{{$li}}" class="btn btn-danger" data-action="delete" data-target="block_liens_{{$li}}" type="button">X</button>
+            <div class="card">
+                <div class="card-header">
+                    <h1>Liens externes</h1>
+                </div>
+                <div class="card-body">
+                    <div id="liens">
+                        <input type="hidden" name="nbLiens" id="compteurLien">
+                        @php ($li = 0)
+                        @foreach($lien as $l)
+                            <div id="block_liens_{{$li}}" class="form-group ml-1">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" name="lien_{{$li}}" id="lien_{{$li}}" value="{{$l->UrlReference}}">
+                                    </div>
+                                    <div class="col-5">
+                                        <select class="form-control" name="type_{{$li}}" id="type_{{$li}}">
+                                            @if($l->nomReference == "Linkedin")
+                                                <option value="Linkedin" selected>Linkedin</option>
+                                                <option value="GitHub">GitHub</option>
+                                                <option value="Autre">Autre</option>
+                                            @elseif($l->nomReference == "GitHub")
+                                                <option value="Linkedin">Linkedin</option>
+                                                <option value="GitHub" selected>GitHub</option>
+                                                <option value="Autre">Autre</option>
+                                            @else
+                                                <option value="Linkedin">Linkedin</option>
+                                                <option value="GitHub">GitHub</option>
+                                                <option value="Autre" selected>Autre</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                        <button id="deleteLien_{{$li}}" class="btn btn-danger" data-action="delete" data-target="block_liens_{{$li}}" type="button">X</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        @php ($li++)
-                    @endforeach
+                            @php ($li++)
+                        @endforeach
+                    </div>
                 </div>
-                <div class="form-group">
-                    <button type="button" id="add-link" class="btn btn-primary">Ajouter un lien</button>
+                <div class="card-footer">
+                    <div class="form-group">
+                        <button type="button" id="add-link" class="btn btn-primary">Ajouter un lien</button>
+                    </div>
                 </div>
-                <br>
-                <div class="row justify-content-md-center">
-                    <button type="submit" class="col-lg-4 btn btn-success">Envoyer</button>
-                </div>
-            </fieldset>
+            </div>
+                    <br>
+                    <div class="row justify-content-md-center">
+                        <button type="submit" class="col-lg-4 btn btn-success">Envoyer</button>
+                    </div>
                 </form>
             </div>
         </div>
