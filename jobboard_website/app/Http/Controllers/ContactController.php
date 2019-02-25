@@ -63,6 +63,14 @@ class ContactController extends Controller
             ]);
         }
         else{
+            $user = DB::table('users')->where('id',$input['idUser'])->first();
+            $image = $user->picture;
+            if ($image != 'images/user-icon.png'){
+                $lien = public_path().'/'.$image;
+                \File::delete($lien);
+            }
+
+
             DB::table('users')->where('id',$input['idUser'])->update([
                 'nom' => $input['nom'],
                 'prenom' => $input['prenom'],

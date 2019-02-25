@@ -119,6 +119,13 @@ class EtudiantController extends Controller
 
 
 
+            $user = DB::table('users')->where('id',$idUser)->first();
+            $image = $user->picture;
+            if ($image != 'images/user-icon.png'){
+                $lien = public_path().'/'.$image;
+                \File::delete($lien);
+            }
+
             DB::table('users')->where('id',$idUser)->update(
                 [
                     'picture' => $photo,

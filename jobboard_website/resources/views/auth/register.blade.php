@@ -138,8 +138,8 @@
                                 <div class="form-group row">
                                     <label for="adressePostale" class="col-md-4 col-form-label text-md-right">Adresse postale</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="ville" name="ville" value="{{old("ville")}}" placeholder="Votre ville" ><br>
                                         <input type="text" class="form-control" id="adresse" name="adresse" value="{{old("adresse")}}" placeholder="Votre adresse" ><br>
+                                        <input type="text" class="form-control" id="ville" name="ville" value="{{old("ville")}}" placeholder="Votre ville" ><br>
                                         <input type="text" class="form-control" id="codepostal" name="codepostal" value="{{old("codepostal")}}" placeholder="Votre code postal" ><br>
                                     </div>
 

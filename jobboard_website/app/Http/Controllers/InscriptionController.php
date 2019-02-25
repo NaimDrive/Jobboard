@@ -132,6 +132,10 @@ class InscriptionController extends Controller
             ]);
         }
 
+        if (Auth::loginUsingId($userID)){
+            return redirect(route('accueil'));
+        }
+
         return redirect(route('login'));
     }
 }
