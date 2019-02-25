@@ -136,6 +136,13 @@ class OffreController extends Controller
         $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
 
         if ($depot != null){
+            $offre = DB::table('offre')->where('id',$id)->first();
+            $lienDepot = $offre->depot;
+            if ($lienDepot != null){
+                $lien = public_path().'/'.$lienDepot;
+                \File::delete($lien);
+            }
+
             DB::table("offre")->where('id',$id)->update([
                 "nomOffre" => $input["nomOffre"],
                 "natureOffre" => $input["natureOffre"],
