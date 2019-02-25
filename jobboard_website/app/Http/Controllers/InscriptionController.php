@@ -51,7 +51,7 @@ class InscriptionController extends Controller
                 'codepostal' => ['nullable', 'string', 'max:5', 'min:5']
             ]);
 
-            $photo = '/public/images/user-icon.png';
+            $photo = 'images/user-icon.png';
 
             if ($request->hasFile('photo')) {
                 $photo = $request['photo']->store('/public/images/profilPicture');
@@ -99,7 +99,7 @@ class InscriptionController extends Controller
                 'codepostal' => ['required', 'string', 'max:5', 'min:5'],
             ]);
 
-            $photo = '/public/images/user-icon.png';
+            $photo = 'images/user-icon.png';
 
             if ($request->hasFile('photo')) {
                 $photo = $request['photo']->store('/public/images/profilPicture');
