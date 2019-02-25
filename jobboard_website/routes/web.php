@@ -76,6 +76,8 @@ Route::get('/offre/{id}','OffreController@afficherUneOffre')->name('afficherUneO
 Route::get('/offre/{id}/edit','OffreController@editOffre')->name('editOffre');
 Route::post('/offre/{id}/store_change', 'OffreController@storeChanges')->name('storeOffreChange');
 Route::get('/offres', 'OffreController@afficherOffres')->name('afficherOffres');
+Route::get('/offre/{id}/save', 'OffreController@sauvegarder')->name('saveOffre');
+Route::get('/offre/{id}/drop', 'OffreController@drop')->name('dropOffre');
 
 
 //ROUTE D'ACCES A LA LISTE DES OFFRES

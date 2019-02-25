@@ -35,4 +35,28 @@ class User extends Authenticatable
     public function roles() {
         return $this->belongsToMany('App\Role', 'definir', 'idUser', 'idRole');
     }
+
+    public function isEtudiant(){
+        foreach ($this->roles as $role){
+            if ($role->typeRole == "ETUDIANT")
+                return true;
+        }
+        return false;
+    }
+
+    public function isContact(){
+        foreach ($this->roles as $role){
+            if ($role->typeRole == "CONTACT")
+                return true;
+        }
+        return false;
+    }
+
+    public function isAdmin(){
+        foreach ($this->roles as $role){
+            if ($role->typeRole == "ADMIN")
+                return true;
+        }
+        return false;
+    }
 }

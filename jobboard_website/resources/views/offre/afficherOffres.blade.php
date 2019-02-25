@@ -12,7 +12,24 @@
                         <p>{{ $offre->natureOffre }}</p>
                         <p>Date du stage : du <strong>{{ $offre->dateDebut }}</strong> au <strong>{{ $offre->dateFin }}</strong></p>
                         <p>Pré-embauche possible : {{ $offre->preembauche }}</p>
-                        <a href="{{route("afficherUneOffre",["id"=>$offre->id])}}" class="btn btn-success">Voir l'offre</a>
+                        <div class="row ml-2">
+                            <a href="{{route("afficherUneOffre",["id"=>$offre->id])}}" class="btn btn-success">Voir l'offre</a>
+                            @if(Auth::check() && Auth::user()->isEtudiant())
+                                @php($idEtudiant = DB::table('etudiant')->where('idUser',Auth::id())->value('id'))
+                                @php($etudiant = \App\Etudiant::find($idEtudiant))
+                                @if($etudiant->isSaved($offre->id))
+                                    <div class="ml-5">
+                                        <a href="{{route('dropOffre',["id"=>$offre->id])}}" class="btn btn-success">Ne plus sauvegarder l'offre</a>
+                                    </div>
+                                @else
+                                    <div class="ml-5">
+                                        <a href="{{route('saveOffre',["id"=>$offre->id])}}" class="btn btn-success">Sauvegarder l'offre</a>
+                                    </div>
+                                @endif
+                            @endif
+
+                        </div>
+
 
                     </div>
                 @endforeach

@@ -39,4 +39,16 @@ class Etudiant extends Model
     public function fullname(){
         return Etudiant::user()->get(['nom','prenom']);
     }
+
+    public function offresSaved() {
+        return $this->belongsToMany('App\Offre', 'offre_cherchee', 'idEtudiant', 'idOffre');
+    }
+
+    public function isSaved($id) {
+        foreach ($this->offresSaved as $offre){
+            if ($offre->id == $id)
+                return true;
+        }
+        return false;
+    }
 }

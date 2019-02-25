@@ -75,18 +75,14 @@
                                 <label for="contexte" class="col-md-4 col-form-label text-md-right">
                                     Contexte
                                 </label>
-                                <textarea name="contexte" id="contexte" class="form-control col-md-6" placeholder="Contexte de l'offre">
-                                    {{old("contexte")}}
-                                </textarea>
+                                <textarea name="contexte" id="contexte" class="form-control col-md-6" placeholder="Contexte de l'offre">{{old("contexte")}}</textarea>
                             </div>
 
                             <div class="form-group row">
                                 <label for="objectif" class="col-md-4 col-form-label text-md-right">
                                     Objectif(s)
                                 </label>
-                                <textarea name="objectif" id="objectif" class="form-control col-md-6" placeholder="Objectif(s) de la mission">
-                                    {{old("objectif")}}
-                                </textarea>
+                                <textarea name="objectif" id="objectif" class="form-control col-md-6" placeholder="Objectif(s) de la mission">{{old("objectif")}}</textarea>
                             </div>
 
                             <div class="form-group row">

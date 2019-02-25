@@ -184,6 +184,34 @@ class OffreController extends Controller
     }
 
 
+    function isEtu(){
+        foreach (Auth::user()->roles as $role){
+            if ($role->typeRole == "ETUDIANT"){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function sauvegarder($id){
+        if ($this->isEtu()){
+            DB::table('offre_cherchee')->insert([
+                "idOffre" => $id,
+                "idEtudiant" => DB::table("etudiant")->where('idUser',Auth::id())->value('id'),
+            ]);
+        }
+        return redirect(route('afficherOffres'));
+    }
+
+    function drop($id){
+        if ($this->isEtu()){
+            $idEtudiant = DB::table("etudiant")->where('idUser',Auth::id())->value('id');
+            DB::table('offre_cherchee')->where("idOffre",$id)->where("idEtudiant", $idEtudiant)->delete();
+        }
+        return redirect(route('afficherOffres'));
+    }
+
+
 
 
 }
