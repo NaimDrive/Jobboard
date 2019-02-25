@@ -14,6 +14,9 @@
             </div>
         @endif
         <div class="card">
+            <div class="card-header">
+                <h1>Modifier le profil</h1>
+            </div>
         <div class="row justify-content-md-center">
             <div class=" col-lg-6">
                 <br>
@@ -50,14 +53,9 @@
                                 </div>
                             </div>
                         </div>
-                    <br>
-
-
 
 
                     <!-- DEBUT DU FORMULAIRE DES COMPETENCES -->
-
-
 
                         <div class="card">
                             <div class="card-header">
@@ -95,10 +93,9 @@
                                 </div>
                             </div>
                         </div>
-                        <br>
+
 
                     <!-- DEBUT DU FORMULAIRE DES FORMATIONS -->
-
 
 
                         <div class="card">
@@ -133,7 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                    <br>
+
 
 
                     <!-- DEBUT DU FORMULAIRE DES EXPERIENCES -->
@@ -173,7 +170,7 @@
                             </div>
                         </div>
                     </div>
-                    <br>
+
 
 
                     <!-- DEBUT DU FORMULAIRE DE CENTRES D INTERET -->
@@ -209,7 +206,7 @@
                     </div>
                 </div>
             </div>
-            <br>
+
 
 
                 <!-- DEBUT DU FORMULAIRE DES LIENS -->
