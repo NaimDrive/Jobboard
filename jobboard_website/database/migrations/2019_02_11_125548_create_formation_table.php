@@ -15,10 +15,10 @@ class CreateFormationTable extends Migration
     {
         Schema::create('formation', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nom');
-            $table->string('duree');
+            $table->date('debut');
+            $table->date('fin');
             $table->string('natureFormation');
-            $table->string('entreprise');
+            $table->string('lieuFormation');
             $table->integer('idEtudiant');
             $table->timestamps();
         });

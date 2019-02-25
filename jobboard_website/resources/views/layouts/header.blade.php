@@ -45,6 +45,7 @@
                                 @elseif($role->typeRole == "ETUDIANT")
                                     <?php $user_id= Illuminate\Support\Facades\Auth::id();
                                     $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>
+                                    <a class="dropdown-item" href="{{ route('consult_profile',["id"=>$idEtu]) }} "> Mon Profil</a>
                                     <a class="dropdown-item" href="{{ route('edit_profile',["id"=>$idEtu]) }} "> Modifier mon Profil</a>
                                         <a class="dropdown-item" href="{{url('etudiant/'.$idEtu.'/createrecherche')}}"> Mes recherches</a>
                                 @elseif($role->typeRole == "CONTACT")

@@ -102,11 +102,41 @@
                             @endforeach
                         </div>
                         <div class="form-group">
-                            <button type="button" id="add-competence" class="btn btn-primary">Ajouter un lien</button>
+                            <button type="button" id="add-competence" class="btn btn-primary">Ajouter une compétence</button>
                         </div>
                     </fieldset>
                         <br>
 
+                    <!-- DEBUT DU FORMULAIRE DES FORMATIONS -->
+
+
+                    <fieldset>
+                        <legend>Formations</legend>
+                        <div id="formation">
+                            <input type="hidden" name="nbFormation" id="compteurFormation">
+                            @php ($form = 0)
+                            @foreach($formation as $f)
+                                <div id="block_formation_{{$form}}" class="form-group ml-1">
+                                    <div class="row">
+                                        <input type="text" class="form-control" name="formation_{{$form}}" id="formation_{{$form}}" value="{{$f->natureFormation}}">
+                                        <input type="text" class="form-control" name="lieu_{{$form}}" id="lieu_{{$form}}" value="{{$f->lieuFormation}}">
+                                        <div class="row">
+                                            <div class="col-6"><input type="date" class="form-control" name="debut_{{$form}}" id="debut_{{$form}}" value="{{$f->debut}}"></div>
+                                            <div class="col-6"><input type="date" class="form-control" name="fin_{{$form}}" id="fin_{{$form}}" value="{{$f->fin}}"></div>
+                                        </div>
+                                        <div class="col-1">
+                                            <button id="deleteFormation_{{$form}}" class="btn btn-danger" data-action="delete" data-target="block_formation_{{$form}}" type="button">X</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                @php ($form++)
+                            @endforeach
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="add-formation" class="btn btn-primary">Ajouter une formation</button>
+                        </div>
+                    </fieldset>
+                    <br>
 
 
                     <!-- DEBUT DU FORMULAIRE DES EXPERIENCES -->
@@ -243,15 +273,20 @@
         let boutonAddCompetence = document.getElementById('add-competence'); //Bouton d'ajout de competence
         boutonAddCompetence.addEventListener('click' , addCompetence); //On assigne la fonction d'ajout au bouton après click
 
+        let boutonAddFormation = document.getElementById('add-formation'); //Bouton d'ajout de competence
+        boutonAddFormation.addEventListener('click' , addFormation); //On assigne la fonction d'ajout au bouton après click
+
         let divLiens = document.getElementById('liens');
         let divActivite = document.getElementById('activite');
         let divExperience = document.getElementById('experience');
         let divCompetence = document.getElementById('competence');
+        let divFormation = document.getElementById('formation');
 
         let indexLien = parseInt(divLiens.childNodes.length)-(3+(parseInt({{$li}})));
         let indexActivite = parseInt(divActivite.childNodes.length)-(3+(parseInt({{$act}})));
         let indexExperience = parseInt(divExperience.childNodes.length)-(3+(parseInt({{$exp}})));
         let indexCompetence = parseInt(divCompetence.childNodes.length)-(3+(parseInt({{$comp}})));
+        let indexFormation = parseInt(divFormation.childNodes.length)-(3+(parseInt({{$form}})));
         //console.log('initialement ' + index);
 
 
@@ -271,11 +306,151 @@
             let bouton = document.getElementById('deleteCompetence_'+n);
             bouton.addEventListener('click', supprimerCompetence);
         }
+        for(let o=0; o<indexFormation; o++){
+            let bouton = document.getElementById('deleteFormation_'+o);
+            bouton.addEventListener('click', supprimerFormation);
+        }
 
         document.getElementById("compteurLien").value=indexLien;
         document.getElementById("compteurActivite").value=indexActivite;
         document.getElementById("compteurExperience").value=indexExperience;
         document.getElementById("compteurCompetence").value=indexCompetence;
+        document.getElementById("compteurFormation").value=indexFormation;
+
+        //AJOUT DES FORMATIONS
+
+        function addFormation () {
+
+            /*A partir d'ici, on crée la structure suivante :
+
+            <div class="form-group m1-1">
+                <div class="row">
+                    <div class="col-11"> contenu </div>
+                    <div class="col-1"> contenu </div>
+                </div>
+            </div>
+
+             */
+
+            let divFormGroup = document.createElement("div");
+            divFormGroup.setAttribute("class", "form-group ml-1");
+            divFormGroup.setAttribute("id", "block_formation_"+indexFormation);
+
+            let divRow = document.createElement("div");
+            divRow.setAttribute("class", "row");
+
+            let divRow_sous = document.createElement("div");
+            divRow_sous.setAttribute("class", "row");
+
+            let divCol6_debut = document.createElement("div");
+            divCol6_debut.setAttribute("class", 'col-6');
+
+            let divCol6_fin = document.createElement("div");
+            divCol6_fin.setAttribute("class", 'col-6');
+
+            let divCol1 = document.createElement("div");
+            divCol1.setAttribute("class", "col-1"); //bouton supprimer
+
+            let inputFormation = document.createElement("input");
+            inputFormation.setAttribute("id","formation_"+indexFormation);
+            inputFormation.setAttribute("name","formation_"+indexFormation);
+            inputFormation.setAttribute("type", "text");
+            inputFormation.setAttribute("class", "form-control");
+            inputFormation.setAttribute("placeholder", "nature de la formation (exemple : DUT Informatique)");
+
+            let inputEtablissement = document.createElement("input");
+            inputEtablissement.setAttribute("id","lieu_"+indexFormation);
+            inputEtablissement.setAttribute("name","lieu_"+indexFormation);
+            inputEtablissement.setAttribute("type", "text");
+            inputEtablissement.setAttribute("class", "form-control");
+            inputEtablissement.setAttribute("placeholder", "lieu de la formation");
+
+            let inputDateDeb = document.createElement("input");
+            inputDateDeb.setAttribute("id","debut_"+indexFormation);
+            inputDateDeb.setAttribute("name","debut_"+indexFormation);
+            inputDateDeb.setAttribute("type","date");
+            inputDateDeb.setAttribute("class", "form-control");
+
+            let inputDateFin = document.createElement("input");
+            inputDateFin.setAttribute("id","fin_"+indexFormation);
+            inputDateFin.setAttribute("name","fin_"+indexFormation);
+            inputDateFin.setAttribute("type","date");
+            inputDateFin.setAttribute("class", "form-control");
+
+
+            let inputDelete = document.createElement("button");
+            inputDelete.setAttribute("id", "deleteFormation_"+indexFormation);
+            inputDelete.setAttribute("class", "btn btn-danger");
+            inputDelete.setAttribute("data-action", "delete");
+            inputDelete.setAttribute("data-target", "block_formation_"+indexFormation);
+            inputDelete.setAttribute("type", "button");
+
+            let X = document.createTextNode("X");
+            inputDelete.appendChild(X);
+
+            divCol6_debut.appendChild(inputDateDeb);
+            divCol6_fin.appendChild(inputDateFin);
+
+            divRow_sous.appendChild(divCol6_debut);
+            divRow_sous.appendChild(divCol6_fin);
+            divRow.appendChild(inputFormation);
+            divRow.appendChild(inputEtablissement);
+            divRow.appendChild(divRow_sous);
+            divRow.appendChild(inputDelete);
+
+
+            divFormGroup.appendChild(divRow);
+
+            divFormation.appendChild(divFormGroup);
+
+            let bouton = document.getElementById('deleteFormation_'+indexFormation);
+            bouton.addEventListener('click', supprimerFormation);
+
+            document.getElementById("compteurFormation").value = ++indexFormation;
+            console.log('après ajout ' + indexFormation);
+        }
+
+
+        function supprimerFormation(){
+            let inputCompteur = document.getElementById("compteurFormation");
+            let compteur = parseInt(inputCompteur.value)-1;
+            let target = this.dataset.target;
+            let divSupprimer = document.getElementById(target);
+            let id = parseInt(target.substr(16));
+            console.log('id = ' + id);
+
+            document.getElementById("formation").removeChild(divSupprimer);
+
+            for(let i = id; i < compteur; i++){
+                let div =document.getElementById("block_formation_"+(i+1));
+                div.setAttribute('id', "block_formation_"+i);
+
+                let inputFormation = document.getElementById("formation_"+(i+1));
+                let inputEtablissement = document.getElementById("lieu_"+(i+1));
+                let inputDateDeb = document.getElementById("debut_"+(i+1));
+                let inputDateFin = document.getElementById("fin_"+(i+1));
+                let inputDelete = document.getElementById("deleteFormation_"+(i+1));
+
+                inputFormation.setAttribute('name', "formation_"+i);
+                inputFormation.setAttribute('id', "formation_"+i);
+
+                inputEtablissement.setAttribute('name', "lieu_"+i);
+                inputEtablissement.setAttribute('id', "lieu_"+i);
+
+                inputDateDeb.setAttribute('name', "debut_"+i);
+                inputDateDeb.setAttribute('id', "debut_"+i);
+
+                inputDateFin.setAttribute('name', "fin_"+i);
+                inputDateFin.setAttribute('id', "fin_"+i);
+
+                inputDelete.setAttribute('data-target', "block_formation_"+i);
+                inputDelete.setAttribute('id', "deleteFormation_"+i);
+            }
+
+            inputCompteur.value -=1;
+            indexFormation--;
+            console.log('après suppression ' + indexFormation);
+        }
 
 
         //AJOUT DES COMPETENCES

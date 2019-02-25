@@ -32,7 +32,23 @@ class EtudiantController extends Controller
             $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
             $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
             $niveau = DB::table('competences_etudiant')->where('idEtudiant',$id)->value('niveauEstime');
-            return view('etudiant/consultProfile',['etudiant'=>$etudiant,'nom'=>$nom,'prenom'=>$prenom,'categorie'=>$categorie,'competence'=>$competences,'niveau'=>$niveau,'liens'=>$liens,'userId'=>$userId,'etuId'=>$etuId,'role'=>$role,'image'=>$image,'id'=>$id]);
+
+
+            return view('etudiant/consultProfile',
+                [
+                    'etudiant'=>$etudiant,
+                    'nom'=>$nom,
+                    'prenom'=>$prenom,
+                    'categorie'=>$categorie,
+                    'competence'=>$competences,
+                    'niveau'=>$niveau,
+                    'liens'=>$liens,
+                    'userId'=>$userId,
+                    'etuId'=>$etuId,
+                    'role'=>$role,
+                    'image'=>$image,
+                    'id'=>$id
+                ]);
         }
 
         return redirect(route('login'));
@@ -55,10 +71,23 @@ class EtudiantController extends Controller
             $activite = DB::table('centre_d_interet')->where('idEtudiant',$etuId)->get();
             $experience = DB::table('experience')->where('idEtudiant',$etuId)->get();
             $competence = DB::table('competences_etudiant')->where('idEtudiant',$etuId)->get();
+            $formation = DB::table('formation')->where('idEtudiant', $id)->get();
             $categories = DB::table('categorie')->get();
             $lien = DB::table('reference_lien')->where('idEtudiant',$etuId)->get();
 
-            return view('etudiant/editProfile', ["id" =>$id,"user"=>$user,"activite"=>$activite,"experience"=>$experience,"competence"=>$competence,"categorie"=>$categories,"lien"=>$lien]); //on retourne la vue de modification du profile de l'étudiant
+
+
+            return view('etudiant/editProfile',
+                [
+                    "id" =>$id,
+                    "user"=>$user,
+                    "activite"=>$activite,
+                    "experience"=>$experience,
+                    "competence"=>$competence,
+                    "categorie"=>$categories,
+                    'formation'=>$formation,
+                    "lien"=>$lien
+                ]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
     }
@@ -149,8 +178,37 @@ class EtudiantController extends Controller
 
         }
 
+        //INSERTION FORMATIONS
 
 
+        $this->validate($request,
+            [
+                "nbFormations"
+            ]);
+
+        DB::table('formation')->where('idEtudiant',$idEtu)->delete();
+
+        $compteur = $request["nbFormation"]+=0;
+
+        for($i = 0; $i < $compteur; $i++) {
+            $this->validate($request,[
+                "formation_".$i => ['required', "string", "max:255"],
+                "lieu_".$i => ['required', "string", "max:255"],
+                "debut_".$i => ['required'],
+                "fin_".$i => ['required'],
+            ]);
+
+            $input=$request->only(["formation_".$i, "lieu_".$i, "debut_".$i, "fin_".$i]);
+
+            DB::table('formation')->insert([
+                "natureFormation" => $input["formation_".$i],
+                "debut" => $input["debut_".$i],
+                "fin" => $input["fin_".$i],
+                "lieuFormation" => $input["lieu_".$i],
+                "idEtudiant" => $idEtu,
+            ]);
+
+        }
 
         //INSERTION EXPERIENCES
 
