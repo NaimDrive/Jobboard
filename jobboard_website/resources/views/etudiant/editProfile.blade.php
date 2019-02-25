@@ -3,7 +3,7 @@
 @section('content')
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <div class="container">
+    <div class="container mt-5">
         @if ($errors->any())
             <div class="alert alert-danger"  style="margin-top: 2rem">
                 <ul>
@@ -13,18 +13,21 @@
                 </ul>
             </div>
         @endif
+        <div class="card">
         <div class="row justify-content-md-center">
             <div class=" col-lg-6">
+                <br>
 
                 <!-- DEBUT DU FORMULAIRE DE PHOTO DE PROFILE -->
 
-                <img src="{{asset($user->picture)}}" alt="" width="500" height="500"/>
+                <img src="{{asset($user->picture)}}" alt="" class="avatar avatar-large"/>
 
                 <form enctype="multipart/form-data" method="POST" action="{{route('enregistrer_modifs')}}">
 
                     <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                     {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                     <div class="form-group">
+                        <br>
                         <input type="file" class="form-control-file" id="photo" name="photo">
                         <br>
                     </div>
@@ -76,29 +79,7 @@
                                                         <option value="{{$categ->nomCategorie}}">{{$categ->nomCategorie}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select class="form-control" name="level_{{$comp}}" id="level_{{$comp}}">
-                                                    @if($c->niveauEstime == "Excellent")
-                                                        <option value="Excellent" selected>Excellent</option>
-                                                        <option value="Bon">Bon</option>
-                                                        <option value="Moyen">Moyen</option>
-                                                        <option value="Faible">Faible</option>
-                                                    @elseif($c->niveauEstime == "Bon")
-                                                        <option value="Excellent">Excellent</option>
-                                                        <option value="Bon" selected>Bon</option>
-                                                        <option value="Moyen">Moyen</option>
-                                                        <option value="Faible">Faible</option>
-                                                    @elseif($c->niveauEstime == "Moyen")
-                                                        <option value="Excellent">Excellent</option>
-                                                        <option value="Bon">Bon</option>
-                                                        <option value="Moyen" selected>Moyen</option>
-                                                        <option value="Faible">Faible</option>
-                                                    @else
-                                                        <option value="Excellent">Excellent</option>
-                                                        <option value="Bon">Bon</option>
-                                                        <option value="Moyen">Moyen</option>
-                                                        <option value="Faible" selected>Faible</option>
-                                                    @endif
-                                                </select>
+                                                <input type="range" class="form-control-range" id="level_{{$comp}}" name="level_{{$comp}}" value="{{$c->niveauEstime}}"
                                             </div>
                                             <div class="col-1">
                                                 <button id="deleteCompetence_{{$comp}}" class="btn btn-danger" data-action="delete" data-target="block_competence_{{$comp}}" type="button">X</button>
@@ -287,6 +268,7 @@
                     </div>
                 </form>
             </div>
+        </div>
         </div>
 
 
@@ -526,8 +508,9 @@
             inputSelectCategorie.setAttribute("id","categorie_"+indexCompetence);
             inputSelectCategorie.setAttribute("name","categorie_"+indexCompetence);
 
-            let inputSelectLevel = document.createElement("select");
-            inputSelectLevel.setAttribute("class","form-control");
+            let inputSelectLevel = document.createElement("input");
+            inputSelectLevel.setAttribute("type","range");
+            inputSelectLevel.setAttribute("class","form-control-range");
             inputSelectLevel.setAttribute("id","level_"+indexCompetence);
             inputSelectLevel.setAttribute("name","level_"+indexCompetence);
 
