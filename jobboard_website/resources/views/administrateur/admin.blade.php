@@ -17,6 +17,7 @@
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
                     <h4 class="card-title">Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h4>
+                    <hr>
                     @if($etudiants->isEmpty())
                         <div class="empty_foreach">
                             <p class="card-text">Aucun étudiant</p>
@@ -35,6 +36,7 @@
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
                     <h4 class="card-title text-center">Entreprises <span class="badge badge-pill badge-dark">{{ $nbEnt }}</span> </h4>
+                    <hr>
                     @if($entreprises->isEmpty())
                         <div class="empty_foreach">
                             <p class="card-text">Aucune entreprise</p>
@@ -53,6 +55,7 @@
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
                     <h4 class="card-title text-center">Contacts <span class="badge badge-pill badge-dark">{{ $nbCont }}</span> </h4>
+                    <hr>
                     @if($contacts->isEmpty())
                         <div class="empty_foreach">
                             <p class="card-text">Aucun contact</p>
@@ -71,6 +74,7 @@
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
                     <h4 class="card-title text-center">Offres <span class="badge badge-pill badge-dark">{{ $nbOf }}</span> </h4>
+                    <hr>
                     @if($offres->isEmpty())
                         <div class="empty_foreach">
                             <p class="card-text">Aucune offre</p>

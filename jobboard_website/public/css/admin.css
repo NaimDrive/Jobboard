@@ -6,6 +6,12 @@
     height: 22em;
 }
 
+hr{
+    overflow: visible; /* For IE */
+    border: 0 solid #607d8b;
+    border-top-width: 1px;
+}
+
 .seemore{
     position: absolute;
     bottom: 5px;
