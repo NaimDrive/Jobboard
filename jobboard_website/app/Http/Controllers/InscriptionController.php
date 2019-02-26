@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ContactEntreprise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +45,7 @@ class InscriptionController extends Controller
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
                 'photo' => ['nullable','image'],
                 'civilite' => ['required', 'string'],
-                'telephone' =>['required', 'string', 'min:10', 'max:10'],
+                'telephone' =>['nullable', 'string', 'min:10', 'max:10'],
                 'dateNaissance' => ['nullable', 'date'],
                 'ville' => ['nullable', 'string', 'max:255'],
                 'adresse' => ['nullable', 'string', 'max:255'],
@@ -137,5 +138,81 @@ class InscriptionController extends Controller
         }
 
         return redirect(route('login'));
+    }
+
+
+
+
+    public function choose($id){
+        return view('auth/choose', ['id' => $id]);
+    }
+
+    public function storeChoice(Request $request, $id){
+        $this->validate($request,[
+            'status' => ['required' , 'string']
+        ]);
+
+        $input = $request->only('status');
+        $status = $input['status'];
+
+
+        if ($status == "entreprise"){
+            $this->validate($request, [
+                'civilite' => ['required', 'string'],
+                'telephone' =>['nullable', 'string', 'min:10', 'max:10'],
+                'dateNaissance' => ['nullable', 'date'],
+                'ville' => ['nullable', 'string', 'max:255'],
+                'adresse' => ['nullable', 'string', 'max:255'],
+                'codepostal' => ['nullable', 'string', 'max:5', 'min:5']
+            ]);
+
+            $input = $request->only('civilite','telephone');
+
+            $contact = new ContactEntreprise();
+            $contact->nom = Auth::user()->nom;
+            $contact->prenom = Auth::user()->prenom;
+            $contact->mail = Auth::user()->email;
+            $contact->telephone = $input['telephone'];
+            $contact->civilite = $input['civilite'];
+            $contact->idUser = Auth::user()->id;
+
+            $contact->save();
+
+
+            DB::table('definir')->insert([
+                'idRole'=>3,
+                'idUser'=>$id,
+            ]);
+        }
+
+        else{
+            $this->validate($request, [
+                'civilite' => ['required', 'string'],
+                'telephone' =>['nullable', 'string', 'min:10', 'max:10'],
+                'dateNaissance' => ['required', 'date'],
+                'ville' => ['required', 'string', 'max:255'],
+                'adresse' => ['required', 'string', 'max:255'],
+                'codepostal' => ['required', 'string', 'max:5', 'min:5'],
+            ]);
+
+            $input = $request->only('civilite','dateNaissance',
+                'ville', 'adresse', 'codepostal');
+
+            DB::table('etudiant')->insert([
+                'civilite' => $input['civilite'],
+                'DateDeNaissance' => $input['dateNaissance'],
+                'adresse' => $input['adresse'],
+                'codePostal' => $input['codepostal'],
+                'ville' => $input['ville'],
+                'idUser' => $id,
+            ]);
+            DB::table('definir')->insert([
+                'idRole'=>2,
+                'idUser'=>$id,
+            ]);
+        }
+
+        return redirect(route('accueil'));
+
     }
 }

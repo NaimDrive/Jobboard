@@ -58,6 +58,8 @@
                                         {{ __('Me connecter') }}
                                     </button>
 
+                                    <a href="{{ route('linkedinConnect') }}" class="btn btn-success">Se connecter avec Linkedin</a>
+
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Mot de passe oublié ?') }}

@@ -940,17 +940,17 @@
     },
     {
         "name": "laravel/framework",
-        "version": "v5.7.25",
-        "version_normalized": "5.7.25.0",
+        "version": "v5.7.28",
+        "version_normalized": "5.7.28.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/framework.git",
-            "reference": "f8fb354878064b94a3ff09a6ffd48ee9a8d712cf"
+            "reference": "8e69728f1c80a024588adbd24c65c4fcf9aa9192"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/f8fb354878064b94a3ff09a6ffd48ee9a8d712cf",
-            "reference": "f8fb354878064b94a3ff09a6ffd48ee9a8d712cf",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/8e69728f1c80a024588adbd24c65c4fcf9aa9192",
+            "reference": "8e69728f1c80a024588adbd24c65c4fcf9aa9192",
             "shasum": ""
         },
         "require": {
@@ -1023,7 +1023,7 @@
             "mockery/mockery": "^1.0",
             "moontoast/math": "^1.1",
             "orchestra/testbench-core": "3.7.*",
-            "pda/pheanstalk": "^3.0",
+            "pda/pheanstalk": "^3.0|^4.0",
             "phpunit/phpunit": "^7.5",
             "predis/predis": "^1.1.1",
             "symfony/css-selector": "^4.1",
@@ -1045,14 +1045,14 @@
             "league/flysystem-sftp": "Required to use the Flysystem SFTP driver (^1.0).",
             "moontoast/math": "Required to use ordered UUIDs (^1.1).",
             "nexmo/client": "Required to use the Nexmo transport (^1.0).",
-            "pda/pheanstalk": "Required to use the beanstalk queue driver (^3.0).",
+            "pda/pheanstalk": "Required to use the beanstalk queue driver (^3.0|^4.0).",
             "predis/predis": "Required to use the redis cache and queue drivers (^1.0).",
             "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^3.0).",
             "symfony/css-selector": "Required to use some of the crawler integration testing tools (^4.1).",
             "symfony/dom-crawler": "Required to use most of the crawler integration testing tools (^4.1).",
             "symfony/psr-http-message-bridge": "Required to psr7 bridging features (^1.0)."
         },
-        "time": "2019-02-05T14:28:43+00:00",
+        "time": "2019-02-26T15:41:34+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1202,6 +1202,72 @@
             "laravel",
             "notifications",
             "slack"
+        ]
+    },
+    {
+        "name": "laravel/socialite",
+        "version": "v4.1.0",
+        "version_normalized": "4.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/laravel/socialite.git",
+            "reference": "7581c57a60742f423a68362c79d507028f989bd7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/laravel/socialite/zipball/7581c57a60742f423a68362c79d507028f989bd7",
+            "reference": "7581c57a60742f423a68362c79d507028f989bd7",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "guzzlehttp/guzzle": "~6.0",
+            "illuminate/contracts": "~5.7.0|~5.8.0",
+            "illuminate/http": "~5.7.0|~5.8.0",
+            "illuminate/support": "~5.7.0|~5.8.0",
+            "league/oauth1-client": "~1.0",
+            "php": "^7.1.3"
+        },
+        "require-dev": {
+            "mockery/mockery": "~1.0",
+            "phpunit/phpunit": "~7.0"
+        },
+        "time": "2019-02-14T16:57:39+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.0-dev"
+            },
+            "laravel": {
+                "providers": [
+                    "Laravel\\Socialite\\SocialiteServiceProvider"
+                ],
+                "aliases": {
+                    "Socialite": "Laravel\\Socialite\\Facades\\Socialite"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Laravel\\Socialite\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }
+        ],
+        "description": "Laravel wrapper around OAuth 1 & OAuth 2 libraries.",
+        "homepage": "https://laravel.com",
+        "keywords": [
+            "laravel",
+            "oauth"
         ]
     },
     {
@@ -1416,18 +1482,83 @@
         ]
     },
     {
-        "name": "mockery/mockery",
-        "version": "1.2.1",
-        "version_normalized": "1.2.1.0",
+        "name": "league/oauth1-client",
+        "version": "1.7.0",
+        "version_normalized": "1.7.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/mockery/mockery.git",
-            "reference": "dc4f10b6b1148744facb784015e4b339d7feec23"
+            "url": "https://github.com/thephpleague/oauth1-client.git",
+            "reference": "fca5f160650cb74d23fc11aa570dd61f86dcf647"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mockery/mockery/zipball/dc4f10b6b1148744facb784015e4b339d7feec23",
-            "reference": "dc4f10b6b1148744facb784015e4b339d7feec23",
+            "url": "https://api.github.com/repos/thephpleague/oauth1-client/zipball/fca5f160650cb74d23fc11aa570dd61f86dcf647",
+            "reference": "fca5f160650cb74d23fc11aa570dd61f86dcf647",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": "^6.0",
+            "php": ">=5.5.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "^0.9",
+            "phpunit/phpunit": "^4.0",
+            "squizlabs/php_codesniffer": "^2.0"
+        },
+        "time": "2016-08-17T00:36:58+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\OAuth1\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ben Corlett",
+                "email": "bencorlett@me.com",
+                "homepage": "http://www.webcomm.com.au",
+                "role": "Developer"
+            }
+        ],
+        "description": "OAuth 1.0 Client Library",
+        "keywords": [
+            "Authentication",
+            "SSO",
+            "authorization",
+            "bitbucket",
+            "identity",
+            "idp",
+            "oauth",
+            "oauth1",
+            "single sign on",
+            "trello",
+            "tumblr",
+            "twitter"
+        ]
+    },
+    {
+        "name": "mockery/mockery",
+        "version": "1.2.2",
+        "version_normalized": "1.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mockery/mockery.git",
+            "reference": "0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mockery/mockery/zipball/0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2",
+            "reference": "0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2",
             "shasum": ""
         },
         "require": {
@@ -1438,7 +1569,7 @@
         "require-dev": {
             "phpunit/phpunit": "~5.7.10|~6.5|~7.0|~8.0"
         },
-        "time": "2019-02-08T14:43:54+00:00",
+        "time": "2019-02-13T09:37:52+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1724,17 +1855,17 @@
     },
     {
         "name": "nikic/php-parser",
-        "version": "v4.2.0",
-        "version_normalized": "4.2.0.0",
+        "version": "v4.2.1",
+        "version_normalized": "4.2.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nikic/PHP-Parser.git",
-            "reference": "594bcae1fc0bccd3993d2f0d61a018e26ac2865a"
+            "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/594bcae1fc0bccd3993d2f0d61a018e26ac2865a",
-            "reference": "594bcae1fc0bccd3993d2f0d61a018e26ac2865a",
+            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/5221f49a608808c1e4d436df32884cbc1b821ac0",
+            "reference": "5221f49a608808c1e4d436df32884cbc1b821ac0",
             "shasum": ""
         },
         "require": {
@@ -1744,7 +1875,7 @@
         "require-dev": {
             "phpunit/phpunit": "^6.5 || ^7.0"
         },
-        "time": "2019-01-12T16:31:37+00:00",
+        "time": "2019-02-16T20:54:15+00:00",
         "bin": [
             "bin/php-parse"
         ],
@@ -1843,17 +1974,17 @@
     },
     {
         "name": "opis/closure",
-        "version": "3.1.5",
-        "version_normalized": "3.1.5.0",
+        "version": "3.1.6",
+        "version_normalized": "3.1.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/opis/closure.git",
-            "reference": "41f5da65d75cf473e5ee582df8fc7f2c733ce9d6"
+            "reference": "ccb8e3928c5c8181c76cdd0ed9366c5bcaafd91b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/opis/closure/zipball/41f5da65d75cf473e5ee582df8fc7f2c733ce9d6",
-            "reference": "41f5da65d75cf473e5ee582df8fc7f2c733ce9d6",
+            "url": "https://api.github.com/repos/opis/closure/zipball/ccb8e3928c5c8181c76cdd0ed9366c5bcaafd91b",
+            "reference": "ccb8e3928c5c8181c76cdd0ed9366c5bcaafd91b",
             "shasum": ""
         },
         "require": {
@@ -1863,7 +1994,7 @@
             "jeremeamia/superclosure": "^2.0",
             "phpunit/phpunit": "^4.0|^5.0|^6.0|^7.0"
         },
-        "time": "2019-01-14T14:45:33+00:00",
+        "time": "2019-02-22T10:30:00+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2614,17 +2745,17 @@
     },
     {
         "name": "phpunit/php-timer",
-        "version": "2.0.0",
-        "version_normalized": "2.0.0.0",
+        "version": "2.1.1",
+        "version_normalized": "2.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/php-timer.git",
-            "reference": "8b8454ea6958c3dee38453d3bd571e023108c91f"
+            "reference": "8b389aebe1b8b0578430bda0c7c95a829608e059"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/8b8454ea6958c3dee38453d3bd571e023108c91f",
-            "reference": "8b8454ea6958c3dee38453d3bd571e023108c91f",
+            "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/8b389aebe1b8b0578430bda0c7c95a829608e059",
+            "reference": "8b389aebe1b8b0578430bda0c7c95a829608e059",
             "shasum": ""
         },
         "require": {
@@ -2633,11 +2764,11 @@
         "require-dev": {
             "phpunit/phpunit": "^7.0"
         },
-        "time": "2018-02-01T13:07:23+00:00",
+        "time": "2019-02-20T10:12:59+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.0-dev"
+                "dev-master": "2.1-dev"
             }
         },
         "installation-source": "dist",
@@ -2716,17 +2847,17 @@
     },
     {
         "name": "phpunit/phpunit",
-        "version": "7.5.4",
-        "version_normalized": "7.5.4.0",
+        "version": "7.5.6",
+        "version_normalized": "7.5.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "2896657da5fb237bc316bdfc18c2650efeee0dc0"
+            "reference": "09c85e14994df92e5ff1f5ec0b481bdb7d3d3df9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2896657da5fb237bc316bdfc18c2650efeee0dc0",
-            "reference": "2896657da5fb237bc316bdfc18c2650efeee0dc0",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/09c85e14994df92e5ff1f5ec0b481bdb7d3d3df9",
+            "reference": "09c85e14994df92e5ff1f5ec0b481bdb7d3d3df9",
             "shasum": ""
         },
         "require": {
@@ -2765,7 +2896,7 @@
             "ext-xdebug": "*",
             "phpunit/php-invoker": "^2.0"
         },
-        "time": "2019-02-07T14:15:04+00:00",
+        "time": "2019-02-18T09:24:50+00:00",
         "bin": [
             "phpunit"
         ],

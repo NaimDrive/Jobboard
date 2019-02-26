@@ -40,4 +40,9 @@ return [
         ],
     ],
 
+    'linkedin' => [
+        'client_id' => '775ag87s6tzqw9',
+        'client_secret' => 'fbcKIAaKqKog3hYy',
+        'redirect' => 'http://localhost:8000/callback'],
+
 ];

@@ -96,7 +96,7 @@
                                 <label for="depot" class="col-md-4 col-form-label text-md-right">
                                     Ficher
                                 </label>
-                                <input type="file" id="depot" name="depot" value="{{old("depot")}}" class="form-control col-md-6" placeholder="Fichier de l'offre">
+                                <input type="file" id="depot" name="depot" value="{{old("depot")}}" class="col-md-6" placeholder="Fichier de l'offre">
                             </div>
 
                             <div class="col-md-8 offset-md-4">

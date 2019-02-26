@@ -25,7 +25,7 @@
 
                         <div class="row mb-3 justify-content-center">
                             <button class="btn btn-success" id="btnEntreprise">Je suis un <strong>professionnel</strong></button>
-                            <button class="btn btn-success" id="btnEtu">Je suis un <strong>etudiant</strong></button>
+                            <button class="btn btn-success ml-2" id="btnEtu">Je suis un <strong>etudiant</strong></button>
                         </div>
 
                         <form method="POST" action="{{ route('storeUser') }}" enctype="multipart/form-data">
@@ -34,7 +34,7 @@
                             <input name="status" id="status" type="hidden">
 
                             <div class="form-group row">
-                                <label for="civilite" class="col-md-4 col-form-label text-md-right">Civilité</label>
+                                <label for="civilite" class="col-md-4 col-form-label text-md-right">Civilité *</label>
 
                                 <div class="col-md-6">
                                     <select class="form-control" id="civilite" name="civilite" value="{{old("civilite")}}" >
@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
+                                <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="nom" type="text" class="form-control{{ $errors->has('nom') ? ' is-invalid' : '' }}" name="nom" value="{{ old('nom') }}" required autofocus>
@@ -60,7 +60,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="prenom" class="col-md-4 col-form-label text-md-right">{{ __('Prenom') }}</label>
+                                <label for="prenom" class="col-md-4 col-form-label text-md-right">{{ __('Prenom') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="prenom" type="text" class="form-control{{ $errors->has('prenom') ? ' is-invalid' : '' }}" name="prenom" value="{{ old('prenom') }}" required>
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Adresse E-mail') }}</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Adresse E-mail') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
@@ -88,7 +88,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmation du mot de passe') }}</label>
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmation du mot de passe') }} *</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -113,7 +113,7 @@
                                 <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profile</label>
 
                                 <div class="col-md-6">
-                                    <input type="file" class="form-control" name="photo" id="photo">
+                                    <input type="file" name="photo" id="photo">
                                 </div>
                             </div>
 
@@ -129,14 +129,14 @@
 
                             <div id="divEtu">
                                 <div class="form-group row">
-                                    <label for="dateNaissance" class="col-md-4 col-form-label text-md-right">Date de naissance</label>
+                                    <label for="dateNaissance" class="col-md-4 col-form-label text-md-right">Date de naissance *</label>
                                     <div class="col-md-6">
                                         <input type="date" class="form-control" id="dateNaissance" name="dateNaissance" value="{{old("dateNaissance")}}" >
                                     </div>
 
                                 </div>
                                 <div class="form-group row">
-                                    <label for="adressePostale" class="col-md-4 col-form-label text-md-right">Adresse postale</label>
+                                    <label for="adressePostale" class="col-md-4 col-form-label text-md-right">Adresse postale *</label>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" id="adresse" name="adresse" value="{{old("adresse")}}" placeholder="Votre adresse" ><br>
                                         <input type="text" class="form-control" id="ville" name="ville" value="{{old("ville")}}" placeholder="Votre ville" ><br>
@@ -144,30 +144,19 @@
                                     </div>
 
                                 </div>
-<!--
-                                <div class="form-group row">
-                                    <label for="lienExterne" class="col-md-4 col-form-label text-md-right">Lien externe</label>
-
-                                    <div class="col-md-6">
-                                        <select class="form-control" id="nomLien" name="nomLien" value="{{old("nomLien")}}" >
-                                            <option>GitHub</option>
-                                            <option>Linkedin</option>
-                                            <option>Autre</option>
-                                        </select>
-                                        <input type="text" class="form-control" id="lienExterne" name="lienExterne" value="{{old("lienExterne")}}" >
-                                        <small id="infoAdresse" class="form-text text-muted">Un lien linkedin, github ...</small><br>
-
-                                    </div>
-                                </div>
-                                -->
                             </div>
 
+                            <sub>* : champs obligatoires</sub>
+
                             <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                                <div class="offset-md-4">
                                     <button type="submit" class="btn btn-success">
                                         {{ __('M\'inscrire') }}
                                     </button>
                                 </div>
+
+                                <a href="{{ route('linkedinConnect') }}" class="btn btn-success offset-md-1">Se connecter avec Linkedin</a>
+
                             </div>
                         </form>
                     </div>

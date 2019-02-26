@@ -14,6 +14,14 @@
 Auth::routes();
 
 
+//CONNEXION LINKEDIN
+Route::get('/redirect', 'SocialAuthLinkedinController@redirect')->name('linkedinConnect');
+Route::get('/callback', 'SocialAuthLinkedinController@callback')->name('linkedinTry');
+Route::get('/linkedin/choose/{id}', 'InscriptionController@choose')->name('chooseRole');
+Route::post('/linkedin/storeChoice/{id}', 'InscriptionController@storeChoice')->name('storeChoice');
+
+
+
 //ROUTE GET ACCUEIL
 Route::get('/', 'AccueilController@index')->name('accueil');
 

@@ -18,8 +18,8 @@ class CreateContactEntrepriseTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('mail');
-            $table->string('telephone');
-            $table->string('civilite');
+            $table->string('telephone')->nullable();
+            $table->string('civilite')->nullable();
             $table->integer('idEntreprise')->nullable();
             $table->integer('idUser')->nullable();
             $table->timestamps();

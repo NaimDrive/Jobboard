@@ -81,7 +81,7 @@
                                 <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profile</label>
 
                                 <div class="col-md-6">
-                                    <input type="file" class="form-control" name="photo" id="photo" value="{{ asset($contact->user->picture) }}">
+                                    <input type="file" name="photo" id="photo" value="{{ asset($contact->user->picture) }}">
                                 </div>
                             </div>
 
