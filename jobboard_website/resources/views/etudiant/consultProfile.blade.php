@@ -75,6 +75,7 @@
             </div>
         </div>
     </div>
+@endsection
 
     <!-- Styles -->
     <style>
@@ -100,10 +101,9 @@
             float: left;
             width: 45%;
         }
+    </style>
 
 
 
 
-
-@endsection
 

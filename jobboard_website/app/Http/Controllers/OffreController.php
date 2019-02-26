@@ -218,7 +218,9 @@ class OffreController extends Controller
         return redirect(route('afficherOffres'));
     }
 
-
+    function offreSaveEtu(){
+        return view('/etudiant/mesRecherches');
+    }
 
 
 }
