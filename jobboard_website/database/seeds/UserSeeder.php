@@ -1,5 +1,13 @@
 <?php
 
+use App\AdressEntreprise;
+use App\ContactEntreprise;
+use App\DescriptionOffre;
+use App\Entreprise;
+use App\Etudiant;
+use App\Offre;
+use App\User;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +21,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Factory::create('fr-FR');
+
         DB::table('users')->insert([
             'nom'=>'admin',
             'prenom'=>'admin',
@@ -24,5 +34,114 @@ class UserSeeder extends Seeder
             'idRole'=>1,
             'idUser'=>1,
         ]);
+
+
+        $entreprises = [];
+        $civilite = ['Monsieur','Madame','Autre'];
+        $types = ['etudiant','contact'];
+        $genres=['male', 'female'];
+        for($i = 0; $i < 20; $i++){
+
+            $type = $faker->randomElement($types);
+            $genre = $faker->randomElement($genres);
+
+            $picture = 'https://randomuser.me/api/portraits/';
+            $pictureId=$faker->numberBetween(1,99). '.jpg';
+
+            $picture.=($genre == 'male' ? 'men/' : 'women/').$pictureId;
+
+            if ($type == 'etudiant')
+            {
+                $user = new User();
+                $user->nom = $faker->lastName;
+                $user->prenom = $faker->firstName;
+                $user->picture = $picture;
+                $user->email = $faker->email;
+                $user->password = Hash::make('azerty');
+                $user->save();
+
+                $etudiant = new Etudiant();
+                $etudiant->civilite = $faker->randomElement($civilite);
+                $etudiant->DateDeNaissance = $faker->date($format = 'Y-m-d', $max = 'now');
+                $etudiant->adresse = $faker->secondaryAddress;
+                $etudiant->codePostal = $faker->postcode;
+                $etudiant->ville = $faker->city;
+                $etudiant->idUser = $user->id;
+                $etudiant->save();
+            }
+            else{
+                $user = new User();
+                $user->nom = $faker->lastName;
+                $user->prenom = $faker->firstName;
+                $user->picture = $picture;
+                $user->email = $faker->email;
+                $user->password = Hash::make('azerty');
+                $user->save();
+
+                $contact = new ContactEntreprise();
+                $contact->civilite = $faker->randomElement($civilite);
+                $contact->telephone;
+                $contact->idUser = $user->id;
+                $contact->nom = $user->nom;
+                $contact->prenom = $user->prenom;
+                $contact->mail = $user->email;
+                $contact->save();
+
+                if (mt_rand(0,1)){
+                    $entreprise = new Entreprise();
+                    $entreprise->nom = $faker->company;
+                    $entreprise->siret = 12345678901234;
+                    $entreprise->description = $faker->paragraph();
+                    $entreprise->createur = $contact->id;
+                    $entreprise->save();
+
+                    $adresses = [];
+                    for ($j=0; $j < mt_rand(1,3); $j++){
+                        $adresse = new AdressEntreprise();
+                        $adresse->nomRue = $faker->secondaryAddress;
+                        $adresse->ville = $faker->city;
+                        $adresse->coordonnePostales = $faker->postcode;
+                        $adresse->idEntreprise = $entreprise->id;
+                        $adresse->save();
+
+                        $adresses[] = $adresse->id;
+                    }
+
+                    for ($j=0; $j < mt_rand(1,10); $j++){
+                        $offre = new Offre();
+                        $offre->nomOffre = $faker->sentence();;
+                        $offre->natureOffre = $faker->sentence();;
+                        $offre->dateDebut = $faker->date($format = 'Y-m-d', $max = 'now');
+                        $offre->dateFin = $faker->date($format = 'Y-m-d', $max = 'now');
+                        $offre->preembauche = (mt_rand(0,1)? 'oui' : 'non');
+                        $offre->datePublicationOffre = $faker->date($format = 'Y-m-d', $max = 'now');
+                        $offre->idEntreprise = $entreprise->id;
+                        if (mt_rand(0,1)){
+                            $offre->lienOffre = $faker->url;
+                        }
+                        $offre->save();
+
+                        $descriptionOffre = new DescriptionOffre();
+                        $descriptionOffre->contexte = $faker->paragraph();
+                        $descriptionOffre->objectif = $faker->paragraph();
+                        $descriptionOffre->idOffre = $offre->id;
+                        $descriptionOffre->location = $faker->randomElement($adresses);
+                        $descriptionOffre->save();
+                    }
+
+                    $entreprises [] = $entreprise->id;
+
+                    $contact->idEntreprise = $entreprise->id;
+                }
+                elseif (mt_rand(0,1)){
+
+                    $contact->idEntreprise = $faker->randomElement($entreprises);
+                }
+
+                $contact->save();
+
+            }
+
+        }
     }
 }
