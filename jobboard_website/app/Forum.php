@@ -9,6 +9,6 @@ class Forum extends Model
     protected $table='forums';
 
     function entreprises() {
-        return $this->hasMany('EntrepriseParticipe', 'idForum');
+        return $this->hasMany('App\EntrepriseParticipe', 'idForum');
     }
 }
