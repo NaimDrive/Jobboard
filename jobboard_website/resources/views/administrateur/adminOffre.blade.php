@@ -17,8 +17,8 @@
                     <div class="card-body">
                         <strong><p class="card-title text-center"> {{$offre->nomOffre}}  {{$offre->natureOffre}}</p></strong>
                         <a href="{{route('afficherOffres')}}"><button class="btn-primary mb-2">Visionner</button></a><br>
-                        <a href="#"> <button class="btn-secondary mb-2">Modifier</button></a><br>
-                        <a href="#"><button class="btn-danger mb-2">Supprimer</button></a><br>
+                        <a href="{{ route('editOffre',['id'=>$offre->id]) }}"> <button class="btn-secondary mb-2">Modifier</button></a><br>
+                        <a href="{{ route('deleteOffre', ['id'=>$offre->id]) }}"><button class="btn-danger mb-2">Supprimer</button></a><br>
                     </div>
                 </div>
             @endforeach

@@ -75,8 +75,18 @@
                     <p> Chaque année nous organisons des <b>Job Dating</b> afin de faciliter le dialogue entre les étudiants et les entreprises.<br>
                         Si votre entreprise est intéressée venez vous inscrire à l'un de nos Job Dating , <b>nos étudiants vous attendent !</b></p>
                 </div>
+                <div class="mt-5 border border-success">
+                    <h2>Annonces</h2>
+                    @foreach($annonces as $annonce)
+                        <div class="border border-success p-3 m-3">
+                            <h3>{{ $annonce->title }}</h3>
+                            <p>{!! $annonce->content !!}</p>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
+
     </div>
 
 @endsection

@@ -54,7 +54,7 @@
                                     Adresse du stage
                                 </label>
                                 <select name="location" id="location" class="form-control col-md-6">
-                                    @foreach($entreprise->adress as $adresse)
+                                    @foreach($offre->entreprise->adress as $adresse)
                                         <option value="{{$adresse->id}}">{{$adresse->nomRue}} - {{$adresse->coordonnePostales}} {{$adresse->ville}} </option>
                                     @endforeach
                                 </select>

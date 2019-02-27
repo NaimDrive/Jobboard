@@ -24,9 +24,6 @@ class OffreController extends Controller
                 }
 
             }
-            elseif($role->typeRole == 'ADMIN'){
-                $peutCreer = true;
-            }
         }
         return $peutCreer;
     }
@@ -106,9 +103,7 @@ class OffreController extends Controller
 
     function editOffre($id) {
         if ($this->peutModifier($id)){
-            $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
-
-            return view('offre/edit',['offre'=>Offre::find($id), "entreprise"=>Entreprise::find($idEntreprise)]);
+            return view('offre/edit',['offre'=>Offre::find($id)]);
         }
         return redirect(route('accueil'));
     }
@@ -133,8 +128,6 @@ class OffreController extends Controller
             $depot= str_replace("public","storage",$depot);
         }
         $input = $request->only(["nomOffre","natureOffre","dateDebut","dateFin","pre-embauche","lienOffre"]);
-        $idEntreprise = DB::table("contact_entreprise")->where("idUser",Auth::id())->value("idEntreprise");
-
         if ($depot != null){
             $offre = DB::table('offre')->where('id',$id)->first();
             $lienDepot = $offre->depot;
@@ -149,7 +142,6 @@ class OffreController extends Controller
                 "dateDebut" => $input["dateDebut"],
                 "dateFin" => $input["dateFin"],
                 "preembauche" => $input["pre-embauche"],
-                "idEntreprise" => $idEntreprise,
                 "datePublicationOffre" => new \DateTime(),
                 "depot" => $depot,
                 "lienOffre" => $input["lienOffre"]
@@ -162,7 +154,6 @@ class OffreController extends Controller
                 "dateDebut" => $input["dateDebut"],
                 "dateFin" => $input["dateFin"],
                 "preembauche" => $input["pre-embauche"],
-                "idEntreprise" => $idEntreprise,
                 "datePublicationOffre" => new \DateTime(),
                 "lienOffre" => $input["lienOffre"]
             ]);
@@ -220,6 +211,14 @@ class OffreController extends Controller
 
     function offreSaveEtu(){
         return view('/etudiant/mesRecherches');
+    }
+
+
+    function delete($id){
+        if($this->peutModifier($id)){
+            DB::table('offre')->where('id',$id)->delete();
+            return view('validationSuppression');
+        }
     }
 
 

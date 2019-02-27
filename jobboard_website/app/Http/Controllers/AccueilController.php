@@ -9,10 +9,13 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\DB;
+
 class AccueilController
 {
     public function index()
     {
-        return view('accueil');
+        $annonces = DB::table('annonces')->get();
+        return view('accueil', ['annonces'=>$annonces]);
     }
 }

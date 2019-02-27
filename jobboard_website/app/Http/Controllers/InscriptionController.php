@@ -46,6 +46,7 @@ class InscriptionController extends Controller
                 'photo' => ['nullable','image'],
                 'civilite' => ['required', 'string'],
                 'telephone' =>['nullable', 'string', 'min:10', 'max:10'],
+                'role' => ['required', 'string', 'max:100'],
                 'dateNaissance' => ['nullable', 'date'],
                 'ville' => ['nullable', 'string', 'max:255'],
                 'adresse' => ['nullable', 'string', 'max:255'],
@@ -59,7 +60,7 @@ class InscriptionController extends Controller
                 $photo= str_replace("public","storage",$photo);
             }
 
-            $input = $request->only('nom','prenom','email','password','civilite','telephone');
+            $input = $request->only('nom','prenom','email','password','civilite','telephone','role');
 
             $userID = DB::table('users')->insertGetId([
                 'nom'=>$input['nom'],
@@ -76,7 +77,9 @@ class InscriptionController extends Controller
                 'mail' => $input['email'],
                 'telephone' => $input['telephone'],
                 'civilite' => $input['civilite'],
+                'role' => $input['role'],
                 'idUser' => $userID,
+                'created_at' => new \DateTime(),
             ]);
 
             DB::table('definir')->insert([
@@ -126,6 +129,7 @@ class InscriptionController extends Controller
                 'codePostal' => $input['codepostal'],
                 'ville' => $input['ville'],
                 'idUser' => $userID,
+                'created_at' => new \DateTime(),
             ]);
             DB::table('definir')->insert([
                 'idRole'=>2,
@@ -160,13 +164,14 @@ class InscriptionController extends Controller
             $this->validate($request, [
                 'civilite' => ['required', 'string'],
                 'telephone' =>['nullable', 'string', 'min:10', 'max:10'],
+                'role' => ['required', 'string', 'max:100'],
                 'dateNaissance' => ['nullable', 'date'],
                 'ville' => ['nullable', 'string', 'max:255'],
                 'adresse' => ['nullable', 'string', 'max:255'],
                 'codepostal' => ['nullable', 'string', 'max:5', 'min:5']
             ]);
 
-            $input = $request->only('civilite','telephone');
+            $input = $request->only('civilite','telephone','role');
 
             $contact = new ContactEntreprise();
             $contact->nom = Auth::user()->nom;
@@ -175,6 +180,8 @@ class InscriptionController extends Controller
             $contact->telephone = $input['telephone'];
             $contact->civilite = $input['civilite'];
             $contact->idUser = Auth::user()->id;
+            $contact->role = $input['role'];
+            $contact->created_at = new \DateTime();
 
             $contact->save();
 
@@ -205,6 +212,7 @@ class InscriptionController extends Controller
                 'codePostal' => $input['codepostal'],
                 'ville' => $input['ville'],
                 'idUser' => $id,
+                'created_at' => new \DateTime(),
             ]);
             DB::table('definir')->insert([
                 'idRole'=>2,

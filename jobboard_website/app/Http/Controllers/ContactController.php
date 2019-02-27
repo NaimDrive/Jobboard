@@ -40,7 +40,8 @@ class ContactController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'photo' => ['nullable','image'],
             'civilite' => ['required', 'string'],
-            'telephone' =>['required', 'string', 'min:10', 'max:10'],
+            'telephone' =>['nullable', 'string', 'min:10', 'max:10'],
+            'role' => ['required', 'string', 'max:100'],
             'entreprise' => ['required'],
             'idUser' => ['required']
         ]);
@@ -52,7 +53,7 @@ class ContactController extends Controller
             $photo= str_replace("public","storage",$photo);
         }
 
-        $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise','idUser']);
+        $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise','idUser','role']);
 
         if ($photo == null){
             DB::table('users')->where('id',$input['idUser'])->update([
@@ -88,6 +89,8 @@ class ContactController extends Controller
             'telephone' => $input['telephone'],
             'civilite' => $input['civilite'],
             'idEntreprise' => ($input['entreprise']=='null'? NULL : $input['entreprise']),
+            'updated_at' => new \DateTime(),
+            'role' => $input['role'],
         ]);
 
         return redirect(route('afficherUnContact', DB::table('contact_entreprise')->where('idUser',$input['idUser'])->value('id')));

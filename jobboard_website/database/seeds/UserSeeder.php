@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
         $civilite = ['Monsieur','Madame','Autre'];
         $types = ['etudiant','contact'];
         $genres=['male', 'female'];
-        for($i = 0; $i < 20; $i++){
+        for($i = 0; $i < 100; $i++){
 
             $type = $faker->randomElement($types);
             $genre = $faker->randomElement($genres);
@@ -60,6 +60,11 @@ class UserSeeder extends Seeder
                 $user->password = Hash::make('azerty');
                 $user->save();
 
+                DB::table('definir')->insert([
+                    'idRole'=>2,
+                    'idUser'=>$user->id,
+                ]);
+
                 $etudiant = new Etudiant();
                 $etudiant->civilite = $faker->randomElement($civilite);
                 $etudiant->DateDeNaissance = $faker->date($format = 'Y-m-d', $max = 'now');
@@ -67,6 +72,9 @@ class UserSeeder extends Seeder
                 $etudiant->codePostal = $faker->postcode;
                 $etudiant->ville = $faker->city;
                 $etudiant->idUser = $user->id;
+                $etudiant->actif = mt_rand(0,1);
+                $etudiant->rechercheStage = mt_rand(0,1);
+                $etudiant->etudes = (mt_rand(0,1) ? "DUT" : "LP");
                 $etudiant->save();
             }
             else{
@@ -78,6 +86,11 @@ class UserSeeder extends Seeder
                 $user->password = Hash::make('azerty');
                 $user->save();
 
+                DB::table('definir')->insert([
+                    'idRole'=>3,
+                    'idUser'=>$user->id,
+                ]);
+
                 $contact = new ContactEntreprise();
                 $contact->civilite = $faker->randomElement($civilite);
                 $contact->telephone;
@@ -85,6 +98,7 @@ class UserSeeder extends Seeder
                 $contact->nom = $user->nom;
                 $contact->prenom = $user->prenom;
                 $contact->mail = $user->email;
+                $contact->role = $faker->jobTitle;
                 $contact->save();
 
                 if (mt_rand(0,1)){
