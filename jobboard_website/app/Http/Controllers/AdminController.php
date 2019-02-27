@@ -23,10 +23,10 @@ class AdminController
         $nbCont = ContactEntreprise::query()->count();
         $nbOf = Offre::query()->count();
 
-        $etudiants = Etudiant::all()->sortByDesc('id')->take(10);
-        $entreprises = Entreprise::all()->sortByDesc('id')->take(10);
-        $contacts = ContactEntreprise::all()->sortByDesc('id')->take(10);
-        $offres = Offre::all()->sortByDesc('id')->take(10);
+        $etudiants = Etudiant::all()->sortByDesc('id')->take(8);
+        $entreprises = Entreprise::all()->sortByDesc('id')->take(5);
+        $contacts = ContactEntreprise::all()->sortByDesc('id')->take(8);
+        $offres = Offre::all()->sortByDesc('id')->take(2);
 
         foreach(Auth::user()->roles as $role) {
             if ($role->typeRole == 'ADMIN') {
