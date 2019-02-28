@@ -5,6 +5,7 @@ use App\ContactEntreprise;
 use App\DescriptionOffre;
 use App\Entreprise;
 use App\Etudiant;
+use App\Forum;
 use App\Offre;
 use App\User;
 use Faker\Factory;
@@ -34,6 +35,7 @@ class UserSeeder extends Seeder
             'idRole'=>1,
             'idUser'=>1,
         ]);
+        
 
 
         $entreprises = [];

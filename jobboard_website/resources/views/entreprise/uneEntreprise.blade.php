@@ -15,7 +15,7 @@
         <div class="row mt-4">
             <div class="col-md-8">
                 <div class="card">
-                    <h2 class="card-header">Déscription</h2>
+                    <h2 class="card-header">Description</h2>
                     <div class="card-body">
                         <p class="ml-2 text-justify">
                             {{ $entreprise->description }}
@@ -35,13 +35,15 @@
                     <div class="card-body">
                         @foreach($entreprise->offres as $offre)
                             <div class="border p-3 mt-3">
-                                <h3>{{ $offre->nomOffre }}</h3>
+                                <h3><a href="{{ route('afficherUneOffre', ['id' => $offre->id]) }}">{{ $offre->nomOffre }}</a></h3>
                                 <p>{{ $offre->datePublicationOffre }}</p>
                                 <h4>Description de l'offre</h4>
 
                                 <p >Contexte : {{ $offre->description->contexte }}</p>
                                 <p>Objectif : {{ $offre->description->objectif }}</p>
                                 <p class="mt-1">Du {{ $offre->dateDebut }} au {{ $offre->dateFin }}</p>
+
+                                <a class="btn btn-success" href="{{ route('afficherUneOffre', ['id' => $offre->id]) }}">voir l'offre</a>
                             </div>
 
 

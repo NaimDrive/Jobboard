@@ -24,7 +24,8 @@
                 <h2 class="card-header">Mon entreprise</h2>
                 <div class="card-body">
                     @if($contact->idEntreprise != null)
-                        <a class="ml-2" href="{{ route("afficherUneEntreprise",["id"=>$contact->entreprise->id]) }}" >{{$contact->entreprise->nom}}</a>
+                        <strong class="ml-2">Nom de l'entreprise</strong> : <a href="{{ route("afficherUneEntreprise",["id"=>$contact->entreprise->id]) }}" >{{$contact->entreprise->nom}}</a>
+                        <p class="ml-2 mt-2"><strong>Role dans l'entreprise</strong> : {{ $contact->role }}</p>
                     @else
                         <div class="alert alert-warning">Je n'ai pas encore d'entreprise</div>
                     @endif
@@ -36,7 +37,9 @@
                 <h2 class="card-header">Me contacter</h2>
                 <div class="card-body">
                     <p>Contactez-moi via : {{$contact->mail}}</p>
-                    <p>Ou par téléphone au {{$contact->telephone}}</p>
+                    @if($contact->telephone)
+                        <p>Ou par téléphone au {{$contact->telephone}}</p>
+                    @endif
                 </div>
             </div>
         </div>
