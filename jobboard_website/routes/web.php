@@ -94,6 +94,8 @@ Route::get('/offre/{id}/delete', 'OffreController@delete')->name('deleteOffre');
 
 Route::get('/etudiant/{id}/mesRecherches', 'OffreController@offreSaveEtu')->name('offresSave');
 
+//Route d'acces a tout les etudiants
+Route::get('/toutLesEtudiant','EtudiantController@AffichettEtu')->name('toutlesEtudiants');
 
 //ROUTE POUR LES FORUMS
 //Route::get('/forum/{id}','ForumController@afficherUnForum')->name('afficherUnForum');

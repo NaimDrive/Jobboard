@@ -20,6 +20,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('afficherToutesEntreprises') }}">Entreprises</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ route("toutlesEtudiants") }}" class="dropdown-item">Nos Etudiants</a>
+                </li>
+
             </ul>
 
             <ul class="navbar-nav ml-auto">
