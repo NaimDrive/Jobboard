@@ -392,6 +392,9 @@ class EtudiantController extends Controller
         function AffichettEtu(Request $request){
             return view('/etudiant/afficheEtudiant');
         }
+    function listeRecherches(){
+        return view('/etudiant/listeRecherches');
 
+    }
 
 }

@@ -101,3 +101,8 @@ Route::get('/toutLesEtudiant','EtudiantController@AffichettEtu')->name('toutlesE
 //Route::get('/forum/{id}','ForumController@afficherUnForum')->name('afficherUnForum');
 Route::get('/forum/create','ForumController@creerUnForum')->name('creerUnForum');
 Route::post('/forum/enregistrer','ForumController@enregistrerUnForum')->name('enregistrerUnForum');
+
+
+//ROUTE DE LA LISTES DES RECHERCHERS
+
+Route::get('/lesrecherches','EtudiantController@listeRecherches')->name('Recherches');
