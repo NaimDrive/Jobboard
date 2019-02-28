@@ -16,7 +16,7 @@ class CreateForumsTable extends Migration
         Schema::create('forums', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->date('heure');
+            $table->time('heure');
             $table->boolean('actif');
             $table->timestamps();
         });

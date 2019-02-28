@@ -16,6 +16,7 @@ class CreateEntrepriseParticipesTable extends Migration
         Schema::create('entreprise_participes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idForum');
+            $table->integer('idEntreprise');
             $table->timestamps();
         });
     }

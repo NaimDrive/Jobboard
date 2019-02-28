@@ -2,8 +2,10 @@
 
 use App\AdressEntreprise;
 use App\ContactEntreprise;
+use App\ContactParticipe;
 use App\DescriptionOffre;
 use App\Entreprise;
+use App\EntrepriseParticipe;
 use App\Etudiant;
 use App\Forum;
 use App\Offre;
@@ -36,6 +38,12 @@ class UserSeeder extends Seeder
             'idUser'=>1,
         ]);
         
+
+        $forum = new Forum();
+        $forum->date = $faker->date($format = 'Y-m-d', $max = 'now');
+        $forum->heure = $faker->time($format = 'H:i:s', $max = 'now');
+        $forum->actif = 1 ;
+        $forum->save();
 
 
         $entreprises = [];
@@ -110,6 +118,18 @@ class UserSeeder extends Seeder
                     $entreprise->description = $faker->paragraph();
                     $entreprise->createur = $contact->id;
                     $entreprise->save();
+
+                    if(mt_rand(0,1)){
+                        $entrepriseParticipe = new EntrepriseParticipe();
+                        $entrepriseParticipe->idForum = $forum->id ;
+                        $entrepriseParticipe->idEntreprise = $entreprise->id ;
+                        $entrepriseParticipe->save();
+
+                        $contactParticipe = new ContactParticipe();
+                        $contactParticipe->idEntrepriseParticipe = $entrepriseParticipe->id ;
+                        $contactParticipe->idContact = $contact->id ;
+                        $contactParticipe->save();
+                    }
 
                     $adresses = [];
                     for ($j=0; $j < mt_rand(1,3); $j++){
