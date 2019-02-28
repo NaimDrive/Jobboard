@@ -42,6 +42,7 @@
                             @foreach (Auth::user()->roles as $role)
                                 @if($role->typeRole == "ADMIN")
                                     <a class="dropdown-item" href="{{route('admin')}}">Admin</a>
+                                    <a class="dropdown-item" href="{{route('creerUnForum')}}">Forum</a>
                                 @elseif($role->typeRole == "ETUDIANT")
                                     <?php $user_id= Illuminate\Support\Facades\Auth::id();
                                     $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>

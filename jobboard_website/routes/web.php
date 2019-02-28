@@ -96,4 +96,6 @@ Route::get('/etudiant/{id}/mesRecherches', 'OffreController@offreSaveEtu')->name
 
 
 //ROUTE POUR LES FORUMS
-Route::get('/forum/{id}','ForumController@afficherUnForum')->name('afficherUnForum');
+//Route::get('/forum/{id}','ForumController@afficherUnForum')->name('afficherUnForum');
+Route::get('/forum/create','ForumController@creerUnForum')->name('creerUnForum');
+Route::post('/forum/enregistrer','ForumController@enregistrerUnForum')->name('enregistrerUnForum');
