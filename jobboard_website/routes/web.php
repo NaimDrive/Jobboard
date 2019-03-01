@@ -94,8 +94,17 @@ Route::get('/offre/{id}/delete', 'OffreController@delete')->name('deleteOffre');
 
 Route::get('/etudiant/{id}/mesRecherches', 'OffreController@offreSaveEtu')->name('offresSave');
 
+//Route d'acces a tout les etudiants
+Route::get('/toutLesEtudiant','EtudiantController@AffichettEtu')->name('toutlesEtudiants');
 
 //ROUTE POUR LES FORUMS
+Route::get('/forum/create','ForumController@creerUnForum')->name('creerUnForum');
+Route::post('/forum/enregistrer','ForumController@enregistrerUnForum')->name('enregistrerUnForum');
 Route::get('/forum/{id}','ForumController@afficherUnForum')->name('afficherUnForum');
 Route::get('/forum/inscription/{id}','ForumController@inscriptionForum')->name('inscriptionForum');
 Route::post('/forum/store/{id}', 'ForumController@storeInscription')->name('stroreInscriptionForum');
+
+//ROUTE DE LA LISTES DES RECHERCHERS
+
+Route::get('/lesrecherches','EtudiantController@listeRecherches')->name('Recherches');
+

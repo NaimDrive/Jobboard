@@ -389,5 +389,12 @@ class EtudiantController extends Controller
             return view('/etudiant/consultOffres');
         }
 
+        function AffichettEtu(Request $request){
+            return view('/etudiant/afficheEtudiant');
+        }
+    function listeRecherches(){
+        return view('/etudiant/listeRecherches');
+
+    }
 
 }

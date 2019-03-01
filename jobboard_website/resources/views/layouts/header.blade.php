@@ -20,6 +20,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('afficherToutesEntreprises') }}">Entreprises</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ route("toutlesEtudiants") }}">Nos Etudiants</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route("Recherches") }}">Les recherches</a>
+                </li>
+
             </ul>
 
             <ul class="navbar-nav ml-auto">
@@ -42,12 +49,14 @@
                             @foreach (Auth::user()->roles as $role)
                                 @if($role->typeRole == "ADMIN")
                                     <a class="dropdown-item" href="{{route('admin')}}">Admin</a>
+                                    <a class="dropdown-item" href="{{route('creerUnForum')}}">Forum</a>
                                 @elseif($role->typeRole == "ETUDIANT")
                                     <?php $user_id= Illuminate\Support\Facades\Auth::id();
                                     $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>
                                     <a class="dropdown-item" href="{{ route('consult_profile',["id"=>$idEtu]) }} "> Mon Profil</a>
                                     <a class="dropdown-item" href="{{ route('edit_profile',["id"=>$idEtu]) }} "> Modifier mon Profil</a>
-                                        <a class="dropdown-item" href="{{ route('createrecherche',["id"=>$idEtu]) }}"> Mes recherches</a>
+                                    <a class="dropdown-item" href="{{ route('createrecherche',["id"=>$idEtu]) }}"> Créer une recherches</a>
+                                    <a class="dropdown-item" href="{{route('offresave',["id"=>$idEtu])}}">Mes offres</a>
                                 @elseif($role->typeRole == "CONTACT")
                                     @php($contact = DB::table('contact_entreprise')->where('idUser',Auth::id())->first())
                                     <a href="{{route('afficherUnContact',['id'=>$contact->id])}}" class="dropdown-item">Mon profile</a>
