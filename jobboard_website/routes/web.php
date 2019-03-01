@@ -97,3 +97,5 @@ Route::get('/etudiant/{id}/mesRecherches', 'OffreController@offreSaveEtu')->name
 
 //ROUTE POUR LES FORUMS
 Route::get('/forum/{id}','ForumController@afficherUnForum')->name('afficherUnForum');
+Route::get('/forum/inscription/{id}','ForumController@inscriptionForum')->name('inscriptionForum');
+Route::post('/forum/store/{id}', 'ForumController@storeInscription')->name('stroreInscriptionForum');

@@ -108,8 +108,6 @@
         boutonAddAdresse.addEventListener('click' , addAdresse);
         function addAdresse () {
 
-
-
             let divAdresses = document.getElementById('adresses');
             let index = parseInt(divAdresses.childNodes.length)-6;
 
