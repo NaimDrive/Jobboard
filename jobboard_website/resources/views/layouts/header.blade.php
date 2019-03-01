@@ -56,7 +56,7 @@
                                     <a class="dropdown-item" href="{{ route('consult_profile',["id"=>$idEtu]) }} "> Mon Profil</a>
                                     <a class="dropdown-item" href="{{ route('edit_profile',["id"=>$idEtu]) }} "> Modifier mon Profil</a>
                                     <a class="dropdown-item" href="{{ route('createrecherche',["id"=>$idEtu]) }}"> Créer une recherches</a>
-                                    <a class="dropdown-item" href="{{route('offresave',["id"=>$idEtu])}}">Mes offres</a>
+                                    <a class="dropdown-item" href="{{route('offresSave',["id"=>$idEtu])}}">Mes offres</a>
                                 @elseif($role->typeRole == "CONTACT")
                                     @php($contact = DB::table('contact_entreprise')->where('idUser',Auth::id())->first())
                                     <a href="{{route('afficherUnContact',['id'=>$contact->id])}}" class="dropdown-item">Mon profile</a>

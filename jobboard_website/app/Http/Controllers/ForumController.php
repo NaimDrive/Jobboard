@@ -16,7 +16,10 @@ class ForumController extends Controller
    function afficherUnForum($id){
        if (Auth::check()){
            $forum = Forum::find($id);
-           return view("forum/afficherUnForum",["forum"=>$forum]);
+           if ($forum->actif || Auth::user()->isAdmin()){
+               return view("forum/afficherUnForum",["forum"=>$forum]);
+           }
+           return redirect(route('accueil'));
        }
        return redirect(route('login'));
 
@@ -26,8 +29,8 @@ class ForumController extends Controller
    function inscriptionForum($id){
        if (Auth::check() && Auth::user()->isContact() ){
            $contact = ContactEntreprise::query()->where("idUser",Auth::id())->first();
-           if($contact->entreprise){
-               $forum = Forum::find($id);
+           $forum = Forum::find($id);
+           if($contact->entreprise && $forum->actif){
                return view("forum/inscriptionForum",["forum"=>$forum,"entreprise"=>$contact->entreprise]);
            }
            return redirect(route('accueil'));
