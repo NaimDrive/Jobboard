@@ -99,8 +99,11 @@ Route::get('/toutLesEtudiant','EtudiantController@AffichettEtu')->name('toutlesE
 
 //ROUTE POUR LES FORUMS
 Route::get('/forum/create','ForumController@creerUnForum')->name('creerUnForum');
+Route::get('/forum/modify/{id}','ForumController@modifierUnForum')->name('modifierUnForum');
 Route::post('/forum/enregistrer','ForumController@enregistrerUnForum')->name('enregistrerUnForum');
+Route::get('/forum','ForumController@afficherLesForums')->name('afficherLesForums');
 Route::get('/forum/{id}','ForumController@afficherUnForum')->name('afficherUnForum');
+Route::get('/forum/delete/{id}','ForumController@supprimerUnForum')->name('supprimerUnForum');
 Route::get('/forum/inscription/{id}','ForumController@inscriptionForum')->name('inscriptionForum');
 Route::post('/forum/store/{id}', 'ForumController@storeInscription')->name('stroreInscriptionForum');
 

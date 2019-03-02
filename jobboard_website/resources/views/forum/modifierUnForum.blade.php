@@ -11,15 +11,15 @@
                     <fieldset>
                         <div class="form-group">
                             <label for="dateForum">Date du forum</label>
-                            <input type="date" class="form-control" id="dateForum" name="dateForum" value="{{old("date")}}" ><br>
+                            <input type="date" class="form-control" id="dateForum" name="dateForum" value="{{$forum->date}}" ><br>
                             <label for="heureForum">Heure</label>
-                            <input type="time" class="form-control" id="heureForum" name="heureForum" value="{{old("heure")}}"><br>
+                            <input type="time" class="form-control" id="heureForum" name="heureForum" value="{{$forum->heure}}"><br>
                             <label for="actif">Inscription possible ?</label>
                             <select class="form-control" id="actif" name="actif" value="{{old("actif")}}">
                                 <option>Oui</option>
                                 <option>Non</option>
                             </select>
-                        <button type="submit" class="btn btn-success btn-lg btn-block">Confirmer</button>
+                            <button type="submit" class="btn btn-success btn-lg btn-block">Confirmer</button>
                         </div>
                     </fieldset>
                 </form>

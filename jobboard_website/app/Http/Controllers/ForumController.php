@@ -25,6 +25,35 @@ class ForumController extends Controller
 
    }
 
+   function afficherLesForums(){
+       $forums = Forum::all();
+       return view("forum/afficherLesForums",compact('forums'));
+   }
+
+   function modifierUnForum($id)
+   {
+       if (Auth::check()){
+           foreach (Auth::user()->roles as $role) {
+               if ($role->typeRole == 'ADMIN') {
+                   $forum = Forum::find($id);
+                   DB::delete('delete from forums where id = ?',[$id]);
+                   return view("forum/modifierUnForum", compact("forum"));
+               }
+               return redirect(route('accueil'));
+           }
+        }
+        return redirect(route('login'));
+   }
+
+   function supprimerUnForum($id){
+       foreach(Auth::user()->roles as $role) {
+           if ($role->typeRole == 'ADMIN') {
+               DB::delete('delete from forums where id = ?', [$id]);
+           }
+       }
+       return redirect(route('accueil'));
+   }
+
 
    function inscriptionForum($id){
        if (Auth::check() && Auth::user()->isContact() ){
