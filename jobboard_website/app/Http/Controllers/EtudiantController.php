@@ -411,11 +411,13 @@ class EtudiantController extends Controller
         }
 
         function AffichettEtu(Request $request){
-            return view('/etudiant/afficheEtudiant');
+            $etudiants = Etudiant::all();
+            return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
         }
-    function listeRecherches(){
-        return view('/etudiant/listeRecherches');
+        
+        function listeRecherches(){
+            return view('/etudiant/listeRecherches');
 
-    }
+        }
 
 }
