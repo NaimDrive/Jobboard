@@ -140,10 +140,17 @@ class EtudiantController extends Controller
             [
                 "nom" => "required",
                 "prenom" => "required",
+                "naissance" => "required",
+                "civilite" => "required",
+                "email" => "required",
+                "adresse" => "required",
+                "codePostal" => "required",
+                "ville" => "required",
+                "customRadio" => "required", //recherche stage
             ]);
 
 
-        $input=$request->only(["nom","prenom"]);
+        $input=$request->only(["nom","prenom","naissance","civilite","email","adresse","codePostal","ville","customRadio"]);
 
         DB::table('users')
             ->where('id',$idUser)
@@ -151,6 +158,20 @@ class EtudiantController extends Controller
                 [
                     "nom" => $input["nom"],
                     "prenom" => $input["prenom"],
+                    "email" => $input["email"],
+                ]
+            );
+
+        DB::table('etudiant')
+            ->where('id',$idEtu)
+            ->update(
+                [
+                    "civilite" => $input["civilite"],
+                    "adresse" => $input["adresse"],
+                    "codePostal" => $input["codePostal"],
+                    "ville" => $input["ville"],
+                    "rechercheStage" => $input["customRadio"],
+                    "DateDeNaissance" => $input["naissance"],
                 ]
             );
 
