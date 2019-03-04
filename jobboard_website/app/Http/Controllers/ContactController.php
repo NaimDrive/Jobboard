@@ -97,12 +97,19 @@ class ContactController extends Controller
     }
 
     function afficherUnContact($id){
-        $contact = ContactEntreprise::find($id);
-        return view('contact/unContact',['contact'=>$contact]);
+        if (Auth::check()){
+            $contact = ContactEntreprise::find($id);
+            return view('contact/unContact',['contact'=>$contact]);
+        }
+        return redirect(route('login'));
+
     }
 
     function afficherContacts(){
-        $contacts = DB::table('contact_entreprise')->get();
-        return view('contact/toutContacts',['contacts'=>$contacts]);
+        if (Auth::check()){
+            $contacts = DB::table('contact_entreprise')->get();
+            return view('contact/toutContacts',['contacts'=>$contacts]);
+        }
+        return redirect(route('login'));
     }
 }

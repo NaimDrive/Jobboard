@@ -57,14 +57,17 @@
                                     <button type="submit" class="btn btn-success">
                                         {{ __('Me connecter') }}
                                     </button>
-
-                                    <a href="{{ route('linkedinConnect') }}" class="btn btn-success">Se connecter avec Linkedin</a>
-
+                                    <a href="{{ route('linkedinConnect') }}" class="ml-2 btn btn-success"><img src="{{ asset('images/signin-button.png') }}" alt="logo linkedin" class="linkedin mr-2">Me connecter avec Linkedin</a>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-8 offset-md-4">
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Mot de passe oublié ?') }}
                                         </a>
                                     @endif
+                                    <a href="{{ route('register') }}">Je n'ai pas encore de compte</a>
                                 </div>
                             </div>
                         </form>

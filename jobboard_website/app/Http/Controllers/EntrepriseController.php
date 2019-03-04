@@ -260,13 +260,19 @@ class EntrepriseController extends Controller
     }
 
     function afficheUneEntreprise($id){
-        $entreprise = Entreprise::find($id);
-        return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
+        if (Auth::check()){
+            $entreprise = Entreprise::find($id);
+            return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
+        }
+        return redirect(route('login'));
     }
 
     function afficherToutes(){
-        $entreprises = DB::table("entreprise")->get();
-        return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
+        if (Auth::check()){
+            $entreprises = DB::table("entreprise")->get();
+            return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
+        }
+        return redirect(route('login'));
     }
 
 }

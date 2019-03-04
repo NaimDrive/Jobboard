@@ -16,7 +16,7 @@ class AccueilController
 {
     public function index()
     {
-        $forums = Forum::query()->where('actif',1)->get();
+        $forums = Forum::query()->get();
         $annonces = DB::table('annonces')->get();
         return view('accueil', ['annonces'=>$annonces, 'forums'=>$forums]);
     }

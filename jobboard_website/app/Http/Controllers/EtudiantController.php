@@ -412,17 +412,19 @@ class EtudiantController extends Controller
             return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
         }
 
-        function AfficheOffre(Request $request){
-            return view('/etudiant/consultOffres');
-        }
-
-        function AffichettEtu(Request $request){
-            $etudiants = Etudiant::all();
-            return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
+        function AffichettEtu(){
+            if (Auth::check()){
+                $etudiants = Etudiant::all();
+                return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
+            }
+            return redirect(route('login'));
         }
         
         function listeRecherches(){
-            return view('/etudiant/listeRecherches');
+            if(Auth::check()){
+                return view('/etudiant/listeRecherches');
+            }
+            return redirect(route('login'));
 
         }
 
