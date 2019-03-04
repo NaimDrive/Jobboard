@@ -36,7 +36,6 @@ class ForumController extends Controller
            foreach (Auth::user()->roles as $role) {
                if ($role->typeRole == 'ADMIN') {
                    $forum = Forum::find($id);
-                   DB::delete('delete from forums where id = ?',[$id]);
                    return view("forum/modifierUnForum", compact("forum"));
                }
                return redirect(route('accueil'));
@@ -44,6 +43,28 @@ class ForumController extends Controller
         }
         return redirect(route('login'));
    }
+
+   function enregistrerModifForum(Request $request, $id){
+       $this->validate($request,
+           [
+               "dateForum"=>["required","date"],
+               "heureForum"=>["required"],
+               "actif"=>["required","string"]
+           ]);
+
+       $input=$request->only(["dateForum","heureForum","actif"]);
+       $actif = 0;
+       if($input["actif"] == "Oui")
+           $actif = 1;
+       DB::table("forums")->where("id",$id)->update([
+           "date" => $input["dateForum"],
+           "heure" => $input["heureForum"],
+           "actif" => $actif,
+       ]);
+
+       return redirect(route('accueil'));
+   }
+
 
    function supprimerUnForum($id){
        foreach(Auth::user()->roles as $role) {

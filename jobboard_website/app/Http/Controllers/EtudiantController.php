@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Storage;
 
 class EtudiantController extends Controller
 {
-
     function consulterProfile($id)
     {
         if (Auth::check()) {
@@ -32,15 +31,23 @@ class EtudiantController extends Controller
             $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
             $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
             $niveau = DB::table('competences_etudiant')->where('idEtudiant',$id)->value('niveauEstime');
-
+            $activite = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet');
+            $experiences = DB::table('experience')->where('idEtudiant', $id)->get();
+            $formation = DB::table('formation')->where('idEtudiant',$id)->get();
+            $recherche = DB::table('recherche')->where('idEtudiant',$id)->get();
+            $actif = DB::table('etudiant')->where('id',$id)->value('actif');
 
             return view('etudiant/consultProfile',
-                [
-                    'etudiant'=>$etudiant,
+                ['etudiant'=>$etudiant,
                     'nom'=>$nom,
                     'prenom'=>$prenom,
                     'categorie'=>$categorie,
-                    'competence'=>$competences,
+                    'competences'=>$competences,
+                    'activite'=>$activite,
+                    'experiences'=>$experiences,
+                    'formation'=>$formation,
+                    'recherche'=>$recherche,
+                    'actif'=>$actif,
                     'niveau'=>$niveau,
                     'liens'=>$liens,
                     'userId'=>$userId,
@@ -50,10 +57,9 @@ class EtudiantController extends Controller
                     'id'=>$id
                 ]);
         }
-
         return redirect(route('login'));
-
     }
+
 
     function modifierProfile($id)
     {

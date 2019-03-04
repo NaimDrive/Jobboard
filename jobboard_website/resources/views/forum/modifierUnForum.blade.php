@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class=" col-lg-6">
-                <form method="POST" action="{{route('enregistrerUnForum')}}" >
+                <form method="POST" action="{{route('enregistrerModifForum',["id"=>$forum->id])}}">
                     {!! csrf_field() !!}
                     <h1>Création d'un forum</h1>
                     <fieldset>
