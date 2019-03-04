@@ -106,6 +106,8 @@ Route::get('/forum/{id}','ForumController@afficherUnForum')->name('afficherUnFor
 Route::get('/forum/delete/{id}','ForumController@supprimerUnForum')->name('supprimerUnForum');
 Route::get('/forum/inscription/{id}','ForumController@inscriptionForum')->name('inscriptionForum');
 Route::post('/forum/store/{id}', 'ForumController@storeInscription')->name('stroreInscriptionForum');
+Route::get('/forum/editInscription/{id}', 'ForumController@editInscription')->name('editInscriptionForum');
+Route::post('/forum/storeEditInscription/{id}', 'ForumController@storeEdit')->name('storeEditInscriptionForum');
 
 //ROUTE DE LA LISTES DES RECHERCHERS
 

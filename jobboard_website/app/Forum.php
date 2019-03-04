@@ -11,4 +11,5 @@ class Forum extends Model
     function entreprises() {
         return $this->hasMany('App\EntrepriseParticipe', 'idForum');
     }
+
 }

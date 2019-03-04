@@ -101,8 +101,9 @@ class ForumController extends Controller
            $contactParticipe->save();
        }
 
-       $compteur = $request['nbContacts'];
        $this->validate($request, ['nbContacts' => 'required']);
+
+       $compteur = $request['nbContacts'];
 
        for ($i = 0; $i < $compteur; $i++) {
            $this->validate($request, [
@@ -158,4 +159,93 @@ class ForumController extends Controller
 
        return redirect(route('accueil'));
    }
+
+
+   function editInscription($id){
+       if (Auth::check()){
+           $user = ContactEntreprise::query()->where('idUser', Auth::id())->first();
+
+           $entreprise = $user->entreprise;
+           if ($user && $entreprise){
+               $forum = Forum::find($id);
+               if ($forum && $this->entrepriseParticipe($forum->id, $entreprise->id)){
+                   $inscription = EntrepriseParticipe::find($this->entrepriseParticipe($forum->id, $entreprise->id));
+                   return view('forum/editInscription', ['forum'=>$forum,'entreprise'=>$inscription]);
+               }
+
+
+               return redirect(route('accueil'));
+
+           }
+           return redirect(route('accueil'));
+       }
+       return redirect(route('login'));
+
+   }
+
+   function storeEdit(Request $request,$id){
+       $forum = Forum::find($id);
+
+       $contactCo = ContactEntreprise::query()->where('idUser', Auth::id())->first();
+
+       $entreprise = Entreprise::find($contactCo->idEntreprise);
+
+       $entrepriseParticipe = EntrepriseParticipe::query()->where('idEntreprise', $entreprise->id)->first();
+
+       if (!$entrepriseParticipe) {
+           $entrepriseParticipe = new EntrepriseParticipe();
+           $entrepriseParticipe->idForum = $forum->id;
+           $entrepriseParticipe->idEntreprise = $entreprise->id;
+           $entrepriseParticipe->created_at = new \DateTime();
+           $entrepriseParticipe->updated_at = new \DateTime();
+           $entrepriseParticipe->save();
+       }
+
+
+       $contacts = $entrepriseParticipe->contacts;
+       foreach ($contacts as $contact){
+           $contact->delete();
+       }
+
+       $this->validate($request, ['nbContacts' => 'required']);
+
+       $compteur = $request['nbContacts'];
+
+       for ($i = 0; $i < $compteur; $i++) {
+           $this->validate($request, [
+               'contact_' . $i => "required",
+           ]);
+
+           $idContact = $request['contact_' . $i];
+
+           $contactParticipe = ContactParticipe::query()->where('idEntrepriseParticipe', $entrepriseParticipe->id)
+               ->where('idContact', $idContact)->first();
+
+           if (!$contactParticipe) {
+               $contactParticipe = new ContactParticipe();
+               $contactParticipe->idEntrepriseParticipe = $entrepriseParticipe->id;
+               $contactParticipe->idContact = $idContact;
+               $contactParticipe->created_at = new \DateTime();
+               $contactParticipe->updated_at = new \DateTime();
+               $contactParticipe->save();
+           }
+       }
+
+       return redirect(route('afficherUnForum', ['id' => $id]));
+   }
+
+    function entrepriseParticipe($idForum, $idEntreprise){
+        $forum = Forum::find($idForum);
+        if($forum){
+            foreach ($forum->entreprises as $entreprise){
+                if ($entreprise->idEntreprise == $idEntreprise){
+                    return $entreprise->id;
+                }
+            }
+        }
+        return null;
+    }
+
+
+
 }
