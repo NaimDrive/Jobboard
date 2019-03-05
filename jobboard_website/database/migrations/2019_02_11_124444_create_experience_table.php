@@ -18,7 +18,7 @@ class CreateExperienceTable extends Migration
             $table->string('nom');
             $table->date('dateDebut');
             $table->date('dateFin');
-            $table->string('resume');
+            $table->string('resume')->nullable();
             $table->string('etablissement');
             $table->integer('idEtudiant');
             $table->timestamps();
