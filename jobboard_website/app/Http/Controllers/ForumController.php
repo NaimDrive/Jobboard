@@ -15,11 +15,19 @@ class ForumController extends Controller
 {
    function afficherUnForum($id){
        if (Auth::check()){
-           $forum = Forum::find($id);
-           if ($forum->actif || Auth::user()->isAdmin()){
-               return view("forum/afficherUnForum",["forum"=>$forum]);
+           $contact = null;
+           $participe = null;
+           if (Auth::user()->isContact()){
+               $contact = ContactEntreprise::where('idUser',Auth::id())->first();
+               $participe = EntrepriseParticipe::query()->where('idEntreprise', $contact->entreprise->id)->first();
+               if(!$contact->entreprise){
+                   $contact=null;
+               }
            }
-           return redirect(route('accueil'));
+
+           $forum = Forum::find($id);
+           return view("forum/afficherUnForum",["forum"=>$forum, 'contact'=>$contact, 'participe'=>$participe]);
+
        }
        return redirect(route('login'));
 
@@ -265,6 +273,25 @@ class ForumController extends Controller
             }
         }
         return null;
+    }
+
+    function desinscrire($id){
+       if (Auth::check() && Auth::user()->isContact()){
+           $forum = Forum::find($id);
+           $contact = ContactEntreprise::where('idUser',Auth::id())->first();
+           if($forum && $this->entrepriseParticipe($forum->id,$contact->idEntreprise)){
+               $entrepriseParticipe = EntrepriseParticipe::where('idEntreprise',$contact->idEntreprise)->first();
+               $entrepriseParticipe->delete();
+               $contactsP = ContactParticipe::where('idEntrepriseParticipe', $entrepriseParticipe->id)->get();
+
+               foreach ($contactsP as $contact){
+                   $contact->delete();
+               }
+           }
+       }
+
+       return redirect(route('afficherUnForum',['id'=>$id]));
+
     }
 
 

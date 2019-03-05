@@ -12,22 +12,22 @@
                     <a class="nav-link" href="{{ route('accueil') }}">Accueil<!-- <span class="sr-only">(current)</span>--></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('afficherOffres') }}">Offres</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('afficherLesForums') }}">Forums</a>
+                    <a class="nav-link" href="{{ route('afficherToutesEntreprises') }}">Entreprises</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('afficherToutContacts') }}">Professionnels</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('afficherToutesEntreprises') }}">Entreprises</a>
+                    <a class="nav-link" href="{{ route("toutlesEtudiants") }}">Nos Etudiants</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{{ route("toutlesEtudiants") }}">Nos Etudiants</a>
+                    <a class="nav-link" href="{{ route('afficherOffres') }}">Offres</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route("Recherches") }}">Les recherches</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('afficherLesForums') }}">Forums</a>
                 </li>
 
             </ul>
@@ -49,33 +49,41 @@
                             {{ Auth::user()->prenom }} {{ Auth::user()->nom }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
-                            @foreach (Auth::user()->roles as $role)
-                                @if($role->typeRole == "ADMIN")
-                                    <a class="dropdown-item" href="{{route('admin')}}">Admin</a>
-                                    <a class="dropdown-item" href="{{route('afficherLesForums')}}">Forum</a>
-                                @elseif($role->typeRole == "ETUDIANT")
-                                    <?php $user_id= Illuminate\Support\Facades\Auth::id();
-                                    $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>
-                                    <a class="dropdown-item" href="{{ route('consult_profile',["id"=>$idEtu]) }} "> Mon Profil</a>
-                                    <a class="dropdown-item" href="{{ route('edit_profile',["id"=>$idEtu]) }} "> Modifier mon Profil</a>
-                                    <a class="dropdown-item" href="{{ route('createrecherche',["id"=>$idEtu]) }}"> Créer une recherches</a>
-                                    <a class="dropdown-item" href="{{route('offresSave',["id"=>$idEtu])}}">Mes offres</a>
-                                @elseif($role->typeRole == "CONTACT")
-                                    @php($contact = DB::table('contact_entreprise')->where('idUser',Auth::id())->first())
-                                    <a href="{{route('afficherUnContact',['id'=>$contact->id])}}" class="dropdown-item">Mon profile</a>
-                                    <div class="dropdown-divider"></div>
-                                    @if($contact->idEntreprise == null)
-                                        <a href="{{ route("creerEntreprise") }}" class="dropdown-item">Créer mon entreprise</a>
-                                    @else
-                                        <a href="{{ route("creerEntreprise") }}" class="dropdown-item">Créer une nouvelle entreprise</a>
-                                        <a href="{{ route('afficherUneEntreprise',['id'=>$contact->idEntreprise]) }}" class="dropdown-item">Voir mon entreprise</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="{{ route("createOffre") }}" class="dropdown-item">Ajouter une offre</a>
 
-                                    @endif
+                            @if(Auth::user()->isAdmin())
+                                <a class="dropdown-item" href="{{route('admin')}}">Admin</a>
+                                <hr>
+                                <a class="dropdown-item" href="{{route('afficherLesForums')}}">Forum</a>
+                                <hr>
+                            @endif
+                            @if(Auth::user()->isEtudiant())
+                                <?php $user_id= Illuminate\Support\Facades\Auth::id();
+                                $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>
+                                <a class="dropdown-item" href="{{ route('consult_profile',["id"=>$idEtu]) }} "> Mon Profil</a>
+                                <a class="dropdown-item" href="{{ route('edit_profile',["id"=>$idEtu]) }} "> Modifier mon Profil</a>
+                                <hr>
+                                <a class="dropdown-item" href="{{ route('createrecherche',["id"=>$idEtu]) }}"> Créer une recherches</a>
+                                <hr>
+                                <a class="dropdown-item" href="{{route('offresSave',["id"=>$idEtu])}}">Mes offres sauvegardés</a>
+                                <hr>
+                            @endif
+                            @if(Auth::user()->isContact())
+                                @php($contact = DB::table('contact_entreprise')->where('idUser',Auth::id())->first())
+                                <a href="{{route('afficherUnContact',['id'=>$contact->id])}}" class="dropdown-item">Mon profil</a>
+                                <a class="dropdown-item" href="{{ route('editContact',["id"=>$contact->id]) }} "> Modifier mon Profil</a>
+                                <div class="dropdown-divider"></div>
+                                @if($contact->idEntreprise == null)
+                                    <a href="{{ route("creerEntreprise") }}" class="dropdown-item">Inscrire mon entreprise</a>
+                                @else
+                                    <a href="{{ route('afficherUneEntreprise',['id'=>$contact->idEntreprise]) }}" class="dropdown-item">Voir mon entreprise</a>
+                                    <a href="{{ route("creerEntreprise") }}" class="dropdown-item">Inscrire une nouvelle entreprise</a>
+                                    <hr>
+                                    <a href="{{ route("createOffre") }}" class="dropdown-item">Ajouter une offre</a>
+
                                 @endif
-                            @endforeach
-                            <div class="dropdown-divider"></div>
+                                <hr>
+                            @endif
+
                             <a class="dropdown-item" href="{{route('logout')}}"
                                onclick="event.preventDefault();
 document.getElementById('logout-form').submit()">Déconnexion</a>
