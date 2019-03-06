@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\ContactEntreprise;
 use App\Etudiant;
 use App\Http\Controllers\Controller;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Auth;
