@@ -51,6 +51,8 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
 
                             @if(Auth::user()->isAdmin())
+                                <a href="{{ route('password') }}" class="dropdown-item">Modifier mon mot de passe</a>
+                                <hr>
                                 <a class="dropdown-item" href="{{route('admin')}}">Admin</a>
                                 <hr>
                                 <a class="dropdown-item" href="{{route('afficherLesForums')}}">Forum</a>
@@ -61,6 +63,7 @@
                                 $idEtu = DB::table('etudiant')->where('idUser',$user_id)->value('id');?>
                                 <a class="dropdown-item" href="{{ route('consult_profile',["id"=>$idEtu]) }} "> Mon Profil</a>
                                 <a class="dropdown-item" href="{{ route('edit_profile',["id"=>$idEtu]) }} "> Modifier mon Profil</a>
+                                <a href="{{ route('password') }}" class="dropdown-item">Modifier mon mot de passe</a>
                                 <hr>
                                 <a class="dropdown-item" href="{{ route('createrecherche',["id"=>$idEtu]) }}"> Créer une recherches</a>
                                 <hr>
@@ -71,7 +74,8 @@
                                 @php($contact = DB::table('contact_entreprise')->where('idUser',Auth::id())->first())
                                 <a href="{{route('afficherUnContact',['id'=>$contact->id])}}" class="dropdown-item">Mon profil</a>
                                 <a class="dropdown-item" href="{{ route('editContact',["id"=>$contact->id]) }} "> Modifier mon Profil</a>
-                                <div class="dropdown-divider"></div>
+                                <a href="{{ route('password') }}" class="dropdown-item">Modifier mon mot de passe</a>
+                                <hr>
                                 @if($contact->idEntreprise == null)
                                     <a href="{{ route("creerEntreprise") }}" class="dropdown-item">Inscrire mon entreprise</a>
                                 @else
