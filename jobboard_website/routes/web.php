@@ -115,3 +115,6 @@ Route::get('/forum/{id}/desinscrire', 'ForumController@desinscrire')->name('desi
 
 Route::get('/lesrecherches','EtudiantController@listeRecherches')->name('Recherches');
 
+Route::get('/editPassword', 'EditPasswordController@editPassword')->name('password');
+Route::post('/editPassword', 'EditPasswordController@storeEditPassword')->name('storeEditPassword');
+
