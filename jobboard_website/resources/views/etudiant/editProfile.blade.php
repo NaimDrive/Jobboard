@@ -131,7 +131,7 @@
                                                         <option value="{{$categ->nomCategorie}}">{{$categ->nomCategorie}}</option>
                                                     @endforeach
                                                 </select>
-                                                <input type="range" class="form-control-range" id="level_{{$comp}}" name="level_{{$comp}}" value="{{$c->niveauEstime}}"
+                                                <input type="range" class="form-control-range" id="level_{{$comp}}" name="level_{{$comp}}" value="{{$c->niveauEstime}}">
                                             </div>
                                             <div class="col-1">
                                                 <button id="deleteCompetence_{{$comp}}" class="btn btn-danger" data-action="delete" data-target="block_competence_{{$comp}}" type="button">X</button>
