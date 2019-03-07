@@ -22,6 +22,7 @@ class CreateContactEntrepriseTable extends Migration
             $table->string('civilite');
             $table->integer('idEntreprise')->nullable();
             $table->integer('idUser')->nullable();
+            $table->boolean('actif');
             $table->string('role');
             $table->timestamps();
         });

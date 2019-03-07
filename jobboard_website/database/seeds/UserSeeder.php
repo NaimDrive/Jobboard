@@ -109,6 +109,7 @@ class UserSeeder extends Seeder
                 $contact->prenom = $user->prenom;
                 $contact->mail = $user->email;
                 $contact->role = $faker->jobTitle;
+                $contact->actif = 1;
                 $contact->save();
 
                 if (mt_rand(0,1)){
@@ -117,6 +118,7 @@ class UserSeeder extends Seeder
                     $entreprise->siret = 12345678901234;
                     $entreprise->description = $faker->paragraph();
                     $entreprise->createur = $contact->id;
+                    $entreprise->actif = 1;
                     $entreprise->save();
 
                     if(mt_rand(0,1)){
