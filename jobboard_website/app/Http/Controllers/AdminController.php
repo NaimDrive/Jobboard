@@ -40,7 +40,7 @@ class AdminController
     {
         foreach(Auth::user()->roles as $role){
             if ($role->typeRole == 'ADMIN'){
-                $entreprises = Entreprise::all();
+                $entreprises = Entreprise::paginate(12);
                 return view('administrateur/adminEntreprise', compact('entreprises'));
             }
         }
@@ -71,7 +71,7 @@ class AdminController
     public function adminEtudiant(){
         foreach(Auth::user()->roles as $role) {
             if ($role->typeRole == 'ADMIN') {
-                $etudiants = Etudiant::all();
+                $etudiants = Etudiant::paginate(12);
                 return view('administrateur/adminEtudiant', compact('etudiants'));
             }
         }
@@ -93,7 +93,7 @@ class AdminController
     public function adminContact(){
         foreach(Auth::user()->roles as $role) {
             if ($role->typeRole == 'ADMIN') {
-                $contacts = ContactEntreprise::all();
+                $contacts = ContactEntreprise::paginate(12);
                 return view('administrateur/adminContact', compact('contacts'));
             }
         }
@@ -115,7 +115,7 @@ class AdminController
     public function adminOffre(){
         foreach(Auth::user()->roles as $role) {
             if ($role->typeRole == 'ADMIN') {
-                $offres = Offre::all();
+                $offres = Offre::paginate(12);
                 return view('administrateur/adminOffre', compact('offres'));
             }
         }

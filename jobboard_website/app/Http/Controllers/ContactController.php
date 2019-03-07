@@ -101,15 +101,18 @@ class ContactController extends Controller
     function afficherUnContact($id){
         if (Auth::check()){
             $contact = ContactEntreprise::find($id);
-            return view('contact/unContact',['contact'=>$contact]);
+            if($contact && ($contact->actif || $contact->idUser == Auth::id() || Auth::user()->isAdmin()))
+                return view('contact/unContact',['contact'=>$contact]);
+            return redirect(route('accueil'));
         }
         return redirect(route('login'));
 
     }
 
     function afficherContacts(){
+
         if (Auth::check()){
-            $contacts = ContactEntreprise::get();
+            $contacts = ContactEntreprise::where('actif',1)->paginate(10);
             return view('contact/toutContacts',['contacts'=>$contacts]);
         }
         return redirect(route('login'));

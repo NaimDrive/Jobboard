@@ -181,7 +181,7 @@ class OffreController extends Controller
 
     function afficherOffres() {
         if (Auth::check()){
-            $offres = DB::table('offre')->get();
+            $offres = DB::table('offre')->paginate(10);
             return view('offre/afficherOffres', ['offres' => $offres]);
         }
         return redirect(route('login'));

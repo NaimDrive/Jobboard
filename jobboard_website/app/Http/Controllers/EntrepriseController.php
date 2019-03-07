@@ -278,7 +278,7 @@ class EntrepriseController extends Controller
 
     function afficherToutes(){
         if (Auth::check()){
-            $entreprises = DB::table("entreprise")->where('actif',1)->get();
+            $entreprises = Entreprise::where('actif',1)->paginate(10);
             return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
         }
         return redirect(route('login'));
