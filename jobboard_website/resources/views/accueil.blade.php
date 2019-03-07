@@ -91,6 +91,7 @@
                     @foreach($annonces as $annonce)
                         <div class="border border-success p-3 m-3">
                             <h3>{{ $annonce->title }}</h3>
+                            <p>Publiée le : {{ ($annonce->updated_at).substr(0,10) }}</p>
                             <p>{!! $annonce->content !!}</p>
                         </div>
                     @endforeach

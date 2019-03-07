@@ -9,6 +9,7 @@
                 @foreach($offres as $offre)
                     <div class="border p-3 mt-2">
                         <h3>{{ $offre->nomOffre }}</h3>
+                        <p class="ml-1"><sub>Publiée le : {{$offre->datePublicationOffre}}</sub></p>
                         <p>{{ $offre->natureOffre }}</p>
                         <p>Date du stage : du <strong>{{ $offre->dateDebut }}</strong> au <strong>{{ $offre->dateFin }}</strong></p>
                         <p>Pré-embauche possible : {{ $offre->preembauche }}</p>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1 class="ml-2">{{$offre->nomOffre}}</h1>
-        <p>{{$offre->datePublicationOffre}}</p>
+        <p class="ml-4">Publiée le : {{$offre->datePublicationOffre}}</p>
 
         <div class="row mt-3">
             <div class="col-md-8">
