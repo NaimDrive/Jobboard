@@ -55,6 +55,7 @@ class CreateTrigger extends Migration
     public function down()
     {
         DB::unprepared('DROP TRIGGER `trigger_update_adresses_entreprise`');
+        DB::unprepared('DROP TRIGGER `trigger_update_contacts_entreprise`');
         DB::unprepared('DROP TRIGGER `trigger_update_contact_inactif`');
         DB::unprepared('DROP TRIGGER `trigger_delete_entreprise_participe`');
         DB::unprepared('DROP TRIGGER `trigger_delete_forum`');
