@@ -13,6 +13,8 @@ use App\CompetencesEtudiant;
 use App\Etudiant;
 use App\Experience;
 use App\Formation;
+use App\OffreCherchee;
+use App\Recherche;
 use App\ReferenceLien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -449,7 +451,8 @@ class EtudiantController extends Controller
         
         function listeRecherches(){
             if(Auth::check()){
-                return view('/etudiant/listeRecherches');
+                $etudiants = Etudiant::where("actif",1)->paginate(10);
+                return view('/etudiant/listeRecherches',['etudiants'=>$etudiants]);
             }
             return redirect(route('login'));
 
