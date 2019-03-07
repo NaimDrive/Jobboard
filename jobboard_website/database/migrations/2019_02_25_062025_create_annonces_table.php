@@ -17,6 +17,7 @@ class CreateAnnoncesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->longText('content');
+            $table->date('datePublication');
             $table->timestamps();
         });
     }
