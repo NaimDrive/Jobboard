@@ -108,7 +108,7 @@ class ContactController extends Controller
     function afficherContacts(){
 
         if (Auth::check()){
-            $contacts = DB::table('contact_entreprise')->paginate(10);
+            $contacts = ContactEntreprise::paginate(10);
             return view('contact/toutContacts',['contacts'=>$contacts]);
         }
         return redirect(route('login'));

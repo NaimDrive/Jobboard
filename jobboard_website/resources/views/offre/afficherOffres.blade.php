@@ -35,6 +35,7 @@
                 @endforeach
             </div>
         </div>
+        <div class="mt-3">{{$offres->links()}}</div>
     </div>
 
 @endsection

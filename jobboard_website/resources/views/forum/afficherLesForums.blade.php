@@ -53,7 +53,10 @@
                         @endforeach
                             @endif
             </div>
+                <div class="mt-3">{{ $forums->links() }}</div>
             </div>
         @endforeach
+
+
 
 @endsection

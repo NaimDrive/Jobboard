@@ -7,7 +7,7 @@
             <h1 class="card-header">Nos Etudiants</h1>
             <div class="card-body">
                 @foreach($etudiants as $etu)
-                    @if($etu->idUser != null && $etu->actif==1)
+                    @if($etu->idUser != null)
                     <div class="border p-3 mt-2">
                         <p>{{ $etu->civilite }} <strong>{{$etu->user->nom}} {{$etu->user->prenom}}</strong></p>
                         <p>Né le : <strong>{{$etu->DateDeNaissance}}</strong></p>
@@ -21,6 +21,7 @@
                 @endforeach
             </div>
         </div>
+        <div class="mt-3">{{ $etudiants->links() }}</div>
     </div>
 
 @endsection

@@ -441,7 +441,7 @@ class EtudiantController extends Controller
 
         function AffichettEtu(){
             if (Auth::check()){
-                $etudiants = Etudiant::all();
+                $etudiants = Etudiant::where("actif",1)->paginate(10);
                 return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
             }
             return redirect(route('login'));
