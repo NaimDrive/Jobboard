@@ -282,11 +282,6 @@ class ForumController extends Controller
            if($forum && $this->entrepriseParticipe($forum->id,$contact->idEntreprise)){
                $entrepriseParticipe = EntrepriseParticipe::where('idEntreprise',$contact->idEntreprise)->first();
                $entrepriseParticipe->delete();
-               $contactsP = ContactParticipe::where('idEntrepriseParticipe', $entrepriseParticipe->id)->get();
-
-               foreach ($contactsP as $contact){
-                   $contact->delete();
-               }
            }
        }
 

@@ -147,9 +147,9 @@ class EntrepriseController extends Controller
     }
 
     function storeChanges(Request $request, $id){
-        $idUser = Auth::id();
         $entreprise = Entreprise::find($id);
 
+        //VALIDATIONS
         $this->validate($request,
             [
                 "nom"=> ["required","string","max:255"],
@@ -157,7 +157,43 @@ class EntrepriseController extends Controller
                 "description" =>["required", "string", "min:15", 'max:1000'],
                 "createur" => ["required"],
                 "actif" => ["required", 'integer'],
+                "nbAdresse",
+                "nbContactExist",
+                "nbContact",
             ]);
+        $compteurAdresses = $request["nbAdresse"]+=0;
+        for($i = 0; $i < $compteurAdresses; $i++) {
+            $this->validate($request, [
+                "adresse_" . $i . "_rue" => ['required', "string", "max:255"],
+                "adresse_" . $i . "_ville" => ['required', "string", "max:255"],
+                "adresse_" . $i . "_codePostal" => ['required', "string", "max:255"],
+            ]);
+        }
+
+        $compteurContactExist = $request["nbContactExist"]+=0;
+
+        for($i = 0; $i < $compteurContactExist; $i++) {
+            $this->validate($request, [
+                "contact_" . $i => ['required'],
+            ]);
+        }
+
+        $compteurContact = $request["nbContact"]+=0;
+
+        for($i = 0; $i < $compteurContact; $i++) {
+            $this->validate($request, [
+                "contact_" . $i . "_civilite" => ['required', "string", "max:255"],
+                "contact_" . $i . "_nom" => ['required', "string", "max:255"],
+                "contact_" . $i . "_prenom" => ['required', "string", "max:255"],
+                "contact_" . $i . "_mail" => ['required', "string", "max:255"],
+                "contact_" . $i . "_phone" => ['nullable', "string", "max:10", "min:10"],
+                "contact_" . $i . "_role" => ['required', "string"],
+                "isUser_" . $i => ['required'],
+            ]);
+        }
+
+        //INSERTIONS
+
         $input=$request->only(["nom","siret","description","createur","actif"]);
 
 
@@ -170,21 +206,7 @@ class EntrepriseController extends Controller
         ]);
 
 
-        $this->validate($request,[
-            "nbAdresse"
-        ]);
-
-
-        $adresses = AdressEntreprise::where('idEntreprise', $entreprise->id)->get();
-
-        $compteur = $request["nbAdresse"]+=0;
-        for($i = 0; $i < $compteur; $i++) {
-            $this->validate($request,[
-                "adresse_".$i."_rue" => ['required', "string", "max:255"],
-                "adresse_".$i."_ville" => ['required', "string", "max:255"],
-                "adresse_".$i."_codePostal" => ['required', "string", "max:255"],
-            ]);
-
+        for($i = 0; $i < $compteurAdresses; $i++) {
             $input=$request->only(["adresse_".$i."_rue","adresse_".$i."_ville","adresse_".$i."_codePostal"]);
 
             DB::table('adress_entreprise')->insert([
@@ -195,22 +217,9 @@ class EntrepriseController extends Controller
             ]);
         }
 
-        foreach ($adresses as $adresse){
-            $adresse->delete();
-        }
-
-        DB::table('contact_entreprise')->where('idEntreprise',$entreprise)->where('idUser',null)->delete();
-
-        $this->validate($request,[
-            "nbContactExist",
-        ]);
-
-        $compteurContactExist = $request["nbContactExist"]+=0;
+        //DB::table('contact_entreprise')->where('idEntreprise',$entreprise)->where('idUser',null)->delete();
 
         for($i = 0; $i < $compteurContactExist; $i++){
-            $this->validate($request,[
-                "contact_".$i =>['required'],
-            ]);
             $input = $request->only(["contact_".$i]);
 
             DB::table('contact_entreprise')->where('id', $input["contact_".$i])->update([
@@ -218,24 +227,7 @@ class EntrepriseController extends Controller
             ]);
         }
 
-        $this->validate($request,[
-            "nbContact",
-        ]);
-
-        $compteurContact = $request["nbContact"]+=0;
-
-
         for($i = 0; $i < $compteurContact; $i++){
-            $this->validate($request,[
-                "contact_".$i."_civilite" => ['required', "string", "max:255"],
-                "contact_".$i."_nom" => ['required', "string", "max:255"],
-                "contact_".$i."_prenom" => ['required', "string", "max:255"],
-                "contact_".$i."_mail" => ['required', "string", "max:255"],
-                "contact_".$i."_phone" => ['nullable', "string", "max:10", "min:10"],
-                "contact_".$i."_role" => ['required', "string"],
-                "isUser_".$i => ['required'],
-            ]);
-
             $input = $request->only(["contact_".$i."_civilite","contact_".$i."_nom",
                 "contact_".$i."_prenom","contact_".$i."_mail","contact_".$i."_phone","contact_".$i."_role","isUser_".$i]);
 
@@ -263,7 +255,7 @@ class EntrepriseController extends Controller
 
         }
 
-        return redirect(route('accueil'));
+        return redirect(route('afficherUneEntreprise',['id'=>$entreprise->id]));
     }
 
     function afficheUneEntreprise($id){
