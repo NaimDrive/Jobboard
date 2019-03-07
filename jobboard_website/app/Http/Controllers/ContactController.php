@@ -102,7 +102,7 @@ class ContactController extends Controller
     }
 
     function afficherContacts(){
-        $contacts = DB::table('contact_entreprise')->get();
+        $contacts = DB::table('contact_entreprise')->paginate(10);
         return view('contact/toutContacts',['contacts'=>$contacts]);
     }
 }

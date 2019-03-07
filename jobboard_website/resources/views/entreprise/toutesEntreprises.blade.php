@@ -2,6 +2,10 @@
 
 @section('content')
 
+    <style type="text/css">
+        .center {
+        }
+    </style>
     <div class="container">
         <div class="card">
             <h1 class="card-header">Les entreprises</h1>
@@ -19,7 +23,9 @@
         </div>
 
 
-
+        <div class="mt-3">
+            {{ $entreprises->links() }}
+        </div>
     </div>
 
 @endsection

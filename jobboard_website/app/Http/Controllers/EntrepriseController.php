@@ -260,7 +260,7 @@ class EntrepriseController extends Controller
     }
 
     function afficherToutes(){
-        $entreprises = DB::table("entreprise")->get();
+        $entreprises = DB::table("entreprise")->paginate(10);
         return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
     }
 

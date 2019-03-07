@@ -31,6 +31,7 @@
 
         @endforeach
         </div>
+        <div class="mt-3">{{ $etudiants->links() }}</div>
     </div>
 
 

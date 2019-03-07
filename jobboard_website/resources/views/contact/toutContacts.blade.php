@@ -17,6 +17,7 @@
                 @endforeach
             </div>
         </div>
+        <div class="mt-3">{{ $contacts->links() }}</div>
     </div>
 
 @endsection

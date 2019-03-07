@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="row" id="btnEntrepriseAdmin">
+        <div class="row mt-3" id="btnEntrepriseAdmin">
             @foreach($entreprises as $entreprise)
                 <div class="card text-center col-12 col-md-3">
                     <div class="card-body">
@@ -24,6 +24,7 @@
                 </div>
             @endforeach
         </div>
+        <div class="mt-3">{{ $entreprises->links() }}</div>
     </div>
 
 
