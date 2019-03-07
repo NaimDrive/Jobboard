@@ -24,17 +24,20 @@ class EtudiantController extends Controller
     function consulterProfile($id)
     {
         if (Auth::check()) {
+            $etudiant = Etudiant::find($id);
+
             $userId = DB::table('etudiant')->where('id', $id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
             $etuId = DB::table('etudiant')->where('idUser', $userId)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
             $role = DB::table('definir')->where('idUser', Auth::id())->value('idRole'); //Pour obtenir l'id du rôle de l'utilisateur courant
 
-            $etudiant = Etudiant::find($id);
+
             $liens = DB::table('reference_lien')->where('idEtudiant',$id)->get();
             $nom = DB::table('users')->where('id',$userId)->value('nom');
             $prenom = DB::table('users')->where('id',$userId)->value('prenom');
             $image = DB::table('users')->where('id',$userId)->value('picture');//on recupere l'image de profil de l'étudiant
             $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
             $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
+            $nbCompetences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
             $niveau = DB::table('competences_etudiant')->where('idEtudiant',$id)->value('niveauEstime');
             $activite = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet');
             $experiences = DB::table('experience')->where('idEtudiant', $id)->get();
@@ -42,12 +45,14 @@ class EtudiantController extends Controller
             $recherche = DB::table('recherche')->where('idEtudiant',$id)->get();
             $actif = DB::table('etudiant')->where('id',$id)->value('actif');
 
+
             return view('etudiant/consultProfile',
                 ['etudiant'=>$etudiant,
                     'nom'=>$nom,
                     'prenom'=>$prenom,
                     'categorie'=>$categorie,
                     'competences'=>$competences,
+                    'nbCompetences'=>$nbCompetences,
                     'activite'=>$activite,
                     'experiences'=>$experiences,
                     'formation'=>$formation,
