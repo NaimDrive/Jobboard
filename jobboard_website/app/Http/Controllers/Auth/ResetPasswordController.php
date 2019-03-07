@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\ContactEntreprise;
+use App\Etudiant;
 use App\Http\Controllers\Controller;
+use App\Notifications\ResetPasswordNotification;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Auth;
 
 class ResetPasswordController extends Controller
 {
@@ -25,7 +30,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -36,4 +41,7 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+
+
 }

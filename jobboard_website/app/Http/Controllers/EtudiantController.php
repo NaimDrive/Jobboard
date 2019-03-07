@@ -8,7 +8,12 @@
 
 namespace App\Http\Controllers;
 
+use App\CentreDInteret;
+use App\CompetencesEtudiant;
 use App\Etudiant;
+use App\Experience;
+use App\Formation;
+use App\ReferenceLien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,31 +21,43 @@ use Illuminate\Support\Facades\Storage;
 
 class EtudiantController extends Controller
 {
-
     function consulterProfile($id)
     {
         if (Auth::check()) {
+            $etudiant = Etudiant::find($id);
+
             $userId = DB::table('etudiant')->where('id', $id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
             $etuId = DB::table('etudiant')->where('idUser', $userId)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
             $role = DB::table('definir')->where('idUser', Auth::id())->value('idRole'); //Pour obtenir l'id du rôle de l'utilisateur courant
 
-            $etudiant = Etudiant::find($id);
+
             $liens = DB::table('reference_lien')->where('idEtudiant',$id)->get();
             $nom = DB::table('users')->where('id',$userId)->value('nom');
             $prenom = DB::table('users')->where('id',$userId)->value('prenom');
             $image = DB::table('users')->where('id',$userId)->value('picture');//on recupere l'image de profil de l'étudiant
             $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
             $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
+            $nbCompetences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
             $niveau = DB::table('competences_etudiant')->where('idEtudiant',$id)->value('niveauEstime');
+            $activite = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet');
+            $experiences = DB::table('experience')->where('idEtudiant', $id)->get();
+            $formation = DB::table('formation')->where('idEtudiant',$id)->get();
+            $recherche = DB::table('recherche')->where('idEtudiant',$id)->get();
+            $actif = DB::table('etudiant')->where('id',$id)->value('actif');
 
 
             return view('etudiant/consultProfile',
-                [
-                    'etudiant'=>$etudiant,
+                ['etudiant'=>$etudiant,
                     'nom'=>$nom,
                     'prenom'=>$prenom,
                     'categorie'=>$categorie,
-                    'competence'=>$competences,
+                    'competences'=>$competences,
+                    'nbCompetences'=>$nbCompetences,
+                    'activite'=>$activite,
+                    'experiences'=>$experiences,
+                    'formation'=>$formation,
+                    'recherche'=>$recherche,
+                    'actif'=>$actif,
                     'niveau'=>$niveau,
                     'liens'=>$liens,
                     'userId'=>$userId,
@@ -50,10 +67,9 @@ class EtudiantController extends Controller
                     'id'=>$id
                 ]);
         }
-
         return redirect(route('login'));
-
     }
+
 
     function modifierProfile($id)
     {
@@ -138,12 +154,19 @@ class EtudiantController extends Controller
 
         $this->validate($request,
             [
-                "nom" => "required",
-                "prenom" => "required",
+                "nom" => ['required', "string", "max:255"],
+                "prenom" => ['required', "string", "max:255"],
+                "naissance" => ['required', "date", "before:today"],
+                "civilite" => ['required', "string", "max:255"],
+                "email" => ['required', "string", "max:255"],
+                "adresse" => ['required', "string", "max:255"],
+                "codePostal" => ['required', "numeric","digits:5"],
+                "ville" => ['required', "string", "max:255"],
+                "customRadio" => "required", //recherche stage
             ]);
 
 
-        $input=$request->only(["nom","prenom"]);
+        $input=$request->only(["nom","prenom","naissance","civilite","email","adresse","codePostal","ville","customRadio"]);
 
         DB::table('users')
             ->where('id',$idUser)
@@ -151,6 +174,20 @@ class EtudiantController extends Controller
                 [
                     "nom" => $input["nom"],
                     "prenom" => $input["prenom"],
+                    "email" => $input["email"],
+                ]
+            );
+
+        DB::table('etudiant')
+            ->where('id',$idEtu)
+            ->update(
+                [
+                    "civilite" => $input["civilite"],
+                    "adresse" => $input["adresse"],
+                    "codePostal" => $input["codePostal"],
+                    "ville" => $input["ville"],
+                    "rechercheStage" => $input["customRadio"],
+                    "DateDeNaissance" => $input["naissance"],
                 ]
             );
 
@@ -163,7 +200,7 @@ class EtudiantController extends Controller
                 "nbCompetence"
             ]);
 
-        DB::table('competences_etudiant')->where('idEtudiant',$idEtu)->delete();
+        $competences = CompetencesEtudiant::query()->where('idEtudiant', $idEtu)->get();
 
         $compteur = $request["nbCompetence"]+=0;
 
@@ -184,8 +221,12 @@ class EtudiantController extends Controller
                 "idEtudiant" => $idEtu,
                 "idCategorie" => $idCateg->id,
             ]);
-
         }
+
+        foreach ($competences as $competence){
+            $competence->delete();
+        }
+
 
         //INSERTION FORMATIONS
 
@@ -195,7 +236,7 @@ class EtudiantController extends Controller
                 "nbFormations"
             ]);
 
-        DB::table('formation')->where('idEtudiant',$idEtu)->delete();
+        $formations = Formation::query()->where('idEtudiant', $idEtu)->get();
 
         $compteur = $request["nbFormation"]+=0;
 
@@ -203,8 +244,8 @@ class EtudiantController extends Controller
             $this->validate($request,[
                 "formation_".$i => ['required', "string", "max:255"],
                 "lieu_".$i => ['required', "string", "max:255"],
-                "debut_".$i => ['required'],
-                "fin_".$i => ['required'],
+                "debut_".$i => ['required',"date","before:today"],
+                "fin_".$i => ['required',"date","after:dateDebut_$i"],
             ]);
 
             $input=$request->only(["formation_".$i, "lieu_".$i, "debut_".$i, "fin_".$i]);
@@ -216,7 +257,10 @@ class EtudiantController extends Controller
                 "lieuFormation" => $input["lieu_".$i],
                 "idEtudiant" => $idEtu,
             ]);
+        }
 
+        foreach ($formations as $formation){
+            $formation->delete();
         }
 
         //INSERTION EXPERIENCES
@@ -227,7 +271,7 @@ class EtudiantController extends Controller
                 "nbExperience"
             ]);
 
-        DB::table('experience')->where('idEtudiant',$idEtu)->delete();
+        $experiences = Experience::query()->where('idEtudiant', $idEtu)->get();
 
         $compteur = $request["nbExperience"]+=0;
 
@@ -235,9 +279,9 @@ class EtudiantController extends Controller
             $this->validate($request,[
                 "experience_".$i => ['required', "string", "max:255"],
                 "etablissement_".$i => ['required', "string", "max:255"],
-                "dateDebut_".$i => ['required'],
-                "dateFin_".$i => ['required'],
-                "description_".$i => ['required', "string", "max:255"],
+                "dateDebut_".$i => ['required',"date","before:today"],
+                "dateFin_".$i => ['required',"date","after:dateDebut_$i"], //a corriger
+                "description_".$i => ['nullable', "string", "max:255"],
             ]);
 
             $input=$request->only(["experience_".$i, "etablissement_".$i, "dateDebut_".$i, "dateFin_".$i, "description_".$i]);
@@ -250,7 +294,10 @@ class EtudiantController extends Controller
                 "etablissement" => $input["etablissement_".$i],
                 "idEtudiant" => $idEtu,
             ]);
+        }
 
+        foreach ($experiences as $experience){
+            $experience->delete();
         }
 
 
@@ -262,7 +309,7 @@ class EtudiantController extends Controller
                 "nbActivite"
             ]);
 
-        DB::table('centre_d_interet')->where('idEtudiant',$idEtu)->delete();
+        $interets = CentreDInteret::query()->where('idEtudiant', $idEtu)->get();
 
         $compteur = $request["nbActivite"]+=0;
 
@@ -280,6 +327,10 @@ class EtudiantController extends Controller
 
         }
 
+        foreach ($interets as $interet){
+            $interet->delete();
+        }
+
 
         //INSERTION LIENS EXTERNES
 
@@ -287,13 +338,14 @@ class EtudiantController extends Controller
             "nbLiens"
         ]);
 
-        DB::table('reference_lien')->where('idEtudiant', $idEtu)->delete();
+        $liens = ReferenceLien::query()->where('idEtudiant', $idEtu)->get();
+
         $compteur = $request["nbLiens"]+=0;
 
         for($i = 0; $i < $compteur; $i++) {
             $this->validate($request,[
                 "lien_".$i => ['required', "string", "max:255"],
-                "type_".$i => ['required', "string"],
+                "type_".$i => ['required'],
             ]);
 
             $input=$request->only(["lien_".$i,"type_".$i]);
@@ -303,8 +355,10 @@ class EtudiantController extends Controller
                 "UrlReference" => $input["lien_".$i],
                 "idEtudiant" => $idEtu,
             ]);
+        }
 
-
+        foreach ($liens as $lien){
+            $lien->delete();
         }
 
 
@@ -385,9 +439,20 @@ class EtudiantController extends Controller
             return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
         }
 
-        function AfficheOffre(Request $request){
-            return view('/etudiant/consultOffres');
+        function AffichettEtu(){
+            if (Auth::check()){
+                $etudiants = Etudiant::all();
+                return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
+            }
+            return redirect(route('login'));
         }
+        
+        function listeRecherches(){
+            if(Auth::check()){
+                return view('/etudiant/listeRecherches');
+            }
+            return redirect(route('login'));
 
+        }
 
 }

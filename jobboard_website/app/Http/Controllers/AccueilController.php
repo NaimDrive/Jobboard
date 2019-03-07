@@ -9,13 +9,15 @@
 namespace App\Http\Controllers;
 
 
+use App\Forum;
 use Illuminate\Support\Facades\DB;
 
 class AccueilController
 {
     public function index()
     {
+        $forums = Forum::query()->get();
         $annonces = DB::table('annonces')->get();
-        return view('accueil', ['annonces'=>$annonces]);
+        return view('accueil', ['annonces'=>$annonces, 'forums'=>$forums]);
     }
 }

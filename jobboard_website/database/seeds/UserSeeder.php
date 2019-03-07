@@ -37,6 +37,7 @@ class UserSeeder extends Seeder
             'idRole'=>1,
             'idUser'=>1,
         ]);
+        
 
         $forum = new Forum();
         $forum->date = $faker->date($format = 'Y-m-d', $max = 'now');

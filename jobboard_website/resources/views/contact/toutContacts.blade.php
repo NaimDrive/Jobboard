@@ -7,13 +7,14 @@
             <h1 class="card-header">Les contacts</h1>
             <div class="card-body">
                 @foreach($contacts as $contact)
-                    @if($contact->idUser != null)
                     <div class="border p-3 mt-2">
                         <p>{{$contact->civilite}} {{$contact->prenom}} {{$contact->nom}}</p>
-                        <p>E-mail : {{$contact->mail}}</p>
+                        @if($contact->idEntreprise != null)
+                            <p><strong>entreprise</strong> : {{ $contact->entreprise->nom }}</p>
+                        @endif
+                        <p><strong>role dans l'entreprise</strong> : {{ $contact->role }}</p>
                         <a href="{{route("afficherUnContact",["id"=>$contact->id])}}" class="btn btn-success">Voir le contact</a>
                     </div>
-                    @endif
                 @endforeach
             </div>
         </div>

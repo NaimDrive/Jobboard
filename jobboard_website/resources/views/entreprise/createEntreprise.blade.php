@@ -16,7 +16,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h1>Créer une entreptise</h1>
+                        <h1>Inscrire mon entreprise</h1>
                     </div>
                     <div class="card-body">
                         <form method='POST' action="{{route('enregistrerEntreprise')}}">
@@ -107,8 +107,6 @@
 
         boutonAddAdresse.addEventListener('click' , addAdresse);
         function addAdresse () {
-
-
 
             let divAdresses = document.getElementById('adresses');
             let index = parseInt(divAdresses.childNodes.length)-6;

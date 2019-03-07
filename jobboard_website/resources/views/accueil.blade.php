@@ -74,6 +74,17 @@
 
                     <p> Chaque année nous organisons des <b>Job Dating</b> afin de faciliter le dialogue entre les étudiants et les entreprises.<br>
                         Si votre entreprise est intéressée venez vous inscrire à l'un de nos Job Dating , <b>nos étudiants vous attendent !</b></p>
+
+                    <h2>Nos forums</h2>
+                    @foreach($forums as $forum)
+                        <div class="m-4 border border-success p-4 row">
+                            <h3>Forum des stages du {{ $forum->date }}</h3>
+                            <a class="ml-5 btn btn-success" href="{{ route('afficherUnForum',['id'=>$forum->id]) }}">Voir le forum</a>
+                            @if($forum->actif)
+                                <a class="ml-3 btn btn-success" href="{{ route('inscriptionForum',['id'=>$forum->id]) }}">Je veux m'inscrire</a>
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
                 <div class="mt-5 border border-success">
                     <h2>Annonces</h2>

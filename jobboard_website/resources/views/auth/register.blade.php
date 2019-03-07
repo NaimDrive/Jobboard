@@ -152,6 +152,16 @@
                                     </div>
 
                                 </div>
+
+                                <div class="form-group row">
+                                    <label for="etudes" class="col-md-4 col-form-label text-md-right">Mes études</label>
+                                    <div class="col-md-6">
+                                        <select name="etudes" id="etudes">
+                                            <option value="DUT">DUT</option>
+                                            <option value="License Pro">License Pro</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                             <sub>* : champs obligatoires</sub>

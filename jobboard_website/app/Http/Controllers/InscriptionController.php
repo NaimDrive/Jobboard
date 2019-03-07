@@ -101,6 +101,7 @@ class InscriptionController extends Controller
                 'ville' => ['required', 'string', 'max:255'],
                 'adresse' => ['required', 'string', 'max:255'],
                 'codepostal' => ['required', 'string', 'max:5', 'min:5'],
+                'etudes'=> ['required', 'string'],
             ]);
 
             $photo = 'images/user-icon.png';
@@ -111,7 +112,7 @@ class InscriptionController extends Controller
             }
 
             $input = $request->only('nom','prenom','email','password','civilite','dateNaissance',
-                'ville', 'adresse', 'codepostal');
+                'ville', 'adresse', 'codepostal','etudes');
 
             $userID = DB::table('users')->insertGetId([
                 'nom'=>$input['nom'],
@@ -129,6 +130,9 @@ class InscriptionController extends Controller
                 'codePostal' => $input['codepostal'],
                 'ville' => $input['ville'],
                 'idUser' => $userID,
+                'actif' => 1,
+                'rechercheStage' => 1,
+                'etudes' => $input['etudes'],
                 'created_at' => new \DateTime(),
             ]);
             DB::table('definir')->insert([
@@ -200,10 +204,11 @@ class InscriptionController extends Controller
                 'ville' => ['required', 'string', 'max:255'],
                 'adresse' => ['required', 'string', 'max:255'],
                 'codepostal' => ['required', 'string', 'max:5', 'min:5'],
+                'etudes' => ['required', 'string'],
             ]);
 
             $input = $request->only('civilite','dateNaissance',
-                'ville', 'adresse', 'codepostal');
+                'ville', 'adresse', 'codepostal','etudes');
 
             DB::table('etudiant')->insert([
                 'civilite' => $input['civilite'],
@@ -212,6 +217,9 @@ class InscriptionController extends Controller
                 'codePostal' => $input['codepostal'],
                 'ville' => $input['ville'],
                 'idUser' => $id,
+                'actif' => 1,
+                'rechercheStage' => 1,
+                'etudes' => $input['etudes'],
                 'created_at' => new \DateTime(),
             ]);
             DB::table('definir')->insert([

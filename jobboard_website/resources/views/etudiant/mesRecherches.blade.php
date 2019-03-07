@@ -7,7 +7,7 @@
         <div class="card-body">
     <?php
     $idEtudiant = DB::table('etudiant')->where('idUser',Auth::id())->value('id');
-    $idRecherche = DB::table('offre_Cherchee')->where('idEtudiant',$idEtudiant)->pluck('idOffre');
+    $idRecherche = DB::table('offre_cherchee')->where('idEtudiant',$idEtudiant)->pluck('idOffre');
 
     ?>
     @foreach($idRecherche as $idR)

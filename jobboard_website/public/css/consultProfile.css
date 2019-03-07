@@ -1,0 +1,24 @@
+.headerProfil{
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+.card-header{
+    text-align: center;
+}
+
+.info{
+    width: 100%;
+    display: inline-block;
+}
+.droite{
+    float: right;
+    width: 45%;
+    height: 150px;
+}
+.gauche{
+    float: left;
+    width: 45%;
+    height: 150px;
+}

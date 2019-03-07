@@ -102,7 +102,7 @@ class OffreController extends Controller
 
 
     function editOffre($id) {
-        if ($this->peutModifier($id)){
+        if (Auth::check() && $this->peutModifier($id)){
             return view('offre/edit',['offre'=>Offre::find($id)]);
         }
         return redirect(route('accueil'));
@@ -172,13 +172,19 @@ class OffreController extends Controller
     }
 
     function afficherUneOffre($id){
-        $offre = Offre::find($id);
-        return view('offre/uneOffre',['offre'=>$offre]);
+        if (Auth::check()){
+            $offre = Offre::find($id);
+            return view('offre/uneOffre',['offre'=>$offre]);
+        }
+        return redirect(route('login'));
     }
 
     function afficherOffres() {
-        $offres = DB::table('offre')->get();
-        return view('offre/afficherOffres', ['offres' => $offres]);
+        if (Auth::check()){
+            $offres = DB::table('offre')->get();
+            return view('offre/afficherOffres', ['offres' => $offres]);
+        }
+        return redirect(route('login'));
     }
 
 
@@ -192,7 +198,7 @@ class OffreController extends Controller
     }
 
     function sauvegarder($id){
-        if ($this->isEtu()){
+        if (Auth::check() && $this->isEtu()){
             DB::table('offre_cherchee')->insert([
                 "idOffre" => $id,
                 "idEtudiant" => DB::table("etudiant")->where('idUser',Auth::id())->value('id'),
@@ -210,12 +216,15 @@ class OffreController extends Controller
     }
 
     function offreSaveEtu(){
-        return view('/etudiant/mesRecherches');
+        if (Auth::check()){
+            return view('/etudiant/mesRecherches');
+        }
+        return redirect(route('login'));
     }
 
 
     function delete($id){
-        if($this->peutModifier($id)){
+        if(Auth::check() && $this->peutModifier($id)){
             DB::table('offre')->where('id',$id)->delete();
             return view('validationSuppression');
         }

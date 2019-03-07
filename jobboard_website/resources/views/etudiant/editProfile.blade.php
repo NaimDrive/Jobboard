@@ -48,8 +48,62 @@
                                         <div class="col-lg-6"><input type="text" class="form-control" id="prenom" name="prenom" value="{{$user->prenom}}" aria-describedby="infoComp" placeholder="Prenom"></div>
                                     </div>
                                     <br>
+                                    <select title="choix de la civilité" class="form-control" name="civilite" id="civilite">
+                                        @if($etudiant->civilite == "Madame")
+                                            <option value="Madame" selected>Madame</option>
+                                            <option value="Monsieur">Monsieur</option>
+                                            <option value="Autre">Autre</option>
+                                            @elseif($etudiant->civilite == "Monsieur")
+                                            <option value="Madame">Madame</option>
+                                            <option value="Monsieur" selected>Monsieur</option>
+                                            <option value="Autre">Autre</option>
+                                            @else
+                                            <option value="Madame">Madame</option>
+                                            <option value="Monsieur">Monsieur</option>
+                                            <option value="Autre" selected>Autre</option>
+                                            @endif
+                                    </select>
+                                    <br>
                                     <input type="date" title="date de naissance" class="form-control" id="naissance" name="naissance" value="{{$etudiant->DateDeNaissance}}"/>
                                     <br>
+                                    <input type="email" title="adresse mail" class="form-control" id="email" name="email" value="{{$user->email}}"/>
+                                    <br>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <input type="text" title="adresse postale" class="form-control" id="adresse" name="adresse" value="{{$etudiant->adresse}}"/>
+                                            <br>
+                                            <input type="text" title="codePostal" class="form-control custom-radio" id="codePostal" name="codePostal" value="{{$etudiant->codePostal}}"/>
+                                            <br>
+                                            <input type="text" title="ville" class="form-control custom-radio" id="ville" name="ville" value="{{$etudiant->ville}}"/>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <fieldset>
+                                        <legend>Je suis à la recherche d'un stage ?</legend>
+                                        @if($etudiant->rechercheStage == 1)
+                                        <div class="form-group">
+                                            <div class="custom-control custom-radio offset-sm-1">
+                                                <input title="recherche un stage" type="radio" id="oui" name="customRadio" class="custom-control-input" value="1" checked="">
+                                                <label class="custom-control-label" for="oui">Oui</label>
+                                            </div>
+                                            <div class="custom-control custom-radio offset-sm-1">
+                                                <input title="ne recherche pas de stage" type="radio" id="non" name="customRadio" class="custom-control-input" value="0">
+                                                <label class="custom-control-label" for="non">Non</label>
+                                            </div>
+                                        </div>
+                                            @else
+                                            <div class="form-group">
+                                                <div class="custom-control custom-radio offset-sm-1">
+                                                    <input title="recherche un stage" type="radio" id="oui" name="customRadio" class="custom-control-input" value="1" >
+                                                    <label class="custom-control-label" for="oui">Oui</label>
+                                                </div>
+                                                <div class="custom-control custom-radio offset-sm-1">
+                                                    <input title="ne recherche pas de stage" type="radio" id="non" name="customRadio" class="custom-control-input" value="0" checked="">
+                                                    <label class="custom-control-label" for="non">Non</label>
+                                                </div>
+                                            </div>
+                                            @endif
+                                    </fieldset>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +131,7 @@
                                                         <option value="{{$categ->nomCategorie}}">{{$categ->nomCategorie}}</option>
                                                     @endforeach
                                                 </select>
-                                                <input type="range" class="form-control-range" id="level_{{$comp}}" name="level_{{$comp}}" value="{{$c->niveauEstime}}"
+                                                <input type="range" class="form-control-range" id="level_{{$comp}}" name="level_{{$comp}}" value="{{$c->niveauEstime}}">
                                             </div>
                                             <div class="col-1">
                                                 <button id="deleteCompetence_{{$comp}}" class="btn btn-danger" data-action="delete" data-target="block_competence_{{$comp}}" type="button">X</button>

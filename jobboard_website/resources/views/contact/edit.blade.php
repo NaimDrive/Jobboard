@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div id="card-header" class="card-header">Modifier mon profile</div>
+                    <div id="card-header" class="card-header">Modifier mon profil</div>
 
                     <div class="card-body">
 

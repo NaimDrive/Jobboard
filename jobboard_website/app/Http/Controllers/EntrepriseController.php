@@ -101,7 +101,7 @@ class EntrepriseController extends Controller
                 "contact_".$i."_nom" => ['required', "string", "max:255"],
                 "contact_".$i."_prenom" => ['required', "string", "max:255"],
                 "contact_".$i."_mail" => ['required', "string", "max:255"],
-                "contact_".$i."_phone" => ['required', "string", "max:10", "min:10"],
+                "contact_".$i."_phone" => ['nullable', "string", "max:10", "min:10"],
             ]);
 
             $input = $request->only(["contact_".$i."_civilite","contact_".$i."_nom",
@@ -169,7 +169,8 @@ class EntrepriseController extends Controller
             "nbAdresse"
         ]);
 
-        DB::table('adress_entreprise')->where('idEntreprise', $entreprise)->delete();
+
+        $adresses = AdressEntreprise::query()->where('idEntreprise', $entreprise)->get();
 
         $compteur = $request["nbAdresse"]+=0;
         for($i = 0; $i < $compteur; $i++) {
@@ -187,6 +188,10 @@ class EntrepriseController extends Controller
                 "coordonnePostales" => $input["adresse_".$i."_codePostal"],
                 "idEntreprise" => $entreprise,
             ]);
+        }
+
+        foreach ($adresses as $adress){
+            $adress->delete();
         }
 
         DB::table('contact_entreprise')->where('idEntreprise',$entreprise)->where('idUser',null)->delete();
@@ -221,7 +226,7 @@ class EntrepriseController extends Controller
                 "contact_".$i."_nom" => ['required', "string", "max:255"],
                 "contact_".$i."_prenom" => ['required', "string", "max:255"],
                 "contact_".$i."_mail" => ['required', "string", "max:255"],
-                "contact_".$i."_phone" => ['required', "string", "max:10", "min:10"],
+                "contact_".$i."_phone" => ['nullable', "string", "max:10", "min:10"],
                 "isUser_".$i => ['required'],
             ]);
 
@@ -255,13 +260,19 @@ class EntrepriseController extends Controller
     }
 
     function afficheUneEntreprise($id){
-        $entreprise = Entreprise::find($id);
-        return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
+        if (Auth::check()){
+            $entreprise = Entreprise::find($id);
+            return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
+        }
+        return redirect(route('login'));
     }
 
     function afficherToutes(){
-        $entreprises = DB::table("entreprise")->paginate(10);
-        return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
+        if (Auth::check()){
+            $entreprises = DB::table("entreprise")->paginate(10);
+            return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
+        }
+        return redirect(route('login'));
     }
 
 }

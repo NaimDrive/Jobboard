@@ -50,6 +50,11 @@
            box-sizing: border-box;
  }
 
+ .linkedin {
+     max-width: 20px;
+     max-height: 20px;
+ }
+
 .avatar {
     max-width: 128px;
     max-height: 128px;

@@ -61,7 +61,7 @@ class AdminController
                     }
                 }
                 DB::delete('delete from entreprise where id = ? ', [$id]);
-                return view('administrateur/validationSuppression.blade.php');
+                return view('administrateur/validationSuppression');
             }
         }
         return redirect(route('accueil'));
@@ -84,7 +84,7 @@ class AdminController
                 $idUser = DB::table('etudiant')->where('id', '=', $id)->value('idUser');
                 DB::delete('delete from etudiant where id = ?', [$id]);
                 DB::delete('delete from users where id = ?', [$idUser]);
-                return view('administrateur/validationSuppression.blade.php');
+                return view('administrateur/validationSuppression');
             }
         }
         return redirect(route('accueil'));
@@ -106,7 +106,7 @@ class AdminController
                 $idUser = DB::table('contact_entreprise')->where('id', '=', $id)->value('idUser');
                 DB::delete('delete from contact_entreprise where id = ?', [$id]);
                 DB::delete('delete from users where id = ?', [$idUser]);
-                return view('administrateur/validationSuppression.blade.php');
+                return view('administrateur/validationSuppression');
             }
         }
         return redirect(route('accueil'));
@@ -126,7 +126,7 @@ class AdminController
         foreach(Auth::user()->roles as $role) {
             if ($role->typeRole == 'ADMIN') {
                 DB::delete('delete from offre where id = ?', [$id]);
-                return view('administrateur/validationSuppression.blade.php');
+                return view('administrateur/validationSuppression');
             }
         }
         return redirect(route('accueil'));
