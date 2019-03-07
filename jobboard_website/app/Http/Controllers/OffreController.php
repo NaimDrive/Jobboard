@@ -217,11 +217,12 @@ class OffreController extends Controller
 
     function offreSaveEtu(){
         if (Auth::check()){
-            return view('/etudiant/mesRecherches');
+            $idEtudiant = DB::table("etudiant")->where('idUser',Auth::id())->value('id');
+            $idRecherches = DB::table('offre_cherchee')->where("idEtudiant", $idEtudiant)->get();
+            return view('/etudiant/mesRecherches',['idRecherche'=>$idRecherches]);
         }
         return redirect(route('login'));
     }
-
 
     function delete($id){
         if(Auth::check() && $this->peutModifier($id)){

@@ -2,7 +2,7 @@
 @section("content")
     <div class="container">
         <div class="card mt-4">
-            <h2 class="card-header">Forum des stages du {{$forum->date}}</h2>
+            <h2 class="card-header">Forum des stages du {{ date('d/m/Y',strtotime($forum->date))}}</h2>
             <div class="card-body">
                 <div class="row">
                     <p class="ml-3">Le forum débutera à {{$forum->heure}}</p>

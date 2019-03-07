@@ -57,7 +57,8 @@
                                     <button type="submit" class="btn btn-success">
                                         {{ __('Me connecter') }}
                                     </button>
-                                    <a href="{{ route('linkedinConnect') }}" class="ml-2 btn btn-success"><img src="{{ asset('images/signin-button.png') }}" alt="logo linkedin" class="linkedin mr-2">Me connecter avec Linkedin</a>
+                                    <a href="{{ route('linkedinConnect') }}" class="offset-md-1 col-md-1"><img class="co_linkedin" src="{{ asset("images/boutonCoLinkedin.png") }}"> </a>
+
                                 </div>
                             </div>
                             <div class="form-group row mb-0">

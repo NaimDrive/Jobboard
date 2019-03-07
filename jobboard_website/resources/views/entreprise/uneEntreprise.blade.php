@@ -36,12 +36,12 @@
                         @foreach($entreprise->offres as $offre)
                             <div class="border p-3 mt-3">
                                 <h3><a href="{{ route('afficherUneOffre', ['id' => $offre->id]) }}">{{ $offre->nomOffre }}</a></h3>
-                                <p>{{ $offre->datePublicationOffre }}</p>
+                                <p><sub>Publiée le : {{ date('d/m/Y',strtotime($offre->datePublicationOffre)) }}</sub></p>
                                 <h4>Description de l'offre</h4>
 
                                 <p >Contexte : {{ $offre->description->contexte }}</p>
                                 <p>Objectif : {{ $offre->description->objectif }}</p>
-                                <p class="mt-1">Du {{ $offre->dateDebut }} au {{ $offre->dateFin }}</p>
+                                <p class="mt-1">Du {{ date('d/m/Y',strtotime($offre->dateDebut)) }} au {{ date('d/m/Y',strtotime($offre->dateFin)) }}</p>
 
                                 <a class="btn btn-success" href="{{ route('afficherUneOffre', ['id' => $offre->id]) }}">voir l'offre</a>
                             </div>

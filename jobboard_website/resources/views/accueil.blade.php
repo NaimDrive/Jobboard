@@ -78,7 +78,7 @@
                     <h2>Nos forums</h2>
                     @foreach($forums as $forum)
                         <div class="m-4 border border-success p-4 row">
-                            <h3>Forum des stages du {{ $forum->date }}</h3>
+                            <h3>Forum des stages du {{ date('d/m/Y',strtotime($forum->date)) }}</h3>
                             <a class="ml-5 btn btn-success" href="{{ route('afficherUnForum',['id'=>$forum->id]) }}">Voir le forum</a>
                             @if($forum->actif)
                                 <a class="ml-3 btn btn-success" href="{{ route('inscriptionForum',['id'=>$forum->id]) }}">Je veux m'inscrire</a>
@@ -91,6 +91,7 @@
                     @foreach($annonces as $annonce)
                         <div class="border border-success p-3 m-3">
                             <h3>{{ $annonce->title }}</h3>
+                            <p>Publiée le : {{ date('d/m/Y',strtotime($annonce->datePublication)) }}</p>
                             <p>{!! $annonce->content !!}</p>
                         </div>
                     @endforeach

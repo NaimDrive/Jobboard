@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1 class="ml-2">{{$offre->nomOffre}}</h1>
-        <p>{{$offre->datePublicationOffre}}</p>
+        <p class="ml-4">Publiée le : {{ date('d/m/Y',strtotime($offre->datePublicationOffre)) }}</p>
 
         <div class="row mt-3">
             <div class="col-md-8">
@@ -14,7 +14,7 @@
                         <a href="{{ route("afficherUneEntreprise",["id" => $offre->entreprise->id]) }}"> <strong>{{$offre->entreprise->nom}} </strong></a>
                         <p>adresse du stage : <strong>{{ $offre->description->adresse->nomRue }} - {{ $offre->description->adresse->coordonnePostales }} {{ $offre->description->adresse->ville }}</strong></p>
                         <p>Nature de l'offre : {{$offre->natureOffre}}</p>
-                        <p>Du {{ $offre->dateDebut }} au {{ $offre->dateFin }}</p>
+                        <p>Du {{ date('d/m/Y',strtotime($offre->dateDebut)) }} au {{ date('d/m/Y',strtotime($offre->dateFin)) }}</p>
                         <p class="text-justify">Contexte : {{$offre->description->contexte}} <br>
                             Objectif : {{$offre->description->objectif}}</p>
                     </div>

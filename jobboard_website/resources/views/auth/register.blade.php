@@ -168,12 +168,12 @@
 
                             <div class="form-group row mb-0">
                                 <div class="offset-md-4">
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit" class="btn btn-success mt-2">
                                         {{ __('M\'inscrire') }}
                                     </button>
                                 </div>
 
-                                <a href="{{ route('linkedinConnect') }}" class="btn btn-success offset-md-1">Se connecter avec Linkedin</a>
+                                <a href="{{ route('linkedinConnect') }}" class="offset-md-1 col-md-1"><img class="co_linkedin" src="{{ asset("images/boutonCoLinkedin.png") }}"> </a>
 
                             </div>
                         </form>

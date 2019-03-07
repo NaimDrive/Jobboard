@@ -34,7 +34,7 @@ class ForumController extends Controller
    }
 
    function afficherLesForums(){
-       $forums = Forum::paginate(1);
+       $forums = Forum::paginate(10);
        return view("forum/afficherLesForums",compact('forums'));
    }
 

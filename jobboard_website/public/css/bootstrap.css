@@ -50,9 +50,10 @@
            box-sizing: border-box;
  }
 
- .linkedin {
-     max-width: 20px;
-     max-height: 20px;
+ .co_linkedin {
+     max-width: 195px;
+     max-height: auto;
+     padding-top : 2px;
  }
 
 .avatar {
