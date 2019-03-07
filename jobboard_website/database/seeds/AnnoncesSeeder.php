@@ -18,6 +18,7 @@ class AnnoncesSeeder extends Seeder
             $annonce = new Annonces();
             $annonce->title = $faker->sentence();
             $annonce->content = "<p>" . join("</p><p>" , $faker->paragraphs(5)) . "</p>";
+            $annonce->datePublication = $faker->date();
             $annonce->save();
         }
     }

@@ -116,6 +116,18 @@
                                 </div>
                             </div>
 
+                            <legend>Mon profil doit être visible ?</legend>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio offset-sm-1">
+                                    <input type="radio" id="actif1" name="actif" class="custom-control-input" value="1" {{$contact->actif ? "checked" : ""}}>
+                                    <label class="custom-control-label" for="actif1">Oui</label>
+                                </div>
+                                <div class="custom-control custom-radio offset-sm-1">
+                                    <input type="radio" id="actif0" name="actif" class="custom-control-input" value="0" {{$contact->actif ? "" : "checked"}}>
+                                    <label class="custom-control-label" for="actif0">Non</label>
+                                </div>
+                            </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-success">

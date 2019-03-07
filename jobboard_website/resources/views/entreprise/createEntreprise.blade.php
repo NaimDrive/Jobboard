@@ -453,6 +453,33 @@
 
             divCol11.appendChild(divFormPhone);
 
+            //######################### Role dans l'entreprise #####################
+
+            let divFormRole = document.createElement("div");
+            divFormNom.setAttribute("class", "form-group row");
+
+            let labelRole = document.createElement("label");
+            labelNom.setAttribute("class", "col-md-4 col-form-label text-md-right");
+            labelNom.setAttribute("for","role");
+            let textLabelRole = document.createTextNode("Role dans l'entreprise");
+            labelNom.appendChild(textLabelNom);
+
+            let divCol5Role = document.createElement("div");
+            divCol5Nom.setAttribute("class", "col-md-5");
+            let inputRole = document.createElement("input");
+            inputNom.setAttribute("id", "contact_"+indexC+"_role");
+            inputNom.setAttribute("class", "form-control");
+            inputNom.setAttribute("type","text");
+            inputNom.setAttribute("name", "contact_"+indexC+"_role");
+
+            divCol5Role.appendChild(inputRole);
+
+            divFormRole.appendChild(labelRole);
+            divFormRole.appendChild(divCol5Role);
+
+            divCol11.appendChild(divFormRole);
+
+
 
             //######################### Bouton supression ##################
 

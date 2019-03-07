@@ -20,7 +20,7 @@
                         <h1>Modifier mon entreptise</h1>
                     </div>
                     <div class="card-body">
-                        <form method='POST' action="{{route('storeEntrepriseChange')}}">
+                        <form method='POST' action="{{route('storeEntrepriseChange', ['id'=>$entreprise->id])}}">
                             {!! csrf_field() !!}
                             <div class="form-group row">
                                 <label for="nom" class="col-md-4 col-form-label text-md-right">
@@ -54,6 +54,18 @@
                                         @endif
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <legend>Mon entreprise doit être visible ?</legend>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio offset-sm-1">
+                                    <input type="radio" id="actif1" name="actif" class="custom-control-input" value="1" {{$entreprise->actif ? "checked" : ""}}>
+                                    <label class="custom-control-label" for="actif1">Oui</label>
+                                </div>
+                                <div class="custom-control custom-radio offset-sm-1">
+                                    <input type="radio" id="actif0" name="actif" class="custom-control-input" value="0" {{$entreprise->actif ? "" : "checked"}}>
+                                    <label class="custom-control-label" for="actif0">Non</label>
+                                </div>
                             </div>
 
                             <div class="form-group row border border-success">
@@ -142,10 +154,18 @@
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-md-4 col-form-label text-md-right"
-                                                               for="nom">Téléphone</label>
+                                                               for="phone">Téléphone</label>
                                                         <div class="col-md-5">
                                                             <input id="contact_{{$j}}_phone" class="form-control"
                                                                    type="text" name="contact_{{$j}}_phone" value="{{$contact->telephone}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 col-form-label text-md-right"
+                                                               for="role">Role dans l'entreprise</label>
+                                                        <div class="col-md-5">
+                                                            <input id="contact_{{$j}}_role" class="form-control"
+                                                                   type="text" name="contact_{{$j}}_role" value="{{$contact->role}}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -562,6 +582,33 @@
             divFormPhone.appendChild(divCol5Phone);
 
             divCol11.appendChild(divFormPhone);
+
+
+            //######################### Role dans l'entreprise #####################
+
+            let divFormRole = document.createElement("div");
+            divFormNom.setAttribute("class", "form-group row");
+
+            let labelRole = document.createElement("label");
+            labelNom.setAttribute("class", "col-md-4 col-form-label text-md-right");
+            labelNom.setAttribute("for","role");
+            let textLabelRole = document.createTextNode("Role dans l'entreprise");
+            labelNom.appendChild(textLabelNom);
+
+            let divCol5Role = document.createElement("div");
+            divCol5Nom.setAttribute("class", "col-md-5");
+            let inputRole = document.createElement("input");
+            inputNom.setAttribute("id", "contact_"+indexC+"_role");
+            inputNom.setAttribute("class", "form-control");
+            inputNom.setAttribute("type","text");
+            inputNom.setAttribute("name", "contact_"+indexC+"_role");
+
+            divCol5Role.appendChild(inputRole);
+
+            divFormRole.appendChild(labelRole);
+            divFormRole.appendChild(divCol5Role);
+
+            divCol11.appendChild(divFormRole);
 
 
             //######################### Bouton supression ##################

@@ -43,7 +43,8 @@ class ContactController extends Controller
             'telephone' =>['nullable', 'string', 'min:10', 'max:10'],
             'role' => ['required', 'string', 'max:100'],
             'entreprise' => ['required'],
-            'idUser' => ['required']
+            'idUser' => ['required'],
+            'actif' => ['required', 'integer'],
         ]);
 
         $photo = null;
@@ -53,7 +54,7 @@ class ContactController extends Controller
             $photo= str_replace("public","storage",$photo);
         }
 
-        $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise','idUser','role']);
+        $input = $request->only(['nom','prenom','email','civilite','telephone','entreprise','idUser','role','actif']);
 
         if ($photo == null){
             DB::table('users')->where('id',$input['idUser'])->update([
@@ -91,6 +92,7 @@ class ContactController extends Controller
             'idEntreprise' => ($input['entreprise']=='null'? NULL : $input['entreprise']),
             'updated_at' => new \DateTime(),
             'role' => $input['role'],
+            'actif' => $input['actif'],
         ]);
 
         return redirect(route('afficherUnContact', DB::table('contact_entreprise')->where('idUser',$input['idUser'])->value('id')));
@@ -99,7 +101,9 @@ class ContactController extends Controller
     function afficherUnContact($id){
         if (Auth::check()){
             $contact = ContactEntreprise::find($id);
-            return view('contact/unContact',['contact'=>$contact]);
+            if($contact && ($contact->actif || $contact->idUser == Auth::id() || Auth::user()->isAdmin()))
+                return view('contact/unContact',['contact'=>$contact]);
+            return redirect(route('accueil'));
         }
         return redirect(route('login'));
 
@@ -108,7 +112,7 @@ class ContactController extends Controller
     function afficherContacts(){
 
         if (Auth::check()){
-            $contacts = ContactEntreprise::paginate(10);
+            $contacts = ContactEntreprise::where('actif',1)->paginate(10);
             return view('contact/toutContacts',['contacts'=>$contacts]);
         }
         return redirect(route('login'));

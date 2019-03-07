@@ -34,7 +34,7 @@ class EntrepriseController extends Controller
             [
                 "nom"=> ["required","string","max:255"],
                 "siret"=> ["required","string","min:14","max:14"],
-                "description" =>["required", "string", "min:15", 'max:1000']
+                "description" =>["required", "string", "min:15", 'max:1000'],
             ]);
         $input=$request->only(["nom","siret","description"]);
 
@@ -44,6 +44,7 @@ class EntrepriseController extends Controller
             "siret" => $input["siret"],
             "description" => $input["description"],
             "createur" => $contactID,
+            "actif" => 1
         ]);
 
         DB::table('contact_entreprise')->where('idUser',$userID)->update(['idEntreprise' => $entreprise]);
@@ -102,10 +103,11 @@ class EntrepriseController extends Controller
                 "contact_".$i."_prenom" => ['required', "string", "max:255"],
                 "contact_".$i."_mail" => ['required', "string", "max:255"],
                 "contact_".$i."_phone" => ['nullable', "string", "max:10", "min:10"],
+                "contact_".$i."_role" => ['required', "string"],
             ]);
 
             $input = $request->only(["contact_".$i."_civilite","contact_".$i."_nom",
-                "contact_".$i."_prenom","contact_".$i."_mail","contact_".$i."_phone"]);
+                "contact_".$i."_prenom","contact_".$i."_mail","contact_".$i."_phone","contact_".$i."_role"]);
 
             DB::table('contact_entreprise')->insert([
                 'nom' => $input["contact_".$i."_nom"],
@@ -113,6 +115,7 @@ class EntrepriseController extends Controller
                 'mail' => $input["contact_".$i."_mail"],
                 'telephone' => $input["contact_".$i."_phone"],
                 'civilite' => $input["contact_".$i."_civilite"],
+                'role' => $input["contact_".$i."_role"],
                 'idEntreprise' => $entreprise,
                 ]);
         }
@@ -143,25 +146,27 @@ class EntrepriseController extends Controller
         return redirect(route('login'));
     }
 
-    function storeChanges(Request $request){
+    function storeChanges(Request $request, $id){
         $idUser = Auth::id();
-        $entreprise = DB::table('contact_entreprise')->where('idUser',$idUser)->value('idEntreprise');
+        $entreprise = Entreprise::find($id);
 
         $this->validate($request,
             [
                 "nom"=> ["required","string","max:255"],
                 "siret"=> ["required","string","min:14","max:14"],
                 "description" =>["required", "string", "min:15", 'max:1000'],
-                "createur" => ["required"]
+                "createur" => ["required"],
+                "actif" => ["required", 'integer'],
             ]);
-        $input=$request->only(["nom","siret","description","createur"]);
+        $input=$request->only(["nom","siret","description","createur","actif"]);
 
 
-        DB::table("entreprise")->where('id',$entreprise)->update([
+        DB::table("entreprise")->where('id',$entreprise->id)->update([
             "nom" => $input["nom"],
             "siret" => $input["siret"],
             "description" => $input["description"],
             "createur" => $input["createur"],
+            "actif" => $input["actif"],
         ]);
 
 
@@ -170,7 +175,7 @@ class EntrepriseController extends Controller
         ]);
 
 
-        $adresses = AdressEntreprise::query()->where('idEntreprise', $entreprise)->get();
+        $adresses = AdressEntreprise::where('idEntreprise', $entreprise->id)->get();
 
         $compteur = $request["nbAdresse"]+=0;
         for($i = 0; $i < $compteur; $i++) {
@@ -186,12 +191,12 @@ class EntrepriseController extends Controller
                 "nomRue" => $input["adresse_".$i."_rue"],
                 "ville" => $input["adresse_".$i."_ville"],
                 "coordonnePostales" => $input["adresse_".$i."_codePostal"],
-                "idEntreprise" => $entreprise,
+                "idEntreprise" => $entreprise->id,
             ]);
         }
 
-        foreach ($adresses as $adress){
-            $adress->delete();
+        foreach ($adresses as $adresse){
+            $adresse->delete();
         }
 
         DB::table('contact_entreprise')->where('idEntreprise',$entreprise)->where('idUser',null)->delete();
@@ -227,11 +232,12 @@ class EntrepriseController extends Controller
                 "contact_".$i."_prenom" => ['required', "string", "max:255"],
                 "contact_".$i."_mail" => ['required', "string", "max:255"],
                 "contact_".$i."_phone" => ['nullable', "string", "max:10", "min:10"],
+                "contact_".$i."_role" => ['required', "string"],
                 "isUser_".$i => ['required'],
             ]);
 
             $input = $request->only(["contact_".$i."_civilite","contact_".$i."_nom",
-                "contact_".$i."_prenom","contact_".$i."_mail","contact_".$i."_phone","isUser_".$i]);
+                "contact_".$i."_prenom","contact_".$i."_mail","contact_".$i."_phone","contact_".$i."_role","isUser_".$i]);
 
 
             if (substr($input["isUser_".$i],0,6) == "false_" ){
@@ -244,6 +250,7 @@ class EntrepriseController extends Controller
                     'mail' => $input["contact_".$i."_mail"],
                     'telephone' => $input["contact_".$i."_phone"],
                     'civilite' => $input["contact_".$i."_civilite"],
+                    'role' => $input["contact_".$i."_role"],
                     'idEntreprise' => $entreprise,
                 ]);
             }
@@ -262,14 +269,16 @@ class EntrepriseController extends Controller
     function afficheUneEntreprise($id){
         if (Auth::check()){
             $entreprise = Entreprise::find($id);
-            return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
+            if($entreprise && ($entreprise->actif || $entreprise->getCreateur->idUser == Auth::id() || Auth::user()->isAdmin()))
+                return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
+            return redirect(route('accueil'));
         }
         return redirect(route('login'));
     }
 
     function afficherToutes(){
         if (Auth::check()){
-            $entreprises = Entreprise::paginate(10);
+            $entreprises = Entreprise::where('actif',1)->paginate(10);
             return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
         }
         return redirect(route('login'));

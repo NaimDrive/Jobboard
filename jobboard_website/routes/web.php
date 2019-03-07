@@ -60,7 +60,7 @@ Route::get('/entreprise/create','EntrepriseController@createEntreprise')->name('
 Route::post('/entreprise/enregistrer','EntrepriseController@enregistrerEntreprise')->name('enregistrerEntreprise');
 
 Route::get('/entreprise/{id}/edit', 'EntrepriseController@editEntreprise')->name('editEntreprise');
-Route::post('/entreprise/store_change', 'EntrepriseController@storeChanges')->name('storeEntrepriseChange');
+Route::post('/entreprise/{id}/store_change', 'EntrepriseController@storeChanges')->name('storeEntrepriseChange');
 Route::get('/entreprise/{id}','EntrepriseController@afficheUneEntreprise')->name('afficherUneEntreprise');
 Route::get('/entreprises','EntrepriseController@afficherToutes')->name('afficherToutesEntreprises');
 

@@ -80,6 +80,7 @@ class InscriptionController extends Controller
                 'role' => $input['role'],
                 'idUser' => $userID,
                 'created_at' => new \DateTime(),
+                'actif' => 1,
             ]);
 
             DB::table('definir')->insert([
@@ -186,6 +187,7 @@ class InscriptionController extends Controller
             $contact->idUser = Auth::user()->id;
             $contact->role = $input['role'];
             $contact->created_at = new \DateTime();
+            $contact->actif = 1;
 
             $contact->save();
 
