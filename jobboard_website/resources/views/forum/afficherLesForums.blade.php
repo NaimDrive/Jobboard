@@ -38,7 +38,7 @@
                         @endif
                     @if($role->typeRole == "ADMIN")
                         <div class="col-12 col-md-3">
-                            <h3 style="font-size: 20px; margin-top: 1em;">Forum du {{$forum->date}}</h3>
+                            <h3 style="font-size: 20px; margin-top: 1em;">Forum du {{ date('d/m/Y',strtotime($forum->date)) }}</h3>
                         </div>
                         <div class="col-md-3 col-12" style="margin-top: 1em;">
                             <a href="{{route('afficherUnForum',[$forum->id])}}"> <button class="btn-primary">Informations</button></a>

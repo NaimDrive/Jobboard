@@ -9,9 +9,9 @@
                 @foreach($offres as $offre)
                     <div class="border p-3 mt-2">
                         <h3>{{ $offre->nomOffre }}</h3>
-                        <p class="ml-1"><sub>Publiée le : {{$offre->datePublicationOffre}}</sub></p>
+                        <p class="ml-1"><sub>Publiée le : {{ date('d/m/Y',strtotime($offre->datePublicationOffre)) }}</sub></p>
                         <p>{{ $offre->natureOffre }}</p>
-                        <p>Date du stage : du <strong>{{ $offre->dateDebut }}</strong> au <strong>{{ $offre->dateFin }}</strong></p>
+                        <p>Date du stage : du <strong>{{ date('d/m/Y',strtotime($offre->dateDebut)) }}</strong> au <strong>{{ date('d/m/Y',strtotime($offre->dateFin)) }}</strong></p>
                         <p>Pré-embauche possible : {{ $offre->preembauche }}</p>
                         <div class="row ml-2">
                             <a href="{{route("afficherUneOffre",["id"=>$offre->id])}}" class="btn btn-success">Voir l'offre</a>

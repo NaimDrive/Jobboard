@@ -22,7 +22,8 @@
                                 <p class="card-text"> Civilité : {{$etudiant->civilite}} <br/>
                                     Nom : {{$nom}} <br/>
                                     Prenom : {{$prenom}} <br/>
-                                    Né(e) le {{$etudiant->DateDeNaissance}} </p>
+
+                                    Né{{($etudiant->civilite == "Madame") ? "e" : ""}} le {{ date('d/m/Y',strtotime($etudiant->DateDeNaissance)) }} </p>
                             </div>
                         </div>
                     </div>

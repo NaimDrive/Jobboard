@@ -10,7 +10,7 @@
                     @if($etu->idUser != null)
                     <div class="border p-3 mt-2">
                         <p>{{ $etu->civilite }} <strong>{{$etu->user->nom}} {{$etu->user->prenom}}</strong></p>
-                        <p>Né le : <strong>{{$etu->DateDeNaissance}}</strong></p>
+                        <p>Né le : <strong>{{ date('d/m/Y',strtotime($etu->DateDeNaissance)) }}</strong></p>
                         <p>Etudes : <strong>{{$etu->etudes}}</strong></p>
                         @if($etu->rechercheStage==1)
                         <p> A la recherche un stage</p>
