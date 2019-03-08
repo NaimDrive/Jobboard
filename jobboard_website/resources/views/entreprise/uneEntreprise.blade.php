@@ -18,7 +18,7 @@
                     <h2 class="card-header">Description</h2>
                     <div class="card-body">
                         <p class="ml-2 text-justify">
-                            {{ $entreprise->description }}
+                            {!! $entreprise->description !!}
                         </p>
                     </div>
 

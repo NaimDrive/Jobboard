@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entreprise;
+use App\Etudiant;
 use Illuminate\Http\Request;
 use App\Offre ;
 use Illuminate\Support\Facades\Auth;
@@ -216,10 +217,13 @@ class OffreController extends Controller
     }
 
     function offreSaveEtu(){
-        if (Auth::check()){
-            $idEtudiant = DB::table("etudiant")->where('idUser',Auth::id())->value('id');
-            $idRecherches = DB::table('offre_cherchee')->where("idEtudiant", $idEtudiant)->get();
-            return view('/etudiant/mesRecherches',['idRecherche'=>$idRecherches]);
+        if (Auth::check() && Auth::user()->isEtudiant()){
+            $etudiant = Etudiant::where('idUser',Auth::id())->first();
+            if ($etudiant){
+                $offres = $etudiant->offreSaved;
+                return view('/etudiant/mesRecherches',['offres'=>$offres]);
+            }
+
         }
         return redirect(route('login'));
     }
