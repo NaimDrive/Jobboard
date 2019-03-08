@@ -451,8 +451,9 @@ class EtudiantController extends Controller
         
         function listeRecherches(){
             if(Auth::check()){
-                $etudiants = Etudiant::where("actif",1)->paginate(10);
-                return view('/etudiant/listeRecherches',['etudiants'=>$etudiants]);
+                //$etudiants = Etudiant::where("actif",1)->paginate(10);
+                $recherche = Recherche::paginate(10);
+                return view('/etudiant/listeRecherches',/*['etudiants'=>$etudiants],*/['recherches'=>$recherche]);
             }
             return redirect(route('login'));
 
