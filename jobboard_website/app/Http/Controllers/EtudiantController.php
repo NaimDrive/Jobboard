@@ -106,13 +106,85 @@ class EtudiantController extends Controller
 
     function enregistrerModifs(Request $request){
 
-        //UPDATE PHOTO DE PROFIL
+        //VALIDATIONS
 
         $this->validate($request,
             [
                 'photo' => ['nullable','image'],
                 "idEtu" => "required",
             ]);
+
+        $this->validate($request,
+            [
+                "nom" => ['required', "string", "max:255"],
+                "prenom" => ['required', "string", "max:255"],
+                "naissance" => ['required', "date", "before:today"],
+                "civilite" => ['required', "string", "max:255"],
+                "email" => ['required', "string", "max:255"],
+                "adresse" => ['required', "string", "max:255"],
+                "codePostal" => ['required', "numeric","digits:5"],
+                "ville" => ['required', "string", "max:255"],
+                "stage" => ['required'],
+                "actif" => ['required'],
+                "nbCompetence" => ['required'],
+                "nbFormation" => ['required'],
+                "nbExperience" => ['required'],
+                "nbActivite" => ['required'],
+                "nbLiens" => ['required'],
+            ]);
+
+        $compteurCompetence = $request["nbCompetence"]+=0;
+
+        for($i = 0; $i < $compteurCompetence; $i++) {
+            $this->validate($request,[
+                "competence_".$i => ['required', "string", "max:255"],
+                "categorie_".$i => ['required'],
+                "level_".$i => ['required'],
+            ]);
+        }
+
+        $compteurFormation = $request["nbFormation"]+=0;
+
+        for($i = 0; $i < $compteurFormation; $i++) {
+            $this->validate($request,[
+                "formation_".$i => ['required', "string", "max:255"],
+                "lieu_".$i => ['required', "string", "max:255"],
+                "debut_".$i => ['required',"date","before:today"],
+                "fin_".$i => ['required',"date","after:dateDebut_$i"],
+            ]);
+        }
+
+        $compteurExperience = $request["nbExperience"]+=0;
+
+        for($i = 0; $i < $compteurExperience; $i++) {
+            $this->validate($request,[
+                "experience_".$i => ['required', "string", "max:255"],
+                "etablissement_".$i => ['required', "string", "max:255"],
+                "dateDebut_".$i => ['required',"date","before:today"],
+                "dateFin_".$i => ['required',"date","after:dateDebut_$i"], //a corriger
+                "description_".$i => ['nullable', "string", "max:255"],
+            ]);
+        }
+
+        $compteurActivite = $request["nbActivite"]+=0;
+
+        for($i = 0; $i < $compteurActivite; $i++) {
+            $this->validate($request,[
+                "activite_".$i => ['required', "string", "max:255"],
+            ]);
+        }
+
+        $compteurLien = $request["nbLiens"]+=0;
+
+        for($i = 0; $i < $compteurLien; $i++) {
+            $this->validate($request,[
+                "lien_".$i => ['required', "string", "max:255"],
+                "type_".$i => ['required'],
+            ]);
+        }
+
+
+        //INSERTIONS
 
         $photo = null;
         $idUser = DB::table('etudiant')->where('id',$request["idEtu"])->value('idUser');
@@ -132,29 +204,14 @@ class EtudiantController extends Controller
                 \File::delete($lien);
             }
 
+
+
             DB::table('users')->where('id',$idUser)->update(
                 [
                     'picture' => $photo,
                 ]
             );
         }
-
-        //UPDATE IDENTITE
-
-
-        $this->validate($request,
-            [
-                "nom" => ['required', "string", "max:255"],
-                "prenom" => ['required', "string", "max:255"],
-                "naissance" => ['required', "date", "before:today"],
-                "civilite" => ['required', "string", "max:255"],
-                "email" => ['required', "string", "max:255"],
-                "adresse" => ['required', "string", "max:255"],
-                "codePostal" => ['required', "numeric","digits:5"],
-                "ville" => ['required', "string", "max:255"],
-                "stage" => ['required'],
-                "actif" => ['required'],
-            ]);
 
 
         $input=$request->only(["nom","prenom","naissance","civilite","email","adresse","codePostal","ville","stage","actif"]);
@@ -183,26 +240,7 @@ class EtudiantController extends Controller
                 ]
             );
 
-
-        //INSERTION COMPETENCES
-
-
-        $this->validate($request,
-            [
-                "nbCompetence"
-            ]);
-
-        $competences = CompetencesEtudiant::query()->where('idEtudiant', $idEtu)->get();
-
-        $compteur = $request["nbCompetence"]+=0;
-
-        for($i = 0; $i < $compteur; $i++) {
-            $this->validate($request,[
-                "competence_".$i => ['required', "string", "max:255"],
-                "categorie_".$i => ['required'],
-                "level_".$i => ['required'],
-            ]);
-
+        for($i=0;$i<$compteurCompetence;$i++){
             $input=$request->only(["competence_".$i, "categorie_".$i, "level_".$i]);
 
             $idCateg = DB::table('categorie')->where('nomCategorie',$input[ "categorie_".$i])->first();
@@ -215,31 +253,7 @@ class EtudiantController extends Controller
             ]);
         }
 
-        foreach ($competences as $competence){
-            $competence->delete();
-        }
-
-
-        //INSERTION FORMATIONS
-
-
-        $this->validate($request,
-            [
-                "nbFormations"
-            ]);
-
-        $formations = Formation::query()->where('idEtudiant', $idEtu)->get();
-
-        $compteur = $request["nbFormation"]+=0;
-
-        for($i = 0; $i < $compteur; $i++) {
-            $this->validate($request,[
-                "formation_".$i => ['required', "string", "max:255"],
-                "lieu_".$i => ['required', "string", "max:255"],
-                "debut_".$i => ['required',"date","before:today"],
-                "fin_".$i => ['required',"date","after:dateDebut_$i"],
-            ]);
-
+        for($i=0;$i<$compteurFormation;$i++){
             $input=$request->only(["formation_".$i, "lieu_".$i, "debut_".$i, "fin_".$i]);
 
             DB::table('formation')->insert([
@@ -251,31 +265,7 @@ class EtudiantController extends Controller
             ]);
         }
 
-        foreach ($formations as $formation){
-            $formation->delete();
-        }
-
-        //INSERTION EXPERIENCES
-
-
-        $this->validate($request,
-            [
-                "nbExperience"
-            ]);
-
-        $experiences = Experience::query()->where('idEtudiant', $idEtu)->get();
-
-        $compteur = $request["nbExperience"]+=0;
-
-        for($i = 0; $i < $compteur; $i++) {
-            $this->validate($request,[
-                "experience_".$i => ['required', "string", "max:255"],
-                "etablissement_".$i => ['required', "string", "max:255"],
-                "dateDebut_".$i => ['required',"date","before:today"],
-                "dateFin_".$i => ['required',"date","after:dateDebut_$i"], //a corriger
-                "description_".$i => ['nullable', "string", "max:255"],
-            ]);
-
+        for($i=0;$i<$compteurExperience;$i++){
             $input=$request->only(["experience_".$i, "etablissement_".$i, "dateDebut_".$i, "dateFin_".$i, "description_".$i]);
 
             DB::table('experience')->insert([
@@ -288,58 +278,16 @@ class EtudiantController extends Controller
             ]);
         }
 
-        foreach ($experiences as $experience){
-            $experience->delete();
-        }
-
-
-        //INSERTION ACTIVITES
-
-
-        $this->validate($request,
-            [
-                "nbActivite"
-            ]);
-
-        $interets = CentreDInteret::query()->where('idEtudiant', $idEtu)->get();
-
-        $compteur = $request["nbActivite"]+=0;
-
-        for($i = 0; $i < $compteur; $i++) {
-            $this->validate($request,[
-                "activite_".$i => ['required', "string", "max:255"],
-            ]);
-
+        for($i=0;$i<$compteurActivite;$i++){
             $input=$request->only(["activite_".$i]);
 
             DB::table('centre_d_interet')->insert([
                 "Interet" => $input["activite_".$i],
                 "idEtudiant" => $idEtu,
             ]);
-
         }
 
-        foreach ($interets as $interet){
-            $interet->delete();
-        }
-
-
-        //INSERTION LIENS EXTERNES
-
-        $this->validate($request,[
-            "nbLiens"
-        ]);
-
-        $liens = ReferenceLien::query()->where('idEtudiant', $idEtu)->get();
-
-        $compteur = $request["nbLiens"]+=0;
-
-        for($i = 0; $i < $compteur; $i++) {
-            $this->validate($request,[
-                "lien_".$i => ['required', "string", "max:255"],
-                "type_".$i => ['required'],
-            ]);
-
+        for($i=0;$i<$compteurLien;$i++){
             $input=$request->only(["lien_".$i,"type_".$i]);
 
             DB::table('reference_lien')->insert([
@@ -349,19 +297,9 @@ class EtudiantController extends Controller
             ]);
         }
 
-        foreach ($liens as $lien){
-            $lien->delete();
-        }
-
-
     return redirect(route('edit_profile',["id"=>$idEtu]));
 
     }
-
-
-
-
-
 
 
     //GESTION RECHERCHE 

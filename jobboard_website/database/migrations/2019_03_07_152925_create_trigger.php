@@ -45,6 +45,36 @@ class CreateTrigger extends Migration
             DELETE FROM `entreprise_participes` WHERE `idForum` = OLD.id;
         END
         ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_competences_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `competences_etudiant` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_formations_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `formation` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_experiences_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `experience` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_liens_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `reference_lien` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_activites_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `centre_d_interet` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
     }
 
     /**
@@ -59,5 +89,10 @@ class CreateTrigger extends Migration
         DB::unprepared('DROP TRIGGER `trigger_update_contact_inactif`');
         DB::unprepared('DROP TRIGGER `trigger_delete_entreprise_participe`');
         DB::unprepared('DROP TRIGGER `trigger_delete_forum`');
+        DB::unprepared('DROP TRIGGER `trigger_update_competences`');
+        DB::unprepared('DROP TRIGGER `trigger_update_formations`');
+        DB::unprepared('DROP TRIGGER `trigger_update_experiences`');
+        DB::unprepared('DROP TRIGGER `trigger_update_liens`');
+        DB::unprepared('DROP TRIGGER `trigger_update_activites`');
     }
 }
