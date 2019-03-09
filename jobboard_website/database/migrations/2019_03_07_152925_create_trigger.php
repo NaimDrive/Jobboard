@@ -75,6 +75,12 @@ class CreateTrigger extends Migration
             DELETE FROM `centre_d_interet` WHERE `idEtudiant` = NEW.id;
         END
         ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_incremente_etudiant AFTER INSERT on etudiant FOR EACH ROW
+        BEGIN
+            UPDATE stat SET stat.nbEtu = stat.nbEtu + 1;
+        END
+        ');
     }
 
     /**
