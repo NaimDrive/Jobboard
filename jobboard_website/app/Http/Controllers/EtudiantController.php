@@ -26,52 +26,44 @@ class EtudiantController extends Controller
     function consulterProfile($id)
     {
         if (Auth::check()) {
-            $etudiant = Etudiant::find($id);
 
-            $userId = DB::table('etudiant')->where('id', $id)->value('idUser'); //Pour obtenir l'id d'utilisateur de l'étudiant
-            $etuId = DB::table('etudiant')->where('idUser', $userId)->value('id'); //Pour obtenir l'id d'étudiant de l'étudiant
-            $role = DB::table('definir')->where('idUser', Auth::id())->value('idRole'); //Pour obtenir l'id du rôle de l'utilisateur courant
+            $userId = DB::table('etudiant')->where('id', $id)->value('idUser');
+            $role = DB::table('definir')->where('idUser',Auth::id())->value('idRole'); //Pour obtenir l'id du rôle de l'utilisateur courant
+
+            if (($userId !== Auth::id()) && ($role !== 1)) { //si l'id user de l'étudiant est différent de l'id user connecté...
+                return redirect(route('accueil')); //on renvoi à la page d'accueil
+                //Cela permet de verifier que l'utilisateur est bien un étudiant, et qu'il essaye d'accèder à un profile existant, qui est bien le sien
+            }
 
 
             $liens = DB::table('reference_lien')->where('idEtudiant',$id)->get();
-            $nom = DB::table('users')->where('id',$userId)->value('nom');
-            $prenom = DB::table('users')->where('id',$userId)->value('prenom');
-            $image = DB::table('users')->where('id',$userId)->value('picture');//on recupere l'image de profil de l'étudiant
-            $categorie = DB::table('categorie')->pluck('nomCategorie'); //On recupère tout les noms de catégories de la table categorie
+            $etudiant = DB::table('etudiant')->where('id',$id)->first();
+            $user = DB::table('users')->where('id',$userId)->first();
+            $categories = DB::table('categorie')->pluck('nomCategorie');
             $competences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
-            $nbCompetences = DB::table('competences_etudiant')->where('idEtudiant', $id)->get();
-            $niveau = DB::table('competences_etudiant')->where('idEtudiant',$id)->value('niveauEstime');
-            $activite = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet');
+            $activites = DB::table('centre_d_interet')->where('idEtudiant', $id)->pluck('Interet');
             $experiences = DB::table('experience')->where('idEtudiant', $id)->get();
-            $formation = DB::table('formation')->where('idEtudiant',$id)->get();
-            $recherche = DB::table('recherche')->where('idEtudiant',$id)->get();
+            $formations = DB::table('formation')->where('idEtudiant',$id)->get();
+            $recherches = DB::table('recherche')->where('idEtudiant',$id)->get();
             $actif = DB::table('etudiant')->where('id',$id)->value('actif');
 
 
             return view('etudiant/consultProfile',
-                ['etudiant'=>$etudiant,
-                    'nom'=>$nom,
-                    'prenom'=>$prenom,
-                    'categorie'=>$categorie,
-                    'competences'=>$competences,
-                    'nbCompetences'=>$nbCompetences,
-                    'activite'=>$activite,
-                    'experiences'=>$experiences,
-                    'formation'=>$formation,
-                    'recherche'=>$recherche,
-                    'actif'=>$actif,
-                    'niveau'=>$niveau,
-                    'liens'=>$liens,
-                    'userId'=>$userId,
-                    'etuId'=>$etuId,
-                    'role'=>$role,
-                    'image'=>$image,
-                    'id'=>$id
+                [
+                    'etudiant' => $etudiant, //Etudiant
+                    'user' => $user, //Utilisateur
+                    'categories'=>$categories, //Nom des catégories de compétences
+                    'competences'=>$competences, //Compétences de l'étudiant
+                    'activites'=>$activites, //activités (centres d'intéret) de l'étudiant
+                    'experiences'=>$experiences, //Expériences de l'étudiant
+                    'formations'=>$formations, //Formations de l'étudiant
+                    'recherches'=>$recherches,
+                    'actif'=>$actif, //Dire si l'étudiant est actif ou non
+                    'liens'=>$liens, //Les liens externes de l'étudiant
                 ]);
         }
         return redirect(route('login'));
     }
-
 
     function modifierProfile($id)
     {
@@ -133,10 +125,6 @@ class EtudiantController extends Controller
                 $photo= str_replace("public","storage",$photo);
             }
 
-            $input=$request->only(["idEtu"]);
-
-
-
             $user = DB::table('users')->where('id',$idUser)->first();
             $image = $user->picture;
             if ($image != 'images/user-icon.png'){
@@ -164,11 +152,12 @@ class EtudiantController extends Controller
                 "adresse" => ['required', "string", "max:255"],
                 "codePostal" => ['required', "numeric","digits:5"],
                 "ville" => ['required', "string", "max:255"],
-                "customRadio" => "required", //recherche stage
+                "stage" => ['required'],
+                "actif" => ['required'],
             ]);
 
 
-        $input=$request->only(["nom","prenom","naissance","civilite","email","adresse","codePostal","ville","customRadio"]);
+        $input=$request->only(["nom","prenom","naissance","civilite","email","adresse","codePostal","ville","stage","actif"]);
 
         DB::table('users')
             ->where('id',$idUser)
@@ -188,8 +177,9 @@ class EtudiantController extends Controller
                     "adresse" => $input["adresse"],
                     "codePostal" => $input["codePostal"],
                     "ville" => $input["ville"],
-                    "rechercheStage" => $input["customRadio"],
+                    "rechercheStage" => $input["stage"],
                     "DateDeNaissance" => $input["naissance"],
+                    "actif" => $input["actif"],
                 ]
             );
 

@@ -78,31 +78,63 @@
                                         </div>
                                     </div>
                                     <br>
+
+                                    <!-- Recherche un stage ou non ? -->
+
                                     <fieldset>
                                         <legend>Je suis à la recherche d'un stage ?</legend>
                                         @if($etudiant->rechercheStage == 1)
                                         <div class="form-group">
                                             <div class="custom-control custom-radio offset-sm-1">
-                                                <input title="recherche un stage" type="radio" id="oui" name="customRadio" class="custom-control-input" value="1" checked="">
-                                                <label class="custom-control-label" for="oui">Oui</label>
+                                                <input title="recherche un stage" type="radio" id="recherche" name="stage" class="custom-control-input" value="1" checked="">
+                                                <label class="custom-control-label" for="recherche">Oui</label>
                                             </div>
                                             <div class="custom-control custom-radio offset-sm-1">
-                                                <input title="ne recherche pas de stage" type="radio" id="non" name="customRadio" class="custom-control-input" value="0">
-                                                <label class="custom-control-label" for="non">Non</label>
+                                                <input title="ne recherche pas de stage" type="radio" id="recherche_pas" name="stage" class="custom-control-input" value="0">
+                                                <label class="custom-control-label" for="recherche_pas">Non</label>
                                             </div>
                                         </div>
                                             @else
                                             <div class="form-group">
                                                 <div class="custom-control custom-radio offset-sm-1">
-                                                    <input title="recherche un stage" type="radio" id="oui" name="customRadio" class="custom-control-input" value="1" >
-                                                    <label class="custom-control-label" for="oui">Oui</label>
+                                                    <input title="recherche un stage" type="radio" id="recherche" name="stage" class="custom-control-input" value="1" >
+                                                    <label class="custom-control-label" for="recherche">Oui</label>
                                                 </div>
                                                 <div class="custom-control custom-radio offset-sm-1">
-                                                    <input title="ne recherche pas de stage" type="radio" id="non" name="customRadio" class="custom-control-input" value="0" checked="">
-                                                    <label class="custom-control-label" for="non">Non</label>
+                                                    <input title="ne recherche pas de stage" type="radio" id="recherche_pas" name="stage" class="custom-control-input" value="0" checked="">
+                                                    <label class="custom-control-label" for="recherche_pas">Non</label>
                                                 </div>
                                             </div>
                                             @endif
+                                    </fieldset>
+
+                                    <!-- Actif ou inactif ? -->
+
+                                    <fieldset>
+                                        <legend>Je souhaite être actif ?</legend>
+                                        @if($etudiant->actif == 1)
+                                            <div class="form-group">
+                                                <div class="custom-control custom-radio offset-sm-1">
+                                                    <input title="est actif" type="radio" id="actif" name="actif" class="custom-control-input" value="1" checked="">
+                                                    <label class="custom-control-label" for="actif">Oui</label>
+                                                </div>
+                                                <div class="custom-control custom-radio offset-sm-1">
+                                                    <input title="est inactif" type="radio" id="inactif" name="actif" class="custom-control-input" value="0">
+                                                    <label class="custom-control-label" for="inactif">Non</label>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="form-group">
+                                                <div class="custom-control custom-radio offset-sm-1">
+                                                    <input title="est actif" type="radio" id="actif" name="actif" class="custom-control-input" value="1" >
+                                                    <label class="custom-control-label" for="actif">Oui</label>
+                                                </div>
+                                                <div class="custom-control custom-radio offset-sm-1">
+                                                    <input title="est inactif" type="radio" id="inactif" name="actif" class="custom-control-input" value="0" checked="">
+                                                    <label class="custom-control-label" for="inactif">Non</label>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </fieldset>
                                 </div>
                             </div>

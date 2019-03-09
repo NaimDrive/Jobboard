@@ -8,8 +8,8 @@
 
                 <!-- ENTETE PROFIL -->
                 <div class="headerProfil">
-                    <h1>Profil de {{$prenom}} {{$nom}}</h1> <br/>
-                    <img src="{{asset($image)}}" title="photo de profil" width="150" height="150"/>
+                    <h1>Profil de {{$user->prenom}} {{$user->nom}}</h1> <br/>
+                    <img src="{{asset($user->picture)}}" title="photo de profil" width="150" height="150"/>
                 </div>
 
                 <!-- INFORMATIONS PERSONNELLES -->
@@ -20,8 +20,8 @@
                             <div class="card-header"><h5>IDENTITE</h5></div>
                             <div class="card-body">
                                 <p class="card-text"> Civilité : {{$etudiant->civilite}} <br/>
-                                    Nom : {{$nom}} <br/>
-                                    Prenom : {{$prenom}} <br/>
+                                    Nom : {{$user->nom}} <br/>
+                                    Prenom : {{$user->prenom}} <br/>
 
                                     Né{{($etudiant->civilite == "Madame") ? "e" : ""}} le {{ date('d/m/Y',strtotime($etudiant->DateDeNaissance)) }} </p>
                             </div>
@@ -50,10 +50,10 @@
                             <h5 class="card-header"> LIENS </h5>
                         @endif
                         <div class="card-body">
-                            @foreach($liens as $li)
+                            @foreach($liens as $lien)
                                 <div class="border p-3 mt-3">
-                                    <h5>{{ $li->nomReference }}</h5>
-                                    <p>{{ $li->UrlReference }}</p>
+                                    <h5>{{ $lien->nomReference }}</h5>
+                                    <p><a href="{{ $lien->UrlReference }}">{{ $lien->UrlReference }}</a></p>
                                 </div>
                             @endforeach
                         </div>
@@ -63,21 +63,21 @@
 
                 <!-- POSTES RECHERCHÉS  -->
 
-                @if(count($recherche)==0)
+                @if(count($recherches)==0)
                     <h5> Recherce de poste </h5>
                     <p> aucune recherche de poste </p>
-                @elseif(count($recherche)==1)
+                @elseif(count($recherches)==1)
                     <h5> Je recherche actuellement ce poste :  </h5> <br>
                     <div class="alert alert-dismissible alert-secondary">
-                        <strong> {{$recherche->souhait}}</strong> du {{$recherche->dateDebut}} au {{$recherche->dateFin}} <br>
-                        mobilité : {{$recherche->mobilite}}
+                        <strong> {{$recherches->souhait}}</strong> du {{date('d/m/y',strtotime($recherches->deteDebut))}} au {{date('d/m/y',strtotime($recherches->dateFin))}} <br>
+                        mobilité : {{$recherches->mobilite}}
                     </div>
                 @else
                     <h5> Je recherche actuellement ces postes :  </h5> <br>
-                    @foreach($recherche as $rech)
+                    @foreach($recherches as $recherche)
                         <div class="alert alert-dismissible alert-secondary">
-                            <strong> {{$rech->souhait}}</strong> du {{$rech->dateDebut}} au {{$rech->dateFin}} <br>
-                            mobilité : {{$rech->mobilite}}
+                            <strong> {{$recherche->souhait}}</strong> du {{date('d/m/y',strtotime($recherche->dateDebut))}} au {{date('d/m/y',strtotime($recherche->dateFin))}} <br>
+                            mobilité : {{$recherche->mobilite}}
                         </div>
                     @endforeach
                 @endif
@@ -86,14 +86,14 @@
 
                 <!-- FORMATION  -->
                 <h5> Ma formation </h5>
-                @if(count($formation)==0)
+                @if(count($formations)==0)
                     <p> Pas de formation communiquée  </p>
                 @else
-                    @foreach($formation as $form)
+                    @foreach($formations as $formation)
                         <div class="alert alert-dismissible alert-info">
-                            <strong> {{$form->natureFormation}} </strong> <br>
-                            <p> lieu : {{$form->lieuFormation}} <br>
-                                période : du {{$form->debut}} au {{$form->fin}} </p>
+                            <strong> {{$formation->natureFormation}} </strong> <br>
+                            <p> lieu : {{$formation->lieuFormation}} <br>
+                                période : du {{date('d/m/y',strtotime($formation->debut))}} au {{date('d/m/y',strtotime($formation->fin))}} </p>
                         </div>
                     @endforeach
                 @endif
@@ -104,20 +104,20 @@
 
                 <h5> Mes compétences </h5>
 
-                @if(count($nbCompetences)==0)
+                @if(count($competences)==0)
                     <p> Pas de compétences communiquées </p>
                 @else
-                    @foreach($categorie as $cat)
+                    @foreach($categories as $categorie)
                         <table class="table table-hover">
                             <tbody>
                             @endforeach
-                            @foreach($competences as $comp)
+                            @foreach($competences as $competence)
                                 <tr class="table-active">
-                                    <th scope="row">{{$comp->nomCompetence}}</th>
+                                    <th scope="row">{{$competence->nomCompetence}}</th>
                                     <td>
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{$niveau}}%"></div>
+                                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{$competence->niveauEstime}}%"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -140,11 +140,11 @@
                         @else
                             <h5> Mes experiences professionnelles </h5> <br>
                         @endif
-                        @foreach($experiences as $exp)
+                        @foreach($experiences as $experience)
                             <div class="alert alert-dismissible alert-info">
-                                <strong>{{$exp->nom}} à {{$exp->etablissement}}</strong> <br>
-                                <p> du {{$exp->dateDebut}} au {{$exp->dateFin}} </p>
-                                <p> {{$exp->resume}} </p>
+                                <strong>{{$experience->nom}} à {{$experience->etablissement}}</strong> <br>
+                                <p> du {{date('d/m/y',strtotime($experience->dateDebut))}} au {{date('d/m/y',strtotime($experience->dateFin))}} </p>
+                                <p> {{$experience->resume}} </p>
                             </div>
                         @endforeach
                         <br>
@@ -152,11 +152,11 @@
 
                         <!-- LES CENTRES D'INTERET -->
                         <h5> Centres d'interet </h5>
-                        @if(count($activite)==0)
+                        @if(count($activites)==0)
                             <p> Pas de centres d'interet communiqués  </p>
                         @else
-                            @foreach($activite as $act)
-                                <span class="badge badge-pill badge-info">{{$act}}</span>
+                            @foreach($activites as $activite)
+                                <span class="badge badge-pill badge-info">{{$activite}}</span>
                             @endforeach
                         @endif
                         <br>
