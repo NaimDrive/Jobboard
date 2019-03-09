@@ -54,6 +54,11 @@ Route::post('/etudiant/enregistrerModifs','EtudiantController@enregistrerModifs'
 Route::get('/etudiant/{id}/edit_profile','EtudiantController@modifierProfile')->name('edit_profile');
 Route::get('/etudiant/{id}','EtudiantController@consulterProfile')->name('consult_profile');
 
+//ROUTES AUTOCOMPLETE
+
+Route::get('autocompleteCompetence', 'EtudiantController@autocompleteCompetence')->name('autocompleteCompetence');
+
+
 
 //ROUTES POST D'AJOUT/MODIF D'ENTREPRISE
 Route::get('/entreprise/create','EntrepriseController@createEntreprise')->name('creerEntreprise');

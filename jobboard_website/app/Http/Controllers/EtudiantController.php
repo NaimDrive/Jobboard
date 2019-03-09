@@ -8,18 +8,16 @@
 
 namespace App\Http\Controllers;
 
+
 use App\CentreDInteret;
 use App\CompetencesEtudiant;
 use App\Etudiant;
 use App\Experience;
 use App\Formation;
-use App\OffreCherchee;
 use App\Recherche;
-use App\ReferenceLien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class EtudiantController extends Controller
 {
@@ -86,6 +84,9 @@ class EtudiantController extends Controller
             $categories = DB::table('categorie')->get();
             $lien = DB::table('reference_lien')->where('idEtudiant',$etuId)->get();
 
+            $listComp = DB::table('competences_etudiant')->pluck('nomCompetence');
+
+
 
 
             return view('etudiant/editProfile',
@@ -98,7 +99,8 @@ class EtudiantController extends Controller
                     "competence"=>$competence,
                     "categorie"=>$categories,
                     'formation'=>$formation,
-                    "lien"=>$lien
+                    "lien"=>$lien,
+                    "listComp" => $listComp,
                 ]); //on retourne la vue de modification du profile de l'étudiant
         }
         return redirect(route('login'));
@@ -300,6 +302,13 @@ class EtudiantController extends Controller
     return redirect(route('edit_profile',["id"=>$idEtu]));
 
     }
+
+    //COMPETENCES
+    public function autocompleteCompetence(Request $request){
+        $data = CompetencesEtudiant::select("nomCompetence as name")->where("nomCompetence","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($data);
+    }
+
 
 
     //GESTION RECHERCHE 

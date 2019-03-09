@@ -154,7 +154,7 @@
                                     @foreach($competence as $c)
                                         <div id="block_competence_{{$comp}}" class="form-group ml-1">
                                             <div class="row">
-                                                <input type="text" class="form-control" name="competence_{{$comp}}" id="competence_{{$comp}}" value="{{$c->nomCompetence}}">
+                                                <input type="text" autocomplete="off" class="typeahead form-control" name="competence_{{$comp}}" id="competence_{{$comp}}" value="{{$c->nomCompetence}}">
                                                 <select class="form-control" name="categorie_{{$comp}}" id="categorie_{{$comp}}">
                                                     @foreach($categorie as $categ)
                                                         @if($c->idCategorie == $categ->id )
@@ -195,8 +195,8 @@
                                     @foreach($formation as $f)
                                         <div id="block_formation_{{$form}}" class="form-group ml-1">
                                             <div class="row">
-                                                <input type="text" class="form-control" name="formation_{{$form}}" id="formation_{{$form}}" value="{{$f->natureFormation}}">
-                                                <input type="text" class="form-control" name="lieu_{{$form}}" id="lieu_{{$form}}" value="{{$f->lieuFormation}}">
+                                                <input type="text" class=" form-control" name="formation_{{$form}}" id="formation_{{$form}}" value="{{$f->natureFormation}}">
+                                                <input type="text" class=" form-control" name="lieu_{{$form}}" id="lieu_{{$form}}" value="{{$f->lieuFormation}}">
                                                 <div class="row">
                                                     <div class="col-6"><input type="date" class="form-control" name="debut_{{$form}}" id="debut_{{$form}}" value="{{$f->debut}}"></div>
                                                     <div class="col-6"><input type="date" class="form-control" name="fin_{{$form}}" id="fin_{{$form}}" value="{{$f->fin}}"></div>
@@ -234,8 +234,8 @@
                                 @foreach($experience as $e)
                                     <div id="block_experience_{{$exp}}" class="form-group ml-1">
                                         <div class="row">
-                                            <input type="text" class="form-control" name="experience_{{$exp}}" id="experience_{{$exp}}" value="{{$e->nom}}">
-                                            <input type="text" class="form-control" name="etablissement_{{$exp}}" id="etablissement_{{$exp}}" value="{{$e->etablissement}}">
+                                            <input type="text" class=" form-control" name="experience_{{$exp}}" id="experience_{{$exp}}" value="{{$e->nom}}">
+                                            <input type="text" class=" form-control" name="etablissement_{{$exp}}" id="etablissement_{{$exp}}" value="{{$e->etablissement}}">
                                             <div class="row">
                                                 <div class="col-6"><input type="date" class="form-control" name="dateDebut_{{$exp}}" id="dateDebut_{{$exp}}" value="{{$e->dateDebut}}"></div>
                                                 <div class="col-6"><input type="date" class="form-control" name="dateFin_{{$exp}}" id="dateFin_{{$exp}}" value="{{$e->dateFin}}"></div>
@@ -275,7 +275,7 @@
                             <div id="block_activite_{{$act}}" class="form-group ml-1">
                                 <div class="row">
                                     <div class="col-11">
-                                        <input type="text" class="form-control" name="activite_{{$act}}" id="activite_{{$act}}" value="{{$a->Interet}}">
+                                        <input type="text" class=" form-control" name="activite_{{$act}}" id="activite_{{$act}}" value="{{$a->Interet}}">
                                     </div>
                                     <div class="col-1">
                                         <button id="deleteActivite_{{$act}}" class="btn btn-danger" data-action="delete" data-target="block_activite_{{$act}}" type="button">X</button>
@@ -353,12 +353,33 @@
             </div>
         </div>
         </div>
+    </div>
 
 
 @endsection
 
 @section('javaScript')
-    <script>
+
+    <script type="text/javascript">
+        function autocompleteComp(){
+            var path = "{{ route('autocompleteCompetence') }}";
+            $('input.typeahead').typeahead({
+                source:  function (query, process) {
+                    return $.get(path, { query: query }, function (data) {
+                        return process(data);
+                    });
+                }
+            });
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+
+
+        autocompleteComp();
+
 
         let boutonAddLien = document.getElementById('add-link'); //Bouton d'ajout de lien
         boutonAddLien.addEventListener('click' , addLinks); //On assigne la fonction d'ajout au bouton après click
@@ -366,14 +387,19 @@
         let boutonAddActivite = document.getElementById('add-activite'); //Bouton d'ajout d'activite
         boutonAddActivite.addEventListener('click' , addActivite); //On assigne la fonction d'ajout au bouton après click
 
+
         let boutonAddExperience = document.getElementById('add-experience'); //Bouton d'ajout d'experience
         boutonAddExperience.addEventListener('click' , addExperience); //On assigne la fonction d'ajout au bouton après click
 
+
         let boutonAddCompetence = document.getElementById('add-competence'); //Bouton d'ajout de competence
         boutonAddCompetence.addEventListener('click' , addCompetence); //On assigne la fonction d'ajout au bouton après click
+        boutonAddCompetence.addEventListener('click' , autocompleteComp); //On assigne la fonction d'ajout au bouton après click
 
         let boutonAddFormation = document.getElementById('add-formation'); //Bouton d'ajout de competence
         boutonAddFormation.addEventListener('click' , addFormation); //On assigne la fonction d'ajout au bouton après click
+
+
 
         let divLiens = document.getElementById('liens');
         let divActivite = document.getElementById('activite');
@@ -454,14 +480,14 @@
             inputFormation.setAttribute("id","formation_"+indexFormation);
             inputFormation.setAttribute("name","formation_"+indexFormation);
             inputFormation.setAttribute("type", "text");
-            inputFormation.setAttribute("class", "form-control");
+            inputFormation.setAttribute("class", " form-control");
             inputFormation.setAttribute("placeholder", "nature de la formation (exemple : DUT Informatique)");
 
             let inputEtablissement = document.createElement("input");
             inputEtablissement.setAttribute("id","lieu_"+indexFormation);
             inputEtablissement.setAttribute("name","lieu_"+indexFormation);
             inputEtablissement.setAttribute("type", "text");
-            inputEtablissement.setAttribute("class", "form-control");
+            inputEtablissement.setAttribute("class", " form-control");
             inputEtablissement.setAttribute("placeholder", "lieu de la formation");
 
             let inputDateDeb = document.createElement("input");
@@ -583,7 +609,7 @@
             inputComp.setAttribute("id","competence_"+indexCompetence);
             inputComp.setAttribute("name","competence_"+indexCompetence);
             inputComp.setAttribute("type", "text");
-            inputComp.setAttribute("class", "form-control");
+            inputComp.setAttribute("class", "typeahead form-control");
             inputComp.setAttribute("placeholder", "Competence");
 
             let inputSelectCategorie = document.createElement("select");
@@ -711,7 +737,7 @@
             inputExperience.setAttribute("id","experience_"+indexExperience);
             inputExperience.setAttribute("name","experience_"+indexExperience);
             inputExperience.setAttribute("type", "text");
-            inputExperience.setAttribute("class", "form-control");
+            inputExperience.setAttribute("class", " form-control");
             inputExperience.setAttribute("placeholder", "Experience");
 
             let inputEtablissement = document.createElement("input");
@@ -1026,4 +1052,5 @@
         }
 
         </script>
-        @endsection
+@endsection
+
