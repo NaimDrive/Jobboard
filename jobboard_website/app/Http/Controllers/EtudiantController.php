@@ -309,6 +309,27 @@ class EtudiantController extends Controller
         return response()->json($data);
     }
 
+    public function autocompleteActivite(Request $request){
+        $data = CentreDInteret::select("Interet as name")->where("Interet","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($data);
+    }
+    public function autocompleteNomFormation(Request $request){
+        $data = Formation::select("natureFormation as name")->where("natureFormation","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($data);
+    }
+    public function autocompleteLieuFormation(Request $request){
+        $data = Formation::select("lieuFormation as name")->where("lieuFormation","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($data);
+    }
+    public function autocompleteNomExperience(Request $request){
+        $data = Formation::select("nom as name")->where("nom","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($data);
+    }
+    public function autocompleteLieuExperience(Request $request){
+        $data = Formation::select("etablissement as name")->where("etablissement","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($data);
+    }
+
 
 
     //GESTION RECHERCHE 

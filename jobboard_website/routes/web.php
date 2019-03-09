@@ -57,6 +57,11 @@ Route::get('/etudiant/{id}','EtudiantController@consulterProfile')->name('consul
 //ROUTES AUTOCOMPLETE
 
 Route::get('autocompleteCompetence', 'EtudiantController@autocompleteCompetence')->name('autocompleteCompetence');
+Route::get('autocompleteActivite', 'EtudiantController@autocompleteActivite')->name('autocompleteActivite');
+Route::get('autocompleteNomFormation', 'EtudiantController@autocompleteNomFormation')->name('autocompleteNomFormation');
+Route::get('autocompleteNomExperience', 'EtudiantController@autocompleteNomExperience')->name('autocompleteNomExperience');
+Route::get('autocompleteLieuExperience', 'EtudiantController@autocompleteLieuExperience')->name('autocompleteLieuExperience');
+Route::get('autocompleteLieuFormation', 'EtudiantController@autocompleteLieuFormation')->name('autocompleteLieuFormation');
 
 
 
