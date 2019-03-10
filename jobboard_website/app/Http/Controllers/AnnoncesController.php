@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Annonces;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AnnoncesController extends Controller
 {
@@ -14,7 +16,47 @@ class AnnoncesController extends Controller
      */
     public function index()
     {
-        //
+        $annonces = Annonces::all();
+        return view('annonce/afficherLesAnnonces', compact('annonces'));
+    }
+
+    public function afficherUneAnnonce($id)
+    {
+        $annonce = Annonces::find($id);
+        return view('annonce/afficherUneAnnonce', ['annonce' => $annonce]);
+    }
+
+    public function modiferUneAnnonce($id)
+    {
+        if (Auth::check()) {
+            foreach (Auth::user()->roles as $role) {
+                if ($role->typeRole == 'ADMIN') {
+                    $annonce = Annonces::find($id);
+                    return view('annonce/modifierUneAnnonce', ['annonce' => $annonce]);
+                }
+                return redirect(route('accueil'));
+            }
+        }
+        return redirect(route('login'));
+    }
+
+    function enregistrerModifAnnonce(Request $request, $id)
+    {
+        $this->validate($request,
+            [
+                "title" => ["required"],
+                "content" => ["required"],
+                "datePublication" => ["required", "date"]
+            ]);
+
+        $input = $request->only(["title", "content", "datePublication"]);
+        DB::table("annonces")->where("id", $id)->update([
+            "title" => $input["title"],
+            "content" => $input["content"],
+            "datePublication" => $input["datePublication"],
+        ]);
+
+        return redirect(route('accueil'));
     }
 
     /**
@@ -24,62 +66,49 @@ class AnnoncesController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::check()) {
+            foreach (Auth::user()->roles as $role) {
+                if ($role->typeRole == "ADMIN") {
+                    return view("annonce/creerUneAnnonce");
+                }
+            }
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    function enregistrerUneAnnonce(Request $request)
     {
-        //
+
+        $this->validate($request,
+            [
+                "title" => ["required"],
+                "content" => ["required"],
+                "datePublication" => ["required", "date"]
+            ]);
+
+        $input = $request->only(["title", "content", "datePublication"]);
+        DB::table("annonces")->insert([
+            "title" => $input["title"],
+            "content" => $input["content"],
+            "datePublication" => $input["datePublication"],
+        ]);
+
+        return redirect(route('accueil'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Annonces  $annonces
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Annonces $annonces)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Annonces  $annonces
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Annonces $annonces)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Annonces  $annonces
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Annonces $annonces)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Annonces  $annonces
+     * @param  \App\Annonces $annonces
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Annonces $annonces)
+    public function destroy($id)
     {
-        //
+        foreach (Auth::user()->roles as $role) {
+            if ($role->typeRole == 'ADMIN') {
+                DB::delete('delete from annonces where id = ?', [$id]);
+            }
+        }
+        return redirect(route('accueil'));
     }
 }

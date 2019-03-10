@@ -121,6 +121,17 @@ Route::get('/forum/editInscription/{id}', 'ForumController@editInscription')->na
 Route::post('/forum/storeEditInscription/{id}', 'ForumController@storeEdit')->name('storeEditInscriptionForum');
 Route::get('/forum/{id}/desinscrire', 'ForumController@desinscrire')->name('desinscrireForum');
 
+//ROUTE POUR LES ANNONCES
+Route::get('/annonce/create','AnnoncesController@create')->name('creerUneAnnonce');
+Route::get('/annonce/modify/{id}','AnnoncesController@modiferUneAnnonce')->name('modifierUneAnnonce');
+Route::post('/annonce/enregistrer','AnnoncesController@enregistrerUneAnnonce')->name('enregistrerUneAnnonce');
+Route::post('/annonce/enregistrerModif/{id}','AnnoncesController@enregistrerModifAnnonce')->name('enregistrerModifAnnonce');
+Route::get('/annonce','AnnoncesController@index')->name('afficherLesAnnonces');
+Route::get('/annonce/{id}','AnnoncesController@afficherUneAnnonce')->name('afficherUneAnnonce');
+Route::get('/forum/delete/{id}','AnnoncesController@destroy')->name('supprimerUneAnnonce');
+
+
+
 //ROUTE DE LA LISTES DES RECHERCHERS
 
 Route::get('/lesrecherches','EtudiantController@listeRecherches')->name('Recherches');
