@@ -13,10 +13,10 @@ class StatSeeder extends Seeder
     public function run()
     {
         DB::table('stat')->insert([
-            'nbEtu' => '0',
-            'nbEnt' => '0',
-            'nbCon' => '0',
-            'nbOff' => '0',
+            'nbEtu' => 0,
+            'nbEnt' => 0,
+            'nbCon' => 0,
+            'nbOff' => 0,
         ]);
     }
 }
