@@ -98,6 +98,8 @@ Route::get('/offre/{id}/save', 'OffreController@sauvegarder')->name('saveOffre')
 Route::get('/offre/{id}/drop', 'OffreController@drop')->name('dropOffre');
 Route::get('/offre/{id}/delete', 'OffreController@delete')->name('deleteOffre');
 
+Route::get('/etudiant/{id}/dropOffreEtu', 'OffreController@dropOffreEtu')->name('dropOffreEtu');
+
 
 //ROUTE D'ACCES A LA LISTE DES OFFRES
 //Route::get('/offres/etu', 'EtudiantController@afficheOffre')->name('offres');

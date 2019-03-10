@@ -234,5 +234,15 @@ class OffreController extends Controller
         }
     }
 
+    function dropOffreEtu($id){
+        if (Auth::check() && $this->isEtu()){
+            DB::table('offre')->where('id',$id)->delete();
+            $etudiant = Etudiant::where('idUser',Auth::id())->first();
+        }
+        if ($etudiant){
+               return view('/etudiant/mesRecherches',['etudiant'=>$etudiant]);
+        }
+    }
+
 
 }
