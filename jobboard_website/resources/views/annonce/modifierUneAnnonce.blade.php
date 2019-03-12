@@ -16,6 +16,8 @@
                             <input type="text" class="form-control" id="content" name="content" value="{{$annonce->content}}"><br>
                             <label for="datePublication">Date de Publication</label>
                             <input type="date" class="form-control" id="datePublication" name="datePublication" value="{{$annonce->datePublication}}" ><br>
+                            <label for="position">Position de l'annonce ? (Vide si non affichée)</label>
+                            <input type="number" class="form-control" id="position" name="position" value="{{$annonce->position}}"><br>
                             <button type="submit" class="btn btn-success btn-lg btn-block">Confirmer</button>
                         </div>
                     </fieldset>

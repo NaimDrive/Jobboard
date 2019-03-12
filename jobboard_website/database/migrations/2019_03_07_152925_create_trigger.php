@@ -76,7 +76,7 @@ class CreateTrigger extends Migration
         END
         ');
 
-        DB::unprepared('
+        /*DB::unprepared('
         CREATE TRIGGER trigger_incremente_etudiant AFTER INSERT on `etudiant` FOR EACH ROW
         BEGIN
             UPDATE stat SET stat.nbEtu = stat.nbEtu + 1;
@@ -88,7 +88,7 @@ class CreateTrigger extends Migration
             UPDATE stat SET stat.nbEnt = stat.nbEnt + 1;
         END
         ');
-        DB::unprepared('
+        /*DB::unprepared('
         CREATE TRIGGER trigger_incremente_contact AFTER INSERT on `contact` FOR EACH ROW
         BEGIN
             UPDATE stat SET stat.nbCon = stat.nbCon + 1;
@@ -99,7 +99,7 @@ class CreateTrigger extends Migration
         BEGIN
             UPDATE stat SET stat.nbOff = stat.nbOff + 1;
         END
-        ');
+        ');*/
     }
 
     /**

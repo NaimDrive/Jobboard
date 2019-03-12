@@ -46,14 +46,16 @@ class AnnoncesController extends Controller
             [
                 "title" => ["required"],
                 "content" => ["required"],
-                "datePublication" => ["required", "date"]
+                "datePublication" => ["required", "date"],
+                "position" => ["required"]
             ]);
 
-        $input = $request->only(["title", "content", "datePublication"]);
+        $input = $request->only(["title", "content", "datePublication","position"]);
         DB::table("annonces")->where("id", $id)->update([
             "title" => $input["title"],
             "content" => $input["content"],
             "datePublication" => $input["datePublication"],
+            "position" => $input["position"],
         ]);
 
         return redirect(route('accueil'));
@@ -82,14 +84,16 @@ class AnnoncesController extends Controller
             [
                 "title" => ["required"],
                 "content" => ["required"],
-                "datePublication" => ["required", "date"]
+                "datePublication" => ["required", "date"],
+                "position" => ["required"]
             ]);
 
-        $input = $request->only(["title", "content", "datePublication"]);
+        $input = $request->only(["title", "content", "datePublication","position"]);
         DB::table("annonces")->insert([
             "title" => $input["title"],
             "content" => $input["content"],
             "datePublication" => $input["datePublication"],
+            "position" => $input["position"],
         ]);
 
         return redirect(route('accueil'));
