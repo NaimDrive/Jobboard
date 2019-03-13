@@ -9,6 +9,7 @@ use App\EntrepriseParticipe;
 use App\Etudiant;
 use App\Forum;
 use App\Offre;
+use App\Recherche;
 use App\User;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
@@ -86,6 +87,18 @@ class UserSeeder extends Seeder
                 $etudiant->rechercheStage = mt_rand(0,1);
                 $etudiant->etudes = (mt_rand(0,1) ? "DUT" : "LP");
                 $etudiant->save();
+
+                if (mt_rand(0,1)) {
+                    $recherche = new Recherche();
+                    $recherche->idEtudiant = $etudiant->id;
+                    $recherche->souhait = $faker->sentence();
+                    $recherche->mobilite = $faker->city;
+                    $dateDebut = $faker->dateTimeBetween('now');
+                    $recherche->dateDebut = $dateDebut;
+                    $duration = mt_rand(2,5);
+                    $recherche->dateFin = (clone $dateDebut)->modify("+$duration months");
+                    $recherche->save();
+                }
             }
             else{
                 $user = new User();

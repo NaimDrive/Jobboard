@@ -17,7 +17,6 @@ class CreateRechercheTable extends Migration
             $table->increments('id');
             
             $table->string('souhait');
-            $table->string('dureeStage');
             $table->date('dateDebut');
             $table->date('dateFin');
             $table->string('mobilite');

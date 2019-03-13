@@ -38,6 +38,26 @@ class InscriptionController extends Controller
 
 
         if ($status == "entreprise"){
+            $messages = [
+                'nom.required' => "Le champ nom ne peut pas être vide.",
+                'nom.string' => "Le champ nom doit contenir une chaine de caractère.",
+                'prenom.required' => "Le champ prénom ne peut pas être vide.",
+                'prenom.string' => "Le champ prénom doit contenir une chaine de caractère.",
+                'email.required' => "Le champ email ne peut pas être vide.",
+                'email.email' => "Le champ email doit être une adresse email.",
+                'email.unique:users'=> "L'adresse email est déjà utilisée.",
+                'photo.image'=> "Le champ photo doit contenir une image.",
+                'civilite.required' => "Le champ civilité ne peut pas être vide.",
+                'password.required' => "Le champ mot de passe ne peut pas être vide.",
+                'password.string' => "Le champ mot de passe doit contenir une chaine de caractère.",
+                'password.min' => "Le mot de passe doit contenir au moins 6 caractère.",
+                'password.confirm' => "Le mot de passe doit être correctement confirmé.",
+                'role.required' => "Le champ role ne peut pas être vide.",
+                'role.string' => "Le champ role doit contenir une chaine de caractère.",
+                'telephone.min' => "Le numéro de téléphone doit contenir 10 caractère.",
+                'telephone.max' => "Le numéro de téléphone doit contenir 10 caractère.",
+            ];
+
             $this->validate($request, [
                 'nom' => ['required','string','max:255'],
                 'prenom' => ['required','string','max:255'],
@@ -51,7 +71,7 @@ class InscriptionController extends Controller
                 'ville' => ['nullable', 'string', 'max:255'],
                 'adresse' => ['nullable', 'string', 'max:255'],
                 'codepostal' => ['nullable', 'string', 'max:5', 'min:5']
-            ]);
+            ],$messages);
 
             $photo = 'images/user-icon.png';
 
@@ -90,6 +110,32 @@ class InscriptionController extends Controller
         }
 
         else{
+
+            $messages = [
+                'nom.required' => "Le champ nom ne peut pas être vide.",
+                'nom.string' => "Le champ nom doit contenir une chaine de caractère.",
+                'prenom.required' => "Le champ prénom ne peut pas être vide.",
+                'prenom.string' => "Le champ prénom doit contenir une chaine de caractère.",
+                'email.required' => "Le champ email ne peut pas être vide.",
+                'email.email' => "Le champ email doit être une adresse email.",
+                'email.unique:users'=> "L'adresse email est déjà utilisée.",
+                'photo.image'=> "Le champ photo doit contenir une image.",
+                'civilite.required' => "Le champ civilité ne peut pas être vide.",
+                'password.required' => "Le champ mot de passe ne peut pas être vide.",
+                'password.string' => "Le champ mot de passe doit contenir une chaine de caractère.",
+                'password.min' => "Le mot de passe doit contenir au moins 6 caractère.",
+                'password.confirm' => "Le mot de passe doit être correctement confirmé.",
+                'dateNaissance.required' => "Le champ date de naissance ne peut pas être vide.",
+                'dateNaissance.string' => "Le champ date de naissance doit contenir une date.",
+                'ville.required' => "Le champ adresse ne peut pas être vide.",
+                'adresse.string' => "Le champ adresse doit contenir une chaine de caractère.",
+                'etudes.required' => "Le champ études ne peut pas être vide.",
+                'etudes.string' => "Le champ études doit contenir une chaine de caractère.",
+                'codepostal.required' => "Le champ code postal ne peut pas être vide.",
+                'codepostal.string' => "Le champ code postal doit contenir une chaine de caractère.",
+                'codepostal.max' => "Le champ code postal doit être composé de 5 chiffres",
+                'codepostal.min' => "Le champ code postal doit être composé de 5 chiffres",
+            ];
             $this->validate($request, [
                 'nom' => ['required','string','max:255'],
                 'prenom' => ['required','string','max:255'],
@@ -103,7 +149,7 @@ class InscriptionController extends Controller
                 'adresse' => ['required', 'string', 'max:255'],
                 'codepostal' => ['required', 'string', 'max:5', 'min:5'],
                 'etudes'=> ['required', 'string'],
-            ]);
+            ],$messages);
 
             $photo = 'images/user-icon.png';
 

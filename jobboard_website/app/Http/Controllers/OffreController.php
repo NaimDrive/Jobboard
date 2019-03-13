@@ -56,6 +56,36 @@ class OffreController extends Controller
 
 
     function enregistrerOffre(Request $request){
+        $messages = [
+            'nomOffre.required' => "Le champ nom de l'offre de peut pas être vide.",
+            'nomOffre.string' => "Le champ nom de l'offre doit être une chaine de caractères.",
+            'nomOffre.min' => "Le champ nom de l'offre doit être composé d'au moins 3 caractères.",
+            'natureOffre.required' => "Le champ nature de l'offre de peut pas être vide.",
+            'natureOffre.string' => "Le champ nature de l'offre doit être une chaine de caractères.",
+            'natureOffre.min' => "Le champ nature de l'offre doit être composé d'au moins 3 caractères.",
+            'dateDebut.required' => "Le champ date de début du stage ne peut pas être vide.",
+            'dateDebut.date' => "Le champ date de début du stage doit être une date.",
+            'dateDebut.after' => "Le stage doit débuter après la date d'aujourd'hui.",
+            'dateFin.required' => "Le champ date de fin du stage ne peut pas être vide.",
+            'dateFin.date' => "Le champ date de fin du stage doit être une date.",
+            'dateFin.after' => "Le stage doit finir après la date de début de stage.",
+            'pre-embauche.required' => "Le champ pre-embauche de peut pas être vide.",
+            'pre-embauche.string' => "Le champ pre-embauche doit être une chaine de caractères.",
+            'pre-embauche.min' => "Le champ pre-embauche doit être composé d'au moins 3 caractères.",
+            'pre-embauche.max' => "Le champ pre-embauche doit être composé d'au plus 8 caractères.",
+            'context.required' => "Le champ contexte de peut pas être vide.",
+            'context.string' => "Le champ contexte doit être une chaine de caractères.",
+            'context.min' => "Le champ contexte doit être composé d'au moins 10 caractères.",
+            'context.max' => "Le champ contexte doit être composé d'au plus 1000 caractères.",
+            'objectif.required' => "Le champ objectif de peut pas être vide.",
+            'objectif.string' => "Le champ objectif doit être une chaine de caractères.",
+            'objectif.min' => "Le champ objectif doit être composé d'au moins 10 caractères.",
+            'objectif.max' => "Le champ objectif doit être composé d'au plus 1000 caractères.",
+            'location.required' => "Le champ localisation du stage ne peut pas être vide.",
+            'depot.file' => "Le format du fichier déposé n'est pas valide",
+            'lienOffre.url' => "Le lien doit être un lien valide : https://www.google.com/",
+        ];
+
         $this->validate($request,[
            "nomOffre" => ["required","string","min:3","max:255"],
             "natureOffre" => ["required","string","min:3","max:255"],
@@ -67,7 +97,7 @@ class OffreController extends Controller
             "location" => ["required"],
             "depot" => ["nullable","file"],
             "lienOffre" => ["nullable","url"]
-        ]);
+        ], $messages);
 
         $depot = null ;
         if($request->hasFile("depot")){
@@ -110,6 +140,36 @@ class OffreController extends Controller
     }
 
     function storeChanges(Request $request ,$id){
+        $messages = [
+            'nomOffre.required' => "Le champ nom de l'offre de peut pas être vide.",
+            'nomOffre.string' => "Le champ nom de l'offre doit être une chaine de caractères.",
+            'nomOffre.min' => "Le champ nom de l'offre doit être composé d'au moins 3 caractères.",
+            'natureOffre.required' => "Le champ nature de l'offre de peut pas être vide.",
+            'natureOffre.string' => "Le champ nature de l'offre doit être une chaine de caractères.",
+            'natureOffre.min' => "Le champ nature de l'offre doit être composé d'au moins 3 caractères.",
+            'dateDebut.required' => "Le champ date de début du stage ne peut pas être vide.",
+            'dateDebut.date' => "Le champ date de début du stage doit être une date.",
+            'dateDebut.after' => "Le stage doit débuter après la date d'aujourd'hui.",
+            'dateFin.required' => "Le champ date de fin du stage ne peut pas être vide.",
+            'dateFin.date' => "Le champ date de fin du stage doit être une date.",
+            'dateFin.after' => "Le stage doit finir après la date de début de stage.",
+            'pre-embauche.required' => "Le champ pre-embauche de peut pas être vide.",
+            'pre-embauche.string' => "Le champ pre-embauche doit être une chaine de caractères.",
+            'pre-embauche.min' => "Le champ pre-embauche doit être composé d'au moins 3 caractères.",
+            'pre-embauche.max' => "Le champ pre-embauche doit être composé d'au plus 8 caractères.",
+            'context.required' => "Le champ contexte de peut pas être vide.",
+            'context.string' => "Le champ contexte doit être une chaine de caractères.",
+            'context.min' => "Le champ contexte doit être composé d'au moins 10 caractères.",
+            'context.max' => "Le champ contexte doit être composé d'au plus 1000 caractères.",
+            'objectif.required' => "Le champ objectif de peut pas être vide.",
+            'objectif.string' => "Le champ objectif doit être une chaine de caractères.",
+            'objectif.min' => "Le champ objectif doit être composé d'au moins 10 caractères.",
+            'objectif.max' => "Le champ objectif doit être composé d'au plus 1000 caractères.",
+            'location.required' => "Le champ localisation du stage ne peut pas être vide.",
+            'depot.file' => "Le format du fichier déposé n'est pas valide",
+            'lienOffre.url' => "Le lien doit être un lien valide : https://www.google.com/",
+        ];
+
         $this->validate($request,[
             "nomOffre" => ["required","string","min:3","max:255"],
             "natureOffre" => ["required","string","min:3","max:255"],
@@ -121,7 +181,7 @@ class OffreController extends Controller
             "location" => ["required"],
             "depot" => ["nullable","file"],
             "lienOffre" => ["nullable","url"]
-        ]);
+        ], $messages);
 
         $depot = null ;
         if($request->hasFile("depot")){

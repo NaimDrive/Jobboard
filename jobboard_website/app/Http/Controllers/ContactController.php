@@ -33,6 +33,22 @@ class ContactController extends Controller
     }
 
     function storeChanges(Request $request){
+        $messages = [
+            'nom.required' => "Le champ nom ne peut pas être vide.",
+            'nom.string' => "Le champ nom doit contenir une chaine de caractère.",
+            'prenom.required' => "Le champ prénom ne peut pas être vide.",
+            'prenom.string' => "Le champ prénom doit contenir une chaine de caractère.",
+            'email.required' => "Le champ email ne peut pas être vide.",
+            'email.email' => "Le champ email doit être une adresse email.",
+            'email.unique:users'=> "L'adresse email est déjà utilisée.",
+            'photo.image'=> "Le champ photo doit contenir une image.",
+            'civilite.required' => "Le champ civilité ne peut pas être vide.",
+            'role.required' => "Le champ role ne peut pas être vide.",
+            'role.string' => "Le champ role doit contenir une chaine de caractère.",
+            'telephone.min' => "Le numéro de téléphone doit contenir 10 caractère.",
+            'telephone.max' => "Le numéro de téléphone doit contenir 10 caractère.",
+            'actif.required' => "Il faut définir la visibilité du profil sur le site"
+        ];
 
         $this->validate($request,[
             'nom' => ['required','string','max:255'],
@@ -45,7 +61,7 @@ class ContactController extends Controller
             'entreprise' => ['required'],
             'idUser' => ['required'],
             'actif' => ['required', 'integer'],
-        ]);
+        ], $messages);
 
         $photo = null;
 
