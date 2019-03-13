@@ -7,7 +7,7 @@
             <div class=" col-lg-6">
                 <form method="POST" action="{{route('enregistrerModifForum',["id"=>$forum->id])}}">
                     {!! csrf_field() !!}
-                    <h1>Création d'un forum</h1>
+                    <h1>Modifier le forum</h1>
                     <fieldset>
                         <div class="form-group">
                             <label for="dateForum">Date du forum</label>

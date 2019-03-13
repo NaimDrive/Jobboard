@@ -45,6 +45,61 @@ class CreateTrigger extends Migration
             DELETE FROM `entreprise_participes` WHERE `idForum` = OLD.id;
         END
         ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_competences_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `competences_etudiant` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_formations_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `formation` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_experiences_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `experience` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_liens_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `reference_lien` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_update_activites_etudiant AFTER UPDATE on `etudiant` FOR EACH ROW
+        BEGIN
+            DELETE FROM `centre_d_interet` WHERE `idEtudiant` = NEW.id;
+        END
+        ');
+
+        /*DB::unprepared('
+        CREATE TRIGGER trigger_incremente_etudiant AFTER INSERT on `etudiant` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET stat.nbEtu = stat.nbEtu + 1;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_incremente_entreprise AFTER INSERT on `entreprise` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET stat.nbEnt = stat.nbEnt + 1;
+        END
+        ');
+        /*DB::unprepared('
+        CREATE TRIGGER trigger_incremente_contact AFTER INSERT on `contact` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET stat.nbCon = stat.nbCon + 1;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_incremente_etudiant AFTER INSERT on `offre` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET stat.nbOff = stat.nbOff + 1;
+        END
+        ');*/
     }
 
     /**
@@ -59,5 +114,10 @@ class CreateTrigger extends Migration
         DB::unprepared('DROP TRIGGER `trigger_update_contact_inactif`');
         DB::unprepared('DROP TRIGGER `trigger_delete_entreprise_participe`');
         DB::unprepared('DROP TRIGGER `trigger_delete_forum`');
+        DB::unprepared('DROP TRIGGER `trigger_update_competences`');
+        DB::unprepared('DROP TRIGGER `trigger_update_formations`');
+        DB::unprepared('DROP TRIGGER `trigger_update_experiences`');
+        DB::unprepared('DROP TRIGGER `trigger_update_liens`');
+        DB::unprepared('DROP TRIGGER `trigger_update_activites`');
     }
 }

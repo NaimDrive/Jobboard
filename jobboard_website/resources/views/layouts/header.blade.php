@@ -53,9 +53,11 @@
                             @if(Auth::user()->isAdmin())
                                 <a href="{{ route('password') }}" class="dropdown-item">Modifier mon mot de passe</a>
                                 <hr>
-                                <a class="dropdown-item" href="{{route('admin')}}">Admin</a>
+                                <a class="dropdown-item" href="{{route('admin')}}">Tableau de bord</a>
                                 <hr>
                                 <a class="dropdown-item" href="{{route('afficherLesForums')}}">Forum</a>
+                                <hr>
+                                <a class="dropdown-item" href="{{route('afficherLesAnnonces')}}">Annonces</a>
                                 <hr>
                             @endif
                             @if(Auth::user()->isEtudiant())

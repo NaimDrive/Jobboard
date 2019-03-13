@@ -54,6 +54,16 @@ Route::post('/etudiant/enregistrerModifs','EtudiantController@enregistrerModifs'
 Route::get('/etudiant/{id}/edit_profile','EtudiantController@modifierProfile')->name('edit_profile');
 Route::get('/etudiant/{id}','EtudiantController@consulterProfile')->name('consult_profile');
 
+//ROUTES AUTOCOMPLETE
+
+Route::get('autocompleteCompetence', 'EtudiantController@autocompleteCompetence')->name('autocompleteCompetence');
+Route::get('autocompleteActivite', 'EtudiantController@autocompleteActivite')->name('autocompleteActivite');
+Route::get('autocompleteNomFormation', 'EtudiantController@autocompleteNomFormation')->name('autocompleteNomFormation');
+Route::get('autocompleteNomExperience', 'EtudiantController@autocompleteNomExperience')->name('autocompleteNomExperience');
+Route::get('autocompleteLieuExperience', 'EtudiantController@autocompleteLieuExperience')->name('autocompleteLieuExperience');
+Route::get('autocompleteLieuFormation', 'EtudiantController@autocompleteLieuFormation')->name('autocompleteLieuFormation');
+
+
 
 //ROUTES POST D'AJOUT/MODIF D'ENTREPRISE
 Route::get('/entreprise/create','EntrepriseController@createEntreprise')->name('creerEntreprise');
@@ -88,6 +98,8 @@ Route::get('/offre/{id}/save', 'OffreController@sauvegarder')->name('saveOffre')
 Route::get('/offre/{id}/drop', 'OffreController@drop')->name('dropOffre');
 Route::get('/offre/{id}/delete', 'OffreController@delete')->name('deleteOffre');
 
+Route::get('/etudiant/{id}/dropOffreEtu', 'OffreController@dropOffreEtu')->name('dropOffreEtu');
+
 
 //ROUTE D'ACCES A LA LISTE DES OFFRES
 //Route::get('/offres/etu', 'EtudiantController@afficheOffre')->name('offres');
@@ -110,6 +122,17 @@ Route::post('/forum/store/{id}', 'ForumController@storeInscription')->name('stro
 Route::get('/forum/editInscription/{id}', 'ForumController@editInscription')->name('editInscriptionForum');
 Route::post('/forum/storeEditInscription/{id}', 'ForumController@storeEdit')->name('storeEditInscriptionForum');
 Route::get('/forum/{id}/desinscrire', 'ForumController@desinscrire')->name('desinscrireForum');
+
+//ROUTE POUR LES ANNONCES
+Route::get('/annonce/create','AnnoncesController@create')->name('creerUneAnnonce');
+Route::get('/annonce/modify/{id}','AnnoncesController@modiferUneAnnonce')->name('modifierUneAnnonce');
+Route::post('/annonce/enregistrer','AnnoncesController@enregistrerUneAnnonce')->name('enregistrerUneAnnonce');
+Route::post('/annonce/enregistrerModif/{id}','AnnoncesController@enregistrerModifAnnonce')->name('enregistrerModifAnnonce');
+Route::get('/annonce','AnnoncesController@index')->name('afficherLesAnnonces');
+Route::get('/annonce/{id}','AnnoncesController@afficherUneAnnonce')->name('afficherUneAnnonce');
+Route::get('/forum/delete/{id}','AnnoncesController@destroy')->name('supprimerUneAnnonce');
+
+
 
 //ROUTE DE LA LISTES DES RECHERCHERS
 

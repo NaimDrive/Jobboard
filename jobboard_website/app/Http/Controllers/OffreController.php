@@ -280,8 +280,7 @@ class OffreController extends Controller
         if (Auth::check() && Auth::user()->isEtudiant()){
             $etudiant = Etudiant::where('idUser',Auth::id())->first();
             if ($etudiant){
-                $offres = $etudiant->offreSaved;
-                return view('/etudiant/mesRecherches',['offres'=>$offres]);
+                return view('/etudiant/mesRecherches',['etudiant'=>$etudiant]);
             }
 
         }
@@ -292,6 +291,16 @@ class OffreController extends Controller
         if(Auth::check() && $this->peutModifier($id)){
             DB::table('offre')->where('id',$id)->delete();
             return view('validationSuppression');
+        }
+    }
+
+    function dropOffreEtu($id){
+        if (Auth::check() && $this->isEtu()){
+            DB::table('offre')->where('id',$id)->delete();
+            $etudiant = Etudiant::where('idUser',Auth::id())->first();
+        }
+        if ($etudiant){
+               return view('/etudiant/mesRecherches',['etudiant'=>$etudiant]);
         }
     }
 

@@ -18,6 +18,7 @@ class CreateAnnoncesTable extends Migration
             $table->string('title');
             $table->longText('content');
             $table->date('datePublication');
+            $table->integer('position');
             $table->timestamps();
         });
     }
