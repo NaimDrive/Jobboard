@@ -52,7 +52,7 @@ class EtudiantController extends Controller
                     'liens'=>$liens, //Les liens externes de l'étudiant
                 ]);
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function modifierProfile($id)
@@ -95,7 +95,7 @@ class EtudiantController extends Controller
                     "listComp" => $listComp,
                 ]); //on retourne la vue de modification du profile de l'étudiant
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function enregistrerModifs(Request $request){
@@ -342,7 +342,7 @@ class EtudiantController extends Controller
 
             return view('etudiant/createRecherche', ["recherche"=>$recherche, "id"=>$id]); //on retourne la vue de modification du profile de l'étudiant
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function enregistrerRechercheOffre(Request $request)
@@ -396,7 +396,7 @@ class EtudiantController extends Controller
                 $etudiants = Etudiant::where("actif",1)->paginate(10);
                 return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
             }
-            return redirect(route('login'));
+            return redirect(route('register'));
         }
         
         function listeRecherches(){
@@ -405,7 +405,7 @@ class EtudiantController extends Controller
                 $recherche = Recherche::paginate(10);
                 return view('/etudiant/listeRecherches',/*['etudiants'=>$etudiants],*/['recherches'=>$recherche]);
             }
-            return redirect(route('login'));
+            return redirect(route('register'));
 
         }
 

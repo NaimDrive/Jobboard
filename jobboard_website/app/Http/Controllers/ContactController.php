@@ -29,7 +29,7 @@ class ContactController extends Controller
             }
             return redirect(route('accueil'));
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function storeChanges(Request $request){
@@ -121,7 +121,7 @@ class ContactController extends Controller
                 return view('contact/unContact',['contact'=>$contact]);
             return redirect(route('accueil'));
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
 
     }
 
@@ -131,6 +131,6 @@ class ContactController extends Controller
             $contacts = ContactEntreprise::where('actif',1)->paginate(10);
             return view('contact/toutContacts',['contacts'=>$contacts]);
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 }

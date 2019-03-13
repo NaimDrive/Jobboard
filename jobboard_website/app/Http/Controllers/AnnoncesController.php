@@ -37,7 +37,7 @@ class AnnoncesController extends Controller
                 return redirect(route('accueil'));
             }
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function enregistrerModifAnnonce(Request $request, $id)

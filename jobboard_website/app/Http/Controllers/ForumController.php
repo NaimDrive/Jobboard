@@ -29,7 +29,7 @@ class ForumController extends Controller
            return view("forum/afficherUnForum",["forum"=>$forum, 'contact'=>$contact, 'participe'=>$participe]);
 
        }
-       return redirect(route('login'));
+       return redirect(route('register'));
 
    }
 
@@ -49,7 +49,7 @@ class ForumController extends Controller
                return redirect(route('accueil'));
            }
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
    }
 
    function enregistrerModifForum(Request $request, $id){
@@ -93,7 +93,7 @@ class ForumController extends Controller
            }
            return redirect(route('accueil'));
        }
-       return redirect(route('login'));
+       return redirect(route('register'));
 
    }
 
@@ -208,7 +208,7 @@ class ForumController extends Controller
            }
            return redirect(route('accueil'));
        }
-       return redirect(route('login'));
+       return redirect(route('register'));
 
    }
 
