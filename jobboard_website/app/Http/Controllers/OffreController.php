@@ -280,7 +280,8 @@ class OffreController extends Controller
         if (Auth::check() && Auth::user()->isEtudiant()){
             $etudiant = Etudiant::where('idUser',Auth::id())->first();
             if ($etudiant){
-                return view('/etudiant/mesRecherches',['etudiant'=>$etudiant]);
+                $offres = $etudiant->offresSaved()->paginate(10);
+                return view('/etudiant/mesRecherches',['offres'=>$offres, 'etudiant'=>$etudiant]);
             }
 
         }
