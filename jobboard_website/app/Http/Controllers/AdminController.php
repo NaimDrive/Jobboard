@@ -8,6 +8,7 @@ use App\Entreprise;
 use App\Etudiant;
 use App\Http\Middleware\Authenticate;
 use App\Offre;
+use App\Stat;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -18,19 +19,17 @@ class AdminController
 {
     public function index()
     {
-        $nbEtu = Etudiant::query()->count();
-        $nbEnt = Entreprise::query()->count();
-        $nbCont = ContactEntreprise::query()->count();
-        $nbOf = Offre::query()->count();
 
         $etudiants = Etudiant::all()->sortByDesc('id')->take(8);
         $entreprises = Entreprise::all()->sortByDesc('id')->take(5);
         $contacts = ContactEntreprise::all()->sortByDesc('id')->take(8);
         $offres = Offre::all()->sortByDesc('id')->take(2);
 
+        $stat = Stat::all();
+
         foreach(Auth::user()->roles as $role) {
             if ($role->typeRole == 'ADMIN') {
-                return view('administrateur/admin', compact('entreprises', 'etudiants', 'contacts', 'offres', 'nbEnt', 'nbEtu', 'nbCont', 'nbOf'));
+                return view('administrateur/admin', compact('entreprises','stat', 'etudiants', 'contacts', 'offres'));
             }
         }
         return redirect(route('accueil'));
