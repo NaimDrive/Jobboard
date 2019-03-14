@@ -110,7 +110,7 @@ class EtudiantController extends Controller
 
         $this->validate($request,
             [
-                "nom" => ['required', "string", "max:255"],
+                'nom' => ['required', "string", "max:255"],
                 "prenom" => ['required', "string", "max:255"],
                 "naissance" => ['required', "date", "before:today"],
                 "civilite" => ['required', "string", "max:255"],
@@ -125,6 +125,7 @@ class EtudiantController extends Controller
                 "nbExperience" => ['required'],
                 "nbActivite" => ['required'],
                 "nbLiens" => ['required'],
+                ['nom.required' => 'Veuillez saisir un nom valide' ]
             ]);
 
         $compteurCompetence = $request["nbCompetence"]+=0;
