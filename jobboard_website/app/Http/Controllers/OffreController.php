@@ -122,8 +122,8 @@ class OffreController extends Controller
         $description = $request->only(["contexte","objectif","location"]);
 
         DB::table("description_offre")->insert([
-           "contexte" => nl2br($description["contexte"]),
-            "objectif" => nl2br($description["objectif"]),
+           "contexte" => preg_replace("#<script.*?</script>#","",nl2br($description["contexte"])),
+            "objectif" => preg_replace("#<script.*?</script>#","",nl2br($description["objectif"])),
             "idOffre" => $idOffre,
             "location" => $description["location"]
         ]);
@@ -224,8 +224,8 @@ class OffreController extends Controller
         $description = $request->only(["contexte","objectif","location"]);
 
         DB::table("description_offre")->where('idOffre',$id)->update([
-            "contexte" => nl2br($description["contexte"]),
-            "objectif" => nl2br($description["objectif"]),
+            "contexte" => preg_replace("#<script.*?</script>#","",nl2br($description["contexte"])),
+            "objectif" => preg_replace("#<script.*?</script>#","",nl2br($description["objectif"])),
             "location" => $description["location"]
         ]);
 

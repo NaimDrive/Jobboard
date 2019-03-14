@@ -54,7 +54,7 @@ class EntrepriseController extends Controller
         $entreprise = DB::table("entreprise")->insertGetId([
             "nom" => $input["nom"],
             "siret" => $input["siret"],
-            "description" => nl2br($input["description"]),
+            "description" => preg_replace("#<script.*?</script>#","",nl2br($input["description"])),
             "createur" => $contactID,
             "actif" => 1
         ]);
@@ -272,11 +272,10 @@ class EntrepriseController extends Controller
 
         $input=$request->only(["nom","siret","description","createur","actif"]);
 
-
         DB::table("entreprise")->where('id',$entreprise->id)->update([
             "nom" => $input["nom"],
             "siret" => $input["siret"],
-            "description" => nl2br($input["description"]),
+            "description" => preg_replace("#<script.*?</script>#","",nl2br($input["description"])),
             "createur" => $input["createur"],
             "actif" => $input["actif"],
         ]);

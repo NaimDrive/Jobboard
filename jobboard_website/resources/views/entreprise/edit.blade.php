@@ -40,7 +40,7 @@
                                 <label for="description" class="col-md-4 col-form-label text-md-right">
                                     Description
                                 </label>
-                                <textarea name="description" id="description" class="form-control col-md-6" placeholder="Description de votre entreprise">{{ $entreprise->description }}</textarea>
+                                <textarea name="description" id="description" class="form-control col-md-6" placeholder="Description de votre entreprise">{{ str_replace("<br />", "",$entreprise->description) }}</textarea>
                             </div>
 
                             <div class="form-group row">
