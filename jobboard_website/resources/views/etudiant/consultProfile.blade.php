@@ -107,20 +107,24 @@
                 @if(count($competences)==0)
                     <p> Pas de compétences communiquées </p>
                 @else
+                    @php($iteration=0)
                     @foreach($categories as $categorie)
                         <table class="table table-hover">
                             <tbody>
                             @endforeach
                             @foreach($competences as $competence)
-                                <tr class="table-active">
+                                <tr class="table-active" id="level_{{$iteration}}">
                                     <th scope="row">{{$competence->nomCompetence}}</th>
                                     <td>
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{$competence->niveauEstime}}%"></div>
+                                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: {{$competence->niveauEstime}}%">
+                                                <div class="niveau niveau-inactive" id="niveauCompetence_{{$iteration}}">{{$competence->niveauEstime}}%</div>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
+                                @php($iteration++)
                             @endforeach
                             </tbody>
 
@@ -165,4 +169,31 @@
         </div>
     </div>
 @endsection
+
+@section('javaScript')
+    <script>
+
+        var iteration = parseInt({{$iteration}});
+
+        for(let i=0;i<iteration;i++){
+            document.getElementById('level_'+i).addEventListener('mouseover',function(){showLevel(i);});
+            document.getElementById('level_'+i).addEventListener('mouseout',function(){hideLevel(i);});
+        }
+
+
+        function showLevel(valDiv){
+            console.log('survol competence: '+valDiv);
+            document.getElementById('niveauCompetence_'+valDiv).setAttribute("class","niveau niveau-active");
+        }
+
+        function hideLevel(valDiv){
+            console.log('stop survol competence: '+valDiv);
+            document.getElementById('niveauCompetence_'+valDiv).setAttribute("class","niveau niveau-inactive");
+        }
+
+    </script>
+
+@endsection
+
+
 
