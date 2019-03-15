@@ -88,6 +88,19 @@
 
                 </div>
 
+                <div class="card mt-5">
+                    @if ($entreprise->forums != null)
+                        <h2 class="card-header">Nous participons</h2>
+                        <div class="card-body">
+                            @foreach($entreprise->forums as $forum)
+                                <div class="border p-3 mt-2">
+                                    <a href="{{route("afficherUnForum",["id"=>$forum->id])}}">Le forum du {{date('d/m/Y',strtotime($forum->date))}}</a>
+                                </div>
+                            @endforeach
+                        </div>    
+                    @endif
+                </div>
+
 
             </div>
 

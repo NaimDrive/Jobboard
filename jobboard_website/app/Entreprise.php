@@ -23,4 +23,8 @@ class Entreprise extends Model
     public function getCreateur() {
         return $this->belongsTo('App\ContactEntreprise', 'createur');
     }
+
+    public function forums(){
+        return $this->belongsToMany("App\Forum",'entreprise_participes','idEntreprise','idForum');
+    }
 }
