@@ -14,7 +14,7 @@
                     <div class="border p-3 mt-2">
                         <p>{{ $entreprise->nom }}</p>
                         <p>SIRET : {{ $entreprise->siret }}</p>
-                        <p class="text-justify">{{ $entreprise->description }}</p>
+                        <p class="text-justify">{!! $entreprise->description !!}</p>
                         <a href="{{route("afficherUneEntreprise",["id"=>$entreprise->id])}}" class="btn btn-success">Voir l'entreprise</a>
 
                     </div>

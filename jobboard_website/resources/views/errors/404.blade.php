@@ -7,7 +7,7 @@
     <div class="container text-center mt-7">
         <h1 class="titre">OOPS</h1>
         
-        <p class="col-7 mx-auto text-center sous">404-Page inéxistante</p>
+        <p class="col-7 mx-auto text-center sous">404-Page inexistante</p>
         <br>
         <br>
 

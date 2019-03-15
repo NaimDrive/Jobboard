@@ -52,7 +52,7 @@ class EtudiantController extends Controller
                     'liens'=>$liens, //Les liens externes de l'étudiant
                 ]);
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function modifierProfile($id)
@@ -95,7 +95,7 @@ class EtudiantController extends Controller
                     "listComp" => $listComp,
                 ]); //on retourne la vue de modification du profile de l'étudiant
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function enregistrerModifs(Request $request){
@@ -110,7 +110,7 @@ class EtudiantController extends Controller
 
         $this->validate($request,
             [
-                "nom" => ['required', "string", "max:255"],
+                'nom' => ['required', "string", "max:255"],
                 "prenom" => ['required', "string", "max:255"],
                 "naissance" => ['required', "date", "before:today"],
                 "civilite" => ['required', "string", "max:255"],
@@ -125,6 +125,7 @@ class EtudiantController extends Controller
                 "nbExperience" => ['required'],
                 "nbActivite" => ['required'],
                 "nbLiens" => ['required'],
+                ['nom.required' => 'Veuillez saisir un nom valide' ]
             ]);
 
         $compteurCompetence = $request["nbCompetence"]+=0;
@@ -342,7 +343,7 @@ class EtudiantController extends Controller
 
             return view('etudiant/createRecherche', ["recherche"=>$recherche, "id"=>$id]); //on retourne la vue de modification du profile de l'étudiant
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function enregistrerRechercheOffre(Request $request)
@@ -351,20 +352,18 @@ class EtudiantController extends Controller
         $this->validate($request,
                 [
                     "souhait"=> "required",
-                    "duree"=> "required",
                     "dateD"=> "required",
                     "dateF"=> "required",
                     "mobilité"=> "required",
                     "idEtu" => "required",
                 ]);
 
-        $input=$request->only(["souhait","duree","dateD","dateF","mobilité","idEtu"]);
+        $input=$request->only(["souhait","dateD","dateF","mobilité","idEtu"]);
 
             
 
         DB::table('recherche')->insert([
                 "souhait" => $input["souhait"],
-                "dureeStage" => $input["duree"],
                 "dateDebut" => $input["dateD"],
                 "dateFin" => $input["dateF"],
                 "mobilite" => $input["mobilité"],
@@ -396,7 +395,7 @@ class EtudiantController extends Controller
                 $etudiants = Etudiant::where("actif",1)->paginate(10);
                 return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
             }
-            return redirect(route('login'));
+            return redirect(route('register'));
         }
         
         function listeRecherches(){
@@ -405,7 +404,7 @@ class EtudiantController extends Controller
                 $recherche = Recherche::paginate(10);
                 return view('/etudiant/listeRecherches',/*['etudiants'=>$etudiants],*/['recherches'=>$recherche]);
             }
-            return redirect(route('login'));
+            return redirect(route('register'));
 
         }
 

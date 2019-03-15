@@ -16,7 +16,7 @@
 
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title">Etudiants <span class="badge badge-pill badge-dark">{{ $nbEtu }}</span> </h4>
+                    <h4 class="card-title">Etudiants <span class="badge badge-pill badge-dark">{{ $stat[0]->nbEtu }}</span> </h4>
                     <hr>
                     @if($etudiants->isEmpty())
                         <div class="empty_foreach">
@@ -35,7 +35,7 @@
 
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title text-center">Entreprises <span class="badge badge-pill badge-dark">{{ $nbEnt }}</span> </h4>
+                    <h4 class="card-title text-center">Entreprises <span class="badge badge-pill badge-dark">{{ $stat[0]->nbEnt }}</span> </h4>
                     <hr>
                     @if($entreprises->isEmpty())
                         <div class="empty_foreach">
@@ -54,7 +54,7 @@
 
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title text-center">Contacts <span class="badge badge-pill badge-dark">{{ $nbCont }}</span> </h4>
+                    <h4 class="card-title text-center">Contacts <span class="badge badge-pill badge-dark">{{ $stat[0]->nbCon }}</span> </h4>
                     <hr>
                     @if($contacts->isEmpty())
                         <div class="empty_foreach">
@@ -73,7 +73,7 @@
 
             <div class="card text-center col-12 col-md-3">
                 <div class="card-body">
-                    <h4 class="card-title text-center">Offres <span class="badge badge-pill badge-dark">{{ $nbOf }}</span> </h4>
+                    <h4 class="card-title text-center">Offres <span class="badge badge-pill badge-dark">{{ $stat[0]->nbOff }}</span> </h4>
                     <hr>
                     @if($offres->isEmpty())
                         <div class="empty_foreach">

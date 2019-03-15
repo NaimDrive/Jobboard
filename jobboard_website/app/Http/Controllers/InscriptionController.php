@@ -15,7 +15,7 @@ class InscriptionController extends Controller
             return redirect(route('logout'));
 
         }
-        return view('auth/register');
+        return view('auth/connexion');
     }
 
     public function isEntreprise(Request $request){
@@ -192,7 +192,7 @@ class InscriptionController extends Controller
             return redirect(route('accueil'));
         }
 
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
 

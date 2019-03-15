@@ -22,3 +22,18 @@
     width: 45%;
     height: 150px;
 }
+
+.niveau-active{
+    visibility:visible;
+}
+
+.niveau-inactive{
+    visibility:hidden;
+}
+
+.niveau{
+    position:absolute;
+    padding: 0.6em;
+    color: #000;
+}
+

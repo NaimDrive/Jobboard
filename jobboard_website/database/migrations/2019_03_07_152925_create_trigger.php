@@ -76,30 +76,30 @@ class CreateTrigger extends Migration
         END
         ');
 
-        /*DB::unprepared('
+        DB::unprepared('
         CREATE TRIGGER trigger_incremente_etudiant AFTER INSERT on `etudiant` FOR EACH ROW
         BEGIN
-            UPDATE stat SET stat.nbEtu = stat.nbEtu + 1;
+            UPDATE stat SET nbEtu = nbEtu + 1;
         END
         ');
         DB::unprepared('
         CREATE TRIGGER trigger_incremente_entreprise AFTER INSERT on `entreprise` FOR EACH ROW
         BEGIN
-            UPDATE stat SET stat.nbEnt = stat.nbEnt + 1;
-        END
-        ');
-        /*DB::unprepared('
-        CREATE TRIGGER trigger_incremente_contact AFTER INSERT on `contact` FOR EACH ROW
-        BEGIN
-            UPDATE stat SET stat.nbCon = stat.nbCon + 1;
+            UPDATE stat SET nbEnt = nbEnt + 1;
         END
         ');
         DB::unprepared('
-        CREATE TRIGGER trigger_incremente_etudiant AFTER INSERT on `offre` FOR EACH ROW
+        CREATE TRIGGER trigger_incremente_contact AFTER INSERT on `contact_entreprise` FOR EACH ROW
         BEGIN
-            UPDATE stat SET stat.nbOff = stat.nbOff + 1;
+            UPDATE stat SET nbCon = nbCon + 1;
         END
-        ');*/
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_incremente_offre AFTER INSERT on `offre` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET nbOff = nbOff + 1;
+        END
+        ');
     }
 
     /**
@@ -119,5 +119,6 @@ class CreateTrigger extends Migration
         DB::unprepared('DROP TRIGGER `trigger_update_experiences`');
         DB::unprepared('DROP TRIGGER `trigger_update_liens`');
         DB::unprepared('DROP TRIGGER `trigger_update_activites`');
+        DB::unprepared('DROP TRIGGER trigger_incremente_etudiant');
     }
 }

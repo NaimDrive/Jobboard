@@ -16,7 +16,7 @@ class EditPasswordController extends Controller
             $user = Auth::user();
             return view('auth/editPassword', ['user'=>$user]);
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     public function storeEditPassword(Request $request){

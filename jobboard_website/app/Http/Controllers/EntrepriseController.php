@@ -22,7 +22,7 @@ class EntrepriseController extends Controller
             $contacts = DB::table('contact_entreprise')->where('idEntreprise',null)->get();
             return view('entreprise/createEntreprise', ['contacts' => $contacts]);
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function enregistrerEntreprise(Request $request){
@@ -54,7 +54,7 @@ class EntrepriseController extends Controller
         $entreprise = DB::table("entreprise")->insertGetId([
             "nom" => $input["nom"],
             "siret" => $input["siret"],
-            "description" => $input["description"],
+            "description" => preg_replace("#<script.*?</script>#","",nl2br($input["description"])),
             "createur" => $contactID,
             "actif" => 1
         ]);
@@ -179,7 +179,7 @@ class EntrepriseController extends Controller
             }
             return redirect(route('accueil'));
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function storeChanges(Request $request, $id){
@@ -272,11 +272,10 @@ class EntrepriseController extends Controller
 
         $input=$request->only(["nom","siret","description","createur","actif"]);
 
-
         DB::table("entreprise")->where('id',$entreprise->id)->update([
             "nom" => $input["nom"],
             "siret" => $input["siret"],
-            "description" => $input["description"],
+            "description" => preg_replace("#<script.*?</script>#","",nl2br($input["description"])),
             "createur" => $input["createur"],
             "actif" => $input["actif"],
         ]);
@@ -341,7 +340,7 @@ class EntrepriseController extends Controller
                 return view('entreprise/uneEntreprise',['entreprise'=>$entreprise]);
             return redirect(route('accueil'));
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function afficherToutes(){
@@ -349,7 +348,7 @@ class EntrepriseController extends Controller
             $entreprises = Entreprise::where('actif',1)->paginate(10);
             return view('entreprise/toutesEntreprises',['entreprises'=>$entreprises]);
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
 }

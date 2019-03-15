@@ -122,8 +122,8 @@ class OffreController extends Controller
         $description = $request->only(["contexte","objectif","location"]);
 
         DB::table("description_offre")->insert([
-           "contexte" => $description["contexte"],
-            "objectif" => $description["objectif"],
+           "contexte" => preg_replace("#<script.*?</script>#","",nl2br($description["contexte"])),
+            "objectif" => preg_replace("#<script.*?</script>#","",nl2br($description["objectif"])),
             "idOffre" => $idOffre,
             "location" => $description["location"]
         ]);
@@ -224,8 +224,8 @@ class OffreController extends Controller
         $description = $request->only(["contexte","objectif","location"]);
 
         DB::table("description_offre")->where('idOffre',$id)->update([
-            "contexte" => $description["contexte"],
-            "objectif" => $description["objectif"],
+            "contexte" => preg_replace("#<script.*?</script>#","",nl2br($description["contexte"])),
+            "objectif" => preg_replace("#<script.*?</script>#","",nl2br($description["objectif"])),
             "location" => $description["location"]
         ]);
 
@@ -237,7 +237,7 @@ class OffreController extends Controller
             $offre = Offre::find($id);
             return view('offre/uneOffre',['offre'=>$offre]);
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function afficherOffres() {
@@ -245,7 +245,7 @@ class OffreController extends Controller
             $offres = DB::table('offre')->paginate(10);
             return view('offre/afficherOffres', ['offres' => $offres]);
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
 
@@ -280,11 +280,12 @@ class OffreController extends Controller
         if (Auth::check() && Auth::user()->isEtudiant()){
             $etudiant = Etudiant::where('idUser',Auth::id())->first();
             if ($etudiant){
-                return view('/etudiant/mesRecherches',['etudiant'=>$etudiant]);
+                $offres = $etudiant->offresSaved()->paginate(10);
+                return view('/etudiant/mesRecherches',['offres'=>$offres, 'etudiant'=>$etudiant]);
             }
 
         }
-        return redirect(route('login'));
+        return redirect(route('register'));
     }
 
     function delete($id){

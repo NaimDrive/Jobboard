@@ -15,8 +15,8 @@
                         <p>adresse du stage : <strong>{{ $offre->description->adresse->nomRue }} - {{ $offre->description->adresse->coordonnePostales }} {{ $offre->description->adresse->ville }}</strong></p>
                         <p>Nature de l'offre : {{$offre->natureOffre}}</p>
                         <p>Du {{ date('d/m/Y',strtotime($offre->dateDebut)) }} au {{ date('d/m/Y',strtotime($offre->dateFin)) }}</p>
-                        <p class="text-justify">Contexte : {{$offre->description->contexte}} <br>
-                            Objectif : {{$offre->description->objectif}}</p>
+                        <p class="text-justify">Contexte : {!! $offre->description->contexte !!} <br>
+                            Objectif : {!! $offre->description->objectif !!}</p>
                     </div>
                 </div>
             </div>
