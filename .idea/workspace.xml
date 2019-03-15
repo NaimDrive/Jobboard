@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b17be004-16b5-4c79-b7fc-1911ae8cd279" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/jobboard_website/.idea/dataSources/4b4242a4-b76d-4100-8e03-b4e9edd44237.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jobboard_website/.idea/dataSources/4b4242a4-b76d-4100-8e03-b4e9edd44237.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobboard_website/app/Http/Controllers/EntrepriseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/jobboard_website/app/Http/Controllers/EntrepriseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobboard_website/app/Http/Controllers/OffreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/jobboard_website/app/Http/Controllers/OffreController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobboard_website/public/css/404.css" beforeDir="false" afterPath="$PROJECT_DIR$/jobboard_website/public/css/404.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobboard_website/resources/views/entreprise/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/jobboard_website/resources/views/entreprise/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobboard_website/resources/views/entreprise/toutesEntreprises.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/jobboard_website/resources/views/entreprise/toutesEntreprises.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobboard_website/resources/views/errors/404.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/jobboard_website/resources/views/errors/404.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobboard_website/resources/views/offre/uneOffre.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/jobboard_website/resources/views/offre/uneOffre.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="b17be004-16b5-4c79-b7fc-1911ae8cd279" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -337,24 +328,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1552568124823</updated>
-      <workItem from="1552568126014" duration="3744000" />
+      <workItem from="1552568126014" duration="3902000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3744000" />
+    <option name="totallyTimeSpent" value="3902000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2497332" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2497332" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.32963374" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.32963374" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />

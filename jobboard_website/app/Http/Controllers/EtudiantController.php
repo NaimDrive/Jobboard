@@ -351,20 +351,18 @@ class EtudiantController extends Controller
         $this->validate($request,
                 [
                     "souhait"=> "required",
-                    "duree"=> "required",
                     "dateD"=> "required",
                     "dateF"=> "required",
                     "mobilité"=> "required",
                     "idEtu" => "required",
                 ]);
 
-        $input=$request->only(["souhait","duree","dateD","dateF","mobilité","idEtu"]);
+        $input=$request->only(["souhait","dateD","dateF","mobilité","idEtu"]);
 
             
 
         DB::table('recherche')->insert([
                 "souhait" => $input["souhait"],
-                "dureeStage" => $input["duree"],
                 "dateDebut" => $input["dateD"],
                 "dateFin" => $input["dateF"],
                 "mobilite" => $input["mobilité"],
