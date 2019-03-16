@@ -113,7 +113,7 @@
                     @endforeach
                 </div>
                 <div class="mt-5 border border-success">
-                    <h2>Annonces</h2>php
+                    <h2>Annonces</h2>
                     @foreach($annonces as $annonce)
                         @if($annonce->position != -1 && $annonce->datePublication <= $dateNow)
                             <div class="border border-success p-3 m-3">
