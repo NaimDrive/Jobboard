@@ -19,7 +19,7 @@ class AnnoncesController extends Controller
         if (Auth::check()) {
             foreach (Auth::user()->roles as $role) {
                 if ($role->typeRole == 'ADMIN') {
-                    $annonces = Annonces::all();
+                    $annonces = Annonces::paginate(12);
                     return view('annonce/afficherLesAnnonces', compact('annonces'));
                 }
             }

@@ -87,9 +87,9 @@
                     @endforeach
                 </div>
                 <div class="mt-5 border border-success">
-                    <h2>Annonces</h2>
+                    <h2>Annonces</h2>php
                     @foreach($annonces as $annonce)
-                        @if($annonce->position != -1)
+                        @if($annonce->position != -1 && $annonce->datePublication <= $dateNow)
                             <div class="border border-success p-3 m-3">
                                 <h3>{{ $annonce->title }}</h3>
                                 <p>Publiée le : {{ date('d/m/Y',strtotime($annonce->datePublication)) }}</p>

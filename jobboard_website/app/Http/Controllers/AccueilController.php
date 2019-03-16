@@ -11,13 +11,15 @@ namespace App\Http\Controllers;
 
 use App\Forum;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Date\Date;
 
 class AccueilController
 {
     public function index()
     {
+        $dateNow = Date::now();
         $forums = Forum::query()->get();
         $annonces = DB::table('annonces')->orderBy("position")->get();
-        return view('accueil', ['annonces'=>$annonces, 'forums'=>$forums]);
+        return view('accueil', ['annonces'=>$annonces, 'forums'=>$forums, 'dateNow' => $dateNow]);
     }
 }

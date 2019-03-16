@@ -110,7 +110,7 @@ Route::get('/etudiant/{id}/mesRecherches', 'OffreController@offreSaveEtu')->name
 Route::get('/toutLesEtudiant','EtudiantController@AffichettEtu')->name('toutlesEtudiants');
 
 //ROUTE POUR LES FORUMS
-Route::get('/forum/delete/{id}','ForumController@supprimerUnForum')->name('supprimerUnForum');
+
 Route::get('/forum/create','ForumController@creerUnForum')->name('creerUnForum');
 Route::get('/forum/modify/{id}','ForumController@modifierUnForum')->name('modifierUnForum');
 Route::post('/forum/enregistrer','ForumController@enregistrerUnForum')->name('enregistrerUnForum');
@@ -122,6 +122,7 @@ Route::post('/forum/store/{id}', 'ForumController@storeInscription')->name('stro
 Route::get('/forum/editInscription/{id}', 'ForumController@editInscription')->name('editInscriptionForum');
 Route::post('/forum/storeEditInscription/{id}', 'ForumController@storeEdit')->name('storeEditInscriptionForum');
 Route::get('/forum/{id}/desinscrire', 'ForumController@desinscrire')->name('desinscrireForum');
+Route::get('/forum/delete/{id}','ForumController@supprimerUnForum')->name('supprimerUnForum');
 
 //ROUTE POUR LES ANNONCES
 Route::get('/annonce/create','AnnoncesController@create')->name('creerUneAnnonce');
