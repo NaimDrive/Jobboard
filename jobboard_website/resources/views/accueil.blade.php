@@ -61,6 +61,32 @@
                     <p>    Ils savent également utiliser <b>GitHub</b> , <b>Trello</b> et des IDE comme <b>Eclipse</b>, <b>IntelIj IDEA</b> ou encore <b>PhpStorm</b> ! <br> <br>
 
                         Mais chaque profil est unique!  Si vous êtes une entreprise qui cherche dans l'un de ces domaines, n'hésitez pas à créer une offre pour qu'ils puissent vous contacter !</p>
+                    <h3> La Licence Professionnelle Métiers de l’informatique : conception, développement et test de logiciel parcours Développement Informatique et Outils Collaboratifs </h3>
+
+                    <p>  Elle forme en un an des informaticiens polyvalents qui ont intégré dans leurs connaissances et leurs pratiques le développement informatique collaboratif et la maitrise des frameworks sur lesquels reposent le développement des applications </p><br>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">Programmation Web</th>
+                            <th scope="col">Algorithmie</th>
+                        </tr>
+                        <tbody>
+                        <tr>
+                            <td>PHP</td>
+                            <td>Java</td>
+                        </tr>
+                        <tr>
+                            <td> Symfony </td>
+                            <td> Python</td>
+                        </tr>
+                        <tr>
+                            <td> sqlite </td>
+                            <td> Javascript</td>
+                        </tr>
+                        </tbody>
+                        </thead>
+                    </table>
 
                     <h3> Le Stage </h3>
                     <p>
