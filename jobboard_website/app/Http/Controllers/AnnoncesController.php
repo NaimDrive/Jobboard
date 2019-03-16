@@ -16,8 +16,15 @@ class AnnoncesController extends Controller
      */
     public function index()
     {
-        $annonces = Annonces::all();
-        return view('annonce/afficherLesAnnonces', compact('annonces'));
+        if (Auth::check()) {
+            foreach (Auth::user()->roles as $role) {
+                if ($role->typeRole == 'ADMIN') {
+                    $annonces = Annonces::all();
+                    return view('annonce/afficherLesAnnonces', compact('annonces'));
+                }
+            }
+        }
+        return redirect(route('accueil'));
     }
 
     public function afficherUneAnnonce($id)
@@ -32,7 +39,8 @@ class AnnoncesController extends Controller
             foreach (Auth::user()->roles as $role) {
                 if ($role->typeRole == 'ADMIN') {
                     $annonce = Annonces::find($id);
-                    return view('annonce/modifierUneAnnonce', ['annonce' => $annonce]);
+                    $posMax = Annonces::orderBy('position', 'desc')->value('position');
+                    return view('annonce/modifierUneAnnonce', ['annonce' => $annonce, 'posMax' => $posMax]);
                 }
                 return redirect(route('accueil'));
             }
@@ -51,11 +59,17 @@ class AnnoncesController extends Controller
             ]);
 
         $input = $request->only(["title", "content", "datePublication","position"]);
+        if($input["position"] == "null"){
+            $position = -1;
+        }
+        else{
+            $position = intval($input["position"],10);
+        }
         DB::table("annonces")->where("id", $id)->update([
             "title" => $input["title"],
             "content" => $input["content"],
             "datePublication" => $input["datePublication"],
-            "position" => $input["position"],
+            "position" => $position,
         ]);
 
         return redirect(route('accueil'));
@@ -68,10 +82,11 @@ class AnnoncesController extends Controller
      */
     public function create()
     {
+        $posMax = Annonces::orderBy('position', 'desc')->value('position');
         if (Auth::check()) {
             foreach (Auth::user()->roles as $role) {
                 if ($role->typeRole == "ADMIN") {
-                    return view("annonce/creerUneAnnonce");
+                    return view("annonce/creerUneAnnonce",compact("posMax"));
                 }
             }
         }
@@ -89,11 +104,17 @@ class AnnoncesController extends Controller
             ]);
 
         $input = $request->only(["title", "content", "datePublication","position"]);
+        if($input["position"] == "null"){
+            $position = -1;
+        }
+        else{
+            $position = intval($input["position"],10);
+        }
         DB::table("annonces")->insert([
             "title" => $input["title"],
             "content" => $input["content"],
             "datePublication" => $input["datePublication"],
-            "position" => $input["position"],
+            "position" => $position,
         ]);
 
         return redirect(route('accueil'));

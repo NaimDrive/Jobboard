@@ -89,11 +89,13 @@
                 <div class="mt-5 border border-success">
                     <h2>Annonces</h2>
                     @foreach($annonces as $annonce)
-                        <div class="border border-success p-3 m-3">
-                            <h3>{{ $annonce->title }}</h3>
-                            <p>Publiée le : {{ date('d/m/Y',strtotime($annonce->datePublication)) }}</p>
-                            <p>{!! $annonce->content !!}</p>
-                        </div>
+                        @if($annonce->position != -1)
+                            <div class="border border-success p-3 m-3">
+                                <h3>{{ $annonce->title }}</h3>
+                                <p>Publiée le : {{ date('d/m/Y',strtotime($annonce->datePublication)) }}</p>
+                                <p>{!! $annonce->content !!}</p>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
