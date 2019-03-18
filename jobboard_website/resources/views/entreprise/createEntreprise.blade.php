@@ -289,7 +289,7 @@
             let index = parseInt(divContact.childNodes.length)-3;
 
             let divFormGroup = document.createElement("div");
-            divFormGroup.setAttribute("class", "form-group ml-1");
+            divFormGroup.setAttribute("class", "form-group ml-2 col-10");
             divFormGroup.setAttribute("id", "block_contact_"+index);
 
             let divRow = document.createElement("div");
@@ -456,21 +456,21 @@
             //######################### Role dans l'entreprise #####################
 
             let divFormRole = document.createElement("div");
-            divFormNom.setAttribute("class", "form-group row");
+            divFormRole.setAttribute("class", "form-group row");
 
             let labelRole = document.createElement("label");
-            labelNom.setAttribute("class", "col-md-4 col-form-label text-md-right");
-            labelNom.setAttribute("for","role");
+            labelRole.setAttribute("class", "col-md-4 col-form-label text-md-right");
+            labelRole.setAttribute("for","role");
             let textLabelRole = document.createTextNode("Role dans l'entreprise");
-            labelNom.appendChild(textLabelNom);
+            labelRole.appendChild(textLabelRole);
 
             let divCol5Role = document.createElement("div");
-            divCol5Nom.setAttribute("class", "col-md-5");
+            divCol5Role.setAttribute("class", "col-md-5");
             let inputRole = document.createElement("input");
-            inputNom.setAttribute("id", "contact_"+indexC+"_role");
-            inputNom.setAttribute("class", "form-control");
-            inputNom.setAttribute("type","text");
-            inputNom.setAttribute("name", "contact_"+indexC+"_role");
+            inputRole.setAttribute("id", "contact_"+index+"_role");
+            inputRole.setAttribute("class", "form-control");
+            inputRole.setAttribute("type","text");
+            inputRole.setAttribute("name", "contact_"+index+"_role");
 
             divCol5Role.appendChild(inputRole);
 

@@ -390,9 +390,12 @@ class EtudiantController extends Controller
             return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
         }
 
-        function AffichettEtu(){
+        function AffichettEtu($recherche = 0){
             if (Auth::check()){
-                $etudiants = Etudiant::where("actif",1)->paginate(10);
+                if ($recherche)
+                    $etudiants = Etudiant::where("actif",1)->where("rechercheStage",1)->paginate(10);
+                else
+                    $etudiants = Etudiant::where("actif",1)->paginate(10);
                 return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
             }
             return redirect(route('register'));

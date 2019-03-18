@@ -107,7 +107,7 @@ Route::get('/etudiant/{id}/dropOffreEtu', 'OffreController@dropOffreEtu')->name(
 Route::get('/etudiant/{id}/mesRecherches', 'OffreController@offreSaveEtu')->name('offresSave');
 
 //Route d'acces a tout les etudiants
-Route::get('/toutLesEtudiant','EtudiantController@AffichettEtu')->name('toutlesEtudiants');
+Route::get('/etudiants_recherche=/{recherche?}','EtudiantController@AffichettEtu')->name('toutlesEtudiants');
 
 //ROUTE POUR LES FORUMS
 Route::get('/forum/create','ForumController@creerUnForum')->name('creerUnForum');
