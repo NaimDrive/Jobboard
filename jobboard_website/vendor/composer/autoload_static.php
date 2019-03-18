@@ -109,6 +109,7 @@ class ComposerStaticInitf93ce287588381dd0bc813a7810ad8bd
         ),
         'J' => 
         array (
+            'Jenssegers\\Date\\' => 16,
             'JakubOnderka\\PhpConsoleHighlighter\\' => 35,
             'JakubOnderka\\PhpConsoleColor\\' => 29,
         ),
@@ -314,6 +315,10 @@ class ComposerStaticInitf93ce287588381dd0bc813a7810ad8bd
         array (
             0 => __DIR__ . '/..' . '/laravel/socialite/src',
         ),
+        'Jenssegers\\Date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jenssegers/date/src',
+        ),
         'JakubOnderka\\PhpConsoleHighlighter\\' => 
         array (
             0 => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src',
@@ -488,6 +493,7 @@ class ComposerStaticInitf93ce287588381dd0bc813a7810ad8bd
         'App\\Recherche' => __DIR__ . '/../..' . '/app/Recherche.php',
         'App\\ReferenceLien' => __DIR__ . '/../..' . '/app/ReferenceLien.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
+        'App\\Stat' => __DIR__ . '/../..' . '/app/Stat.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
         'BeyondCode\\DumpServer\\DumpServerServiceProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
@@ -2021,6 +2027,8 @@ class ComposerStaticInitf93ce287588381dd0bc813a7810ad8bd
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',
+        'Jenssegers\\Date\\Date' => __DIR__ . '/..' . '/jenssegers/date/src/Date.php',
+        'Jenssegers\\Date\\DateServiceProvider' => __DIR__ . '/..' . '/jenssegers/date/src/DateServiceProvider.php',
         'JsonSerializable' => __DIR__ . '/..' . '/nesbot/carbon/src/JsonSerializable.php',
         'Laravel\\Socialite\\AbstractUser' => __DIR__ . '/..' . '/laravel/socialite/src/AbstractUser.php',
         'Laravel\\Socialite\\Contracts\\Factory' => __DIR__ . '/..' . '/laravel/socialite/src/Contracts/Factory.php',

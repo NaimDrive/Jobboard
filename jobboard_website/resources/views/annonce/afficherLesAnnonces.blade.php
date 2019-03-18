@@ -16,36 +16,21 @@
             </div>
         </div>
 
-        @foreach($annonces as $annonce)
-            <div class="row">
-                @if(!Auth::check())
-                    <div class="col-12 col-md-6">
-                        <h3 style="font-size: 20px; margin-top: 1em;">{{ date('d/m/Y',strtotime($annonce->datePublication)) }} - {{$annonce->title}}</h3>
+        <br><div class="row" id="btnEntrepriseAdmin">
+            @foreach($annonces as $annonce)
+                <div class="card text-center col-12 col-md-3">
+                    <div class="card-body">
+                        <strong><p class="card-title text-center"> {{ date('d/m/Y',strtotime($annonce->datePublication))}} {{$annonce->title}}</p></strong>
+                        <a href="{{route('afficherUneAnnonce',[$annonce->id])}}"><button class="btn-primary mb-2">Visionner</button></a><br>
+                        <a href="{{route('modifierUneAnnonce',[$annonce->id])}}"> <button class="btn-secondary mb-2">Modifier</button></a><br>
+                        <a href="{{route('supprimerUneAnnonce',[$annonce->id])}}"><button class="btn-danger mb-2">Supprimer</button></a><br>
                     </div>
-                    <div class="col-md-6 col-12" style="margin-top: 1em;">
-                        <a href="{{route('afficherUneAnnonce',[$annonce->id])}}"> <button class="btn-primary">Informations</button></a>
-                    </div>
-                @endif
-                @if(Auth::check())
-                    @foreach (Auth::user()->roles as $role)
-                        @if($role->typeRole == "ADMIN")
-                            <div class="col-12 col-md-3">
-                                <h3 style="font-size: 20px; margin-top: 1em;">{{ date('d/m/Y',strtotime($annonce->datePublication)) }} - {{$annonce->title}}</h3>
-                            </div>
-                            <div class="col-md-3 col-12" style="margin-top: 1em;">
-                                <a href="{{route('afficherUneAnnonce',[$annonce->id])}}"> <button class="btn-primary">Informations</button></a>
-                            </div>
-                            <div class="col-12 col-md-3" style="margin-top: 1em;">
-                                <a href="{{route('modifierUneAnnonce',[$annonce->id])}}"> <button class="btn-secondary">Modifier</button></a>
-                            </div>
-                            <div class="col-12 col-md-3" style="margin-top: 1em;">
-                                <a href="{{route('supprimerUneAnnonce',[$annonce->id])}}"> <button class="btn-danger">Supprimer</button></a>
-                            </div>
-                        @endif
-                    @endforeach
-                @endif
-                    @endforeach
-            </div>
+                </div>
+
+            @endforeach
+        </div>
+    </div>
+    <div class="mt-3"> {{$annonces->links()}}</div>
 
 
 @endsection
