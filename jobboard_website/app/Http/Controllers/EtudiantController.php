@@ -102,6 +102,32 @@ class EtudiantController extends Controller
 
         //VALIDATIONS
 
+        $messages = [
+            "photo.image" => "Veuillez envoyer une photo au format valide. (JPEG,PNG...)",
+            "nom.required" => "Veuillez saisir votre nom dans le champ indiqué.",
+            "nom.string" => "Veuillez saisir un nom valide.",
+            "nom.max" => "Veuillez saisir un nom de moins de 255 caractères.",
+            "prenom.required" => "Veuillez saisir votre prénom dans le champ indiqué.",
+            "prenom.string" => "Veuillez saisir un prénom valide.",
+            "prenom.max" => "Veuillez saisir un prénom de moins de 255 caractères.",
+            "naissance.required" => "Veuillez saisir une date de naissance dans le champ indiqué.",
+            "naissance.date" => "Veuillez saisir une date de naissance au format valide.",
+            "naissance.before" => "Veuillez saisir une date de naissance cohérente.",
+            "email.required" => "Veuillez saisir votre adresse mail dans le champ indiqué.",
+            "email.string" => "Veuillez saisir une adresse mail au format valide.",
+            "email.max" => "Veuillez saisir une adresse mail de moins de 255 caractères.",
+            "adresse.required" => "Veuillez saisir votre adresse postale dans le champ indiqué.",
+            "adresse.string" => "Veuillez saisir une adresse postale valide.",
+            "adresse.max" => "Veuillez saisir une adresse postale de moins de 255 caractères.",
+            "codePostal.required" => "Veuillez saisir votre code postal dans le champ indiqué.",
+            "codePostal.numeric" => "Veuillez saisir un numéro de code postal au format valide.",
+            "codePostal.digits" => "Veuillez saisir un numéro de code postal composé de 5 chiffres.",
+            "ville.required" => "Veuillez saisir le nom de votre ville dans le champ indiqué.",
+            "ville.string" => "Veuillez saisir un nom de ville valide.",
+            "ville.max" => "Veuillez saisir un nom de ville de moins de 255 caractères.",
+
+        ];
+
         $this->validate($request,
             [
                 'photo' => ['nullable','image'],
@@ -124,58 +150,112 @@ class EtudiantController extends Controller
                 "nbFormation" => ['required'],
                 "nbExperience" => ['required'],
                 "nbActivite" => ['required'],
-                "nbLiens" => ['required'],
-                ['nom.required' => 'Veuillez saisir un nom valide' ]
-            ]);
+                "nbLiens" => ['required']
+            ],$messages);
 
         $compteurCompetence = $request["nbCompetence"]+=0;
 
         for($i = 0; $i < $compteurCompetence; $i++) {
+
+            $messages = [
+                "competence_$i.required" => "Veuillez saisir une compétence dans le champ indiqué.",
+                "competence_$i.string" => "Veuillez saisir une compétence valide.",
+                "competence_$i.max" => "Veuillez saisir une compétence de moins de 255 caractères."
+            ];
+
             $this->validate($request,[
                 "competence_".$i => ['required', "string", "max:255"],
                 "categorie_".$i => ['required'],
                 "level_".$i => ['required'],
-            ]);
+            ], $messages);
         }
 
         $compteurFormation = $request["nbFormation"]+=0;
 
         for($i = 0; $i < $compteurFormation; $i++) {
+
+            $messages = [
+                "formation_$i.required" => "Veuillez saisir une formation dans le champ indiqué.",
+                "formation_$i.string" => "Veuillez saisir une formation valide.",
+                "formation_$i.max" => "Veuillez saisir une formation de moins de 255 caractères.",
+                "lieu_$i.required" => "Veuillez saisir un lieu de formation dans le champ indiqué.",
+                "lieu_$i.string" => "Veuillez saisir un lieu de formation valide.",
+                "lieu_$i.max" => "Veuillez saisir un lieu de formation de moins de 255 caractères.",
+                "debut_$i.required" => "Veuillez saisir une date de début de formation dans le champ indiqué.",
+                "debut_$i.date" => "Veuillez saisir une date de début de formation au format valide.",
+                "debut_$i.before" => "Veuillez saisir une date de début de formation cohérente.",
+                "fin_$i.required" => "Veuillez saisir une date de fin de formation dans le champ indiqué.",
+                "fin_$i.date" => "Veuillez saisir une date de fin de formation au format valide.",
+                "fin_$i.before" => "Veuillez saisir une date de fin de formation cohérente.",
+            ];
+
             $this->validate($request,[
                 "formation_".$i => ['required', "string", "max:255"],
                 "lieu_".$i => ['required', "string", "max:255"],
                 "debut_".$i => ['required',"date","before:today"],
                 "fin_".$i => ['required',"date","after:dateDebut_$i"],
-            ]);
+            ], $messages);
         }
 
         $compteurExperience = $request["nbExperience"]+=0;
 
         for($i = 0; $i < $compteurExperience; $i++) {
+
+            $messages = [
+                "experience_$i.required" => "Veuillez saisir une expérience dans le champ indiqué.",
+                "experience_$i.string" => "Veuillez saisir une expérience valide.",
+                "experience_$i.max" => "Veuillez saisir une expérience de moins de 255 caractères.",
+                "etablissement_$i.required" => "Veuillez saisir un lieu d'expérience dans le champ indiqué.",
+                "etablissement_$i.string" => "Veuillez saisir un lieu d'expérience valide.",
+                "etablissement_$i.max" => "Veuillez saisir un lieu d'expérience de moins de 255 caractères.",
+                "dateDebut_$i.required" => "Veuillez saisir une date de début d'expérience dans le champ indiqué.",
+                "dateDebut_$i.date" => "Veuillez saisir une date de début d'expérience au format valide.",
+                "dateDebut_$i.before" => "Veuillez saisir une date de début d'expérience cohérente.",
+                "dateFin_$i.required" => "Veuillez saisir une date de fin d'expérience dans le champ indiqué.",
+                "dateFin_$i.date" => "Veuillez saisir une date de fin d'expérience au format valide.",
+                "dateFin_$i.before" => "Veuillez saisir une date de fin d'expérience cohérente.",
+                "description_$i.string" => "Veuillez saisir une description d'expérience valide.",
+                "description_$i.max" => "Veuillez saisir une description d'expérience de moins de 255 caractères."
+            ];
+
             $this->validate($request,[
                 "experience_".$i => ['required', "string", "max:255"],
                 "etablissement_".$i => ['required', "string", "max:255"],
                 "dateDebut_".$i => ['required',"date","before:today"],
                 "dateFin_".$i => ['required',"date","after:dateDebut_$i"], //a corriger
                 "description_".$i => ['nullable', "string", "max:255"],
-            ]);
+            ], $messages);
         }
 
         $compteurActivite = $request["nbActivite"]+=0;
 
         for($i = 0; $i < $compteurActivite; $i++) {
+
+            $messages = [
+                "activite_$i.required" => "Veuillez saisir une activité dans le champ indiqué.",
+                "activite_$i.string" => "Veuillez saisir une activité valide.",
+                "activite_$i.max" => "Veuillez saisir une activité de moins de 255 caractères."
+            ];
+
             $this->validate($request,[
                 "activite_".$i => ['required', "string", "max:255"],
-            ]);
+            ],$messages);
         }
 
         $compteurLien = $request["nbLiens"]+=0;
 
         for($i = 0; $i < $compteurLien; $i++) {
+
+            $messages = [
+                "lien_$i.required" => "Veuillez saisir un lien dans le champ indiqué.",
+                "lien_$i.string" => "Veuillez saisir un lien valide.",
+                "lien_$i.max" => "Veuillez saisir un lien de moins de 255 caractères."
+            ];
+
             $this->validate($request,[
                 "lien_".$i => ['required', "string", "max:255"],
                 "type_".$i => ['required'],
-            ]);
+            ],$messages);
         }
 
 
