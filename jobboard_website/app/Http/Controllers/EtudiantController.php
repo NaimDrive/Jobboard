@@ -390,13 +390,21 @@ class EtudiantController extends Controller
             return redirect(route('createrecherche',["id"=>$input["idEtu"]]));
         }
 
-        function AffichettEtu($recherche = 0){
+        function AffichettEtu($recherche = 0, $etudes = 0){
             if (Auth::check()){
-                if ($recherche)
+                if ($recherche && $etudes == 0)
                     $etudiants = Etudiant::where("actif",1)->where("rechercheStage",1)->paginate(10);
+                elseif ($recherche && $etudes == 1)
+                    $etudiants = Etudiant::where("actif",1)->where('etudes','DUT')->where("rechercheStage",1)->paginate(10);
+                elseif ($recherche && $etudes == 2)
+                    $etudiants = Etudiant::where("actif",1)->where('etudes','LP')->where("rechercheStage",1)->paginate(10);
+                elseif (!$recherche && $etudes == 1)
+                    $etudiants = Etudiant::where("actif",1)->where('etudes','DUT')->paginate(10);
+                elseif (!$recherche && $etudes == 2)
+                    $etudiants = Etudiant::where("actif",1)->where('etudes','LP')->paginate(10);
                 else
                     $etudiants = Etudiant::where("actif",1)->paginate(10);
-                return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants]);
+                return view('/etudiant/afficheEtudiant',['etudiants'=>$etudiants, 'etudes'=>$etudes, 'recherche'=>$recherche]);
             }
             return redirect(route('register'));
         }

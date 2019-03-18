@@ -128,7 +128,7 @@ class ContactController extends Controller
     function afficherContacts(){
 
         if (Auth::check()){
-            $contacts = ContactEntreprise::where('actif',1)->paginate(10);
+            $contacts = ContactEntreprise::where('actif',1)->orderBy('nom')->orderBy('prenom')->paginate(10);
             return view('contact/toutContacts',['contacts'=>$contacts]);
         }
         return redirect(route('register'));

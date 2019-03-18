@@ -18,7 +18,7 @@
                     <a class="nav-link" href="{{ route('afficherToutContacts') }}">Professionnels</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route("toutlesEtudiants") }}">Nos Etudiants</a>
+                    <a class="nav-link" href="{{ route("toutlesEtudiants", ['recherche'=>0, 'etudes'=>0]) }}">Nos Etudiants</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('afficherOffres') }}">Offres</a>

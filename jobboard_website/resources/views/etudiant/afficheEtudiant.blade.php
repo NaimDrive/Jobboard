@@ -7,8 +7,10 @@
             <h1 class="card-header">Nos Etudiants</h1>
             <div class="card-body">
                 <div class="row">
-                    <a href="{{route('toutlesEtudiants', ['recherche'=>1])}}" class="btn btn-success offset-3 col-2">Voir les étudiants en recherche</a>
-                    <a href="{{route('toutlesEtudiants')}}" class="btn btn-success offset-2 col-2">Voir tous les étudiants</a>
+                    <a href="{{route('toutlesEtudiants', ['recherche'=>1, 'etudes'=>$etudes])}}" class="btn btn-success ml-5 col-2">Voir les étudiants en recherche</a>
+                    <a href="{{route('toutlesEtudiants', ['recherche'=>$recherche, 'etudes'=>1])}}" class="btn btn-success offset-1 col-2">Voir les étudiants de DUT</a>
+                    <a href="{{route('toutlesEtudiants', ['recherche'=>$recherche, 'etudes'=>2])}}" class="btn btn-success offset-1 col-2">Voir les étudiants de LP</a>
+                    <a href="{{route('toutlesEtudiants', ['recherche'=>0, 'etudes'=>0])}}" class="btn btn-success offset-1 col-2">Voir tous les étudiants</a>
                 </div>
             @foreach($etudiants as $etu)
                 @if($etu->idUser != null)
