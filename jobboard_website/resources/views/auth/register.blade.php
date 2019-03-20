@@ -1,3 +1,28 @@
+<?php
+    //require_once('../../../vendor/autoload.php');
+    if(isset($_POST['submitpost'])) {
+        if(isset($_POST['g-recaptcha-response'])){
+            $recaptcha = new \ReCaptcha\ReCaptcha("6LeTsJYUAAAAACwTuVTZQEoH8zslTZCxk3p5ajwx");
+            $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
+            if ($resp->isSuccess()) {
+                var_dump('Captcha Valide');
+                header('Location: http://127.0.0.1:8000');
+            } else {
+                $errors = $resp->getErrorCodes();
+                var_dump('Captcha non valide');
+                var_dump($errors);
+                header('Location: http://127.0.0.1:8000/inscription');
+                exit();
+            }
+        } else {
+            var_dump('Captcha non rempli');
+        }
+    }
+?>
+
+
+
+
 @if ($errors->any())
     <div class="alert alert-danger"  style="margin-top: 2rem">
         <ul>
@@ -159,9 +184,22 @@
 
                     <sub>* : champs obligatoires</sub>
 
+
+                    <div class="form-group row mb-0">
+                        <div class="offset-md-4">
+                            <form method="POST">
+                                <!-- Notre boite de vérification -->
+                                <div class="g-recaptcha" data-sitekey="6LeTsJYUAAAAAHlp9sXynh1nTzH9OjGkH-p8PB9g">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <br>
+
                     <div class="form-group row mb-0">
                         <div class="offset-md-6">
-                            <button type="submit" class="btn btn-success mt-2">
+                            <button type="submit" name="submitpost" class="btn btn-success mt-2">
                                 {{ __('M\'inscrire') }}
                             </button>
                         </div>
