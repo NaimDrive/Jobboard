@@ -5,7 +5,7 @@
             <h2 class="card-header">Annonce : {{$annonce->title}}</h2>
             <div class="card-body">
                 <div class="row">
-                    <p class="ml-3">L'Annonce à était posté le {{ date('d/m/Y',strtotime($annonce->datePublication))}}</p>
+                    <p class="ml-3">L'annonce à était postée le {{ date('d/m/Y',strtotime($annonce->datePublication))}}</p>
                 </div>
 
 

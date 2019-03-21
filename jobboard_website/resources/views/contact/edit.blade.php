@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profile</label>
+                                <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profil</label>
 
                                 <div class="col-md-6">
                                     <input type="file" name="photo" id="photo" value="{{ asset($contact->user->picture) }}">
@@ -131,7 +131,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-success">
-                                        {{ __('Modifier mon profile') }}
+                                        {{ __('Modifier mon profil') }}
                                     </button>
                                 </div>
                             </div>

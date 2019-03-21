@@ -25,7 +25,7 @@
 
                         <div class="row mb-3 justify-content-center">
                             <button class="btn btn-success" id="btnEntreprise">Je suis un <strong>professionnel</strong></button>
-                            <button class="btn btn-success ml-2" id="btnEtu">Je suis un <strong>etudiant</strong></button>
+                            <button class="btn btn-success ml-2" id="btnEtu">Je suis un <strong>étudiant</strong></button>
                         </div>
 
                         <form method="POST" action="{{ route('storeChoice',['id' => $id]) }}" enctype="multipart/form-data">
@@ -47,7 +47,7 @@
 
                             <div id="divEntreprise">
                                 <div class="form-group row">
-                                    <label for="role" class="col-md-4 col-form-label text-md-right">Role dans l'entreprise *</label>
+                                    <label for="role" class="col-md-4 col-form-label text-md-right">Rôle dans l'entreprise *</label>
 
                                     <div class="col-md-6">
                                         <input id="role" type="text" class="form-control" name="role" value="{{old("role")}}">
@@ -86,7 +86,7 @@
                                     <div class="col-md-6">
                                         <select name="etudes" id="etudes">
                                             <option value="DUT">DUT</option>
-                                            <option value="License Pro">License Pro</option>
+                                            <option value="License Pro">Licence Pro</option>
                                         </select>
                                     </div>
                                 </div>
@@ -135,7 +135,7 @@
         function setEntreprise() {
             btnEtu.disabled = false;
             btnEntreprise.disabled = true;
-            cardHeader.innerHTML = "Je m'inscrit en tant que <strong>professionnel</strong>";
+            cardHeader.innerHTML = "Je m'inscris en tant que <strong>professionnel</strong>";
             divEtu.style.display = "none";
             divEntreprise.style.display = "block";
             status.value = "entreprise";
@@ -144,7 +144,7 @@
         function setEtu() {
             btnEntreprise.disabled = false;
             btnEtu.disabled = true;
-            cardHeader.innerHTML = "Je m'inscrit en tant qu'<strong>étudiant</strong>";
+            cardHeader.innerHTML = "Je m'inscris en tant qu'<strong>étudiant</strong>";
             divEntreprise.style.display = "none";
             divEtu.style.display = "block";
             status.value = "etudiant";
