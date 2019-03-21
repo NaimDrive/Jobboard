@@ -22,8 +22,6 @@
 ?>
 
 
-
-
 @if ($errors->any())
     <div class="alert alert-danger"  style="margin-top: 2rem">
         <ul>
@@ -38,7 +36,7 @@
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="card">
-            <div id="card-header" class="card-header">Je m'inscrit en tant que <strong>professionnel</strong></div>
+            <div id="card-header" class="card-header">Je m'inscris en tant que <strong>professionnel</strong></div>
 
             <div class="card-body">
 
@@ -129,7 +127,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profile</label>
+                        <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profil</label>
 
                         <div class="col-md-6">
                             <input type="file" name="photo" id="photo">
@@ -138,7 +136,7 @@
 
                     <div id="divEntreprise">
                         <div class="form-group row">
-                            <label for="role" class="col-md-4 col-form-label text-md-right">Role dans l'entreprise *</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-right">Rôle dans l'entreprise *</label>
 
                             <div class="col-md-6">
                                 <input id="role" type="text" class="form-control" name="role">
@@ -177,7 +175,7 @@
                             <div class="col-md-6">
                                 <select name="etudes" id="etudes">
                                     <option value="DUT">DUT</option>
-                                    <option value="License Pro">License Pro</option>
+                                    <option value="License Pro">Licence Pro</option>
                                 </select>
                             </div>
                         </div>
@@ -237,7 +235,7 @@
    function setEntreprise() {
        btnEtu.disabled = false;
        btnEntreprise.disabled = true;
-       cardHeader.innerHTML = "Je m'inscrit en tant que <strong>professionnel</strong>";
+       cardHeader.innerHTML = "Je m'inscris en tant que <strong>professionnel</strong>";
        divEtu.style.display = "none";
        divEntreprise.style.display = "block";
        status.value = "entreprise";
@@ -246,7 +244,7 @@
     function setEtu() {
         btnEntreprise.disabled = false;
         btnEtu.disabled = true;
-        cardHeader.innerHTML = "Je m'inscrit en tant qu'<strong>étudiant</strong>";
+        cardHeader.innerHTML = "Je m'inscris en tant qu'<strong>étudiant</strong>";
         divEntreprise.style.display = "none";
         divEtu.style.display = "block";
         status.value = "etudiant";
