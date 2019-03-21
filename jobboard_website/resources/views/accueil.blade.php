@@ -16,8 +16,8 @@
         <div class="container text-justify mt-3">
             <h1> Bienvenue dans le Job Board de l'IUT de Lens </h1>
             <p> Ce JobBoard a pour but de mettre en relation des élèves à la recherche d'un stage et des entreprises cherchant des stagiaires.<br><br>
-                Si vous êtes un élève , nous vous invitons à créer un compte et à remplir le formulaire d'incription pour que les entreprises puissent connaitre vos compétences. <br>
-                Si vous êtes une entreprise, nous vous invitons a créer des offres aux quelles nos étudiants pourront repondre mais également à vous inscrire à nos Job Dating afin de venir rencontrer nos étudiants. <br>
+                Si vous êtes un élève, nous vous invitons à créer un compte et à remplir le formulaire d'inscription pour que les entreprises puissent connaître vos compétences. <br>
+                Si vous êtes une entreprise, nous vous invitons a créer des offres auxquelles nos étudiants pourront répondre, mais également à vous inscrire à nos Job Dating afin de venir rencontrer nos étudiants. <br>
             </p>
             <div class="jumbotron" >
                 <div class="border border-success">
@@ -60,10 +60,10 @@
 
                     <p>    Ils savent également utiliser <b>GitHub</b> , <b>Trello</b> et des IDE comme <b>Eclipse</b>, <b>IntelIj IDEA</b> ou encore <b>PhpStorm</b> ! <br> <br>
 
-                        Mais chaque profil est unique!  Si vous êtes une entreprise qui cherche dans l'un de ces domaines, n'hésitez pas à créer une offre pour qu'ils puissent vous contacter !</p>
+                        Mais chaque profil est unique !  Si vous êtes une entreprise qui cherche dans l'un de ces domaines, n'hésitez pas à créer une offre pour qu'ils puissent vous contacter !</p>
                     <h3> La Licence Professionnelle Métiers de l’informatique : conception, développement et test de logiciel parcours Développement Informatique et Outils Collaboratifs </h3>
 
-                    <p>  Elle forme en un an des informaticiens polyvalents qui ont intégré dans leurs connaissances et leurs pratiques le développement informatique collaboratif et la maitrise des frameworks sur lesquels reposent le développement des applications </p><br>
+                    <p>  Elle forme en un an des informaticiens polyvalents qui ont intégré dans leurs connaissances et leurs pratiques le développement informatique collaboratif et la maîtrise des frameworks sur lesquels reposent le développement des applications </p><br>
 
                     <table class="table table-bordered">
                         <thead>
@@ -92,14 +92,14 @@
                     <p>
                         A la fin de leur DUT nos étudiants recherchent un stage dans le <b>développement</b> informatique. <br>
                         Il a pour but de mettre en pratique ce qu'ils ont appris durant les deux années de cours. <br>
-                        Mais nos étudiants sont également friants d'apprendre de nouvelles choses et apprendront volontier de nouveaux langages durant leur stage ! <br>
+                        Mais nos étudiants sont également friands d'apprendre de nouvelles choses et apprendront volontiers de nouveaux langages durant leur stage ! <br>
                         Leur stage doit avoir une durée minimum de dix semaines à partir du <b>8 avril 2019.</b>
                     </p>
 
-                    <h3>     Si vous voulez rencontrer nos étudiants c'est possible !</h3>
+                    <h3>     Si vous voulez rencontrer nos étudiants, c'est possible !</h3>
 
-                    <p> Chaque année nous organisons des <b>Job Dating</b> afin de faciliter le dialogue entre les étudiants et les entreprises.<br>
-                        Si votre entreprise est intéressée venez vous inscrire à l'un de nos Job Dating , <b>nos étudiants vous attendent !</b></p>
+                    <p> Chaque année, nous organisons des <b>Job Dating</b> afin de faciliter le dialogue entre les étudiants et les entreprises.<br>
+                        Si votre entreprise est intéressée, venez vous inscrire à l'un de nos Job Dating , <b>nos étudiants vous attendent !</b></p>
 
                     <h2>Nos forums</h2>
                     @foreach($forums as $forum)

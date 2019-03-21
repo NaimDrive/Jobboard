@@ -64,9 +64,9 @@
                                 <a class="dropdown-item" href="{{ route('edit_profile',["id"=>$idEtu]) }} "> Modifier mon Profil</a>
                                 <a href="{{ route('password') }}" class="dropdown-item">Modifier mon mot de passe</a>
                                 <hr>
-                                <a class="dropdown-item" href="{{ route('createrecherche',["id"=>$idEtu]) }}"> Créer une recherches</a>
+                                <a class="dropdown-item" href="{{ route('createrecherche',["id"=>$idEtu]) }}"> Créer une recherche</a>
                                 <hr>
-                                <a class="dropdown-item" href="{{route('offresSave',["id"=>$idEtu])}}">Mes offres sauvegardés</a>
+                                <a class="dropdown-item" href="{{route('offresSave',["id"=>$idEtu])}}">Mes offres sauvegardées</a>
                                 <hr>
                             @endif
                             @if(Auth::user()->isContact())

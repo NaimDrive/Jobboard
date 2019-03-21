@@ -6,13 +6,14 @@
             $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
             if ($resp->isSuccess()) {
                 var_dump('Captcha Valide');
-                header('Location: http://127.0.0.1:8000');
+                //header('Location: http://127.0.0.1:8000');
+                //exit();
             } else {
                 $errors = $resp->getErrorCodes();
                 var_dump('Captcha non valide');
                 var_dump($errors);
-                header('Location: http://127.0.0.1:8000/inscription');
-                exit();
+                //header('Location: http://127.0.0.1:8000/inscription');
+                //exit();
             }
         } else {
             var_dump('Captcha non rempli');
@@ -199,7 +200,7 @@
 
                     <div class="form-group row mb-0">
                         <div class="offset-md-6">
-                            <button type="submit" name="submitpost" class="btn btn-success mt-2">
+                            <button type="submit"  class="btn btn-success mt-2">
                                 {{ __('M\'inscrire') }}
                             </button>
                         </div>
