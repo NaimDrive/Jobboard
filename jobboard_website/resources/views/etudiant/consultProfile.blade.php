@@ -8,20 +8,20 @@
 
                 <!-- ENTETE PROFIL -->
                 <div class="headerProfil">
-                    <h1>Profil de {{$user->prenom}} {{$user->nom}}</h1> <br/>
+                    <h1>Profil de {{$user->prenom}} {{$user->nom}}</h1> <br>
                     <img src="{{asset($user->picture)}}" title="photo de profil" width="150" height="150"/>
                 </div>
 
                 <!-- INFORMATIONS PERSONNELLES -->
-                <br/>
+                <br>
                 <div class="info">
                     <div class="gauche">
                         <div class="card border-primary mb-3" style="max-width: 20rem;">
                             <div class="card-header"><h5>IDENTITÉ</h5></div>
                             <div class="card-body">
-                                <p class="card-text"> Civilité : {{$etudiant->civilite}} <br/>
-                                    Nom : {{$user->nom}} <br/>
-                                    Prenom : {{$user->prenom}} <br/>
+                                <p class="card-text"> Civilité : {{$etudiant->civilite}} <br>
+                                    Nom : {{$user->nom}} <br>
+                                    Prenom : {{$user->prenom}} <br>
 
                                     Né{{($etudiant->civilite == "Madame") ? "e" : ""}} le {{ date('d/m/Y',strtotime($etudiant->DateDeNaissance)) }} </p>
                             </div>
@@ -31,8 +31,8 @@
                         <div class="card border-primary mb-3" style="max-width: 20rem;">
                             <div class="card-header"><h5>COORDONNÉES</h5></div>
                             <div class="card-body">
-                                <p class="card-text"> Adresse : {{$etudiant->adresse}} <br/>
-                                    Code postal : {{$etudiant->codePostal}} <br/>
+                                <p class="card-text"> Adresse : {{$etudiant->adresse}} <br>
+                                    Code postal : {{$etudiant->codePostal}} <br>
                                     Ville : {{$etudiant->ville}}  </p>
                             </div>
                         </div>
@@ -40,29 +40,8 @@
                 </div>
                 <br>
 
-                <!-- POSTES RECHERCHÉS  -->
-
-                @if(count($recherches)==0)
-                    <h5> Recherce de poste </h5>
-                    <p> aucune recherche de poste </p>
-                @elseif(count($recherches)==1)
-                    <h5> Je recherche actuellement ce poste :  </h5> <br>
-                    <div class="alert alert-dismissible alert-secondary">
-                        <strong> {{$recherches->souhait}}</strong> du {{date('d/m/y',strtotime($recherches->deteDebut))}} au {{date('d/m/y',strtotime($recherches->dateFin))}} <br>
-                        mobilité : {{$recherches->mobilite}}
-                    </div>
-                @else
-                    <h5> Je recherche actuellement ces postes :  </h5> <br>
-                    @foreach($recherches as $recherche)
-                        <div class="alert alert-dismissible alert-secondary">
-                            <strong> {{$recherche->souhait}}</strong> du {{date('d/m/y',strtotime($recherche->dateDebut))}} au {{date('d/m/y',strtotime($recherche->dateFin))}} <br>
-                            mobilité : {{$recherche->mobilite}}
-                        </div>
-                    @endforeach
-                @endif
-                <br>
-
                 <!-- FORMATION  -->
+
                 <h5> Ma formation </h5>
                 @if(count($formations)==0)
                     <p> Pas de formation communiquée  </p>
@@ -81,10 +60,11 @@
 
                 <h5> Mes compétences </h5>
 
+                @php($iteration=0)
                 @if(count($competences)==0)
                     <p> Pas de compétences communiquées </p>
                 @else
-                    @php($iteration=0)
+
                     @foreach($categories as $categorie)
                         <table class="table table-hover">
                             <tbody>
@@ -159,7 +139,6 @@
                                 </div>
                             </div>
                         </div>
-
             </div>
         </div>
     </div>
