@@ -17,7 +17,7 @@
                 <div class="info">
                     <div class="gauche">
                         <div class="card border-primary mb-3" style="max-width: 20rem;">
-                            <div class="card-header"><h5>IDENTITE</h5></div>
+                            <div class="card-header"><h5>IDENTITÉ</h5></div>
                             <div class="card-body">
                                 <p class="card-text"> Civilité : {{$etudiant->civilite}} <br/>
                                     Nom : {{$user->nom}} <br/>
@@ -29,33 +29,12 @@
                     </div>
                     <div class="droite">
                         <div class="card border-primary mb-3" style="max-width: 20rem;">
-                            <div class="card-header"><h5>COORDONNEES</h5></div>
+                            <div class="card-header"><h5>COORDONNÉES</h5></div>
                             <div class="card-body">
                                 <p class="card-text"> Adresse : {{$etudiant->adresse}} <br/>
                                     Code postal : {{$etudiant->codePostal}} <br/>
                                     Ville : {{$etudiant->ville}}  </p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LES DIFFERENTS LIENS -->
-                <div class ="lien">
-                    <div class="card mt-5">
-                        @if(count($liens) == 1)
-                            <h5 class="card-header">LIEN </h5>
-                        @elseif(count($liens) == 0)
-                            <div class="alert alert-warning">PAS DE LIEN DISPONIBLE</div>
-                        @else
-                            <h5 class="card-header"> LIENS </h5>
-                        @endif
-                        <div class="card-body">
-                            @foreach($liens as $lien)
-                                <div class="border p-3 mt-3">
-                                    <h5>{{ $lien->nomReference }}</h5>
-                                    <p><a href="{{ $lien->UrlReference }}">{{ $lien->UrlReference }}</a></p>
-                                </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -83,7 +62,6 @@
                 @endif
                 <br>
 
-
                 <!-- FORMATION  -->
                 <h5> Ma formation </h5>
                 @if(count($formations)==0)
@@ -98,7 +76,6 @@
                     @endforeach
                 @endif
                 <br>
-
 
                 <!-- TABLEAU DES COMPETENCES -->
 
@@ -133,9 +110,6 @@
                         <br>
 
 
-
-
-
                         <!-- EXPERIENCES PROFESSIONNELLES -->
                         @if(count($experiences)==0)
                             <h5> Je ne possède pas d'experience professionnelle </h5> <br>
@@ -164,6 +138,27 @@
                             @endforeach
                         @endif
                         <br>
+
+                        <!-- LES DIFFERENTS LIENS -->
+                        <div class ="lien">
+                            <div class="card mt-5">
+                                @if(count($liens) == 1)
+                                    <h5 class="card-header">LIEN </h5>
+                                @elseif(count($liens) == 0)
+                                    <div class="alert alert-warning">PAS DE LIEN DISPONIBLE</div>
+                                @else
+                                    <h5 class="card-header"> LIENS </h5>
+                                @endif
+                                <div class="card-body">
+                                    @foreach($liens as $lien)
+                                        <div class="border p-3 mt-3">
+                                            <h5>{{ $lien->nomReference }}</h5>
+                                            <p><a href="{{ $lien->UrlReference }}">{{ $lien->UrlReference }}</a></p>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
 
             </div>
         </div>
