@@ -434,11 +434,12 @@ class EtudiantController extends Controller
                     "souhait"=> "required",
                     "dateD"=> "required",
                     "dateF"=> "required",
+                    "secteurGeo"=> "required",
                     "mobilité"=> "required",
                     "idEtu" => "required",
                 ]);
 
-        $input=$request->only(["souhait","dateD","dateF","mobilité","idEtu"]);
+        $input=$request->only(["souhait","dateD","dateF","secteurGeo","mobilité","idEtu"]);
 
             
 
@@ -446,6 +447,7 @@ class EtudiantController extends Controller
                 "souhait" => $input["souhait"],
                 "dateDebut" => $input["dateD"],
                 "dateFin" => $input["dateF"],
+            "secteurGeo" => $input["secteurGeo"],
                 "mobilite" => $input["mobilité"],
                 "idEtudiant" => $input["idEtu"],
         ]);
@@ -493,6 +495,7 @@ class EtudiantController extends Controller
             if(Auth::check()){
                 //$etudiants = Etudiant::where("actif",1)->paginate(10);
                 $recherche = Recherche::paginate(10);
+
                 return view('/etudiant/listeRecherches',/*['etudiants'=>$etudiants],*/['recherches'=>$recherche]);
             }
             return redirect(route('register'));

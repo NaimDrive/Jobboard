@@ -93,6 +93,7 @@ class UserSeeder extends Seeder
                     $recherche->idEtudiant = $etudiant->id;
                     $recherche->souhait = $faker->sentence();
                     $recherche->mobilite = $faker->city;
+                    $recherche->secteurGeo = $faker->city;
                     $dateDebut = $faker->dateTimeBetween('now');
                     $recherche->dateDebut = $dateDebut;
                     $duration = mt_rand(2,5);

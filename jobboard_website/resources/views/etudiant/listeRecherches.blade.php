@@ -20,6 +20,7 @@
                             <p>Date de début de stage: {{$r->dateDebut}} </p>
                             <p>Date minimum de fin de stage: {{$r->dateFin}} </p>
                             <p>Durée: {{$res}} semaines </p>
+                            <p>Secteur Géographique : {{$r->secteurGeo}}</p>
                             <p>Mobilité: {{$r->mobilite}}</p>
                                 <div class="row ml-2">
                                     <a class="btn btn-success" href="{{ route('consult_profile',["id"=>$r->etudiant->id]) }} "> Voir le profil</a>

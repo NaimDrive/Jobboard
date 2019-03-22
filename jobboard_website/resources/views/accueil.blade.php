@@ -70,19 +70,24 @@
                         <tr>
                             <th scope="col">Programmation Web</th>
                             <th scope="col">Algorithmie</th>
+                            <th scope="col"> Base de Données</th>
                         </tr>
                         <tbody>
                         <tr>
                             <td>PHP</td>
                             <td>Java</td>
+                            <td> sqlite </td>
                         </tr>
                         <tr>
                             <td> Symfony </td>
                             <td> Python</td>
+                            <td> </td>
                         </tr>
                         <tr>
-                            <td> sqlite </td>
+                            <td> </td>
                             <td> Javascript</td>
+                            <td> </td>
+
                         </tr>
                         </tbody>
                         </thead>
@@ -109,6 +114,7 @@
                             @if($forum->actif)
                                 <a class="ml-3 btn btn-success" href="{{ route('inscriptionForum',['id'=>$forum->id]) }}">Je veux m'inscrire</a>
                             @endif
+                            @include('feed::links')
                         </div>
                     @endforeach
                 </div>

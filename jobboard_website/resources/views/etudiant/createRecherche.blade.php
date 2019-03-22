@@ -27,8 +27,10 @@
                         
                         <div class="col-lg-6">Date de fin<input type="date" class="form-control" id="dateF" name="dateF" value="{{old("dateF")}}"></div>
                         </div><br>
-                        
-                        Quelle type de mobilité avez-vous ?
+                        Quelle est le secteur géographique de votre recherche ?
+                        <div ><input type="text" class="form-control" id="secteurGeo" name="secteurGeo" value="{{old("secteurGeo")}}" placeholder="SecteurGeo"></div><br>
+
+                         Quelle type de mobilité avez-vous ?
                         <div ><input type="text" class="form-control" id="mobilité" name="mobilité" value="{{old("mobilité")}}" placeholder="Mobilité"></div><br>
                     <br>
                     <button type="submit" class="btn btn-success btn-lg btn-block">Confirmer</button>
@@ -46,6 +48,7 @@
                         <th scope="col">duree</th>
                         <th scope="col">dateD</th>
                         <th scope="col">dateF</th>
+                        <th scope="col">secteurGeo</th>
                         <th scope="col">mobilité</th>
                         <th scope="col">Suppression</th>
                     </tr>
@@ -59,6 +62,7 @@
                             <th scope="row">{{$re->souhait}}</th>
                             <td>{{$re->dateDebut}}</td>
                             <td >{{$re->dateFin}}</td>
+                            <td >{{$re->secteurGeo}}</td>
                             <td >{{$re->mobilite}}</td>
                             <td><button type="submit" class="btn btn-danger col-lg-8" id="recherche_del" name="recherche_del" value="{{$re->id}}">X</button></td>
                         </form>
@@ -73,6 +77,5 @@
             </form>
         </div>
     </div>
-
-
     @endsection
+

@@ -19,6 +19,7 @@ class CreateRechercheTable extends Migration
             $table->string('souhait');
             $table->date('dateDebut');
             $table->date('dateFin');
+            $table->string('secteurGeo');
             $table->string('mobilite');
             $table->integer('idEtudiant');
             $table->timestamps();
