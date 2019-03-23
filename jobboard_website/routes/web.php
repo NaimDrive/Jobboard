@@ -80,7 +80,6 @@ Route::post('/etudiant/supprimerRecherche','EtudiantController@supprimerRecherch
 Route::post('/etudiant/enregistrerRecherche','EtudiantController@enregistrerRechercheOffre')->name('enregistrer_recherche');
 
 
-
 //ROUTES MODIF CONTACT
 Route::get('/contact/{id}/edit', 'ContactController@editContact')->name('editContact');
 Route::post('/contact/store_change', 'ContactController@storeChanges')->name('storeContactChange');
@@ -110,7 +109,6 @@ Route::get('/etudiant/{id}/mesRecherches', 'OffreController@offreSaveEtu')->name
 Route::get('/etudiants_recherche=/{recherche?}/etudes=/{etudes?}','EtudiantController@AffichettEtu')->name('toutlesEtudiants');
 
 //ROUTE POUR LES FORUMS
-
 Route::get('/forum/create','ForumController@creerUnForum')->name('creerUnForum');
 Route::get('/forum/modify/{id}','ForumController@modifierUnForum')->name('modifierUnForum');
 Route::post('/forum/enregistrer','ForumController@enregistrerUnForum')->name('enregistrerUnForum');
@@ -131,7 +129,7 @@ Route::post('/annonce/enregistrer','AnnoncesController@enregistrerUneAnnonce')->
 Route::post('/annonce/enregistrerModif/{id}','AnnoncesController@enregistrerModifAnnonce')->name('enregistrerModifAnnonce');
 Route::get('/annonce','AnnoncesController@index')->name('afficherLesAnnonces');
 Route::get('/annonce/{id}','AnnoncesController@afficherUneAnnonce')->name('afficherUneAnnonce');
-Route::get('/forum/delete/{id}','AnnoncesController@destroy')->name('supprimerUneAnnonce');
+Route::get('/annonce/delete/{id}','AnnoncesController@destroy')->name('supprimerUneAnnonce');
 
 
 
