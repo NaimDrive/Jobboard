@@ -114,7 +114,6 @@
                             @if($forum->actif)
                                 <a class="ml-3 btn btn-success" href="{{ route('inscriptionForum',['id'=>$forum->id]) }}">Je veux m'inscrire</a>
                             @endif
-                            @include('feed::links')
                         </div>
                     @endforeach
                 </div>
