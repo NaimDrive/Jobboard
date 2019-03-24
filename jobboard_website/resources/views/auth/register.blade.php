@@ -186,11 +186,9 @@
 
                     <div class="form-group row mb-0">
                         <div class="offset-md-4">
-                            <form method="POST">
                                 <!-- Notre boite de vérification -->
                                 <div class="g-recaptcha" data-sitekey="6LeTsJYUAAAAAHlp9sXynh1nTzH9OjGkH-p8PB9g">
                                 </div>
-                            </form>
                         </div>
                     </div>
 
