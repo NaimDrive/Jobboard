@@ -6,10 +6,13 @@ use App\ContactEntreprise;
 use App\ContactParticipe;
 use App\Entreprise;
 use App\EntrepriseParticipe;
+use App\Etudiant;
+use App\EtudiantParticipe;
 use App\Forum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class ForumController extends Controller
 {
@@ -17,6 +20,7 @@ class ForumController extends Controller
        if (Auth::check()){
            $contact = null;
            $participe = null;
+           $etudiant = null;
            if (Auth::user()->isContact()){
                $contact = ContactEntreprise::where('idUser',Auth::id())->first();
                $participe = EntrepriseParticipe::query()->where('idEntreprise', $contact->entreprise->id)->first();
@@ -24,13 +28,15 @@ class ForumController extends Controller
                    $contact=null;
                }
            }
+           elseif (Auth::user()->isEtudiant()){
+               $etudiant = Etudiant::where('idUser',Auth::id())->first();
+           }
 
            $forum = Forum::find($id);
-           return view("forum/afficherUnForum",["forum"=>$forum, 'contact'=>$contact, 'participe'=>$participe]);
+           return view("forum/afficherUnForum",["forum"=>$forum, 'contact'=>$contact, 'participe'=>$participe, 'etu'=>$etudiant,]);
 
        }
        return redirect(route('register'));
-
    }
 
    function afficherLesForums(){
@@ -284,9 +290,20 @@ class ForumController extends Controller
                $entrepriseParticipe->delete();
            }
        }
-
        return redirect(route('afficherUnForum',['id'=>$id]));
+    }
 
+    function etudiantInscription($idEtudiant, $idEntreprise){
+       $etudiant = new EtudiantParticipe();
+       $etudiant->idEtudiant = $idEtudiant;
+       $etudiant->idEntrepriseParticipe = $idEntreprise;
+       $etudiant->save();
+       return redirect(URL::previous());
+    }
+
+    function etudiantDesinscription($idEtudiant, $idEntreprise){
+        $etudiant = EtudiantParticipe::where('idEtudiant',$idEtudiant)->where('idEntrepriseParticipe', $idEntreprise)->delete();
+        return redirect(URL::previous());
     }
 
 

@@ -11,9 +11,13 @@ class EntrepriseParticipe extends Model
     function contacts() {
         return $this->hasMany('App\ContactParticipe', 'idEntrepriseParticipe');
     }
+    function etudiants() {
+        return $this->hasMany('App\EtudiantParticipe', 'idEntrepriseParticipe');
+    }
 
     function entrepriseP() {
         return $this->belongsTo('App\Entreprise','idEntreprise');
     }
+
 
 }

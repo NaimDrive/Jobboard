@@ -19,13 +19,32 @@
                 @foreach($forum->entreprises as $entreprise)
                     <div class="border p-3 mt-3">
                         <a href="{{route('afficherUneEntreprise',["id"=>$entreprise->entrepriseP->id])}}"><strong>{{$entreprise->entrepriseP->nom}}</strong></a>
-
+                        @if($etu)
+                            @php($participe = App\EtudiantParticipe::where('idEtudiant', $etu->id)->where('idEntrepriseParticipe', $entreprise->id)->first())
+                            @if($etu && !$participe)
+                                <a href="{{ route('inscriptionForumEtudiant', ["idEtudiant"=>$etu->id, "idEntreprise"=>$entreprise->id]) }}" class="btn btn-success float-right">Je veux voir cette entreprise</a>
+                            @elseif($etu && $participe && $participe)
+                                <a href="{{ route('desinscriptionForumEtudiant', ["idEtudiant"=>$etu->id, "idEntreprise"=>$entreprise->id]) }}" class="btn btn-success float-right">Je ne veux plus voir cette entreprise</a>
+                            @endif
+                        @endif
                         <p><strong>Contacts présents : </strong></p>
                         <ul>
                             @foreach($entreprise->contacts as $contact)
                                 <li><a href="{{route('afficherUnContact',["id"=>$contact->contact->id])}}">{{ $contact->contact->prenom }} {{ $contact->contact->nom }}</a>, {{$contact->contact->role}}</li>
                             @endforeach
                         </ul>
+                        @if(Auth::user()->isAdmin())
+                            <hr>
+                            <p><strong>Etudiants présents : </strong></p>
+                            <ul>
+                                @foreach($entreprise->etudiants as $etudiant)
+                                    <li><a href="{{route('consult_profile',["id"=>$etudiant->etudiant->id])}}">{{$etudiant->etudiant->user->prenom}} {{$etudiant->etudiant->user->nom}}</a></li>
+                                @endforeach
+                                @if($entreprise->etudiants->count() == 0)
+                                    <p class="alert alert-warning">Aucun etudiant ne va voir cette entreprise</p>
+                                @endif
+                            </ul>
+                        @endif
                     </div>
                 @endforeach
             </div>

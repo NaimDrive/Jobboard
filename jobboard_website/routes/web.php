@@ -124,6 +124,9 @@ Route::post('/forum/storeEditInscription/{id}', 'ForumController@storeEdit')->na
 Route::get('/forum/{id}/desinscrire', 'ForumController@desinscrire')->name('desinscrireForum');
 Route::get('/forum/delete/{id}','ForumController@supprimerUnForum')->name('supprimerUnForum');
 
+Route::get('/forum/etudiant/{idEtudiant}/{idEntreprise}/inscription', 'ForumController@etudiantInscription')->name('inscriptionForumEtudiant');
+Route::get('/forum/etudiant/{idEtudiant}/{idEntreprise}/desinscription', 'ForumController@etudiantDesinscription')->name('desinscriptionForumEtudiant');
+
 //ROUTE POUR LES ANNONCES
 Route::get('/annonce/create','AnnoncesController@create')->name('creerUneAnnonce');
 Route::get('/annonce/modify/{id}','AnnoncesController@modiferUneAnnonce')->name('modifierUneAnnonce');

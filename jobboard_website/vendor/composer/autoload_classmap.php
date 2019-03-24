@@ -23,6 +23,7 @@ return array(
     'App\\Entreprise' => $baseDir . '/app/Entreprise.php',
     'App\\EntrepriseParticipe' => $baseDir . '/app/EntrepriseParticipe.php',
     'App\\Etudiant' => $baseDir . '/app/Etudiant.php',
+    'App\\EtudiantParticipe' => $baseDir . '/app/EtudiantParticipe.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Experience' => $baseDir . '/app/Experience.php',
     'App\\Formation' => $baseDir . '/app/Formation.php',

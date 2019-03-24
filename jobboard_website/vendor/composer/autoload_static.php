@@ -452,6 +452,7 @@ class ComposerStaticInitf93ce287588381dd0bc813a7810ad8bd
         'App\\Entreprise' => __DIR__ . '/../..' . '/app/Entreprise.php',
         'App\\EntrepriseParticipe' => __DIR__ . '/../..' . '/app/EntrepriseParticipe.php',
         'App\\Etudiant' => __DIR__ . '/../..' . '/app/Etudiant.php',
+        'App\\EtudiantParticipe' => __DIR__ . '/../..' . '/app/EtudiantParticipe.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Experience' => __DIR__ . '/../..' . '/app/Experience.php',
         'App\\Formation' => __DIR__ . '/../..' . '/app/Formation.php',
