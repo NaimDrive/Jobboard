@@ -1,5 +1,66 @@
 [
     {
+        "name": "anhskohbo/no-captcha",
+        "version": "3.0.4",
+        "version_normalized": "3.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/anhskohbo/no-captcha.git",
+            "reference": "fd08c84bd0e05f4a048a9bba800ab64ada9fadfc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/anhskohbo/no-captcha/zipball/fd08c84bd0e05f4a048a9bba800ab64ada9fadfc",
+            "reference": "fd08c84bd0e05f4a048a9bba800ab64ada9fadfc",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": "^6.2",
+            "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+            "php": ">=5.5.5"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.8"
+        },
+        "time": "2019-02-25T10:51:21+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider"
+                ],
+                "aliases": {
+                    "NoCaptcha": "Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Anhskohbo\\NoCaptcha\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "anhskohbo",
+                "email": "anhskohbo@gmail.com"
+            }
+        ],
+        "description": "No CAPTCHA reCAPTCHA For Laravel.",
+        "keywords": [
+            "captcha",
+            "laravel",
+            "laravel4",
+            "laravel5",
+            "no-captcha",
+            "recaptcha"
+        ]
+    },
+    {
         "name": "beyondcode/laravel-dump-server",
         "version": "1.2.2",
         "version_normalized": "1.2.2.0",
@@ -605,6 +666,55 @@
             "data",
             "faker",
             "fixtures"
+        ]
+    },
+    {
+        "name": "google/recaptcha",
+        "version": "1.2.1",
+        "version_normalized": "1.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/google/recaptcha.git",
+            "reference": "e7add3be59211482ecdb942288f52da64a35f61a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/google/recaptcha/zipball/e7add3be59211482ecdb942288f52da64a35f61a",
+            "reference": "e7add3be59211482ecdb942288f52da64a35f61a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "^2.2.20|^2.12",
+            "php-coveralls/php-coveralls": "^2.1",
+            "phpunit/phpunit": "^4.8.36|^5.7.27|^6.59|^7"
+        },
+        "time": "2018-08-05T09:31:53+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "ReCaptcha\\": "src/ReCaptcha"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "Client library for reCAPTCHA, a free service that protects websites from spam and abuse.",
+        "homepage": "https://www.google.com/recaptcha/",
+        "keywords": [
+            "Abuse",
+            "captcha",
+            "recaptcha",
+            "spam"
         ]
     },
     {
@@ -3989,6 +4099,264 @@
         ],
         "description": "Library that helps with managing the version number of Git-hosted PHP projects",
         "homepage": "https://github.com/sebastianbergmann/version"
+    },
+    {
+        "name": "spatie/eloquent-sortable",
+        "version": "3.4.4",
+        "version_normalized": "3.4.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/spatie/eloquent-sortable.git",
+            "reference": "340c7338031338aba47c41836e335bf9a5ef0216"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/spatie/eloquent-sortable/zipball/340c7338031338aba47c41836e335bf9a5ef0216",
+            "reference": "340c7338031338aba47c41836e335bf9a5ef0216",
+            "shasum": ""
+        },
+        "require": {
+            "laravel/framework": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+            "php": ">=7.0"
+        },
+        "require-dev": {
+            "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~5.8.0",
+            "phpunit/phpunit": "^6.2|^7.0"
+        },
+        "time": "2019-02-27T00:18:34+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Spatie\\EloquentSortable\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Freek Van der Herten",
+                "email": "freek@spatie.be"
+            }
+        ],
+        "description": "Sortable behaviour for eloquent models",
+        "homepage": "https://github.com/spatie/eloquent-sortable",
+        "keywords": [
+            "behaviour",
+            "eloquent",
+            "laravel",
+            "model",
+            "sort",
+            "sortable"
+        ]
+    },
+    {
+        "name": "spatie/laravel-feed",
+        "version": "2.1.2",
+        "version_normalized": "2.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/spatie/laravel-feed.git",
+            "reference": "874315c3d6cc879513ebe66aacbcd2fd1266a94f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/spatie/laravel-feed/zipball/874315c3d6cc879513ebe66aacbcd2fd1266a94f",
+            "reference": "874315c3d6cc879513ebe66aacbcd2fd1266a94f",
+            "shasum": ""
+        },
+        "require": {
+            "laravel/framework": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+            "nesbot/carbon": "^1.0",
+            "php": "^7.1"
+        },
+        "require-dev": {
+            "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
+            "phpunit/phpunit": "^6.0|^7.0",
+            "spatie/phpunit-snapshot-assertions": "^1.0"
+        },
+        "time": "2019-02-27T15:54:06+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Spatie\\Feed\\FeedServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Spatie\\Feed\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sebastian De Deyne",
+                "email": "sebastian@spatie.be",
+                "homepage": "https://spatie.be",
+                "role": "Developer"
+            },
+            {
+                "name": "Freek Van der Herten",
+                "email": "freek@spatie.be",
+                "homepage": "https://spatie.be",
+                "role": "Developer"
+            },
+            {
+                "name": "Jolita Grazyte",
+                "email": "jolita@spatie.be",
+                "homepage": "https://spatie.be",
+                "role": "Developer"
+            }
+        ],
+        "description": "Generates rss feed",
+        "homepage": "https://github.com/spatie/laravel-feed",
+        "keywords": [
+            "laravel",
+            "laravel-feed",
+            "rss",
+            "spatie"
+        ]
+    },
+    {
+        "name": "spatie/laravel-tags",
+        "version": "2.2.2",
+        "version_normalized": "2.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/spatie/laravel-tags.git",
+            "reference": "c904325521d320dbca177de6d7e218f422687f37"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/spatie/laravel-tags/zipball/c904325521d320dbca177de6d7e218f422687f37",
+            "reference": "c904325521d320dbca177de6d7e218f422687f37",
+            "shasum": ""
+        },
+        "require": {
+            "laravel/framework": "~5.7.13|~5.8",
+            "php": "^7.1",
+            "spatie/eloquent-sortable": "^3.4",
+            "spatie/laravel-translatable": "^3.0"
+        },
+        "require-dev": {
+            "orchestra/testbench": "~3.7.0|~3.8.0",
+            "phpunit/phpunit": "^7.4|^8.0"
+        },
+        "time": "2019-02-27T13:30:48+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Spatie\\Tags\\TagsServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Spatie\\Tags\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Freek Van der Herten",
+                "email": "freek@spatie.be",
+                "homepage": "https://spatie.be",
+                "role": "Developer"
+            }
+        ],
+        "description": "Add tags and taggable behaviour to your Laravel app",
+        "homepage": "https://github.com/spatie/laravel-tags",
+        "keywords": [
+            "laravel-tags",
+            "spatie"
+        ]
+    },
+    {
+        "name": "spatie/laravel-translatable",
+        "version": "3.1.3",
+        "version_normalized": "3.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/spatie/laravel-translatable.git",
+            "reference": "bb022463072ee6fced9204453f99d42fc03ac9a4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/bb022463072ee6fced9204453f99d42fc03ac9a4",
+            "reference": "bb022463072ee6fced9204453f99d42fc03ac9a4",
+            "shasum": ""
+        },
+        "require": {
+            "laravel/framework": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+            "php": "^7.1"
+        },
+        "require-dev": {
+            "mockery/mockery": "^1.0",
+            "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
+            "phpunit/phpunit": "^7.4|^8.0"
+        },
+        "time": "2019-02-27T12:48:11+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Spatie\\Translatable\\TranslatableServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Spatie\\Translatable\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sebastian De Deyne",
+                "email": "sebastian@spatie.be",
+                "homepage": "https://spatie.be",
+                "role": "Developer"
+            },
+            {
+                "name": "Freek Van der Herten",
+                "email": "freek@spatie.be",
+                "homepage": "https://spatie.be",
+                "role": "Developer"
+            },
+            {
+                "name": "Mohamed Said",
+                "email": "theMohamedSaid@gmail.com",
+                "role": "Original idea"
+            }
+        ],
+        "description": "A trait to make an Eloquent model hold translations",
+        "homepage": "https://github.com/spatie/laravel-translatable",
+        "keywords": [
+            "eloquent",
+            "i8n",
+            "laravel-translatable",
+            "model",
+            "multilingual",
+            "spatie",
+            "translate"
+        ]
     },
     {
         "name": "swiftmailer/swiftmailer",

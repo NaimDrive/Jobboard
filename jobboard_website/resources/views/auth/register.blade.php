@@ -1,26 +1,10 @@
 <?php
-    //require_once('../../../vendor/autoload.php');
-    if(isset($_POST['submitpost'])) {
-        if(isset($_POST['g-recaptcha-response'])){
-            $recaptcha = new \ReCaptcha\ReCaptcha("6LeTsJYUAAAAACwTuVTZQEoH8zslTZCxk3p5ajwx");
-            $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
-            if ($resp->isSuccess()) {
-                var_dump('Captcha Valide');
-                //header('Location: http://127.0.0.1:8000');
-                //exit();
-            } else {
-                $errors = $resp->getErrorCodes();
-                var_dump('Captcha non valide');
-                var_dump($errors);
-                //header('Location: http://127.0.0.1:8000/inscription');
-                //exit();
-            }
-        } else {
-            var_dump('Captcha non rempli');
-        }
-    }
-?>
 
+    if (! empty($_POST)) {
+        var_dump($captcha->verifyResponse($_POST['g-recaptcha-response']));
+        exit();
+}
+?>
 
 @if ($errors->any())
     <div class="alert alert-danger"  style="margin-top: 2rem">
@@ -45,7 +29,7 @@
                     <button class="btn btn-success ml-2" id="btnEtu">Je suis un <strong>etudiant</strong></button>
                 </div>
 
-                <form method="POST" action="{{ route('storeUser') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('storeUser') }}" enctype="multipart/form-data" id="formInscription">
                     {!! csrf_field() !!}
 
                     <input name="status" id="status" type="hidden">
@@ -183,22 +167,15 @@
 
                     <sub>* : champs obligatoires</sub>
 
-
                     <div class="form-group row mb-0">
-                        <div class="offset-md-4">
-                                <!-- Notre boite de vérification -->
-                                <div class="g-recaptcha" data-sitekey="6LeTsJYUAAAAAHlp9sXynh1nTzH9OjGkH-p8PB9g">
-                                </div>
+                        <div class="col-md-6 offset-md-4">
+                            <div class="g-recaptcha" data-sitekey="{{env('NOCAPTCHA_SITEKEY')}}"></div>
                         </div>
                     </div>
 
-                    <br>
-
                     <div class="form-group row mb-0">
                         <div class="offset-md-6">
-                            <button type="submit"  class="btn btn-success mt-2">
-                                {{ __('M\'inscrire') }}
-                            </button>
+                            <button class="btn btn-success"><span>M'inscrire</span></button>
                         </div>
                     </div>
                 </form>
@@ -209,6 +186,7 @@
 
 
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
     const cardHeader = document.getElementById("card-header");
 

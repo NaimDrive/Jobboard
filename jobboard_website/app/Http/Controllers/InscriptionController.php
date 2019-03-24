@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Anhskohbo\NoCaptcha\NoCaptcha;
 use App\ContactEntreprise;
+use App\Rules\Captcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +33,8 @@ class InscriptionController extends Controller
     public function enregistrerUtilisateur(Request $request)
     {
         $this->validate($request,[
-            'status' => ['required' , 'string']
+            'status' => ['required' , 'string'],
+            'g-recaptcha-response' => new Captcha(),
         ]);
 
         $input = $request->only('status');
