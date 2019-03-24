@@ -100,6 +100,31 @@ class CreateTrigger extends Migration
             UPDATE stat SET nbOff = nbOff + 1;
         END
         ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_decremente_etudiant AFTER DELETE on `etudiant` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET nbEtu = nbEtu - 1;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_decremente_entreprise AFTER DELETE on `entreprise` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET nbEnt = nbEnt - 1;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_decremente_contact AFTER DELETE on `contact_entreprise` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET nbCon = nbCon - 1;
+        END
+        ');
+        DB::unprepared('
+        CREATE TRIGGER trigger_decremente_offre AFTER DELETE on `offre` FOR EACH ROW
+        BEGIN
+            UPDATE stat SET nbOff = nbOff - 1;
+        END
+        ');
+
     }
 
     /**
@@ -120,5 +145,12 @@ class CreateTrigger extends Migration
         DB::unprepared('DROP TRIGGER `trigger_update_liens`');
         DB::unprepared('DROP TRIGGER `trigger_update_activites`');
         DB::unprepared('DROP TRIGGER trigger_incremente_etudiant');
+        DB::unprepared('DROP TRIGGER trigger_incremente_entreprise');
+        DB::unprepared('DROP TRIGGER trigger_incremente_etudiant');
+        DB::unprepared('DROP TRIGGER trigger_incremente_contact');
+        DB::unprepared('DROP TRIGGER trigger_decremente_etudiant');
+        DB::unprepared('DROP TRIGGER trigger_decremente_entreprise');
+        DB::unprepared('DROP TRIGGER trigger_decremente_contact');
+        DB::unprepared('DROP TRIGGER trigger_decremente_offre');
     }
 }

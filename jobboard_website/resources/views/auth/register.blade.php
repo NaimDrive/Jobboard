@@ -1,3 +1,27 @@
+<?php
+    //require_once('../../../vendor/autoload.php');
+    if(isset($_POST['submitpost'])) {
+        if(isset($_POST['g-recaptcha-response'])){
+            $recaptcha = new \ReCaptcha\ReCaptcha("6LeTsJYUAAAAACwTuVTZQEoH8zslTZCxk3p5ajwx");
+            $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
+            if ($resp->isSuccess()) {
+                var_dump('Captcha Valide');
+                //header('Location: http://127.0.0.1:8000');
+                //exit();
+            } else {
+                $errors = $resp->getErrorCodes();
+                var_dump('Captcha non valide');
+                var_dump($errors);
+                //header('Location: http://127.0.0.1:8000/inscription');
+                //exit();
+            }
+        } else {
+            var_dump('Captcha non rempli');
+        }
+    }
+?>
+
+
 @if ($errors->any())
     <div class="alert alert-danger"  style="margin-top: 2rem">
         <ul>
@@ -12,7 +36,7 @@
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="card">
-            <div id="card-header" class="card-header">Je m'inscrit en tant que <strong>professionnel</strong></div>
+            <div id="card-header" class="card-header">Je m'inscris en tant que <strong>professionnel</strong></div>
 
             <div class="card-body">
 
@@ -103,7 +127,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profile</label>
+                        <label for="photo" class="col-md-4 col-form-label text-md-right">Image de profil</label>
 
                         <div class="col-md-6">
                             <input type="file" name="photo" id="photo">
@@ -112,7 +136,7 @@
 
                     <div id="divEntreprise">
                         <div class="form-group row">
-                            <label for="role" class="col-md-4 col-form-label text-md-right">Role dans l'entreprise *</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-right">Rôle dans l'entreprise *</label>
 
                             <div class="col-md-6">
                                 <input id="role" type="text" class="form-control" name="role">
@@ -151,7 +175,7 @@
                             <div class="col-md-6">
                                 <select name="etudes" id="etudes">
                                     <option value="DUT">DUT</option>
-                                    <option value="License Pro">License Pro</option>
+                                    <option value="License Pro">Licence Pro</option>
                                 </select>
                             </div>
                         </div>
@@ -159,9 +183,22 @@
 
                     <sub>* : champs obligatoires</sub>
 
+
+                    <div class="form-group row mb-0">
+                        <div class="offset-md-4">
+                            <form method="POST">
+                                <!-- Notre boite de vérification -->
+                                <div class="g-recaptcha" data-sitekey="6LeTsJYUAAAAAHlp9sXynh1nTzH9OjGkH-p8PB9g">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <br>
+
                     <div class="form-group row mb-0">
                         <div class="offset-md-6">
-                            <button type="submit" class="btn btn-success mt-2">
+                            <button type="submit"  class="btn btn-success mt-2">
                                 {{ __('M\'inscrire') }}
                             </button>
                         </div>
@@ -198,7 +235,7 @@
    function setEntreprise() {
        btnEtu.disabled = false;
        btnEntreprise.disabled = true;
-       cardHeader.innerHTML = "Je m'inscrit en tant que <strong>professionnel</strong>";
+       cardHeader.innerHTML = "Je m'inscris en tant que <strong>professionnel</strong>";
        divEtu.style.display = "none";
        divEntreprise.style.display = "block";
        status.value = "entreprise";
@@ -207,7 +244,7 @@
     function setEtu() {
         btnEntreprise.disabled = false;
         btnEtu.disabled = true;
-        cardHeader.innerHTML = "Je m'inscrit en tant qu'<strong>étudiant</strong>";
+        cardHeader.innerHTML = "Je m'inscris en tant qu'<strong>étudiant</strong>";
         divEntreprise.style.display = "none";
         divEtu.style.display = "block";
         status.value = "etudiant";

@@ -91,6 +91,7 @@
       <path value="$PROJECT_DIR$/jobboard_website/vendor/filp/whoops" />
       <path value="$PROJECT_DIR$/jobboard_website/vendor/fzaninotto/faker" />
       <path value="$PROJECT_DIR$/jobboard_website/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/jobboard_website/vendor/jenssegers/date" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

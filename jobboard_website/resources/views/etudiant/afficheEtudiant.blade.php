@@ -20,7 +20,7 @@
                             <p>Né le : <strong>{{ date('d/m/Y',strtotime($etu->DateDeNaissance)) }}</strong></p>
                             <p>Etudes : <strong>{{$etu->etudes}}</strong></p>
                             @if($etu->rechercheStage==1)
-                            <p> A la recherche un stage</p>
+                            <p> A la recherche d'un stage</p>
                             @endif
                             <a href="{{ route('consult_profile',["id"=>$etu->id])}}" class="btn btn-success">Voir le Profil</a>
                         </div>

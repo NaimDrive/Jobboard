@@ -59,12 +59,21 @@ class ForumController extends Controller
    }
 
    function enregistrerModifForum(Request $request, $id){
+
+       $messages = [
+           "DateForum.required" => "Veuillez saisir une date valide.",
+           "DateForum.date" => "Veuillez saisir une date valide.",
+           "HeureForum.required" => "Veuillez saisir une heure valide.",
+           "actif.required" => "Veuillez saisir si le forum est actif ou non.",
+           "actif.string" => "Veuillez saisir si le forum est actif ou non."
+       ];
+
        $this->validate($request,
            [
                "dateForum"=>["required","date"],
                "heureForum"=>["required"],
                "actif"=>["required","string"]
-           ]);
+           ], $messages);
 
        $input=$request->only(["dateForum","heureForum","actif"]);
        $actif = 0;
@@ -175,12 +184,20 @@ class ForumController extends Controller
 
    function enregistrerUnForum(Request $request){
 
+       $messages = [
+           "DateForum.required" => "Veuillez saisir une date valide.",
+           "DateForum.date" => "Veuillez saisir une date valide.",
+           "HeureForum.required" => "Veuillez saisir une heure valide.",
+           "actif.required" => "Veuillez saisir si le forum est actif ou non.",
+           "actif.string" => "Veuillez saisir si le forum est actif ou non."
+       ];
+
        $this->validate($request,
            [
                "dateForum"=>["required","date"],
                "heureForum"=>["required"],
                "actif"=>["required","string"]
-           ]);
+           ], $messages);
 
         $input=$request->only(["dateForum","heureForum","actif"]);
         $actif = 0;

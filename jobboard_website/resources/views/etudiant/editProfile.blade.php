@@ -186,7 +186,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h1>Formations</h1>
+                                <h1>Formation</h1>
                             </div>
                             <div class="card-body">
                                 <div id="formation">

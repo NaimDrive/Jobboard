@@ -9,7 +9,7 @@
                 @if(Auth::check())
                     @foreach (Auth::user()->roles as $role)
                         @if($role->typeRole == "ADMIN")
-                            <a href="{{route('creerUnForum')}}"><button class="btn-success">Creer un forum</button></a>
+                            <a href="{{route('creerUnForum')}}"><button class="btn-success">Créer un forum</button></a>
                         @endif
                     @endforeach
                 @endif

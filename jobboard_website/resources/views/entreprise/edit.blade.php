@@ -17,7 +17,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h1>Modifier mon entreptise</h1>
+                        <h1>Modifier mon entreprise</h1>
                     </div>
                     <div class="card-body">
                         <form method='POST' action="{{route('storeEntrepriseChange', ['id'=>$entreprise->id])}}">

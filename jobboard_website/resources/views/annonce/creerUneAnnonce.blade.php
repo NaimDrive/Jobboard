@@ -5,6 +5,15 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class=" col-lg-6">
+                @if ($errors->any())
+                    <div class="alert alert-danger"  style="margin-top: 2rem">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="POST" action="{{route('enregistrerUneAnnonce')}}" >
                     {!! csrf_field() !!}
                     <h1>Création d'une annonce</h1>

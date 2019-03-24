@@ -50,13 +50,21 @@ class AnnoncesController extends Controller
 
     function enregistrerModifAnnonce(Request $request, $id)
     {
+        $messages = [
+            "title.required" => "Veuillez saisir un titre valide.",
+            "content.required" => "Veuillez saisir un contenu valide.",
+            "datePublication.required" => "Veuillez saisir une date valide.",
+            "datePublication.date" => "Veuillez saisir une date valide.",
+            "position.required" => "Veuillez saisir une position valide."
+        ];
+
         $this->validate($request,
             [
                 "title" => ["required"],
                 "content" => ["required"],
                 "datePublication" => ["required", "date"],
                 "position" => ["required"]
-            ]);
+            ],$messages);
 
         $input = $request->only(["title", "content", "datePublication","position"]);
         if($input["position"] == "null"){
@@ -95,13 +103,21 @@ class AnnoncesController extends Controller
     function enregistrerUneAnnonce(Request $request)
     {
 
+        $messages = [
+            "title.required" => "Veuillez saisir un titre valide.",
+            "content.required" => "Veuillez saisir un contenu valide.",
+            "datePublication.required" => "Veuillez saisir une date valide.",
+            "datePublication.date" => "Veuillez saisir une date valide.",
+            "position.required" => "Veuillez saisir une position valide."
+        ];
+
         $this->validate($request,
             [
                 "title" => ["required"],
                 "content" => ["required"],
                 "datePublication" => ["required", "date"],
                 "position" => ["required"]
-            ]);
+            ],$messages);
 
         $input = $request->only(["title", "content", "datePublication","position"]);
         if($input["position"] == "null"){
