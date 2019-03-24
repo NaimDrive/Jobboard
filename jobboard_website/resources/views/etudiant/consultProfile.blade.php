@@ -27,6 +27,7 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="droite">
                         <div class="card border-primary mb-3" style="max-width: 20rem;">
                             <div class="card-header"><h5>COORDONNÉES</h5></div>
@@ -38,6 +39,8 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                <br>
                 <br>
 
                 <!-- FORMATION  -->
