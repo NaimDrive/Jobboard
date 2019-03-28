@@ -20,8 +20,6 @@
                 <div class="form-group">
                         Votre Souhait : 
                         <div><input type="text" class="form-control" id="souhait" name="souhait" value="{{old("souhait")}}" placeholder="Souhait"></div><br>
-                        La durée de votre Stage : 
-                        <div><input type="text" class="form-control" id="duree" name="duree" value="{{old("duree")}}" placeholder="durée du stage"></div><br>
                         <div class="row">
                         <div class="col-lg-6">Date de début<input type="date" class="form-control" id="dateD" name="dateD" value="{{old("dateD")}}"></div>
                         
@@ -56,10 +54,16 @@
                 @foreach($recherche as $re) <!-- On génère pour chaque activite une ligne avec le nom et un bouton de suppression -->
                     <tbody>
                     <tr>
+                    <?php 
+                        $date1 = strtotime($re->dateDebut);
+                        $date2 = strtotime ($re->dateFin);
+                        $res = round(round(abs( $date2 - $date1  )/60/60/24)/7);
+                    ?>
                         <form method="POST" action="{{route('supprimer_recherche')}}">
                             <input id="idEtu" name="idEtu" type="hidden" value={{$id}}>
                         {!! csrf_field() !!} <!-- toujours ajouter dans un formulaire, sinon error 419 -->
                             <th scope="row">{{$re->souhait}}</th>
+                            <td>{{$res}}</td>
                             <td>{{$re->dateDebut}}</td>
                             <td >{{$re->dateFin}}</td>
                             <td >{{$re->secteurGeo}}</td>
