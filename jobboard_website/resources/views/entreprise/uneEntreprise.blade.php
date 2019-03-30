@@ -43,7 +43,7 @@
                                 <p>Objectif : {{ $offre->description->objectif }}</p>
                                 <p class="mt-1">Du {{ date('d/m/Y',strtotime($offre->dateDebut)) }} au {{ date('d/m/Y',strtotime($offre->dateFin)) }}</p>
 
-                                <a class="btn btn-success" href="{{ route('afficherUneOffre', ['id' => $offre->id]) }}">voir l'offre</a>
+                                <a class="btn btn-success" href="{{ route('afficherUneOffre', ['id' => $offre->id]) }}">Voir l'offre</a>
                             </div>
 
 

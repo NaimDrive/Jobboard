@@ -26,7 +26,7 @@
 
                 <div class="row mb-3 justify-content-center">
                     <button class="btn btn-success" id="btnEntreprise">Je suis un <strong>professionnel</strong></button>
-                    <button class="btn btn-success ml-2" id="btnEtu">Je suis un <strong>etudiant</strong></button>
+                    <button class="btn btn-success ml-2" id="btnEtu">Je suis un <strong>étudiant</strong></button>
                 </div>
 
                 <form method="POST" action="{{ route('storeUser') }}" enctype="multipart/form-data" id="formInscription">

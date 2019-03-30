@@ -45,7 +45,7 @@
                             <div class="form-group row border border-success">
                                 <div id="adresses">
                                     <input type="hidden" name="nbAdresse" id="compteur">
-                                    <label class="mb-3 mt-3 ml-5">Adresses</label>
+                                    <label class="mb-3 mt-3 ml-5">Adresse(s)</label>
 
                                     <div id="block_adresse_0" class="form-group ml-1">
                                         <div class="row">
@@ -461,7 +461,7 @@
             let labelRole = document.createElement("label");
             labelRole.setAttribute("class", "col-md-4 col-form-label text-md-right");
             labelRole.setAttribute("for","role");
-            let textLabelRole = document.createTextNode("Role dans l'entreprise");
+            let textLabelRole = document.createTextNode("Rôle dans l'entreprise");
             labelRole.appendChild(textLabelRole);
 
             let divCol5Role = document.createElement("div");

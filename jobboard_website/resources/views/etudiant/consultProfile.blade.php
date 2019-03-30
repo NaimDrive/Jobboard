@@ -112,9 +112,9 @@
                         <br>
 
                         <!-- LES CENTRES D'INTERET -->
-                        <h5> Centres d'interet </h5>
+                        <h5> Centres d'intérêt </h5>
                         @if(count($activites)==0)
-                            <p> Pas de centres d'interet communiqués  </p>
+                            <p> Pas de centres d'intérêt communiqués  </p>
                         @else
                             @foreach($activites as $activite)
                                 <span class="badge badge-pill badge-info">{{$activite}}</span>

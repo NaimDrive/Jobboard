@@ -25,7 +25,7 @@
 
                     <h3> Le DUT : une formation complète !</h3>
 
-                    <p> Les étudiants suivent une formation, sur deux années après le baccalauréat, qui les formes dans plusieurs domaines : </p><br>
+                    <p> Les étudiants suivent une formation, sur deux années après le baccalauréat, qui les forme dans plusieurs domaines : </p><br>
 
                     <table class="table table-bordered">
                         <thead>
@@ -97,7 +97,7 @@
                     <p>
                         A la fin de leur DUT nos étudiants recherchent un stage dans le <b>développement</b> informatique. <br>
                         Il a pour but de mettre en pratique ce qu'ils ont appris durant les deux années de cours. <br>
-                        Mais nos étudiants sont également friands d'apprendre de nouvelles choses et apprendront volontiers de nouveaux langages durant leur stage ! <br>
+                        Mais nos étudiants sont également avides d'apprendre de nouvelles choses et apprendront volontiers de nouveaux langages durant leur stage ! <br>
                         Leur stage doit avoir une durée minimum de dix semaines à partir du <b>8 avril 2019.</b>
                     </p>
 

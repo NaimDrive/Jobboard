@@ -162,7 +162,7 @@
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-md-4 col-form-label text-md-right"
-                                                               for="role">Role dans l'entreprise</label>
+                                                               for="role">Rôle dans l'entreprise</label>
                                                         <div class="col-md-5">
                                                             <input id="contact_{{$j}}_role" class="form-control"
                                                                    type="text" name="contact_{{$j}}_role" value="{{$contact->role}}">
@@ -592,7 +592,7 @@
             let labelRole = document.createElement("label");
             labelNom.setAttribute("class", "col-md-4 col-form-label text-md-right");
             labelNom.setAttribute("for","role");
-            let textLabelRole = document.createTextNode("Role dans l'entreprise");
+            let textLabelRole = document.createTextNode("Rôle dans l'entreprise");
             labelNom.appendChild(textLabelNom);
 
             let divCol5Role = document.createElement("div");

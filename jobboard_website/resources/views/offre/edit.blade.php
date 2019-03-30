@@ -65,7 +65,7 @@
                                     Pré-embauche
                                 </label>
                                 <select class="form-control col-md-6" id="pre-embauche" name="pre-embauche">
-                                    <option value="indefini" {{$offre->preembauche == "indefini"? "selected" : ""}}>Indéfini</option>
+                                    <option value="indefini" {{$offre->preembauche == "indefini"? "selected" : ""}}>Non défini</option>
                                     <option value="oui" {{$offre->preembauche == "oui"? "selected" : ""}}>Oui</option>
                                     <option value="non" {{$offre->preembauche == "non"? "selected" : ""}}>Non</option>
                                 </select>
@@ -94,7 +94,7 @@
 
                             <div class="form-group row">
                                 <label for="depot" class="col-md-4 col-form-label text-md-right">
-                                    Ficher
+                                    Fichier
                                 </label>
                                 <input type="file" id="depot" name="depot" value="{{old("depot")}}" class="col-md-6" placeholder="Fichier de l'offre">
                             </div>
