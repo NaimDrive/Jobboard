@@ -25,7 +25,7 @@
                     @else
                         <div class="foreach">
                             @foreach($etudiants as $etu)
-                                <p class="card-text"> {{$etu->user->nom}}  {{$etu->user->prenom}}</p>
+                                <p class="card-text"><a href="{{route('consult_profile',[$etu->id])}}" >{{$etu->user->nom}}  {{$etu->user->prenom}}</a></p>
                             @endforeach
                         </div>
                             <a href="{{route('administrerUnEtudiant')}}" class="seemore"><i class="far fa-eye"></i></a>
@@ -44,7 +44,7 @@
                     @else
                         @foreach($entreprises as $entreprise)
                             <div class="foreach">
-                                <p class="card-text"> {{$entreprise->nom}}</p>
+                                <p class="card-text"><a href="{{route('afficherUneEntreprise',[$entreprise->id])}}">{{$entreprise->nom}}</a></p>
                             </div>
                         @endforeach
                             <a href="{{route('administrerUneEntreprise')}}" class="seemore"><i class="far fa-eye"></i></a>
@@ -63,7 +63,7 @@
                     @else
                         <div class="foreach">
                             @foreach($contacts as $contact)
-                                <p class="card-text"> {{$contact->nom}} {{$contact->prenom}}</p>
+                                <p class="card-text"><a  href="{{route('afficherUnContact',[$contact->id])}}"> {{$contact->nom}} {{$contact->prenom}}</a></p>
                             @endforeach
                         </div>
                             <a href="{{route('administrerUnContact')}}" class="seemore"><i class="far fa-eye"></i></a>
@@ -82,7 +82,7 @@
                     @else
                         @foreach($offres as $offre)
                             <div class="foreach">
-                                <p class="card-text"><u>{{$offre->natureOffre}}</u> - {{$offre->nomOffre}} </p>
+                                <p class="card-text"><a href="{{route('afficherOffres')}}"><u>{{$offre->natureOffre}}</u> - {{$offre->nomOffre}} </a></p>
                             </div>
                         @endforeach
                             <a href="{{route('administrerUneOffre')}}" class="seemore"><i class="far fa-eye"></i></a>

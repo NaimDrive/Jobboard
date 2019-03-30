@@ -5,6 +5,7 @@
 .card-body{
     height: 22em;
 }
+a:hover { text-decoration: none;}
 
 hr{
     overflow: visible; /* For IE */
@@ -20,20 +21,28 @@ hr{
     font-size: 25px;
 }
 
-.foreach{
-    margin-top: 10%;
-}
+/*.foreach{
+margin-top: 10%;
+}*/
 
 .foreach p{
     margin-bottom: 5px;
     font-size: 16px;
 }
 
+.foreach a{
+    color: #0f0f0f;
+}
+
+.foreach a:hover{
+    color: white;
+}
+
 .foreach p:hover{
     background-color: #0c73cd;
-    color: white;
-    /*border: 2px solid black;*/
-    box-shadow: inset 0px 0px 2px 2px white;
+    box-shadow: 0px 0px 5px 0px rgba(34,34,2,1),
+    inset 0px 0px 5px 0px rgba(255,255,255,0.8);
+
 }
 
 .empty_foreach{
