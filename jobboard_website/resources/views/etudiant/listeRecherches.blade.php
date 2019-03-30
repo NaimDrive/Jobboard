@@ -17,8 +17,8 @@
                     <p> {{ $r->etudiant->civilite }} <b>{{$r->etudiant->user->nom}} {{$r->etudiant->user->prenom}}</b></p>
                         <div class="border p-3 mt-2">
                             <p>Souhait: {{$r->souhait}}</p>
-                            <p>Date de début de stage: {{$r->dateDebut}} </p>
-                            <p>Date minimum de fin de stage: {{$r->dateFin}} </p>
+                            <p>Date de début de stage: {{ date('d/m/Y',strtotime($r->dateDebut)) }}</p>
+                            <p>Date minimum de fin de stage: {{ date('d/m/Y',strtotime($r->dateFin)) }} </p>
                             <p>Durée: {{$res}} semaines </p>
                             <p>Secteur Géographique : {{$r->secteurGeo}}</p>
                             <p>Mobilité: {{$r->mobilite}}</p>
