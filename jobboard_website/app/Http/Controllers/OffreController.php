@@ -299,9 +299,10 @@ class OffreController extends Controller
         if (Auth::check() && $this->isEtu()){
             DB::table('offre')->where('id',$id)->delete();
             $etudiant = Etudiant::where('idUser',Auth::id())->first();
+            $offres = $etudiant->offresSaved()->paginate(10);
         }
         if ($etudiant){
-               return view('/etudiant/mesRecherches',['etudiant'=>$etudiant]);
+               return view('/etudiant/mesRecherches',['offres'=>$offres,'etudiant'=>$etudiant]);
         }
     }
 
