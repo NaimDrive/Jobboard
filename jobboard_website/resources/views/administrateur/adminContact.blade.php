@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <strong><p class="card-title text-center"> {{$contact->nom}}  {{$contact->prenom}}</p></strong>
                         @if($image != null)
-                            <p class="text-center"><img src="{{asset($image)}}" alt="photo de profile" width="50" height="50"/></p>
+                            <p class="text-center"><img src="{{asset($image)}}" alt="photo de profil" width="50" height="50"/></p>
                         @endif
                         <a href="{{route('afficherUnContact',[$contact->id])}}"><button class="btn-primary mb-2">Visionner</button></a><br>
                         <a href="{{route('editContact',[$contact->id])}}"> <button class="btn-secondary mb-2">Modifier</button></a><br>
